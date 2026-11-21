@@ -1,0 +1,38 @@
+\begin{proof}
+For (i), diagonalize
+$P_f^{1/2}Q_fP_f^{1/2}=U\Sigma_H^2U^*$ and take
+$S=P_f^{1/2}U\Sigma_H^{-1/2}$. Direct substitution proves both
+identities. Stability of a proposed truncation is an explicit condition,
+not a consequence asserted by this proof.
+
+For (ii), subtract the perturbation from the Stein equality. The
+operator-norm bound gives the first inequality in
+\eqref{I:U:eq:dyadic-verified-margin}. Since $X\succeq I$ and
+$I\succeq X/\|X\|$, the positive map $\Phi_{\widehat T}$ contracts
+the order-unit norm induced by $X$ by at most the displayed factor.
+This bounds its spectral radius. Factoring each cross term through
+$X^{1/2}$ proves the sufficient bound.
+
+For (iii), choose dyadic approximations converging entrywise to the
+algebraic input. Their $\theta$ tends to zero, so all sufficiently fine
+approximations are stable. Form the joint error realization
+\[
+ B_a=\Udiag(T_a,\widehat T_a),\qquad
+ \beta=(b^\top,\widehat b^\top)^\top,\qquad
+ \gamma=(c^\top,-\widehat c^\top)^\top.
+\]
+Its Gramians $P_E,Q_E$ are obtained from the two joint Stein equations.
+The block diagonal matrix $\Udiag(X,X)$ supplies a strict Lyapunov
+inequality in a neighborhood of the unperturbed tuple. Thus the joint
+Stein inverses and $\operatorname{tr}(P_EQ_E)$ depend continuously on
+the perturbation there. At zero perturbation the error series vanishes,
+so this trace is zero. Consequently it eventually becomes strictly
+smaller than $\varepsilon^2$. Algebraic arithmetic can certify this
+strict inequality and the Lyapunov margin, and
+\[
+ \|H_g-H_{\widehat g}\|^2
+ \le\|H_g-H_{\widehat g}\|_{\rm HS}^2
+ =\operatorname{tr}(P_EQ_E)<\varepsilon^2.
+\]
+Enumerating increasing precisions with these tests therefore terminates.
+\end{proof}

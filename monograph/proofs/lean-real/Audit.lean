@@ -1,0 +1,57 @@
+import FibonacciMemory
+
+/-! Transitive kernel axiom dependencies for all declarations proved in this module. -/
+
+#print axioms FibonacciMemory.theta_pos
+#print axioms FibonacciMemory.theta_step
+#print axioms FibonacciMemory.theta_le_one
+#print axioms FibonacciMemory.value_cons
+#print axioms FibonacciMemory.value_append
+#print axioms FibonacciMemory.step_mono
+#print axioms FibonacciMemory.value_mono
+#print axioms FibonacciMemory.value_unit
+#print axioms FibonacciMemory.interpolation
+#print axioms FibonacciMemory.word_count
+#print axioms FibonacciMemory.leaf_cost_length
+#print axioms FibonacciMemory.leaf_width
+#print axioms FibonacciMemory.endpoint_spacing
+#print axioms FibonacciMemory.trim_prefix
+#print axioms FibonacciMemory.trim_leaf
+#print axioms FibonacciMemory.trim_update_leaf
+#print axioms FibonacciMemory.trim_invariant
+#print axioms FibonacciMemory.index_spec
+#print axioms FibonacciMemory.update_address
+#print axioms FibonacciMemory.history_interval
+#print axioms FibonacciMemory.machine_upper
+#print axioms FibonacciMemory.witness_time
+#print axioms FibonacciMemory.witness_near
+#print axioms FibonacciMemory.witness_gap
+#print axioms FibonacciMemory.finite_packing
+#print axioms FibonacciMemory.machine_lower
+#print axioms FibonacciMemory.union_unit
+#print axioms FibonacciMemory.minimum_states
+#print axioms FibonacciMemory.zero_start
+#print axioms FibonacciMemory.zero_minimum
+#print axioms FibonacciMemory.bit_threshold
+#print axioms FibonacciMemory.fibPair_spec
+#print axioms FibonacciMemory.ninety_bits
+#print axioms FibonacciMemory.minimum_bits
+#print axioms FibonacciMemory.invariant_union
+#print axioms FibonacciMemory.invariant_value
+#print axioms FibonacciMemory.minimum_cover
+#print axioms FibonacciMemory.stopped_word
+#print axioms FibonacciMemory.warm_value
+#print axioms FibonacciMemory.padded_time
+#print axioms FibonacciMemory.padded_near
+#print axioms FibonacciMemory.below_three_quarters
+#print axioms FibonacciMemory.relax_accuracy
+#print axioms FibonacciMemory.nondyadic_bounds
+#print axioms FibonacciMemory.count_correct
+#print axioms FibonacciMemory.count_split
+#print axioms FibonacciMemory.ordinal_decode
+#print axioms FibonacciMemory.ordinal_encode
+#print axioms FibonacciMemory.ordinal_step_correct
+#print axioms FibonacciMemory.cylinder_scale
+#print axioms FibonacciMemory.cylinder_value
+#print axioms FibonacciMemory.midpoint_exact
+#print axioms FibonacciMemory.ordinal_accuracy

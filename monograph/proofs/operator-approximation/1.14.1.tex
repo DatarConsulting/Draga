@@ -1,0 +1,13 @@
+\begin{proof}
+Boundedness implies $f=H_f e_\Seps\in\ell^2$. If $f\in\ell^2$, all shifted sequences $u\mapsto f(uv)$ and $v\mapsto f(uv)$, with the other word fixed, are square summable, because concatenation with a fixed word is injective. Choose a basis among $A_v\beta$; its images under $O$ are such sequences. Hence $O$ is bounded. Choose a basis among $A_u^\top\alpha$ to prove boundedness of $C^*$. Their Gramians are precisely \eqref{I:S:eq:P}--\eqref{I:S:eq:Q}; the span conditions make them positive definite.
+
+Unique decomposition by the last letter gives the first Stein equation. Its tail identity is
+\[
+ \Phi_A^m(P)=\sum_{|v|=m}A_v^\top P A_v
+           =\sum_{|w|\ge m}A_w^\top\alpha\alpha^\top A_w\longrightarrow0.
+\]
+In the order-unit norm $\Snorm{Y}_P=\Snorm{P^{-1/2}YP^{-1/2}}$, positivity implies
+$\Snorm{\Phi_A^m}_{P\to P}\le\Snorm{\Phi_A^m(P)}_P$. Some power has norm less than one, so $\rho(\Phi_A)<1$.
+
+Conversely, a positive map with spectral radius below one has $X=\sum_{j\ge0}\Phi_A^j(I)\succ0$ and $X-\Phi_A(X)=I$. If a strict Lyapunov inequality holds, choose $\mu>0$ with $\Phi_A(X)\preceq(1-\mu)X$. The same order-unit argument gives spectral radius below one. Since $\Psi_A$ is adjoint to $\Phi_A$, both Neumann sums in \eqref{I:S:eq:P}--\eqref{I:S:eq:Q} converge. They define bounded $O,C$, and $H_f=OC$ first on finitely supported vectors and then by continuity. This converse does not use minimality.
+\end{proof}

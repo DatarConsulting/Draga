@@ -1,0 +1,161 @@
+\documentclass[11pt,oneside,openany]{book}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm,mathtools,mathrsfs}
+\usepackage[paperwidth=195mm,paperheight=238mm,textwidth=158mm,top=22mm,bottom=22mm,headheight=15pt]{geometry}
+\usepackage{booktabs,longtable,tabularx,array,enumitem,fancyhdr,xcolor}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[colorlinks=true,linkcolor=blue!45!black,citecolor=blue!45!black,urlcolor=blue!45!black,breaklinks=true]{hyperref}
+\usepackage{bookmark}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{openproblem}[theorem]{Open problem}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\providecommand{\doi}[1]{\href{https://doi.org/#1}{doi:#1}}
+\providecommand{\natexlab}[1]{#1}
+\setlist{itemsep=2pt,topsep=4pt}
+\setlength{\emergencystretch}{3em}
+\setcounter{tocdepth}{1}
+\allowdisplaybreaks[2]
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small\itshape DRAGA\enspace /\enspace Multiletter Hankel Operators and Executable Memory}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\hypersetup{pdftitle={DRAGA: Dimension Reduction and Guaranteed Approximation -- Multiletter Hankel Operators and Executable Memory},pdfauthor={Vashista Nobaub},pdfsubject={Multiletter Hankel Operators and Executable Memory},bookmarksdepth=2,pdfdisplaydoctitle=true}
+
+\newcommand{\SR}{\mathbb R}\newcommand{\SC}{\mathbb C}
+\newcommand{\SK}{\mathbb K}\newcommand{\SN}{\mathbb N}
+\newcommand{\Seps}{\varepsilon}\newcommand{\Swords}{\Sigma^*}
+\newcommand{\ScH}{\mathcal H}\newcommand{\ScA}{\mathcal A}
+\newcommand{\Snorm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\Sabs}[1]{\left|#1\right|}
+\newcommand{\Sip}[2]{\left\langle#1,#2\right\rangle}
+\DeclareMathOperator{\Srank}{rank}\DeclareMathOperator{\Str}{tr}
+\DeclareMathOperator{\Sdiag}{diag}\DeclareMathOperator{\SSpan}{span}
+\DeclareMathOperator{\Sran}{ran}\DeclareMathOperator{\Ssuff}{suff}
+\DeclareMathOperator{\Salg}{alg}\DeclareMathOperator{\SLL}{LL}
+\DeclareMathOperator{\SEnd}{End}\DeclareMathOperator{\Sdist}{dist}
+\newcommand{\SdeltaF}[1]{\delta_{#1}^{\mathbb F}}
+\newcommand{\UHH}{\ell^2(\Sigma^*)}
+\newcommand{\Unorm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\Urank}{\operatorname{rank}}
+\newcommand{\UId}{I}
+\newcommand{\UFF}{\mathbb F}
+\DeclareMathOperator{\Udiag}{diag}
+\DeclareMathOperator{\Utr}{tr}
+\DeclareMathOperator{\Ucodim}{codim}
+\newcommand{\UTV}{\operatorname{TV}}
+\newcommand{\Bnorm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\BC}{\mathbb C}
+\newcommand{\BR}{\mathbb R}
+\newcommand{\BHH}{\ell^2(\Sigma^*)}
+\newcommand{\BHtwo}{H^2}
+\newcommand{\Beps}{\varepsilon}
+\newcommand{\Bran}{\operatorname{ran}}
+\newcommand{\Brank}{\operatorname{rank}}
+\newcommand{\Btr}{\operatorname{tr}}
+\newcommand{\Bdiag}{\operatorname{diag}}
+\newcommand{\Fnorm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\FC}{\mathbb C}
+\newcommand{\FR}{\mathbb R}
+\newcommand{\FHH}{\ell^2(\Sigma^*)}
+\newcommand{\Feps}{\varepsilon}
+\newcommand{\Fran}{\operatorname{ran}}
+\newcommand{\Frank}{\operatorname{rank}}
+\newcommand{\Ftr}{\operatorname{tr}}
+\newcommand{\Fdiag}{\operatorname{diag}}
+\newcommand{\Rnorm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\RC}{\mathbb C}\newcommand{\RR}{\mathbb R}
+\newcommand{\Rrank}{\operatorname{rank}}
+\newcommand{\RHerm}{\operatorname{Herm}}
+\newcommand{\Rtr}{\operatorname{Tr}}
+\newcommand{\Rdiag}{\operatorname{diag}}
+\newcommand{\RHH}{\ell^2(\Sigma^*)}
+\newcommand{\MHH}{\ell^2(\Sigma^*)}
+\newcommand{\Mnorm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\Mrank}{\operatorname{rank}}
+\newcommand{\MId}{I}
+\newcommand{\MFF}{\mathbb F}
+\DeclareMathOperator{\Mdiag}{diag}
+\DeclareMathOperator{\Mtr}{tr}
+\DeclareMathOperator{\Mcodim}{codim}
+\newcommand{\MTV}{\operatorname{TV}}
+\DeclareMathOperator{\Mdist}{dist}
+\DeclareMathOperator{\Mtrim}{trim}
+\DeclareMathOperator{\Mrange}{range}
+\newcommand{\MN}{\mathbb N}
+\newcommand{\MR}{\mathbb R}
+\newcommand{\Msaf}{\operatorname{stop}}
+
+\linespread{1.31094}\begin{document}
+\frontmatter
+\begin{titlepage}
+\vspace*{18mm}{\sffamily\large DATAR CONSULTING}\par
+\vspace{17mm}\noindent{\color{blue!45!black}\rule{\linewidth}{1.4pt}}\par\vspace{6mm}
+{\fontsize{46}{52}\selectfont\bfseries DRAGA}\par\vspace{6mm}
+{\LARGE Dimension Reduction and\\[2pt] Guaranteed Approximation}\par\vspace{8mm}
+{\Large\itshape Multiletter Hankel Operators\\ and Executable Memory}\par
+\vfill{\Large Vashista Nobaub}\par\vspace{3mm}
+{\sffamily Monograph edition\enspace /\enspace November 2026}\par
+\end{titlepage}
+\chapter*{Preface}\addcontentsline{toc}{chapter}{Preface}
+Can a small sequential model preserve the responses of a larger one after any continuation?
+This question has three answers in this volume, depending on what the reader charges:
+operator error, error between probability laws, or bits of persistent state.
+A change of criterion can reverse a conclusion about compressibility.
+
+This edition is based on the manuscript dated 7 November 2026 and the 189-page submission
+proof stamped 9 November. The three mathematical parts retain the order and numbering of
+the dated manuscript. The volume adds this reading guide and a guide to the companion paper.
+The companion combines two of the source constructions on one normalized trace law.
+References to theorem numbers in the articles should be checked against this edition's
+chapter, section, and item numbers.
+\section*{Synopsis}
+Sequential reasoning systems need compact states that preserve useful predictions and support certified updates. We study this requirement through multiletter word-Hankel operators, probability laws, and finite-state memory. For every fixed rank budget, an explicit binary family has a vanishing singular-value tail while its structured approximation error stays positive. We determine its boundary error by scalar rational approximation, solve the finite-parameter rank-one problem, and derive first-order corrections. Joint Stein certificates yield exact decision and synthesis formulations, with polynomial bit complexity for rational stable sources and real competitors when alphabet size and target rank are fixed. For proper finite-word laws, we prove sharp spectral-to-Kullback--Leibler rates under length-tail assumptions and a discontinuity at every fixed positive-state budget under a mean bound. Occupation flows certify total-variation error from a supplied probability dictionary. For executable memory, we characterize the residual state behind a supplied suffix window, establish exact bit and Fibonacci state optima for specified systems, and construct replay through irreversible mode changes. These results give explicit conditions for reducing sequential representations, reasoning under uncertainty, and maintaining predictive memory with charged storage and execution costs. Agent memory and recurrent-state compression for operator-controlled deployments motivate the framework.
+\section*{A route through the volume}
+\begin{description}
+\item[Approximation theory.] Read Chapter 1, Sections 2, 8 and 19 for the binary
+obstruction, its elementary proof, and the exact boundary problem. Sections 28 and
+32 describe the finite-parameter optimizer and the first boundary correction.
+\item[Probabilistic modeling.] Start with Chapter 2, Sections 2 and 7.
+The one-state information projection and fixed-state lower bound concern laws
+on completed words. Section 8 introduces positive approximants when a dictionary
+and its closure errors are given.
+\item[Executable memory.] Chapter 3 begins with the external suffix interface.
+Sections 7 and 13 give, respectively, exact residual dimensions and a finite Fibonacci
+state count. Sections 14--19 treat persistent information, arithmetic and coding costs.
+\end{description}
+\section*{Conventions at a glance}
+\begin{tabularx}{\linewidth}{@{}lX@{}}\toprule
+Symbol or unit & Meaning\\\midrule
+$H_f[u,v]=f(uv)$ & Counting-measure word-Hankel operator. A split is made after the prefix $u$.\\
+$\sigma_j$ & Singular values in decreasing order, numbered from one.\\
+$\delta_k$ & Least operator-norm error among bounded word-Hankels of rank at most $k$.\\
+$D_{\mathrm{KL}}(p\Vert q)$ & Completed-word log-loss in nats, with the source in the first argument.\\
+Persistent bits & Base-two logarithmic cost of a state identifier, rounded up for fixed-width storage.\\\bottomrule
+\end{tabularx}
+\tableofcontents
+\mainmatter
+\input{chapters/operator-approximation}
+\input{chapters/probability}
+\input{chapters/executable-memory}
+
+\backmatter
+\chapter*{Companion paper}\addcontentsline{toc}{chapter}{Companion paper}
+\emph{When Nearly Rank-One Predictions Require Large Sequential Models}
+studies a single proper binary trace law with two distinct approximation barriers.
+Its proof combines the geometric waiting process of Chapter 1 with the rare
+block-enumerating word of Chapter 2. The mixture keeps the operator obstruction
+at a fixed rank while enforcing a growing positive-state budget for vanishing
+log-loss. The accompanying notebook regenerates the figures and the source archive.
+The component proofs, additional hypotheses, and broader results on executable
+memory remain available in the three chapters of this volume.
+\input{references}
+\end{document}

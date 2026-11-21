@@ -1,0 +1,14 @@
+\begin{proof}
+Over all words of length $t$, the mean of $d(w)$ is zero and its second
+moment is $t$. Therefore the length mass is
+$(1-x)^2(t+1)x^t$, summing to one. The tail has an exponential bound
+with any fixed rate strictly between $x$ and one.
+Since $d(uv)=d(u)+d(v)$, expanding the square gives rank at most three.
+Restriction to words $a^j$ gives a nondegenerate quadratic times a
+geometric sequence and hence rank at least three. Its zero language is
+$\{w:\#_b(w)=\#_a(w)+1\}$, which is nonregular: intersect with
+$a^*b^*$ to obtain $\{a^nb^{n+1}:n\ge0\}$.
+A finite automaton with nonnegative weights has regular nonzero support,
+because a coefficient is positive exactly when a positive-weight path
+exists. Its zero language is consequently regular as well, a contradiction.
+\end{proof}

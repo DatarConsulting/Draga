@@ -1,0 +1,4186 @@
+{
+  "chapter_sha256": {
+    "operator-approximation": "33ae4a36e3d55d798edc3f2a6f2bdc4ab07960e88c40701874c64533e93e1622",
+    "probability": "901505ff1dbea84964158362426802deab20c198f1e6480a294974d5c6b458ab",
+    "executable-memory": "b92f01b6781d3bd4287dd66ec1a991de83b9c0f8ecfc6af6820430dc01d59992"
+  },
+  "statements": [
+    {
+      "number": "1.2.1",
+      "kind": "theorem",
+      "title": "Structural separation and boundary reduction",
+      "label": "I:I:main:separation",
+      "chapter": "operator-approximation",
+      "proofs": [],
+      "line": 163,
+      "evidence": {
+        "type": "cross-reference",
+        "statements": [
+          "1.8.1",
+          "1.12.2",
+          "1.19.1"
+        ],
+        "description": "Binary separation, uniform lower bound and boundary reduction."
+      }
+    },
+    {
+      "number": "1.3.1",
+      "kind": "theorem",
+      "title": "Coefficient-norm identification",
+      "label": "I:I:main:hardy",
+      "chapter": "operator-approximation",
+      "proofs": [],
+      "line": 227,
+      "evidence": {
+        "type": "cross-reference",
+        "statements": [
+          "1.23.2"
+        ],
+        "description": "Full Hardy bridge and the cited external coefficient-extremal input."
+      }
+    },
+    {
+      "number": "1.8.1",
+      "kind": "theorem",
+      "title": "No uniform scalar AAK factor",
+      "label": "I:U:thm:separation",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.8.1.tex"
+      ],
+      "line": 455,
+      "formal_component": {
+        "scope": "Binary-path Vandermonde, multiplicities, coefficient symmetry and the cleared rational Rayleigh bound.",
+        "lean": [
+          "vandermonde",
+          "coefficientMultiplicity",
+          "reflectBinomial",
+          "centralBinomial",
+          "rayleighCross"
+        ]
+      }
+    },
+    {
+      "number": "1.8.3",
+      "kind": "proposition",
+      "title": "Target-shift obstruction",
+      "label": "I:U:prop:rowobstruction",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.8.3.tex"
+      ],
+      "line": 486
+    },
+    {
+      "number": "1.9.1",
+      "kind": "theorem",
+      "title": "Attainment for every bounded source",
+      "label": "I:U:thm:attainment",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.9.1.tex"
+      ],
+      "line": 532
+    },
+    {
+      "number": "1.9.2",
+      "kind": "lemma",
+      "title": "Compact and complete parametrization",
+      "label": "I:U:lem:compact",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.9.2.tex"
+      ],
+      "line": 553
+    },
+    {
+      "number": "1.9.3",
+      "kind": "lemma",
+      "title": "Stable realization of a bounded finite-rank Hankel",
+      "label": "I:U:lem:stable",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.9.3.tex"
+      ],
+      "line": 564
+    },
+    {
+      "number": "1.10.1",
+      "kind": "theorem",
+      "title": "Exact joint Stein certificate",
+      "label": "I:U:thm:exact",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.10.1.tex"
+      ],
+      "line": 585
+    },
+    {
+      "number": "1.10.2",
+      "kind": "corollary",
+      "title": "Algebraic optimization and an existential formulation",
+      "label": "I:U:cor:algebraic",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.10.2.tex"
+      ],
+      "line": 598
+    },
+    {
+      "number": "1.11.1",
+      "kind": "theorem",
+      "title": "Fixed-parameter slices",
+      "label": "I:U:thm:fixed",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.11.1.tex"
+      ],
+      "line": 628
+    },
+    {
+      "number": "1.11.2",
+      "kind": "lemma",
+      "title": "A real-rooted polynomial test",
+      "label": "I:U:lem:coefftest",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.11.2.tex"
+      ],
+      "line": 640
+    },
+    {
+      "number": "1.11.3",
+      "kind": "corollary",
+      "title": "Additive synthesis on a fixed slice",
+      "label": "I:U:cor:fixed-synthesis",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.11.3.tex"
+      ],
+      "line": 649
+    },
+    {
+      "number": "1.12.1",
+      "kind": "lemma",
+      "title": "Blaschke form of $\\kappa_k$",
+      "label": "I:M:rev13:lem:kappa",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.12.1.tex"
+      ],
+      "line": 703
+    },
+    {
+      "number": "1.12.2",
+      "kind": "theorem",
+      "title": "Uniform obstruction constant",
+      "label": "I:M:rev13:thm:uniform",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.12.2.tex"
+      ],
+      "line": 717
+    },
+    {
+      "number": "1.12.4",
+      "kind": "lemma",
+      "title": "Rank-one word-Hankel operators",
+      "label": "I:M:rev13:lem:rank-one",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.12.4.tex"
+      ],
+      "line": 739,
+      "formal_component": {
+        "scope": "Normalized scalar multiplicativity implies order symmetry.",
+        "lean": [
+          "scalarSwap"
+        ]
+      }
+    },
+    {
+      "number": "1.12.5",
+      "kind": "theorem",
+      "title": "Sharpened rank-one obstruction",
+      "label": "I:M:rev13:thm:rank-one-sharp",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.12.5.tex"
+      ],
+      "line": 747
+    },
+    {
+      "number": "1.13.1",
+      "kind": "theorem",
+      "title": "Hankel realization and exact finite witnesses",
+      "label": "I:S:thm:realization",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.13.1.tex"
+      ],
+      "line": 772
+    },
+    {
+      "number": "1.13.2",
+      "kind": "proposition",
+      "title": "Discrete and affine memory have different costs",
+      "label": "I:S:prop:types",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.13.2.tex"
+      ],
+      "line": 779
+    },
+    {
+      "number": "1.13.3",
+      "kind": "theorem",
+      "title": "Universal marked quotient and Loewy dominance",
+      "label": "I:S:thm:marked",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.13.3.tex"
+      ],
+      "line": 794
+    },
+    {
+      "number": "1.14.1",
+      "kind": "theorem",
+      "title": "Minimal boundedness is strict all-word stability",
+      "label": "I:S:thm:stability",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.14.1.tex"
+      ],
+      "line": 818
+    },
+    {
+      "number": "1.14.2",
+      "kind": "corollary",
+      "title": "Complete contractive cover",
+      "label": null,
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.14.2.tex"
+      ],
+      "line": 836
+    },
+    {
+      "number": "1.14.3",
+      "kind": "theorem",
+      "title": "Finite norm formula, including singular Gramians",
+      "label": "I:S:thm:norm",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.14.3.tex"
+      ],
+      "line": 841
+    },
+    {
+      "number": "1.14.4",
+      "kind": "proposition",
+      "title": "Elementary norm and tail bounds",
+      "label": "I:S:prop:normbounds",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.14.4.tex"
+      ],
+      "line": 856
+    },
+    {
+      "number": "1.15.2",
+      "kind": "proposition",
+      "title": "Perturbation transfer",
+      "label": "I:S:prop:transfer",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.15.2.tex"
+      ],
+      "line": 886
+    },
+    {
+      "number": "1.16.1",
+      "kind": "lemma",
+      "title": "One-corner completion",
+      "label": "I:S:lem:corner",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.16.1.tex"
+      ],
+      "line": 903
+    },
+    {
+      "number": "1.16.2",
+      "kind": "theorem",
+      "title": "An exact real rank-one variational formula",
+      "label": "I:S:thm:rankone",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.16.2.tex"
+      ],
+      "line": 913
+    },
+    {
+      "number": "1.16.3",
+      "kind": "corollary",
+      "title": "Rank-two secular equality criterion",
+      "label": "I:S:cor:secular",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.16.3.tex"
+      ],
+      "line": 936
+    },
+    {
+      "number": "1.16.4",
+      "kind": "theorem",
+      "title": "Spectrum and abstract algebra do not determine the optimum",
+      "label": "I:S:thm:commutative",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.16.4.tex"
+      ],
+      "line": 946
+    },
+    {
+      "number": "1.17.1",
+      "kind": "theorem",
+      "title": "Coefficient lower bound across lengths",
+      "label": "I:S:thm:coefficient",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.17.1.tex"
+      ],
+      "line": 965
+    },
+    {
+      "number": "1.17.2",
+      "kind": "lemma",
+      "title": "Homogeneous norm and spectrum",
+      "label": "I:S:lem:homogeneous",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.17.2.tex"
+      ],
+      "line": 976
+    },
+    {
+      "number": "1.17.3",
+      "kind": "theorem",
+      "title": "A trace certificate at one length",
+      "label": "I:S:thm:trace",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.17.3.tex"
+      ],
+      "line": 981
+    },
+    {
+      "number": "1.17.4",
+      "kind": "theorem",
+      "title": "Unbounded alphabet-dependent gap and sharp fixed-alphabet constant",
+      "label": "I:S:thm:sharp",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.17.4.tex"
+      ],
+      "line": 992
+    },
+    {
+      "number": "1.17.5",
+      "kind": "proposition",
+      "title": "Uniform binary geometric obstruction",
+      "label": "I:S:prop:binary",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.17.5.tex"
+      ],
+      "line": 1017
+    },
+    {
+      "number": "1.18.1",
+      "kind": "proposition",
+      "title": "Radial unary reduction",
+      "label": "I:S:prop:radial",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.18.1.tex"
+      ],
+      "line": 1028
+    },
+    {
+      "number": "1.18.2",
+      "kind": "theorem",
+      "title": "A globally optimal explicit two-state model",
+      "label": "I:S:thm:mixedexact",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.18.2.tex"
+      ],
+      "line": 1042
+    },
+    {
+      "number": "1.18.3",
+      "kind": "theorem",
+      "title": "Reconstruction with a certified additive gap",
+      "label": "I:S:thm:constructgap",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.18.3.tex"
+      ],
+      "line": 1057
+    },
+    {
+      "number": "1.18.4",
+      "kind": "proposition",
+      "title": "Directional trace improvement",
+      "label": "I:S:prop:directional",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.18.4.tex"
+      ],
+      "line": 1069
+    },
+    {
+      "number": "1.19.1",
+      "kind": "theorem",
+      "title": "Exact boundary reduction and its Hardy identification",
+      "label": "I:B:thm:main",
+      "chapter": "operator-approximation",
+      "proofs": [],
+      "line": 1103,
+      "evidence": {
+        "type": "distributed",
+        "statements": [],
+        "description": "Sections 1.20–1.24 derive the boundary lower and upper bounds and identify the constant.",
+        "lines": [
+          1149,
+          1511
+        ]
+      }
+    },
+    {
+      "number": "1.21.1",
+      "kind": "lemma",
+      "title": "One-letter projection identity",
+      "label": "I:B:lem:one-letter-projection",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.21.1.tex"
+      ],
+      "line": 1205
+    },
+    {
+      "number": "1.21.2",
+      "kind": "lemma",
+      "title": "An attained minimizer uses its full rank budget",
+      "label": "I:B:lem:exact-rank-minimizer",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.21.2.tex"
+      ],
+      "line": 1219
+    },
+    {
+      "number": "1.21.3",
+      "kind": "theorem",
+      "title": "Boundary lower bound over all complex competitors",
+      "label": "I:B:thm:all-k-boundary-lower",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.21.3.tex"
+      ],
+      "line": 1261
+    },
+    {
+      "number": "1.22.1",
+      "kind": "theorem",
+      "title": "A finite-rank lift with an exact orthogonal split",
+      "label": "I:B:thm:upper-lift",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.22.1.tex"
+      ],
+      "line": 1289
+    },
+    {
+      "number": "1.22.2",
+      "kind": "proposition",
+      "title": "A quantitative two-state upper bound",
+      "label": "I:B:prop:lift-k2-sharp",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.22.2.tex"
+      ],
+      "line": 1354
+    },
+    {
+      "number": "1.23.1",
+      "kind": "lemma",
+      "title": "Classical finite-model-space formulation",
+      "label": "I:B:lem:hardy-model",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.23.1.tex"
+      ],
+      "line": 1437
+    },
+    {
+      "number": "1.23.2",
+      "kind": "theorem",
+      "title": "Exact identification with the Hardy coefficient norm",
+      "label": "I:B:thm:hardy-bridge",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.23.2.tex"
+      ],
+      "line": 1462
+    },
+    {
+      "number": "1.23.3",
+      "kind": "corollary",
+      "title": "A real optimizer may be chosen",
+      "label": "I:B:cor:hardy-real",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.23.3.tex"
+      ],
+      "line": 1473
+    },
+    {
+      "number": "1.24.1",
+      "kind": "corollary",
+      "title": "Finite algebraic description of the limiting constant",
+      "label": null,
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.24.1.tex"
+      ],
+      "line": 1486
+    },
+    {
+      "number": "1.25.1",
+      "kind": "proposition",
+      "title": "Curvature of a fixed scalar lift",
+      "label": "I:B:prop:lift-curvature",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.25.1.tex"
+      ],
+      "line": 1521
+    },
+    {
+      "number": "1.25.2",
+      "kind": "corollary",
+      "title": "Curvature from the outer extremal polynomial",
+      "label": "I:B:cor:hardy-curvature",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.25.2.tex"
+      ],
+      "line": 1562
+    },
+    {
+      "number": "1.27.1",
+      "kind": "lemma",
+      "title": "Stable observable canonical coordinates",
+      "label": "I:F:lem:canonical-input",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.27.1.tex"
+      ],
+      "line": 1657
+    },
+    {
+      "number": "1.28.1",
+      "kind": "theorem",
+      "title": "Exact finite-parameter solution of F1",
+      "label": "I:F:thm:F1-exact",
+      "chapter": "operator-approximation",
+      "proofs": [],
+      "line": 1686,
+      "evidence": {
+        "type": "distributed",
+        "statements": [],
+        "description": "The lower bound, scalar root and optimal realizations are derived in sequence. The conclusion is explicit at line 2009.",
+        "lines": [
+          1729,
+          2009
+        ]
+      }
+    },
+    {
+      "number": "1.28.2",
+      "kind": "lemma",
+      "title": "Scalar one-corner norm completion",
+      "label": "I:F:lem:F1-completion",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.28.2.tex"
+      ],
+      "line": 1921
+    },
+    {
+      "number": "1.28.3",
+      "kind": "theorem",
+      "title": "Direct polynomial branch selector",
+      "label": "I:F:thm:F1-t-quartic",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.28.3.tex"
+      ],
+      "line": 2013
+    },
+    {
+      "number": "1.29.1",
+      "kind": "theorem",
+      "title": "An improving real two-state branch",
+      "label": "I:F:thm:f2-improvement",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.29.1.tex"
+      ],
+      "line": 2080
+    },
+    {
+      "number": "1.30.1",
+      "kind": "lemma",
+      "title": "Exact scalar reduction",
+      "label": "I:F:lem:f2-A-elimination",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.30.1.tex"
+      ],
+      "line": 2205
+    },
+    {
+      "number": "1.30.2",
+      "kind": "lemma",
+      "title": "Two-term expansion of the complex envelope",
+      "label": "I:F:lem:f2-h-expansion",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.30.2.tex"
+      ],
+      "line": 2221
+    },
+    {
+      "number": "1.30.3",
+      "kind": "theorem",
+      "title": "Global passive-tuple asymptotic",
+      "label": "I:F:thm:f2-passive-asymptotic",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.30.3.tex"
+      ],
+      "line": 2237
+    },
+    {
+      "number": "1.30.4",
+      "kind": "theorem",
+      "title": "The two-state optimum to first boundary order",
+      "label": "I:F:thm:f2-global-first-correction",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.30.4.tex"
+      ],
+      "line": 2250
+    },
+    {
+      "number": "1.31.1",
+      "kind": "theorem",
+      "title": "Certified additive synthesis from complete rational input",
+      "label": "I:F:thm:g1-net",
+      "chapter": "operator-approximation",
+      "proofs": [],
+      "line": 2302,
+      "evidence": {
+        "type": "distributed",
+        "statements": [],
+        "description": "Input moments, damping, a finite rational net and norm certificates complete the algorithm.",
+        "lines": [
+          2347,
+          2535
+        ]
+      }
+    },
+    {
+      "number": "1.32.1",
+      "kind": "theorem",
+      "title": "First-order structured approximation at every fixed budget",
+      "label": "I:R:thm:main-general",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.32.1.tex"
+      ],
+      "line": 2618
+    },
+    {
+      "number": "1.32.2",
+      "kind": "corollary",
+      "title": "Explicit consequences",
+      "label": "I:R:cor:main-explicit",
+      "chapter": "operator-approximation",
+      "proofs": [],
+      "line": 2649,
+      "evidence": {
+        "type": "cross-reference",
+        "statements": [
+          "1.32.1",
+          "1.35.1"
+        ],
+        "description": "Apply the general expansion and the rank-two, three-state and four-state calculations in §§1.30, 1.35 and 1.36."
+      }
+    },
+    {
+      "number": "1.33.1",
+      "kind": "proposition",
+      "title": "Exact scalar reduction in every dimension",
+      "label": "I:R:prop:allk-eliminate-A",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.33.1.tex"
+      ],
+      "line": 2778
+    },
+    {
+      "number": "1.33.2",
+      "kind": "lemma",
+      "title": "Strict improvement with the scalar state dimension",
+      "label": "I:R:lem:strict-dimension-improvement",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.33.2.tex"
+      ],
+      "line": 2799
+    },
+    {
+      "number": "1.33.3",
+      "kind": "lemma",
+      "title": "Every scalar boundary maximizer is cyclic and lossless",
+      "label": "I:R:lem:cyclic-lossless-maximizer",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.33.3.tex"
+      ],
+      "line": 2806
+    },
+    {
+      "number": "1.33.4",
+      "kind": "lemma",
+      "title": "Quantitative passivity-defect control",
+      "label": "I:R:lem:quantitative-defect-control",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.33.4.tex"
+      ],
+      "line": 2828
+    },
+    {
+      "number": "1.33.5",
+      "kind": "lemma",
+      "title": "Strict positivity of the response matrix",
+      "label": "I:R:lem:response-K-positive",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.33.5.tex"
+      ],
+      "line": 2855
+    },
+    {
+      "number": "1.33.6",
+      "kind": "theorem",
+      "title": "All-budget first variation of the passive envelope",
+      "label": "I:R:thm:all-budget-response",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.33.6.tex"
+      ],
+      "line": 2867
+    },
+    {
+      "number": "1.33.7",
+      "kind": "theorem",
+      "title": "Independent budget and delay",
+      "label": "I:R:thm:independent-budget-delay-response",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.33.7.tex"
+      ],
+      "line": 2901
+    },
+    {
+      "number": "1.33.8",
+      "kind": "proposition",
+      "title": "The two-state response",
+      "label": "I:R:prop:two-state-response-check",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.33.8.tex"
+      ],
+      "line": 2950
+    },
+    {
+      "number": "1.33.9",
+      "kind": "proposition",
+      "title": "Response of the degree-two scalar extremizer",
+      "label": "I:R:prop:degree-two-response-check",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.33.9.tex"
+      ],
+      "line": 2956
+    },
+    {
+      "number": "1.34.1",
+      "kind": "theorem",
+      "title": "Structured first-order matching",
+      "label": "I:R:thm:v4-matching",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.34.1.tex"
+      ],
+      "line": 3018
+    },
+    {
+      "number": "1.34.2",
+      "kind": "corollary",
+      "title": "Matching the three-state correction",
+      "label": "I:R:cor:v4-three-state-upper",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.34.2.tex"
+      ],
+      "line": 3072
+    },
+    {
+      "number": "1.35.1",
+      "kind": "theorem",
+      "title": "Three-state passive envelope",
+      "label": "I:R:thm:three-envelope",
+      "chapter": "operator-approximation",
+      "proofs": [],
+      "line": 3108,
+      "evidence": {
+        "type": "distributed",
+        "statements": [],
+        "description": "Classify the maximizers, compute their response, then establish transverse curvature.",
+        "lines": [
+          3133,
+          3364
+        ]
+      }
+    },
+    {
+      "number": "1.36.1",
+      "kind": "lemma",
+      "title": "Transfer of scalar-extremizer classification",
+      "label": "I:R:lem:Hardy-classification-transfer",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.36.1.tex"
+      ],
+      "line": 3377
+    },
+    {
+      "number": "1.36.2",
+      "kind": "theorem",
+      "title": "Four-state first boundary correction",
+      "label": "I:R:thm:four-state-first-correction",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.36.2.tex"
+      ],
+      "line": 3512
+    },
+    {
+      "number": "1.37.1",
+      "kind": "lemma",
+      "title": "Positive coefficients and affine phases",
+      "label": "I:R:lem:positive-Hardy-extremizers",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.37.1.tex"
+      ],
+      "line": 3540
+    },
+    {
+      "number": "1.37.2",
+      "kind": "proposition",
+      "title": "All diagonal boundary models have real representatives",
+      "label": "I:R:prop:real-diagonal-boundary-models",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.37.2.tex"
+      ],
+      "line": 3553
+    },
+    {
+      "number": "1.38.1",
+      "kind": "theorem",
+      "title": "Exact passive representation of the projection relaxation",
+      "label": "I:R:thm:fc-residual",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.38.1.tex"
+      ],
+      "line": 3649
+    },
+    {
+      "number": "1.38.2",
+      "kind": "lemma",
+      "title": "A weighted trust-region elimination",
+      "label": "I:R:lem:fc-trust",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.38.2.tex"
+      ],
+      "line": 3678
+    },
+    {
+      "number": "1.38.3",
+      "kind": "theorem",
+      "title": "Monotone radical representation of the exact F1 value",
+      "label": "I:R:thm:fc-F1-radical",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.38.3.tex"
+      ],
+      "line": 3758
+    },
+    {
+      "number": "1.39.1",
+      "kind": "lemma",
+      "title": "Universal waiting-transition elimination",
+      "label": "I:R:lem:terminal-elimination",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.39.1.tex"
+      ],
+      "line": 3862
+    },
+    {
+      "number": "1.39.2",
+      "kind": "lemma",
+      "title": "The residual dimension-drop coefficient",
+      "label": "I:R:lem:terminal-dimension-drop",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.39.2.tex"
+      ],
+      "line": 3886
+    },
+    {
+      "number": "1.39.3",
+      "kind": "theorem",
+      "title": "Simultaneous terminal approximation",
+      "label": "I:R:thm:terminal-boundary",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.39.3.tex"
+      ],
+      "line": 3903
+    },
+    {
+      "number": "1.39.4",
+      "kind": "proposition",
+      "title": "A fixed optimal lift has no positive linear error",
+      "label": "I:R:prop:terminal-fixed-lift",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.39.4.tex"
+      ],
+      "line": 3920
+    },
+    {
+      "number": "1.39.5",
+      "kind": "theorem",
+      "title": "All terminal degrees with two states",
+      "label": "I:R:thm:two-state-all-degrees",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.39.5.tex"
+      ],
+      "line": 3978
+    },
+    {
+      "number": "1.41.1",
+      "kind": "theorem",
+      "title": "Balancing and dyadic recertification",
+      "label": "I:U:thm:dyadic-recertification",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.41.1.tex"
+      ],
+      "line": 4016
+    },
+    {
+      "number": "1.41.2",
+      "kind": "theorem",
+      "title": "Conditional square-root bound for balanced truncation",
+      "label": "I:U:thm:quantitative-truncation",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.41.2.tex"
+      ],
+      "line": 4080
+    },
+    {
+      "number": "1.41.3",
+      "kind": "theorem",
+      "title": "A sufficient dyadic precision chosen before recertification",
+      "label": "I:U:thm:explicit-dyadic",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.41.3.tex"
+      ],
+      "line": 4115
+    },
+    {
+      "number": "1.41.4",
+      "kind": "lemma",
+      "title": "Hermitian norm of a positive Stein resolvent",
+      "label": "I:U:lem:positive-resolvent",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.41.4.tex"
+      ],
+      "line": 4154
+    },
+    {
+      "number": "1.41.5",
+      "kind": "theorem",
+      "title": "Commuting-reference certificate for balanced truncation",
+      "label": "I:U:thm:reference-truncation",
+      "chapter": "operator-approximation",
+      "proofs": [
+        "operator-approximation/1.41.5.tex"
+      ],
+      "line": 4168
+    },
+    {
+      "number": "2.2.1",
+      "kind": "theorem",
+      "title": "Three length regimes",
+      "label": null,
+      "chapter": "probability",
+      "proofs": [],
+      "line": 36,
+      "evidence": {
+        "type": "cross-reference",
+        "statements": [
+          "2.7.3",
+          "2.7.5",
+          "2.7.4"
+        ],
+        "description": "Three detailed tail and moment theorems cited by the introductory statement."
+      }
+    },
+    {
+      "number": "2.3.1",
+      "kind": "theorem",
+      "title": "Occupation certificate",
+      "label": null,
+      "chapter": "probability",
+      "proofs": [],
+      "line": 107,
+      "evidence": {
+        "type": "cross-reference",
+        "statements": [
+          "2.8.1"
+        ],
+        "description": "The occupation-flow perturbation argument gives the certificate."
+      }
+    },
+    {
+      "number": "2.7.1",
+      "kind": "proposition",
+      "title": "Classical one-state information projection",
+      "label": "II:U:prop:iprojection",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.7.1.tex"
+      ],
+      "line": 204
+    },
+    {
+      "number": "2.7.2",
+      "kind": "lemma",
+      "title": "Spectral-to-TV bridge",
+      "label": "II:U:lem:spectral-tv",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.7.2.tex"
+      ],
+      "line": 221
+    },
+    {
+      "number": "2.7.3",
+      "kind": "theorem",
+      "title": "Sharp exponential-tail rate",
+      "label": "II:U:thm:kl-exp",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.7.3.tex",
+        "probability/2.7.3-part-2.tex"
+      ],
+      "line": 241
+    },
+    {
+      "number": "2.7.4",
+      "kind": "theorem",
+      "title": "Only a mean bound: exact discontinuity",
+      "label": "II:U:thm:kl-mean",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.7.4.tex"
+      ],
+      "line": 254
+    },
+    {
+      "number": "2.7.5",
+      "kind": "theorem",
+      "title": "Higher length moments",
+      "label": "II:U:thm:kl-moment",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.7.5.tex"
+      ],
+      "line": 265
+    },
+    {
+      "number": "2.7.6",
+      "kind": "theorem",
+      "title": "Mean-constrained KL discontinuity for fixed $N\\ge2$",
+      "label": "II:U:thm:kl-fixed-states",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.7.6.tex"
+      ],
+      "line": 297,
+      "formal_component": {
+        "scope": "The finite block budget for rational entries with common denominator.",
+        "lean": [
+          "totalAdd",
+          "totalMono",
+          "blockBudget"
+        ]
+      }
+    },
+    {
+      "number": "2.8.1",
+      "kind": "theorem",
+      "title": "Properness and the occupation-weighted certificate",
+      "label": "II:U:thm:flows",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.1.tex"
+      ],
+      "line": 356
+    },
+    {
+      "number": "2.8.2",
+      "kind": "theorem",
+      "title": "Uniform data-dependent certificate and defect oracle",
+      "label": "II:U:thm:flow-lp",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.2.tex"
+      ],
+      "line": 409
+    },
+    {
+      "number": "2.8.3",
+      "kind": "proposition",
+      "title": "Smoothing a completed-word TV approximation",
+      "label": null,
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.3.tex"
+      ],
+      "line": 444
+    },
+    {
+      "number": "2.8.4",
+      "kind": "proposition",
+      "title": "A classical positive-realization obstruction",
+      "label": "II:U:prop:positive-obstruction",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.4.tex"
+      ],
+      "line": 492
+    },
+    {
+      "number": "2.8.6",
+      "kind": "lemma",
+      "title": "Conditioned signed linear closure",
+      "label": "II:U:lem:signed-anchor-closure",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.6.tex"
+      ],
+      "line": 557
+    },
+    {
+      "number": "2.8.8",
+      "kind": "theorem",
+      "title": "Conditional spectral--conic TV bridge",
+      "label": "II:U:thm:conditional-cone-bridge",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.8.tex"
+      ],
+      "line": 624
+    },
+    {
+      "number": "2.8.9",
+      "kind": "theorem",
+      "title": "Finite-family search with a common validation event",
+      "label": "II:U:thm:finite-family-search",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.9.tex"
+      ],
+      "line": 735
+    },
+    {
+      "number": "2.8.10",
+      "kind": "theorem",
+      "title": "A sufficient dual-coordinate positive closure condition",
+      "label": "II:U:thm:dual-positive-closure",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.10.tex"
+      ],
+      "line": 781
+    },
+    {
+      "number": "2.8.11",
+      "kind": "theorem",
+      "title": "Prefix-conditioned TV and a valid smoothing bound",
+      "label": "II:U:thm:conditional-event-bounds",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.11.tex"
+      ],
+      "line": 818
+    },
+    {
+      "number": "2.8.12",
+      "kind": "lemma",
+      "title": "The aggregate of a minimal proper-word realization is stable",
+      "label": "II:U:lem:proper-aggregate-stable",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.12.tex"
+      ],
+      "line": 874
+    },
+    {
+      "number": "2.8.13",
+      "kind": "proposition",
+      "title": "A strictly positive two-state prefix obstruction",
+      "label": "II:U:prop:golden-prefix-obstruction",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.13.tex"
+      ],
+      "line": 885
+    },
+    {
+      "number": "2.8.14",
+      "kind": "lemma",
+      "title": "A sufficient simplex-expanding exchange",
+      "label": "II:U:lem:simplex-exchange",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.14.tex"
+      ],
+      "line": 921
+    },
+    {
+      "number": "2.8.15",
+      "kind": "theorem",
+      "title": "Monotone rank-two limiting and prefix realizations",
+      "label": "II:U:thm:rank-two-monotone",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.15.tex"
+      ],
+      "line": 958
+    },
+    {
+      "number": "2.8.16",
+      "kind": "corollary",
+      "title": "Exact cross-ratio depth rates",
+      "label": "II:U:cor:rank-two-cross-ratio",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.16.tex"
+      ],
+      "line": 1017
+    },
+    {
+      "number": "2.8.17",
+      "kind": "theorem",
+      "title": "Rank-two endpoint iteration for either orientation",
+      "label": "II:U:thm:rank-two-envelope",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.17.tex"
+      ],
+      "line": 1054
+    },
+    {
+      "number": "2.8.18",
+      "kind": "proposition",
+      "title": "Exact two-prefix defect on the golden-ratio source",
+      "label": "II:U:prop:golden-clip",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.18.tex"
+      ],
+      "line": 1109
+    },
+    {
+      "number": "2.8.19",
+      "kind": "lemma",
+      "title": "Stopped-automaton perturbation by coupling",
+      "label": "II:U:lem:stopped-coupling",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.19.tex"
+      ],
+      "line": 1175
+    },
+    {
+      "number": "2.8.20",
+      "kind": "theorem",
+      "title": "A deterministic rank-two estimation and rounding certificate",
+      "label": "II:U:thm:rank-two-rounding",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.20.tex"
+      ],
+      "line": 1190
+    },
+    {
+      "number": "2.8.21",
+      "kind": "corollary",
+      "title": "One-sample conditional-frequency certificate",
+      "label": "II:U:cor:rank-two-sampling",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.21.tex"
+      ],
+      "line": 1225
+    },
+    {
+      "number": "2.8.22",
+      "kind": "proposition",
+      "title": "Three-state anchoring with correct occupation weights",
+      "label": "II:U:prop:rank-two-anchored",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.22.tex"
+      ],
+      "line": 1286
+    },
+    {
+      "number": "2.8.23",
+      "kind": "theorem",
+      "title": "Observable normalization and finite positivity certificate",
+      "label": "II:U:thm:observable-certificate",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.23.tex"
+      ],
+      "line": 1335
+    },
+    {
+      "number": "2.8.24",
+      "kind": "theorem",
+      "title": "Conditional finite-prefix construction under projective contraction",
+      "label": "II:U:thm:trailing-word",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.24.tex"
+      ],
+      "line": 1369
+    },
+    {
+      "number": "2.8.25",
+      "kind": "lemma",
+      "title": "Inverse-entry bound for a nearly diagonal stochastic matrix",
+      "label": "II:U:lem:inverse-entry",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.25.tex"
+      ],
+      "line": 1402
+    },
+    {
+      "number": "2.8.26",
+      "kind": "theorem",
+      "title": "Conditional Doeblin simplex inclusion and strict margins",
+      "label": "II:U:thm:doeblin-sandwich",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.26.tex"
+      ],
+      "line": 1413
+    },
+    {
+      "number": "2.8.27",
+      "kind": "theorem",
+      "title": "Conditional relative SPA selection, with corrected noise budget",
+      "label": "II:U:thm:relative-spa",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.27.tex"
+      ],
+      "line": 1462
+    },
+    {
+      "number": "2.8.28",
+      "kind": "proposition",
+      "title": "Uniform observable coordinates for a fixed prefix pool",
+      "label": "II:U:prop:pool-estimation",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.28.tex"
+      ],
+      "line": 1495
+    },
+    {
+      "number": "2.8.29",
+      "kind": "proposition",
+      "title": "Pathwise perturbation and normalized initial estimates",
+      "label": "II:U:prop:pathwise-stability",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.29.tex"
+      ],
+      "line": 1530
+    },
+    {
+      "number": "2.8.30",
+      "kind": "theorem",
+      "title": "Fixed rational basis: iid estimation, exact computation, dyadic output",
+      "label": "II:U:thm:fixed-basis-sampling",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.30.tex"
+      ],
+      "line": 1556
+    },
+    {
+      "number": "2.8.31",
+      "kind": "lemma",
+      "title": "A perturbed normalized basis preserves a strict positive realization",
+      "label": "II:U:lem:learned-basis",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.31.tex"
+      ],
+      "line": 1648
+    },
+    {
+      "number": "2.8.32",
+      "kind": "theorem",
+      "title": "Frequent-prefix discovery, estimated basis, and dyadic law",
+      "label": "II:U:thm:bounded-pool-learning",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.32.tex"
+      ],
+      "line": 1676
+    },
+    {
+      "number": "2.8.33",
+      "kind": "proposition",
+      "title": "Bounded-depth observations cannot certify an unrestricted source",
+      "label": "II:U:prop:censored-obstruction",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.33.tex"
+      ],
+      "line": 1758
+    },
+    {
+      "number": "2.8.34",
+      "kind": "proposition",
+      "title": "Fixed-block empirical singular-space certificate",
+      "label": "II:U:prop:fixed-block-svd",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.34.tex"
+      ],
+      "line": 1769
+    },
+    {
+      "number": "2.8.35",
+      "kind": "theorem",
+      "title": "Estimated maps and endpoint clipping on a supplied valid interval",
+      "label": "II:U:thm:parametric-rank-two",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.8.35.tex"
+      ],
+      "line": 1797
+    },
+    {
+      "number": "2.9.1",
+      "kind": "lemma",
+      "title": "Non-expansivity on the positive orthant",
+      "label": "II:M:lem:projective-nonexpansive",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.9.1.tex"
+      ],
+      "line": 1855
+    },
+    {
+      "number": "2.9.2",
+      "kind": "lemma",
+      "title": "Sharp KL envelope at fixed projective diameter",
+      "label": "II:M:lem:sharp-projective-kl",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.9.2.tex"
+      ],
+      "line": 1863
+    },
+    {
+      "number": "2.9.3",
+      "kind": "proposition",
+      "title": "Sufficient relative-error certificate",
+      "label": "II:M:prop:relative-projective-certificate",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.9.3.tex"
+      ],
+      "line": 1884
+    },
+    {
+      "number": "2.9.4",
+      "kind": "lemma",
+      "title": "Column limits of a uniform projective certificate",
+      "label": "II:M:lem:projective-column-limit",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.9.4.tex"
+      ],
+      "line": 1923
+    },
+    {
+      "number": "2.9.5",
+      "kind": "theorem",
+      "title": "Word-law KL from aligned positive-model certificates",
+      "label": "II:M:thm:projective-word-kl",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.9.5.tex"
+      ],
+      "line": 1947
+    },
+    {
+      "number": "2.9.6",
+      "kind": "proposition",
+      "title": "Block filtering and the intermediate steps",
+      "label": "II:M:prop:intermittent-projective-filter",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.9.6.tex"
+      ],
+      "line": 1987
+    },
+    {
+      "number": "2.9.7",
+      "kind": "corollary",
+      "title": "Columnwise word-law certificate",
+      "label": "II:M:rev13:cor:column-word",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.9.7.tex"
+      ],
+      "line": 2024
+    },
+    {
+      "number": "2.10.1",
+      "kind": "proposition",
+      "title": "Uniform Doeblin positivity prevents arbitrary hidden-state purification",
+      "label": "II:U:prop:doeblin-purity-obstruction",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.10.1.tex"
+      ],
+      "line": 2056
+    },
+    {
+      "number": "2.10.2",
+      "kind": "proposition",
+      "title": "Noncommuting rank three with only one Perron ray",
+      "label": "II:U:prop:common-perron",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.10.2.tex"
+      ],
+      "line": 2070
+    },
+    {
+      "number": "2.10.3",
+      "kind": "proposition",
+      "title": "Counterexample to the proposed occupation-weighted KL bound",
+      "label": "II:U:prop:repeated-kl-cuts",
+      "chapter": "probability",
+      "proofs": [
+        "probability/2.10.3.tex"
+      ],
+      "line": 2164
+    },
+    {
+      "number": "3.2.1",
+      "kind": "theorem",
+      "title": "Residual dimension for a fixed affine interface",
+      "label": null,
+      "chapter": "executable-memory",
+      "proofs": [],
+      "line": 44,
+      "evidence": {
+        "type": "cross-reference",
+        "statements": [
+          "3.7.1",
+          "3.7.3"
+        ],
+        "description": "Difference filtration and the exact residual minimum."
+      }
+    },
+    {
+      "number": "3.3.1",
+      "kind": "theorem",
+      "title": "Fibonacci optimum on the leaf union",
+      "label": null,
+      "chapter": "executable-memory",
+      "proofs": [],
+      "line": 105,
+      "evidence": {
+        "type": "cross-reference",
+        "statements": [
+          "3.13.4"
+        ],
+        "description": "Stopped leaves, midpoint decoding and the separating packing."
+      },
+      "formal_component": {
+        "scope": "The introductory exact state and bit optimum on the leaf union follows from Theorem 3.13.4. The lower bound holds throughout the unit interval.",
+        "lean": [
+          "FibonacciMemory.minimum_states",
+          "FibonacciMemory.minimum_bits",
+          "FibonacciMemory.machine_lower"
+        ]
+      }
+    },
+    {
+      "number": "3.7.1",
+      "kind": "theorem",
+      "title": "Canonical difference filtration",
+      "label": "III:S:thm:filtration",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.7.1.tex"
+      ],
+      "line": 205
+    },
+    {
+      "number": "3.7.3",
+      "kind": "theorem",
+      "title": "Exact residual minimum and marked quotient",
+      "label": "III:S:thm:window",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.7.3.tex"
+      ],
+      "line": 231
+    },
+    {
+      "number": "3.7.4",
+      "kind": "theorem",
+      "title": "Saturation, one-symbol bound, and invertible padding",
+      "label": "III:S:thm:windowbounds",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.7.4.tex"
+      ],
+      "line": 236
+    },
+    {
+      "number": "3.7.8",
+      "kind": "theorem",
+      "title": "Fibered minimum",
+      "label": "III:S:thm:fiber",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.7.8.tex"
+      ],
+      "line": 282
+    },
+    {
+      "number": "3.8.1",
+      "kind": "theorem",
+      "title": "Correct analytic domain for forgetting",
+      "label": "III:S:thm:diffstable",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.8.1.tex"
+      ],
+      "line": 304
+    },
+    {
+      "number": "3.8.2",
+      "kind": "theorem",
+      "title": "Finite computation with a certified remainder",
+      "label": "III:S:thm:finiteomega",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.8.2.tex"
+      ],
+      "line": 321
+    },
+    {
+      "number": "3.8.3",
+      "kind": "theorem",
+      "title": "Exact root rate and finite extinction",
+      "label": "III:S:thm:jsr",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.8.3.tex"
+      ],
+      "line": 336
+    },
+    {
+      "number": "3.9.1",
+      "kind": "theorem",
+      "title": "Exact projective difference identity",
+      "label": "III:S:thm:projective",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.9.1.tex"
+      ],
+      "line": 376
+    },
+    {
+      "number": "3.9.2",
+      "kind": "theorem",
+      "title": "Finite row-simplex upper certificate",
+      "label": "III:S:thm:rowsimplex",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.9.2.tex"
+      ],
+      "line": 387
+    },
+    {
+      "number": "3.9.3",
+      "kind": "proposition",
+      "title": "A qualified mass-floor bound",
+      "label": null,
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.9.3.tex"
+      ],
+      "line": 398
+    },
+    {
+      "number": "3.9.4",
+      "kind": "theorem",
+      "title": "Perron rate with visible modes and uniform positive overlap",
+      "label": "III:S:thm:perron",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.9.4.tex"
+      ],
+      "line": 408
+    },
+    {
+      "number": "3.9.6",
+      "kind": "theorem",
+      "title": "Uniform positive-matrix certificate",
+      "label": null,
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.9.6.tex"
+      ],
+      "line": 434
+    },
+    {
+      "number": "3.9.7",
+      "kind": "theorem",
+      "title": "Mass-qualified transfer; failure without a margin",
+      "label": "III:S:thm:conditionaltransfer",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.9.7.tex"
+      ],
+      "line": 450
+    },
+    {
+      "number": "3.10.2",
+      "kind": "proposition",
+      "title": "Exact quotient and behavioral packing",
+      "label": "III:M:prop:agent-quotient",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.10.2.tex"
+      ],
+      "line": 507,
+      "formal_component": {
+        "scope": "Canonical quotient execution, deterministic separation and the separated-family injection.",
+        "lean": [
+          "replay",
+          "rightCongruence",
+          "distinguish",
+          "quotientRuns",
+          "quotientAnswers",
+          "minimalClasses",
+          "packingInjection"
+        ]
+      }
+    },
+    {
+      "number": "3.10.3",
+      "kind": "proposition",
+      "title": "A sufficient finite invariant-cover certificate",
+      "label": "III:M:prop:agent-cover",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.10.3.tex"
+      ],
+      "line": 523,
+      "formal_component": {
+        "scope": "Inductiveness of the supplied invariant cover and query-uniform readout.",
+        "lean": [
+          "invariantCover",
+          "certifiedReadout"
+        ]
+      }
+    },
+    {
+      "number": "3.10.4",
+      "kind": "proposition",
+      "title": "Bounded-loss decision transfer",
+      "label": "III:M:prop:decision-transfer",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.10.4.tex"
+      ],
+      "line": 544
+    },
+    {
+      "number": "3.11.2",
+      "kind": "lemma",
+      "title": "Two suffixes determine the future metric",
+      "label": "III:M:lem:future",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.11.2.tex"
+      ],
+      "line": 618
+    },
+    {
+      "number": "3.11.3",
+      "kind": "lemma",
+      "title": "Behavioral packing",
+      "label": null,
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.11.3.tex"
+      ],
+      "line": 627
+    },
+    {
+      "number": "3.11.4",
+      "kind": "theorem",
+      "title": "Exact persistent-bit optimum",
+      "label": "III:M:thm:bits",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.11.4.tex",
+        "executable-memory/3.11.4-part-2.tex"
+      ],
+      "line": 637
+    },
+    {
+      "number": "3.11.5",
+      "kind": "corollary",
+      "title": "Robustness and rank-four sources",
+      "label": "III:M:cor:robust-bits",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.11.5.tex"
+      ],
+      "line": 654
+    },
+    {
+      "number": "3.11.6",
+      "kind": "theorem",
+      "title": "Persistent-bit existence law under Ahlfors regularity",
+      "label": "III:M:thm:ahlfors-memory",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.11.6.tex"
+      ],
+      "line": 686
+    },
+    {
+      "number": "3.11.7",
+      "kind": "theorem",
+      "title": "Homogeneous addresses with all storage and update costs charged",
+      "label": "III:M:thm:address-memory",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.11.7.tex"
+      ],
+      "line": 741
+    },
+    {
+      "number": "3.11.8",
+      "kind": "theorem",
+      "title": "An effective contractive coordinate chart",
+      "label": "III:M:thm:chart-memory",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.11.8.tex"
+      ],
+      "line": 763
+    },
+    {
+      "number": "3.11.9",
+      "kind": "theorem",
+      "title": "Homogeneous addresses from an arbitrary effective initial state",
+      "label": "III:M:thm:packed-startup",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.11.9.tex"
+      ],
+      "line": 804
+    },
+    {
+      "number": "3.12.1",
+      "kind": "theorem",
+      "title": "Streaming rational-similarity addresses",
+      "label": "III:M:audit:thm:addresses",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.12.1.tex"
+      ],
+      "line": 839
+    },
+    {
+      "number": "3.13.1",
+      "kind": "lemma",
+      "title": "Exact leaf count and separated endpoints",
+      "label": "III:M:lem:fibonacci-leaf-packing",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.13.1.tex"
+      ],
+      "line": 938,
+      "formal_component": {
+        "scope": "Stopped-word characterization, Fibonacci cardinality, widths, separation of right endpoints, and the exact covering number of every nonempty invariant subset of the unit interval.",
+        "lean": [
+          "fibonacciLeaves",
+          "FibonacciMemory.stopped_word",
+          "FibonacciMemory.word_count",
+          "FibonacciMemory.leaf_width",
+          "FibonacciMemory.endpoint_spacing",
+          "FibonacciMemory.minimum_cover"
+        ]
+      }
+    },
+    {
+      "number": "3.13.2",
+      "kind": "theorem",
+      "title": "Exact autonomous optimum with approximate startup",
+      "label": "III:M:thm:fibonacci-exact-optimum",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.13.2.tex"
+      ],
+      "line": 949,
+      "formal_component": {
+        "scope": "Necessary and sufficient states and fixed-width persistent bits at startup zero, including the exact threshold at precision 2^(-129). Witness histories all have the same finite length.",
+        "lean": [
+          "FibonacciMemory.zero_minimum",
+          "FibonacciMemory.witness_time",
+          "FibonacciMemory.finite_packing",
+          "FibonacciMemory.minimum_bits",
+          "FibonacciMemory.ninety_bits"
+        ]
+      }
+    },
+    {
+      "number": "3.13.3",
+      "kind": "proposition",
+      "title": "Leaf identifiers without an exponential table",
+      "label": "III:M:prop:fibonacci-leaf-cost",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.13.3.tex"
+      ],
+      "line": 961,
+      "formal_component": {
+        "scope": "Table-free rank, unrank, transition and rational midpoint are executable. Their correctness and all-history error are formalized. The bit-operation and temporary-space bounds have a written proof.",
+        "lean": [
+          "FibonacciMemory.ordinal_decode",
+          "FibonacciMemory.ordinal_encode",
+          "FibonacciMemory.ordinal_step_correct",
+          "FibonacciMemory.midpoint_exact",
+          "FibonacciMemory.ordinal_accuracy"
+        ]
+      }
+    },
+    {
+      "number": "3.13.4",
+      "kind": "theorem",
+      "title": "Exact optimum for every initial point of the leaf union",
+      "label": "III:M:rev13:thm:fib-general",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.13.4.tex"
+      ],
+      "line": 997,
+      "formal_component": {
+        "scope": "Matching state and bit optimum for each startup in the leaf union. For every startup in the full unit interval the lower bound holds.",
+        "lean": [
+          "FibonacciMemory.minimum_states",
+          "FibonacciMemory.machine_lower",
+          "FibonacciMemory.minimum_bits"
+        ]
+      }
+    },
+    {
+      "number": "3.13.6",
+      "kind": "proposition",
+      "title": "Non-dyadic tolerances",
+      "label": "III:M:rev13:prop:fib-eps",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.13.6.tex"
+      ],
+      "line": 1018,
+      "formal_component": {
+        "scope": "Piecewise bounds between consecutive dyadic scales, including the strict threshold for sharpness and the weaker lower bound at equality.",
+        "lean": [
+          "FibonacciMemory.nondyadic_bounds",
+          "FibonacciMemory.below_three_quarters",
+          "FibonacciMemory.padded_time"
+        ]
+      }
+    },
+    {
+      "number": "3.14.1",
+      "kind": "proposition",
+      "title": "Uniform contraction cannot preserve a non-fading fact",
+      "label": null,
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.14.1.tex"
+      ],
+      "line": 1034
+    },
+    {
+      "number": "3.14.2",
+      "kind": "proposition",
+      "title": "Rational addresses with a mode checkpoint",
+      "label": "III:M:audit:prop:checkpoint",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.14.2.tex"
+      ],
+      "line": 1071
+    },
+    {
+      "number": "3.14.3",
+      "kind": "lemma",
+      "title": "Termination of a centered Lipschitz sign certificate",
+      "label": "III:M:audit:lem:guard",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.14.3.tex"
+      ],
+      "line": 1167
+    },
+    {
+      "number": "3.15.1",
+      "kind": "lemma",
+      "title": "Maximum stopped-window length",
+      "label": "III:M:lem:feedback-length",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.15.1.tex"
+      ],
+      "line": 1325
+    },
+    {
+      "number": "3.15.2",
+      "kind": "theorem",
+      "title": "Certified branch-cache replay",
+      "label": "III:M:thm:branch-cache",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.15.2.tex"
+      ],
+      "line": 1340
+    },
+    {
+      "number": "3.15.3",
+      "kind": "proposition",
+      "title": "A shared continuous address and a mode subset",
+      "label": "III:M:prop:oneway-coalescence",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.15.3.tex"
+      ],
+      "line": 1411
+    },
+    {
+      "number": "3.15.4",
+      "kind": "proposition",
+      "title": "Separated gates: settled and transient counts",
+      "label": "III:M:prop:dwell-coalescence",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.15.4.tex"
+      ],
+      "line": 1430
+    },
+    {
+      "number": "3.15.5",
+      "kind": "theorem",
+      "title": "Conditional joint persistent-bit optimum",
+      "label": "III:M:thm:joint-mode-optimum",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.15.5.tex"
+      ],
+      "line": 1466
+    },
+    {
+      "number": "3.15.6",
+      "kind": "proposition",
+      "title": "Uniform query kernels",
+      "label": "III:M:prop:query-kernels",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.15.6.tex"
+      ],
+      "line": 1503
+    },
+    {
+      "number": "3.15.7",
+      "kind": "theorem",
+      "title": "Guarded actions and probability of guard failure",
+      "label": "III:M:thm:guarded-policy",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.15.7.tex"
+      ],
+      "line": 1530
+    },
+    {
+      "number": "3.15.8",
+      "kind": "theorem",
+      "title": "Stochastic-policy coupling",
+      "label": "III:M:thm:stochastic-policy",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.15.8.tex"
+      ],
+      "line": 1555
+    },
+    {
+      "number": "3.15.9",
+      "kind": "proposition",
+      "title": "Active-map quotient with a complete finite code",
+      "label": "III:M:prop:active-map",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.15.9.tex"
+      ],
+      "line": 1573,
+      "formal_component": {
+        "scope": "Forward simulation, exact radix inverses and capacity lower bound under injectivity.",
+        "lean": [
+          "mapsSeparated",
+          "activeMapFuture",
+          "projectRun",
+          "rankBound",
+          "decodeEncode",
+          "encodeDecode",
+          "slotsLower",
+          "mapCapacity"
+        ]
+      }
+    },
+    {
+      "number": "3.15.10",
+      "kind": "proposition",
+      "title": "Merging in a certified future pseudometric",
+      "label": "III:M:prop:future-merge",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.15.10.tex"
+      ],
+      "line": 1606
+    },
+    {
+      "number": "3.15.11",
+      "kind": "proposition",
+      "title": "Finite supplied probes under explicit sampling promises",
+      "label": "III:M:prop:probe-test",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.15.11.tex"
+      ],
+      "line": 1654
+    },
+    {
+      "number": "3.16.1",
+      "kind": "lemma",
+      "title": "Autonomous update and exact replay",
+      "label": "III:M:rev13:lem:mode-update",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.16.1.tex"
+      ],
+      "line": 1735
+    },
+    {
+      "number": "3.16.2",
+      "kind": "lemma",
+      "title": "Address set and growth",
+      "label": "III:M:rev13:lem:mode-count",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.16.2.tex"
+      ],
+      "line": 1758
+    },
+    {
+      "number": "3.16.3",
+      "kind": "lemma",
+      "title": "Polynomial counting without listing words",
+      "label": "III:M:rev13:lem:mode-dp",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.16.3.tex"
+      ],
+      "line": 1779
+    },
+    {
+      "number": "3.16.4",
+      "kind": "proposition",
+      "title": "Streaming type counts with linear scratch",
+      "label": "III:M:rev13:prop:euler-count",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.16.4.tex"
+      ],
+      "line": 1786
+    },
+    {
+      "number": "3.16.5",
+      "kind": "theorem",
+      "title": "Pressure upper bound and conditional persistent-bit optimum",
+      "label": "III:M:rev13:thm:mode",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.16.5.tex"
+      ],
+      "line": 1812
+    },
+    {
+      "number": "3.17.1",
+      "kind": "proposition",
+      "title": "Componentwise execution tube",
+      "label": "III:U:prop:tube",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.17.1.tex"
+      ],
+      "line": 1909
+    },
+    {
+      "number": "3.18.1",
+      "kind": "theorem",
+      "title": "Correct propagation of repeated truncations",
+      "label": "III:U:thm:oracle",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.18.1.tex"
+      ],
+      "line": 1993
+    },
+    {
+      "number": "3.18.2",
+      "kind": "theorem",
+      "title": "Finite-horizon rounding and conditional eigenfunction error",
+      "label": "III:U:thm:transfer-rounding",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.18.2.tex"
+      ],
+      "line": 2055
+    },
+    {
+      "number": "3.18.3",
+      "kind": "theorem",
+      "title": "Quantitative normalized positive eigenfunction",
+      "label": "III:U:thm:normalized-transfer",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.18.3.tex"
+      ],
+      "line": 2104
+    },
+    {
+      "number": "3.18.4",
+      "kind": "corollary",
+      "title": "A certified polynomial eigenfunction approximator",
+      "label": "III:U:cor:normalized-polynomial",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.18.4.tex"
+      ],
+      "line": 2133
+    },
+    {
+      "number": "3.19.1",
+      "kind": "proposition",
+      "title": "Closed projected residual update",
+      "label": "III:U:prop:core",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.19.1.tex"
+      ],
+      "line": 2178
+    },
+    {
+      "number": "3.19.2",
+      "kind": "proposition",
+      "title": "Weighted core-conditioned prediction",
+      "label": null,
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.19.2.tex"
+      ],
+      "line": 2193
+    },
+    {
+      "number": "3.19.3",
+      "kind": "proposition",
+      "title": "Classical diagonal-covariance surrogate inequality",
+      "label": "III:U:prop:covariance-surrogate",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.19.3.tex"
+      ],
+      "line": 2256
+    },
+    {
+      "number": "3.19.4",
+      "kind": "proposition",
+      "title": "A valid variance bound for discrete lossless symbols",
+      "label": "III:U:prop:discrete-entropy-bound",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.19.4.tex"
+      ],
+      "line": 2272
+    },
+    {
+      "number": "3.19.5",
+      "kind": "lemma",
+      "title": "Constructing lifting factors from a supplied orthogonal basis",
+      "label": "III:U:lem:rotation-lifts",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.19.5.tex"
+      ],
+      "line": 2352
+    },
+    {
+      "number": "3.19.6",
+      "kind": "theorem",
+      "title": "Bijective lifting and a covariance bound including correlated errors",
+      "label": "III:U:thm:integer-lifting",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.19.6.tex"
+      ],
+      "line": 2369
+    },
+    {
+      "number": "3.19.7",
+      "kind": "theorem",
+      "title": "Complete expected length against a specified baseline",
+      "label": "III:U:thm:actual-lifting-code",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.19.7.tex"
+      ],
+      "line": 2404
+    },
+    {
+      "number": "3.19.8",
+      "kind": "proposition",
+      "title": "The universal saving threshold is impossible",
+      "label": "III:U:prop:no-universal-code-gain",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.19.8.tex"
+      ],
+      "line": 2443
+    },
+    {
+      "number": "3.20.1",
+      "kind": "lemma",
+      "title": "Homogeneous norm and spectrum",
+      "label": "III:S:lem:homogeneous",
+      "chapter": "executable-memory",
+      "proofs": [
+        "executable-memory/3.20.1.tex"
+      ],
+      "line": 2467
+    }
+  ],
+  "proofs": [
+    {
+      "path": "operator-approximation/1.8.1.tex",
+      "statement": "1.8.1",
+      "bytes": 1556,
+      "sha256": "911ba261b8a4c40054a3dbbfe6ca17896ab99b0fe3c7a5d4b3e2227ec5a131d0",
+      "references": [
+        "I:U:lem:compact"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.8.3.tex",
+      "statement": "1.8.3",
+      "bytes": 428,
+      "sha256": "7bd56c5c73f890f7748565dab10f44931deaeb0c667c6db912b49cf0c16b28c8",
+      "references": [
+        "I:U:eq:row-shift-norm"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.9.1.tex",
+      "statement": "1.9.1",
+      "bytes": 1213,
+      "sha256": "54697aebdbd302a6179f2f0c3fb9438b3ca865df3c00bb4dcd5a743c9e80360e",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.9.2.tex",
+      "statement": "1.9.2",
+      "bytes": 2501,
+      "sha256": "0c1840cd65fc233b0dbe6c30ed12221d748ff0e75c8e9f11246d0839fdd62113",
+      "references": [
+        "I:U:eq:normal-observation",
+        "I:U:eq:normal-reachability"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.9.3.tex",
+      "statement": "1.9.3",
+      "bytes": 1039,
+      "sha256": "52af11880c5414f9590a1d9ca4409a833a763b758cdb2d3e7c4bc37a71cc91ff",
+      "references": [
+        "I:U:lem:compact"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.10.1.tex",
+      "statement": "1.10.1",
+      "bytes": 2215,
+      "sha256": "31f920f8c301351bfd31c7ef7255e0a476015fec2a221ba707547d4787eee2c7",
+      "references": [
+        "I:U:eq:error-realization",
+        "I:U:eq:exact-observe",
+        "I:U:eq:exact-reach",
+        "I:U:eq:gram-norm",
+        "I:U:lem:compact",
+        "I:U:thm:attainment"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.10.2.tex",
+      "statement": "1.10.2",
+      "bytes": 2184,
+      "sha256": "59c3fd4f3286fe4ec385e0038f2e7289c31195cf14fe732cd53ca8accf8dc2e4",
+      "references": [
+        "I:U:thm:exact"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.11.2.tex",
+      "statement": "1.11.2",
+      "bytes": 444,
+      "sha256": "6a31869570f1507e3ed2fca4e8dc33a2d9460227911848a579dd6b53c69897aa",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.11.1.tex",
+      "statement": "1.11.1",
+      "bytes": 6189,
+      "sha256": "a5e63530d3f2f6cbe29677721f55e084818034fcce8ed5d22017a5e710095949",
+      "references": [
+        "I:U:eq:fixed-coeff",
+        "I:U:eq:fixed-stability",
+        "I:U:eq:fixed-varcount",
+        "I:U:lem:coefftest",
+        "I:U:lem:stable",
+        "I:U:thm:attainment",
+        "I:U:thm:fixed"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.11.3.tex",
+      "statement": "1.11.3",
+      "bytes": 841,
+      "sha256": "b98953f9bcf28e7c7beda2fe690518f7db90a55ee054e60308ee524e4764aca8",
+      "references": [
+        "I:U:thm:fixed"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.12.1.tex",
+      "statement": "1.12.1",
+      "bytes": 2317,
+      "sha256": "23e13bc6e35d99404b9dd787f5e6439814da5311fed9a49d196c1b725110ae28",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.12.2.tex",
+      "statement": "1.12.2",
+      "bytes": 1666,
+      "sha256": "13ba7cf60b0013f5712c7e63f0f699b6f57cc4008899fb035cf9f82f024c90de",
+      "references": [
+        "I:M:rev13:lem:kappa",
+        "I:U:lem:compact"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.12.4.tex",
+      "statement": "1.12.4",
+      "bytes": 566,
+      "sha256": "f95b7abaa52b7ae11b88e2de66c5831a9f46a69c6ab44aea075fc1ff010b043e",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.12.5.tex",
+      "statement": "1.12.5",
+      "bytes": 1559,
+      "sha256": "7afdf5187ef240a63f55ce0f14ee8a152125894f2aad5c4cb589e486840bfbe5",
+      "references": [
+        "I:M:rev13:lem:rank-one"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.13.1.tex",
+      "statement": "1.13.1",
+      "bytes": 882,
+      "sha256": "0fa45dd2082bbac90da679aad19993294a8252874792742e269ecef7f9093907",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.13.2.tex",
+      "statement": "1.13.2",
+      "bytes": 733,
+      "sha256": "1bd2f6c47c266022e78d1f0ede61dd3a2effabe0aa657d60c1dfba2f46b1ece6",
+      "references": [
+        "I:S:thm:realization"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.13.3.tex",
+      "statement": "1.13.3",
+      "bytes": 614,
+      "sha256": "123cd3a6728a675f966826b7f638405ab8dcb4b1736f36c23c864e4fa1ab4776",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.14.1.tex",
+      "statement": "1.14.1",
+      "bytes": 1447,
+      "sha256": "ce0b766bd7e1e3c9774be374216d0abdde23ce8be3f64c7e136897b896c4270f",
+      "references": [
+        "I:S:eq:P",
+        "I:S:eq:Q"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.14.2.tex",
+      "statement": "1.14.2",
+      "bytes": 213,
+      "sha256": "4b600783b3a83d9dbe47c1d22c5d2a83a04256e53772395e522daf43b6131ae2",
+      "references": [
+        "I:S:thm:stability"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.14.3.tex",
+      "statement": "1.14.3",
+      "bytes": 517,
+      "sha256": "7bf1b4e38173ae388954898bae2cef9408b839565c4b8a564c46b17ed25cdf6f",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.14.4.tex",
+      "statement": "1.14.4",
+      "bytes": 461,
+      "sha256": "6e37f833c39f03063c868aa27af1d278057bce5de1c9399b56d0f3c3ea0a6e6e",
+      "references": [
+        "I:S:lem:homogeneous"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.15.2.tex",
+      "statement": "1.15.2",
+      "bytes": 187,
+      "sha256": "c456cbab978cff6b1b3b6d46765ec2588a3074a2164e95243b89980effbffa32",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.16.1.tex",
+      "statement": "1.16.1",
+      "bytes": 925,
+      "sha256": "f025ee0bf81f46c1b5a0ae87226d610fbc9597c4c7cf2588ebea4d2d2678ee2a",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.16.2.tex",
+      "statement": "1.16.2",
+      "bytes": 875,
+      "sha256": "665256ca3534274b18862e63fe07054c0f3fc3c8134a6751a648ac5f2cb1ed98",
+      "references": [
+        "I:S:lem:corner"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.16.3.tex",
+      "statement": "1.16.3",
+      "bytes": 358,
+      "sha256": "d5a1b04e707fe653e0f6a21896c293a9415e243e7c528c9bec768063cca93d6f",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.16.4.tex",
+      "statement": "1.16.4",
+      "bytes": 2376,
+      "sha256": "e7816fd78ad6600dc197a9468f19ef5c231ab202813552a6c7ce9139335a0bed",
+      "references": [
+        "I:S:app:commupper"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.17.1.tex",
+      "statement": "1.17.1",
+      "bytes": 419,
+      "sha256": "6b90aac2e72c5f29d26dcb80d73d967b9b782c2bc33e94af28786943a303e3f1",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.17.2.tex",
+      "statement": "1.17.2",
+      "bytes": 470,
+      "sha256": "eccaaf0a3bc4fb2ba4d3a67a616e8842a2019c6697fe769a2554646e009f51ab",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.17.3.tex",
+      "statement": "1.17.3",
+      "bytes": 611,
+      "sha256": "67c31e62c1836b0b27e155d3ce306419d1b101f33fb6461533bd9002abeb1272",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.17.4.tex",
+      "statement": "1.17.4",
+      "bytes": 1038,
+      "sha256": "ae6f511d8cb35bb2e72b40b879b1e6be7d0294a542eafcfeb81bed743af27afc",
+      "references": [
+        "I:S:eq:sharp",
+        "I:S:lem:homogeneous",
+        "I:S:thm:coefficient",
+        "I:S:thm:trace"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.17.5.tex",
+      "statement": "1.17.5",
+      "bytes": 1044,
+      "sha256": "abb791bc3a189a9e620ff65fa4370d383e885ccf6969e12b71ef553f08258edf",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.18.1.tex",
+      "statement": "1.18.1",
+      "bytes": 521,
+      "sha256": "939141cf241e2521c83d99b1de8a21ba80f4554614a0d46c54aea76886f7a91e",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.18.2.tex",
+      "statement": "1.18.2",
+      "bytes": 1458,
+      "sha256": "fbc2d8b2258b2858ea9139a446b795cd75771b4aabf5001d39bd0e09c82a1808",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.18.3.tex",
+      "statement": "1.18.3",
+      "bytes": 1339,
+      "sha256": "31286e40dfbce5d2ca9e9eca80c65eb61587d852605ee5dddfffc033577951cf",
+      "references": [
+        "I:S:lem:homogeneous",
+        "I:S:thm:realization"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.18.4.tex",
+      "statement": "1.18.4",
+      "bytes": 192,
+      "sha256": "d6fc196096e8ef873ebc9966f064f1b6a3d2dce5c294e3fc56da8aa25d83c298",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.21.1.tex",
+      "statement": "1.21.1",
+      "bytes": 1807,
+      "sha256": "cfd1f637e7ed1db0840f6c69ca455d1b0dca8a6b6ce2911b1ef4cd61d9e8bd8a",
+      "references": [
+        "I:B:eq:E-gamma",
+        "I:B:eq:E-model-projection",
+        "I:B:eq:passive-gamma",
+        "I:M:rev13:lem:kappa"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.21.2.tex",
+      "statement": "1.21.2",
+      "bytes": 674,
+      "sha256": "25413c6b6ed1271263d240ec58c7f41b750af3636bb10b2bfda317e5b1788e27",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.21.3.tex",
+      "statement": "1.21.3",
+      "bytes": 2443,
+      "sha256": "1af2dcb3f6048bbd2a7556fd916d7fcc388938b6c99c96a6e019fe898756f5f0",
+      "references": [
+        "I:B:eq:boundary-kernel-lower",
+        "I:B:eq:boundary-overlap-bound",
+        "I:B:eq:boundary-passivity",
+        "I:B:eq:resolvent-defect-contraction",
+        "I:B:lem:one-letter-projection"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.22.1.tex",
+      "statement": "1.22.1",
+      "bytes": 3189,
+      "sha256": "66402f6ec38a351c4cf036dc9e8cb50a6f717b9db210d1842c09c262ca925f18",
+      "references": [
+        "I:B:eq:lift-exact-decomposition",
+        "I:B:eq:lift-finite-error",
+        "I:B:eq:lift-limsup",
+        "I:B:eq:lift-series",
+        "I:B:eq:lift-target-decomposition"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.22.2.tex",
+      "statement": "1.22.2",
+      "bytes": 2585,
+      "sha256": "33298e563b638e662d64099baf2e5cd183f638f820f6e6aa8036c02d0d319550",
+      "references": [
+        "I:B:eq:lift-k2-Rnorm",
+        "I:B:eq:lift-k2-cancellation",
+        "I:B:eq:lift-k2-parameters",
+        "I:B:eq:lift-k2-sharp-bound"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.23.1.tex",
+      "statement": "1.23.1",
+      "bytes": 1156,
+      "sha256": "2932fd1e42edcbaf3b18e26c84af0730d6ea2ee7a81fbca7f76eb1f87d4d5247",
+      "references": [
+        "I:B:eq:hardy-Blaschke-variational",
+        "I:B:eq:hardy-model-error",
+        "I:B:eq:hardy-rational-class"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.23.2.tex",
+      "statement": "1.23.2",
+      "bytes": 3403,
+      "sha256": "201eb5d1c5ad743611bdf2b35dfbc4af59391568f18f04d849b1ba1b1e9c3991",
+      "references": [
+        "I:B:eq:hardy-C-definition",
+        "I:B:eq:hardy-EL",
+        "I:B:eq:hardy-model-error",
+        "I:B:lem:hardy-model"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.23.3.tex",
+      "statement": "1.23.3",
+      "bytes": 661,
+      "sha256": "dfe7fb6d4e0ae8a8756c9c62d3f7831a741d53bfeab3612d5ccaa6e480cf5dd1",
+      "references": [
+        "I:B:lem:hardy-model"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.24.1.tex",
+      "statement": "1.24.1",
+      "bytes": 447,
+      "sha256": "384e14a9301ef8cdef39c875b55444abd01cfb087ed1c092a808d61d7bd69c0b",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.25.1.tex",
+      "statement": "1.25.1",
+      "bytes": 2141,
+      "sha256": "82cadf223be9c45850df6a64ed892860492e816a3a5f51b9005ce16515b92233",
+      "references": [
+        "I:B:eq:curvature-error-square",
+        "I:B:eq:curvature-finite-bound",
+        "I:B:eq:curvature-overlap",
+        "I:B:eq:lift-isometries",
+        "I:B:prop:lift-k2-sharp"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.25.2.tex",
+      "statement": "1.25.2",
+      "bytes": 1833,
+      "sha256": "b8865b2e52a2cb689da4a8108c5dff1c8a735830842d77851520b09c5f6b615f",
+      "references": [
+        "I:B:eq:curvature-boundary-modulus",
+        "I:B:eq:curvature-hardy-coefficients",
+        "I:B:eq:curvature-hardy-finite",
+        "I:B:eq:curvature-hardy-norm",
+        "I:B:eq:curvature-hardy-residual",
+        "I:B:prop:lift-curvature"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.27.1.tex",
+      "statement": "1.27.1",
+      "bytes": 848,
+      "sha256": "0428dcd61feb4d6e39f6d77bee745136ccf6e51eb349f86635d592361a45413e",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.28.2.tex",
+      "statement": "1.28.2",
+      "bytes": 1285,
+      "sha256": "206561108109169e641176d206b73ad8c16eb7144df1b7957c4cdd957b48fbb1",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.28.3.tex",
+      "statement": "1.28.3",
+      "bytes": 737,
+      "sha256": "b22d8909ec27d34655ff73941850c839613a022af8a9c07c70d09f400fc0d789",
+      "references": [
+        "I:F:eq:F1-direct-quartic",
+        "I:F:eq:F1-u-quartic",
+        "I:F:eq:F1-value"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.29.1.tex",
+      "statement": "1.29.1",
+      "bytes": 5008,
+      "sha256": "474e67d33ec3ded329bc7ba387bd12e4980ccc6f6751a8135686ce81d56f8ee1",
+      "references": [
+        "I:F:eq:f2-branch-expansion",
+        "I:F:eq:f2-cross-reach",
+        "I:F:eq:f2-error-gramians",
+        "I:F:eq:f2-optimum-upper",
+        "I:F:eq:f2-own-gramians",
+        "I:F:eq:f2-passivity"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.30.1.tex",
+      "statement": "1.30.1",
+      "bytes": 1262,
+      "sha256": "e8207c8743d99597482c4aded464ed0a241f3756a5004a7ae3508560a8acef31",
+      "references": [
+        "I:F:eq:f2-denominator-lower",
+        "I:F:eq:f2-scalar-reduction"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.30.2.tex",
+      "statement": "1.30.2",
+      "bytes": 6539,
+      "sha256": "678b44f96ebafe465ea928eb0e9b3c5f5945b0f43b814cb8379bcbfb6284ff2d",
+      "references": [
+        "I:F:eq:f2-Hessian-matrix",
+        "I:F:eq:f2-J-objective",
+        "I:F:eq:f2-M-definition",
+        "I:F:eq:f2-M-preliminary",
+        "I:F:eq:f2-W-parametrization",
+        "I:F:eq:f2-full-quadratic",
+        "I:F:eq:f2-h-expansion",
+        "I:F:eq:f2-maximizing-torus"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.30.3.tex",
+      "statement": "1.30.3",
+      "bytes": 2251,
+      "sha256": "a6f70c53ab8e2e78f18cac1213fe67448909ce3ca91e365713681b1a3b04cd6e",
+      "references": [
+        "I:F:eq:f2-P-expansion",
+        "I:F:eq:f2-P-trial",
+        "I:F:eq:f2-h-expansion",
+        "I:F:eq:f2-scalar-reduction",
+        "I:F:eq:f2-uniform-scalar-expansion",
+        "I:F:lem:f2-h-expansion"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.30.4.tex",
+      "statement": "1.30.4",
+      "bytes": 655,
+      "sha256": "c9ea1e247d4e0eb60fe9ebb5ebd10330819ee2430dc3391158d3cee7b024a529",
+      "references": [
+        "I:F:eq:f2-P-expansion",
+        "I:F:eq:f2-competitor-lower",
+        "I:F:eq:f2-global-first-correction",
+        "I:F:eq:f2-optimum-upper",
+        "I:F:thm:f2-improvement"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.33.1.tex",
+      "statement": "1.33.1",
+      "bytes": 692,
+      "sha256": "1a8c21329072be5026992306ca5ced7e20c5517594de3f6acf2c0cef1ed70b18",
+      "references": [
+        "I:R:eq:allk-elimination"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.33.2.tex",
+      "statement": "1.33.2",
+      "bytes": 1499,
+      "sha256": "fb204b9afbeffc56e81bc56e29ed6f4c0472863fcff3a4edf15a153d0d42fc7b",
+      "references": [
+        "I:R:eq:gamma-model-space"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.33.3.tex",
+      "statement": "1.33.3",
+      "bytes": 768,
+      "sha256": "1b58476638de68320bc609c71233a71967937c929dd8ac648b461c8ca00ddc25",
+      "references": [
+        "I:R:lem:strict-dimension-improvement"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.33.4.tex",
+      "statement": "1.33.4",
+      "bytes": 659,
+      "sha256": "8a034282b16f20c4006c297de4f67debdd1f828ce403225254fe7f068b9ba349",
+      "references": [
+        "I:R:eq:defect-gap-control",
+        "I:R:lem:cyclic-lossless-maximizer"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.33.5.tex",
+      "statement": "1.33.5",
+      "bytes": 891,
+      "sha256": "d86bac6a6aaad9aef732319030062ccfa78e5ed4c23d6767d4bcbec8b3d64f0e",
+      "references": [
+        "I:R:eq:response-K-coercivity"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.33.6.tex",
+      "statement": "1.33.6",
+      "bytes": 7507,
+      "sha256": "5fb1823808b85eea9059d541025108a2b737060f756e75fca34f69daa5df7134",
+      "references": [
+        "I:R:eq:M-and-J",
+        "I:R:eq:all-budget-D-lower",
+        "I:R:eq:all-budget-envelope-expansion",
+        "I:R:eq:allk-elimination",
+        "I:R:eq:bk-response-formula",
+        "I:R:eq:first-column-chart",
+        "I:R:eq:hk-definition",
+        "I:R:eq:normal-gap-upper",
+        "I:R:eq:normal-polar",
+        "I:R:eq:normal-quadratic-Q",
+        "I:R:eq:normal-quadratic-max",
+        "I:R:lem:cyclic-lossless-maximizer",
+        "I:R:lem:quantitative-defect-control",
+        "I:R:lem:response-K-positive"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.33.7.tex",
+      "statement": "1.33.7",
+      "bytes": 2244,
+      "sha256": "0406c30b3b3236588e756a8a78e3587df39bfd8d8011c66532a16a41ad5ccf6e",
+      "references": [
+        "I:R:eq:defect-gap-control",
+        "I:R:eq:independent-delay-K-positive",
+        "I:R:eq:normal-polar",
+        "I:R:eq:normal-quadratic-Q",
+        "I:R:lem:cyclic-lossless-maximizer",
+        "I:R:lem:strict-dimension-improvement",
+        "I:R:prop:allk-eliminate-A",
+        "I:R:thm:all-budget-response"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.33.8.tex",
+      "statement": "1.33.8",
+      "bytes": 210,
+      "sha256": "959e769e7dd6640cdc462c45d45843dd9a5cdf8de405b6f467120984a21e68e4",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.33.9.tex",
+      "statement": "1.33.9",
+      "bytes": 1173,
+      "sha256": "3316eb81f899fc8913a7eb8395e46aed1d27dac6776fa3822f33dce8c923d4a0",
+      "references": [
+        "I:R:eq:bk-response-formula"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.34.1.tex",
+      "statement": "1.34.1",
+      "bytes": 5379,
+      "sha256": "e33610db7ae29f7d6096520ed2fe4575d0f44e158571ddee5bc1737ed2200bb7",
+      "references": [
+        "I:R:eq:v4-match-beta",
+        "I:R:eq:v4-match-cancellation",
+        "I:R:eq:v4-match-conclusion",
+        "I:R:eq:v4-match-gram"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.34.2.tex",
+      "statement": "1.34.2",
+      "bytes": 905,
+      "sha256": "d32585dcecd060faea97db6a1f1f9bab50eec73cc6423421a723f62881db1bce",
+      "references": [
+        "I:R:eq:v4-match-conclusion"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.32.1.tex",
+      "statement": "1.32.1",
+      "bytes": 1567,
+      "sha256": "1d0c512dca444f3b8c5f65737541630115439470910c77a2748a2e04fac34939",
+      "references": [
+        "I:R:eq:main-response-coefficient",
+        "I:R:eq:v4-match-cancellation",
+        "I:R:thm:main-general",
+        "I:R:thm:v4-matching"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.36.1.tex",
+      "statement": "1.36.1",
+      "bytes": 1695,
+      "sha256": "137d6c380490711b5d3d8825153a699675555cacba1c9be51d0a2b8b7c9c099e",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.36.2.tex",
+      "statement": "1.36.2",
+      "bytes": 900,
+      "sha256": "81a5af0cf126ef6078c35f4e347615bf779fa134545fc01605e8e85f8edcb6c9",
+      "references": [
+        "I:R:eq:four-state-b4",
+        "I:R:eq:four-state-optimum",
+        "I:R:lem:Hardy-classification-transfer"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.37.1.tex",
+      "statement": "1.37.1",
+      "bytes": 1545,
+      "sha256": "ef44da656e7a15deddbaf5287680073397f0bf3d4afacb3911bd44070ab51a55",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.37.2.tex",
+      "statement": "1.37.2",
+      "bytes": 2203,
+      "sha256": "5634daf907e943f702e7f0b1f5dd85e2ea4652bea78ba8517b6d964a0ccfb804",
+      "references": [
+        "I:R:lem:cyclic-lossless-maximizer",
+        "I:R:lem:positive-Hardy-extremizers"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.38.1.tex",
+      "statement": "1.38.1",
+      "bytes": 996,
+      "sha256": "d1fea42b95f4ee1621f5f3429061996351cd737166a9506766898814c8a65e2f",
+      "references": [
+        "I:R:eq:fc-passive",
+        "I:R:eq:fc-relaxation",
+        "I:R:eq:fc-singular"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.38.2.tex",
+      "statement": "1.38.2",
+      "bytes": 1184,
+      "sha256": "158bc3108e21b444a43ed976d065833383b33199529469bced22ad5d0df52705",
+      "references": [
+        "I:R:eq:fc-eliminate-A",
+        "I:R:eq:fc-secular"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.38.3.tex",
+      "statement": "1.38.3",
+      "bytes": 1090,
+      "sha256": "ef8bb41f99f5fd8d5e7ccca0e9d2df56a10b2c4e1053d9af47385e4768c8e00f",
+      "references": [
+        "I:R:eq:fc-F1-root",
+        "I:R:eq:fc-general-threshold",
+        "I:R:eq:fc-scalar-Psi"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.39.1.tex",
+      "statement": "1.39.1",
+      "bytes": 712,
+      "sha256": "6ac517d0603a46a698766b221e921ac48889201403cfa74ee4b55b76fb957c81",
+      "references": [
+        "I:R:eq:terminal-elimination"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.39.2.tex",
+      "statement": "1.39.2",
+      "bytes": 2645,
+      "sha256": "68152b96b4b02e8111dbb4bf8e3959ce7fa40038722340026aab1272cac1c94c",
+      "references": [
+        "I:R:eq:terminal-elimination",
+        "I:R:eq:terminal-leading-coefficient",
+        "I:R:eq:terminal-parametrization",
+        "I:R:eq:terminal-refined-energy"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.39.3.tex",
+      "statement": "1.39.3",
+      "bytes": 2758,
+      "sha256": "52fc004bbdb40f5c29c58dd90b0d7eddab230005e817b1e22bd324ee65ae8e2c",
+      "references": [
+        "I:R:eq:terminal-boundary-theorem",
+        "I:R:eq:terminal-passive",
+        "I:R:lem:terminal-dimension-drop"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.39.4.tex",
+      "statement": "1.39.4",
+      "bytes": 712,
+      "sha256": "8e4b7a1d0104432d762a77092e28795bcf912fb426411648982d59c7fe527336",
+      "references": [
+        "I:R:eq:terminal-error-decomposition",
+        "I:R:eq:terminal-fixed-lift-expansion"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.39.5.tex",
+      "statement": "1.39.5",
+      "bytes": 5302,
+      "sha256": "82e2efade092077e2fd878974a32723703b48a51aca991088345303461335488",
+      "references": [
+        "I:R:eq:degree-d-Hessian",
+        "I:R:eq:two-state-all-degrees",
+        "I:R:lem:terminal-elimination"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.41.1.tex",
+      "statement": "1.41.1",
+      "bytes": 1738,
+      "sha256": "bc2ba6a95e77b4d3a22339264fff9885dc5c2ab1f5ba14b6625e0b42eb92a75f",
+      "references": [
+        "I:U:eq:dyadic-verified-margin"
+      ]
+    },
+    {
+      "path": "operator-approximation/1.41.2.tex",
+      "statement": "1.41.2",
+      "bytes": 1315,
+      "sha256": "03d894551e8dac99c066522e8ab0cbba3cb72469e2fb71c8876443d7aebbb0fe",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.41.3.tex",
+      "statement": "1.41.3",
+      "bytes": 1127,
+      "sha256": "ae56ea29730403dcb11e0274d70be3df9b98e6a8615f5568c1274bf79396df9c",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.41.4.tex",
+      "statement": "1.41.4",
+      "bytes": 327,
+      "sha256": "8e48c92bc4f4d0420fcbe10bf24cf7ec2c81d8236e73ff94e7bd2089e838857c",
+      "references": []
+    },
+    {
+      "path": "operator-approximation/1.41.5.tex",
+      "statement": "1.41.5",
+      "bytes": 1678,
+      "sha256": "82c82adfbf5a4400ac562307d387fe9c8d49f9cd2c40ef535c83fa568ff5088e",
+      "references": [
+        "I:U:eq:reference-truncation",
+        "I:U:lem:positive-resolvent",
+        "I:U:thm:exact"
+      ]
+    },
+    {
+      "path": "probability/2.7.1.tex",
+      "statement": "2.7.1",
+      "bytes": 500,
+      "sha256": "f6eddaf491d413c00972c68804c269af05862aa68b9b51f988b0742bd75524f6",
+      "references": []
+    },
+    {
+      "path": "probability/2.7.2.tex",
+      "statement": "2.7.2",
+      "bytes": 1077,
+      "sha256": "e2826aa677d72f7103ae0c278c08d058e0dcfd07c1ecc8c73ad275a8e3946f8e",
+      "references": []
+    },
+    {
+      "path": "probability/2.7.3.tex",
+      "statement": "2.7.3",
+      "bytes": 1418,
+      "sha256": "8e77cf30ae6e5b8073d19c630e72b599f1493e03df89088fd698c46e10c89d9c",
+      "references": [
+        "II:U:lem:spectral-tv"
+      ]
+    },
+    {
+      "path": "probability/2.7.3-part-2.tex",
+      "statement": "2.7.3",
+      "bytes": 1066,
+      "sha256": "9bb0a5aa6dc07a111197be393eef4c9553ed62368ef372f8117001426ad7e5ce",
+      "references": [
+        "II:U:prop:iprojection"
+      ]
+    },
+    {
+      "path": "probability/2.7.4.tex",
+      "statement": "2.7.4",
+      "bytes": 710,
+      "sha256": "f956a3599632ccb928fd25554e085dd6912cd85cf6b038183fbb4e931dfa8eac",
+      "references": []
+    },
+    {
+      "path": "probability/2.7.5.tex",
+      "statement": "2.7.5",
+      "bytes": 882,
+      "sha256": "c91fb5093436c6a8998f9db7bdef26b457d708102e95291b2cc853e79e8f6ec6",
+      "references": [
+        "II:U:lem:spectral-tv"
+      ]
+    },
+    {
+      "path": "probability/2.7.6.tex",
+      "statement": "2.7.6",
+      "bytes": 2034,
+      "sha256": "62fbb93203beb8ec4cafcc46d14d0ed54d4eccd8c41955f3bc8a601e7618f240",
+      "references": [
+        "II:U:eq:kl-fixed-sandwich",
+        "II:U:prop:iprojection"
+      ]
+    },
+    {
+      "path": "probability/2.8.1.tex",
+      "statement": "2.8.1",
+      "bytes": 891,
+      "sha256": "3910a2e9f41d29b3587123bba9a3c55062ffc6d24fcc77c9762dab11a6bad349",
+      "references": []
+    },
+    {
+      "path": "probability/2.8.2.tex",
+      "statement": "2.8.2",
+      "bytes": 775,
+      "sha256": "5a4096eba0280b157a2933e6f7e827b6e9b4c6d59fcb53d92978542ae2315ced",
+      "references": [
+        "II:U:thm:flows"
+      ]
+    },
+    {
+      "path": "probability/2.8.3.tex",
+      "statement": "2.8.3",
+      "bytes": 653,
+      "sha256": "a73871e7777fcc90c1f81efcbe72e0f366d8f9a105bb3c503f2bd9d0aa0c5515",
+      "references": []
+    },
+    {
+      "path": "probability/2.8.4.tex",
+      "statement": "2.8.4",
+      "bytes": 795,
+      "sha256": "c38055dd59e5fd24799c384a3b27bf51c5b85c8eed1f09b6cba1625b3c66c8ed",
+      "references": []
+    },
+    {
+      "path": "probability/2.8.6.tex",
+      "statement": "2.8.6",
+      "bytes": 578,
+      "sha256": "9f72c5663772782343a41ef8aa108fa80e8dfbc554d403ab554e7996404ed198",
+      "references": [
+        "II:U:eq:anchor-orientation",
+        "II:U:eq:signed-anchor-defect"
+      ]
+    },
+    {
+      "path": "probability/2.8.8.tex",
+      "statement": "2.8.8",
+      "bytes": 1431,
+      "sha256": "10e1f9e5170e5331c291a9ab34de7ae03faf213b5276dd8499c0496045b112c0",
+      "references": [
+        "II:U:def:cone-defect",
+        "II:U:eq:conditional-cone-j",
+        "II:U:lem:signed-anchor-closure",
+        "II:U:thm:flows"
+      ]
+    },
+    {
+      "path": "probability/2.8.9.tex",
+      "statement": "2.8.9",
+      "bytes": 520,
+      "sha256": "ab05c1e02f1a7ced89df01370249a0a91a7c81e3299ee1fde627f504c3ab87a5",
+      "references": [
+        "II:U:eq:finite-family-witness",
+        "II:U:thm:flow-lp"
+      ]
+    },
+    {
+      "path": "probability/2.8.10.tex",
+      "statement": "2.8.10",
+      "bytes": 1023,
+      "sha256": "cd6f13d82c8c338789da70356fd5d2c09383ad080c2b285dac6f68883e130b11",
+      "references": [
+        "II:U:lem:signed-anchor-closure"
+      ]
+    },
+    {
+      "path": "probability/2.8.11.tex",
+      "statement": "2.8.11",
+      "bytes": 1298,
+      "sha256": "7b7730b40f5dada4000f9eb99bcdf8c0a43b4bca70465912aa6970720ecb068b",
+      "references": [
+        "II:U:eq:conditional-event-tv"
+      ]
+    },
+    {
+      "path": "probability/2.8.12.tex",
+      "statement": "2.8.12",
+      "bytes": 448,
+      "sha256": "b73e192f3ef4bdb9f4ee70bcfb97d486041365c295ac3375e7d9c2f305684988",
+      "references": []
+    },
+    {
+      "path": "probability/2.8.13.tex",
+      "statement": "2.8.13",
+      "bytes": 1026,
+      "sha256": "9174873c0411fd52c0e174d877314fdddc25dd3caa6fb8586e6d641ff14b506e",
+      "references": []
+    },
+    {
+      "path": "probability/2.8.14.tex",
+      "statement": "2.8.14",
+      "bytes": 242,
+      "sha256": "77f2c378024a3a66a2969655a2a8dab4bb8a672213d47987376088784e52c4fc",
+      "references": []
+    },
+    {
+      "path": "probability/2.8.15.tex",
+      "statement": "2.8.15",
+      "bytes": 1410,
+      "sha256": "d324bff2017edf42673ed063c57c41e370ae2b4332908404e2e8411369e350fe",
+      "references": [
+        "II:U:eq:rank-two-clip-defect",
+        "II:U:thm:flows"
+      ]
+    },
+    {
+      "path": "probability/2.8.16.tex",
+      "statement": "2.8.16",
+      "bytes": 536,
+      "sha256": "ea45d81ddaeb0474a851e46edbe310f9cdcf9b652d0ea1360d8b6c560844edbc",
+      "references": [
+        "II:U:eq:rank-two-cross-ratio"
+      ]
+    },
+    {
+      "path": "probability/2.8.17.tex",
+      "statement": "2.8.17",
+      "bytes": 1334,
+      "sha256": "f682a82224d27a43528e2ec3b63afe4e313b444dd26a01591216940e6bad88d7",
+      "references": [
+        "II:U:eq:rank-two-envelope",
+        "II:U:thm:rank-two-monotone"
+      ]
+    },
+    {
+      "path": "probability/2.8.18.tex",
+      "statement": "2.8.18",
+      "bytes": 873,
+      "sha256": "ddf16de3c98664eebc0ffe67364f128cbd0a26eec12070e760fe81cc679b820a",
+      "references": [
+        "II:U:thm:flows"
+      ]
+    },
+    {
+      "path": "probability/2.8.19.tex",
+      "statement": "2.8.19",
+      "bytes": 483,
+      "sha256": "f5d9d9bedaf795e81fecdd8cb0e7f66979524ee82d47027db12bc73fb00d8208",
+      "references": []
+    },
+    {
+      "path": "probability/2.8.20.tex",
+      "statement": "2.8.20",
+      "bytes": 1380,
+      "sha256": "f0f9284c234644e29e20f19ad3bdb243be5bc28fb9082a68f2616a7cc3ac01bb",
+      "references": [
+        "II:U:lem:stopped-coupling"
+      ]
+    },
+    {
+      "path": "probability/2.8.21.tex",
+      "statement": "2.8.21",
+      "bytes": 778,
+      "sha256": "6fce59ae8d3525f6e34ae151d14c1fe9ec918354208754ee5f6dd5c010a9b7dd",
+      "references": []
+    },
+    {
+      "path": "probability/2.8.22.tex",
+      "statement": "2.8.22",
+      "bytes": 408,
+      "sha256": "448122a352b471bd50f819c923eee8623fecfef99a02997f1662d194a690e651",
+      "references": [
+        "II:U:eq:rank-two-clip-defect"
+      ]
+    },
+    {
+      "path": "probability/2.8.23.tex",
+      "statement": "2.8.23",
+      "bytes": 807,
+      "sha256": "c08cba6a5e5965acd09376ff46431c5e64864dec0b34b158ad09666bece26f69",
+      "references": []
+    },
+    {
+      "path": "probability/2.8.24.tex",
+      "statement": "2.8.24",
+      "bytes": 1505,
+      "sha256": "dbf9a7e9fe78e31f9845362cba9e390a1b1293419facd7405709bd9c4302c769",
+      "references": [
+        "II:U:eq:trailing-tv"
+      ]
+    },
+    {
+      "path": "probability/2.8.25.tex",
+      "statement": "2.8.25",
+      "bytes": 342,
+      "sha256": "3f11fa3a8ca38ce4560ae90a75b8d1b3502740e57f33936d98c369b65fab6e8f",
+      "references": []
+    },
+    {
+      "path": "probability/2.8.26.tex",
+      "statement": "2.8.26",
+      "bytes": 1185,
+      "sha256": "9319ef1af58ed34365dbb5f475c01f4fcdb78f2c7cacf100ab3e76930133466b",
+      "references": [
+        "II:U:eq:sandwich-feasibility",
+        "II:U:eq:sandwich-margin"
+      ]
+    },
+    {
+      "path": "probability/2.8.27.tex",
+      "statement": "2.8.27",
+      "bytes": 810,
+      "sha256": "3f5f41e773c6917c431ac77937faf696c98b08028d50baceea5b4726d7510315",
+      "references": [
+        "II:U:eq:spa-relative-budget"
+      ]
+    },
+    {
+      "path": "probability/2.8.28.tex",
+      "statement": "2.8.28",
+      "bytes": 595,
+      "sha256": "7f1055d16a2283eabd4e0fb2653b0cb339c939291aabbfbebe248e45867bbfdc",
+      "references": []
+    },
+    {
+      "path": "probability/2.8.29.tex",
+      "statement": "2.8.29",
+      "bytes": 1376,
+      "sha256": "900b9ba861a9fbca726429509050f3629b4d889e9574b4f81d05fda7114d66ca",
+      "references": [
+        "II:U:eq:initial-normalization",
+        "II:U:eq:pathwise-general",
+        "II:U:lem:stopped-coupling"
+      ]
+    },
+    {
+      "path": "probability/2.8.30.tex",
+      "statement": "2.8.30",
+      "bytes": 3204,
+      "sha256": "55d4d1ba8c6dc23b3e2d7ddcee74006e490ac8abce07764a1db52a4462cee41b",
+      "references": [
+        "II:U:eq:fixed-basis-tv",
+        "II:U:eq:pathwise-general",
+        "II:U:lem:stopped-coupling"
+      ]
+    },
+    {
+      "path": "probability/2.8.31.tex",
+      "statement": "2.8.31",
+      "bytes": 483,
+      "sha256": "b44bb726a876e01fbabf4f616c685842120c3bd1655629f7a25bf263e8020af3",
+      "references": []
+    },
+    {
+      "path": "probability/2.8.32.tex",
+      "statement": "2.8.32",
+      "bytes": 2692,
+      "sha256": "e88633384e0fb0af63b25a2cfd392db4565447049ca877cad2918805f0cdd1f0",
+      "references": [
+        "II:U:eq:joint-count-event",
+        "II:U:eq:learned-basis-tv",
+        "II:U:lem:learned-basis",
+        "II:U:prop:pool-estimation",
+        "II:U:thm:doeblin-sandwich",
+        "II:U:thm:fixed-basis-sampling"
+      ]
+    },
+    {
+      "path": "probability/2.8.33.tex",
+      "statement": "2.8.33",
+      "bytes": 353,
+      "sha256": "147193a7abf234c0ce993a79d2448a364d378c60fe68855c61e244ed44b9c487",
+      "references": []
+    },
+    {
+      "path": "probability/2.8.34.tex",
+      "statement": "2.8.34",
+      "bytes": 644,
+      "sha256": "773fd9c967657dd9c4b24503e300b19d5c8898df233b53583d4b9b5853918164",
+      "references": []
+    },
+    {
+      "path": "probability/2.8.35.tex",
+      "statement": "2.8.35",
+      "bytes": 960,
+      "sha256": "91361018b4e9a104f80cd986db8659d63085b4189fc58386d130044a5738cca6",
+      "references": [
+        "II:U:thm:flows"
+      ]
+    },
+    {
+      "path": "probability/2.9.1.tex",
+      "statement": "2.9.1",
+      "bytes": 258,
+      "sha256": "906ec53630231d90ef9c2839ca5ead5336e7b3f4942dbd79ac69a5c3fc5851bb",
+      "references": []
+    },
+    {
+      "path": "probability/2.9.2.tex",
+      "statement": "2.9.2",
+      "bytes": 1126,
+      "sha256": "d0f89962c3cf6a43a88a01c86b4c2c16556656c819fecb7ec08f6eb72257557c",
+      "references": []
+    },
+    {
+      "path": "probability/2.9.3.tex",
+      "statement": "2.9.3",
+      "bytes": 555,
+      "sha256": "42ac51f62c46543fc58753668127656eb4b239a3a8cfabdab6ba228c3ea089c0",
+      "references": []
+    },
+    {
+      "path": "probability/2.9.4.tex",
+      "statement": "2.9.4",
+      "bytes": 546,
+      "sha256": "c703d6c085e0d4af486d1a536ca96acc3ae24bf60e2c665614e51f3cfe89b279",
+      "references": [
+        "II:M:lem:sharp-projective-kl"
+      ]
+    },
+    {
+      "path": "probability/2.9.5.tex",
+      "statement": "2.9.5",
+      "bytes": 1224,
+      "sha256": "ccbb60145ad5ff507803720e8ab615bbbe1062a3d2a0a746b37d97838f9f76d4",
+      "references": [
+        "II:M:lem:projective-column-limit"
+      ]
+    },
+    {
+      "path": "probability/2.9.6.tex",
+      "statement": "2.9.6",
+      "bytes": 852,
+      "sha256": "e8b1c97c80cbfbcf631d1efe19bffa2f3fbf56157bdc6e389e37301229b23cb6",
+      "references": [
+        "II:M:lem:sharp-projective-kl"
+      ]
+    },
+    {
+      "path": "probability/2.9.7.tex",
+      "statement": "2.9.7",
+      "bytes": 478,
+      "sha256": "3c07072f43763a63206ce7367f59589fc3f5d1562457bd8173f14460748e840b",
+      "references": []
+    },
+    {
+      "path": "probability/2.10.1.tex",
+      "statement": "2.10.1",
+      "bytes": 276,
+      "sha256": "24c86ed48606b068cb2fee48a9c421e23c4d36a93672df61253b5d2dd197d0eb",
+      "references": []
+    },
+    {
+      "path": "probability/2.10.2.tex",
+      "statement": "2.10.2",
+      "bytes": 453,
+      "sha256": "a831893f4d3f133e2b20aadb35b4d3f37e267444194fb00215f5bf5a0413645e",
+      "references": []
+    },
+    {
+      "path": "probability/2.10.3.tex",
+      "statement": "2.10.3",
+      "bytes": 809,
+      "sha256": "aaf46a80d2f5ab5a9af694a42b603ec47c6b7529314faeb43c1adc459193ed16",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.7.1.tex",
+      "statement": "3.7.1",
+      "bytes": 739,
+      "sha256": "a941d82d22905effc40f6ba06269153ccb844d64eb9987679b54df842f2dfdb8",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.7.3.tex",
+      "statement": "3.7.3",
+      "bytes": 1010,
+      "sha256": "dc1c34a9d20203060dd4cad800f3174e7102f20cb81aeba603622c4d8597c433",
+      "references": [
+        "I:S:thm:marked"
+      ]
+    },
+    {
+      "path": "executable-memory/3.7.4.tex",
+      "statement": "3.7.4",
+      "bytes": 935,
+      "sha256": "391b8d64af259fbc8cc35bcdd1ce2ca4da876ac1e03a22c3714b9eadaf86a12b",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.7.8.tex",
+      "statement": "3.7.8",
+      "bytes": 688,
+      "sha256": "646c13a65631aa0d8fedd4d604136976fae2fad783584c390f04360900d97396",
+      "references": [
+        "III:S:thm:window"
+      ]
+    },
+    {
+      "path": "executable-memory/3.8.1.tex",
+      "statement": "3.8.1",
+      "bytes": 846,
+      "sha256": "2eb23ea0b4198813d25079ed07f3e9698774ce2f630c3110f17ad4e40f99223c",
+      "references": [
+        "I:S:thm:stability"
+      ]
+    },
+    {
+      "path": "executable-memory/3.8.2.tex",
+      "statement": "3.8.2",
+      "bytes": 586,
+      "sha256": "36f1305e6c1e68c088f3020ec57332ca186d5b4bb84a9370974d703fe19a5820",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.8.3.tex",
+      "statement": "3.8.3",
+      "bytes": 1436,
+      "sha256": "dd22e040c7df709804adcdd69fee9a07018662d7d0a6c7d488862a9fcd90d8b1",
+      "references": [
+        "III:S:thm:filtration"
+      ]
+    },
+    {
+      "path": "executable-memory/3.9.1.tex",
+      "statement": "3.9.1",
+      "bytes": 231,
+      "sha256": "2018d35ea70e2ff2542ce43202d8c0bf239e6265ae32e45bd1abc293169aa09e",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.9.2.tex",
+      "statement": "3.9.2",
+      "bytes": 659,
+      "sha256": "921a17b1418e1adc7c36eb65dfa104d59c69b9d18f31a750483078ff0a121b42",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.9.3.tex",
+      "statement": "3.9.3",
+      "bytes": 209,
+      "sha256": "a35106834638482c7654a24da7d2b9411b38e016b0606987c5f821fd88f70f4a",
+      "references": [
+        "III:S:thm:projective"
+      ]
+    },
+    {
+      "path": "executable-memory/3.9.4.tex",
+      "statement": "3.9.4",
+      "bytes": 1205,
+      "sha256": "5ef1665d2fa441a856d2b63c45c1f040eb680a9190859ce5b828730b244f96e8",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.9.6.tex",
+      "statement": "3.9.6",
+      "bytes": 723,
+      "sha256": "9f1b133f8788ffaf43a762a8eb334c2da5e692d7ca1e71e85c28913a084e420d",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.9.7.tex",
+      "statement": "3.9.7",
+      "bytes": 981,
+      "sha256": "c76feac78f5a610084d984177a90b25ac06cb83cf500adf7b00f2e5bb347848a",
+      "references": [
+        "I:S:prop:normbounds"
+      ]
+    },
+    {
+      "path": "executable-memory/3.10.2.tex",
+      "statement": "3.10.2",
+      "bytes": 705,
+      "sha256": "9d595668a97da1793502f9e4c99590ae9dc6fd1ce6950544f4a7e82e2ea47f02",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.10.3.tex",
+      "statement": "3.10.3",
+      "bytes": 222,
+      "sha256": "183947a7584cdbad6a6c2521449cbb0fdaf8d6caec3d62f47f1dab1c1b057b3d",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.10.4.tex",
+      "statement": "3.10.4",
+      "bytes": 321,
+      "sha256": "3d100c659f665c0117b4ae9e1a175619095652f7911274b30f5907841c28d0fc",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.11.2.tex",
+      "statement": "3.11.2",
+      "bytes": 582,
+      "sha256": "64824dba8c803ec0da1e4e9ca688a48bff839e5b4bb990e738f64e877205c545",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.11.3.tex",
+      "statement": "3.11.3",
+      "bytes": 199,
+      "sha256": "a24f6e124f72b3a87f4cb6f2ea6d56541b9676999b66000599d6d52f17e3f263",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.11.4.tex",
+      "statement": "3.11.4",
+      "bytes": 688,
+      "sha256": "69f2423604430446dbb3594bd494cb8cc0fd55c361dbe2c5dd3a22107086eda4",
+      "references": [
+        "III:M:lem:future"
+      ]
+    },
+    {
+      "path": "executable-memory/3.11.4-part-2.tex",
+      "statement": "3.11.4",
+      "bytes": 1470,
+      "sha256": "6971ffac9f7052d23972a481ed972712f7e85b95a7e92a350ad7e2ced71b8561",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.11.5.tex",
+      "statement": "3.11.5",
+      "bytes": 891,
+      "sha256": "996494d18982a87ee123a300002a384eadb996fe9fdaf1da5a60b774f89c56d5",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.11.6.tex",
+      "statement": "3.11.6",
+      "bytes": 1597,
+      "sha256": "5552aabb507a93d0b4c1a9231bda3e0fa03c8de13fb0aee42582a962c7fcc6b9",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.11.7.tex",
+      "statement": "3.11.7",
+      "bytes": 2140,
+      "sha256": "ea6844998c533064e84963f7b321b111c5241aadbb4bf57d19916dd414b46009",
+      "references": [
+        "III:M:thm:ahlfors-memory"
+      ]
+    },
+    {
+      "path": "executable-memory/3.11.8.tex",
+      "statement": "3.11.8",
+      "bytes": 987,
+      "sha256": "855ec0e50ba5377a2f5296dc9bdb05200265da5434a344c66ff953c1d429a0b9",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.11.9.tex",
+      "statement": "3.11.9",
+      "bytes": 2190,
+      "sha256": "93c5817534e4491e71c1718d29f6c2ecc6ea7a4f2921d063e31a81e43b17ed6f",
+      "references": [
+        "III:M:thm:address-memory"
+      ]
+    },
+    {
+      "path": "executable-memory/3.12.1.tex",
+      "statement": "3.12.1",
+      "bytes": 4614,
+      "sha256": "5afa855f577d3e8d3b6b610d9c51ffcd1cb78e357766645a0be75fe3acac8cfb",
+      "references": [
+        "III:M:sec:memory"
+      ]
+    },
+    {
+      "path": "executable-memory/3.13.1.tex",
+      "statement": "3.13.1",
+      "bytes": 1072,
+      "sha256": "87217aebce8afe68c121079d52640f6db5022ee8eec03751e3fc0f1fe2ec872d",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.13.2.tex",
+      "statement": "3.13.2",
+      "bytes": 1516,
+      "sha256": "41cc6ef9b1cbb772ce25f87e99129f5188d59de65c2f9b11266be6210c014388",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.13.3.tex",
+      "statement": "3.13.3",
+      "bytes": 838,
+      "sha256": "eb3f2dc55d60e0356da71190fbdb1d6ae5951b7754516747ebda9e65e2cb3d3c",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.13.4.tex",
+      "statement": "3.13.4",
+      "bytes": 1259,
+      "sha256": "c0aaa9a7b3fb408d1184617a71568b40a38dd5b071dc289eacd1a3219145e04d",
+      "references": [
+        "III:M:lem:fibonacci-leaf-packing"
+      ]
+    },
+    {
+      "path": "executable-memory/3.13.6.tex",
+      "statement": "3.13.6",
+      "bytes": 581,
+      "sha256": "099d6caa70532c6e3a2d2205187f418a09ed2f277c5255486728c4227fa7137c",
+      "references": [
+        "III:M:rev13:thm:fib-general"
+      ]
+    },
+    {
+      "path": "executable-memory/3.14.1.tex",
+      "statement": "3.14.1",
+      "bytes": 261,
+      "sha256": "48e3239e2124103f6401222f1469f6166b5b0e519c6e3f87ba4eff97d37444d8",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.14.2.tex",
+      "statement": "3.14.2",
+      "bytes": 1513,
+      "sha256": "1888459538e3dd287e4ced13fde2b7dad4d64eacaa0950ad0057379e5d232d7f",
+      "references": [
+        "III:M:audit:thm:addresses"
+      ]
+    },
+    {
+      "path": "executable-memory/3.14.3.tex",
+      "statement": "3.14.3",
+      "bytes": 542,
+      "sha256": "0d75d652d9b88b44fe45daad2d8969306d3217b169aa0197374017ed09137941",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.15.1.tex",
+      "statement": "3.15.1",
+      "bytes": 208,
+      "sha256": "4507da0eddb12feac6a9f714fc71811a080bd3491ad5068678d9d0ede0fcbc8b",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.15.2.tex",
+      "statement": "3.15.2",
+      "bytes": 847,
+      "sha256": "4c70260a27bcad5bc6e52c2298d2245e7960f3b6d2c1c873af7ba7a23513e912",
+      "references": [
+        "III:M:lem:feedback-length"
+      ]
+    },
+    {
+      "path": "executable-memory/3.15.3.tex",
+      "statement": "3.15.3",
+      "bytes": 469,
+      "sha256": "cf26c87d9ff152d0427ffb49877565f35b5890fbbbca81ea93eae6a4f34828ec",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.15.4.tex",
+      "statement": "3.15.4",
+      "bytes": 859,
+      "sha256": "76a0dfa49c4cc73323315a428a1b14397100998b630367aa5b923291d8402a1f",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.15.5.tex",
+      "statement": "3.15.5",
+      "bytes": 1407,
+      "sha256": "02b57b1246d3cafd884bdaabdf071d77e9ca713f59ae7cb14710d66d576bdcc7",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.15.6.tex",
+      "statement": "3.15.6",
+      "bytes": 168,
+      "sha256": "07b8736bf71ebfb6133360945b89f3f0ece61715538f1b6b72b2354ba33f7b13",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.15.7.tex",
+      "statement": "3.15.7",
+      "bytes": 574,
+      "sha256": "58997c6f02845d0fc825401a8e5bd26ed1509cfabfd75ecea0b095dfc4caf166",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.15.8.tex",
+      "statement": "3.15.8",
+      "bytes": 506,
+      "sha256": "7e9c3f3a05afa8ccaedba07f89659d5ee575f09e66e553455d77eab960553494",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.15.9.tex",
+      "statement": "3.15.9",
+      "bytes": 531,
+      "sha256": "cf9e540941348ab851ac20edf70dbbe52c5a20f627b8564dfa8daf92062244b9",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.15.10.tex",
+      "statement": "3.15.10",
+      "bytes": 596,
+      "sha256": "9e88748887ec564491e8fdd353aa37d4d895f3a23678df708599cd8346061952",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.15.11.tex",
+      "statement": "3.15.11",
+      "bytes": 805,
+      "sha256": "e743c7e163f499750832a2553190bbcfde2e15b9aad45db4c534cc23c6d29383",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.16.1.tex",
+      "statement": "3.16.1",
+      "bytes": 835,
+      "sha256": "851377e9318b081c61f014228b29cc00a9b6fa8d33a40e42955ddeb4e760233e",
+      "references": [
+        "III:M:lem:feedback-length"
+      ]
+    },
+    {
+      "path": "executable-memory/3.16.2.tex",
+      "statement": "3.16.2",
+      "bytes": 1249,
+      "sha256": "d6b6f6db602fce86db192e001fcf92df37912ec66a1a05dc8a2c2e843369ff0a",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.16.3.tex",
+      "statement": "3.16.3",
+      "bytes": 1162,
+      "sha256": "a12b7ea5ea5d53a75934de21e5817704f7d5709303d2f9d132a185f7ead3128f",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.16.4.tex",
+      "statement": "3.16.4",
+      "bytes": 2039,
+      "sha256": "002d42c335eafeab0f15c2ee18333e1be419f022d2cfc7a2f843be39e7f5db95",
+      "references": [
+        "III:M:rev13:lem:mode-dp"
+      ]
+    },
+    {
+      "path": "executable-memory/3.16.5.tex",
+      "statement": "3.16.5",
+      "bytes": 1695,
+      "sha256": "eb43af0ff897b043909fddd287b5e1489fcb2ef5f5cb45cf32e1e7f3c7a3696b",
+      "references": [
+        "III:M:audit:prop:checkpoint",
+        "III:M:rev13:lem:mode-count",
+        "III:M:rev13:lem:mode-dp",
+        "III:M:rev13:lem:mode-update"
+      ]
+    },
+    {
+      "path": "executable-memory/3.17.1.tex",
+      "statement": "3.17.1",
+      "bytes": 304,
+      "sha256": "99809de5dc24ad58436acff3112ad8b5727e8df7f9d53492c8d8e15bb9dc8b55",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.18.1.tex",
+      "statement": "3.18.1",
+      "bytes": 401,
+      "sha256": "4b2921b1ab93d39faa9d76ca50b09e52afe1bd413a8794024703afc63451f083",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.18.2.tex",
+      "statement": "3.18.2",
+      "bytes": 503,
+      "sha256": "61e9342cd9b7cf90c74b7e6ebf10369d53d477806f68ed1a7c83720765c1f499",
+      "references": [
+        "III:U:eq:transfer-conditional-eigenfunction",
+        "III:U:eq:transfer-rounded-error",
+        "III:U:thm:oracle"
+      ]
+    },
+    {
+      "path": "executable-memory/3.18.3.tex",
+      "statement": "3.18.3",
+      "bytes": 1957,
+      "sha256": "9dc4a8f258f394bc6711ac8fecf64f6ae6194eecf84533abbf20668148eabe4c",
+      "references": [
+        "III:U:eq:normalized-transfer"
+      ]
+    },
+    {
+      "path": "executable-memory/3.18.4.tex",
+      "statement": "3.18.4",
+      "bytes": 1942,
+      "sha256": "43c28523ea173d9fb888738227b0c2a788c7e4753c5bcdb900cdf32d1060f5f5",
+      "references": [
+        "III:U:eq:normalized-transfer",
+        "III:U:eq:transfer-rounded-error",
+        "III:U:thm:oracle"
+      ]
+    },
+    {
+      "path": "executable-memory/3.19.1.tex",
+      "statement": "3.19.1",
+      "bytes": 254,
+      "sha256": "958b4e04cf3d7885419af3eac48ffe03c1062605df993c001b3487acd8873b31",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.19.2.tex",
+      "statement": "3.19.2",
+      "bytes": 421,
+      "sha256": "e84b99e97cd88e68b874ba61aa5ca7b6fc379e34ea12ccfeaa303ff66355e78a",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.19.3.tex",
+      "statement": "3.19.3",
+      "bytes": 361,
+      "sha256": "d79f3555cbf613199c332bfa99245f3e86410c9194a7fe75bc98965d9e2dcf8e",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.19.4.tex",
+      "statement": "3.19.4",
+      "bytes": 481,
+      "sha256": "33169ace902fbff9411f42ee662c1ed72f03d5132b6e0b18b2464398c274f273",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.19.5.tex",
+      "statement": "3.19.5",
+      "bytes": 366,
+      "sha256": "1a16761056f8bf84480a115724f39d9e41fa97fd6f9c30d6787bbf38679d9613",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.19.6.tex",
+      "statement": "3.19.6",
+      "bytes": 707,
+      "sha256": "8f0a42f9276d4ec7e196433a4cdfd78f0bbca31b10ce5b62fd397a6525da5f78",
+      "references": [
+        "III:U:eq:lifting-variance"
+      ]
+    },
+    {
+      "path": "executable-memory/3.19.7.tex",
+      "statement": "3.19.7",
+      "bytes": 492,
+      "sha256": "4e5c02a610371fb6de772fadbe50cbf6f270ce34bfc428a6711794012bcffe4c",
+      "references": [
+        "III:U:prop:discrete-entropy-bound"
+      ]
+    },
+    {
+      "path": "executable-memory/3.19.8.tex",
+      "statement": "3.19.8",
+      "bytes": 343,
+      "sha256": "f1181223af99a41a866beb4b7f8e25201097e9e4de0d93eddbfb992ce7004ac5",
+      "references": []
+    },
+    {
+      "path": "executable-memory/3.20.1.tex",
+      "statement": "3.20.1",
+      "bytes": 470,
+      "sha256": "eccaaf0a3bc4fb2ba4d3a67a616e8842a2019c6697fe769a2554646e009f51ab",
+      "references": []
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+\begin{proof}[Lower bound]
+Put $L=(a+1)m+2$ and take the prefix set
+$\mathcal W_m=\{w:|w|\le m\}\cup\{0^{m+1},1^{m+1}\}$,
+of size $2^{m+1}+1$. At one depth $t\le m$, distinct outputs differ
+by at least $2^{-(a+1)t}\ge4\epsilon$.
+The added pair has output gap
+$2\rho(2^{m+1}-1)\epsilon\ge15\epsilon$.
+At different depths, $|\Delta z|\ge\rho^m(1-\rho)$.
+Lemma~\ref{III:M:lem:future} implies
+$|\Delta z|\le(1+2/\rho)d_{\rm fut}$, hence
+\[
+ \frac{d_{\rm fut}}\epsilon\ge
+ \rho 2^{m+2}\frac{1-\rho}{2+\rho}
+ \ge16\frac{1-\rho}{2+\rho}\ge\frac{16}5.
+\]
+Every pair is separated by at least $16\epsilon/5>2\epsilon$.
+Packing gives $|Q|\ge2^{m+1}+1$, and therefore at least $m+2$ bits.
+\end{proof}

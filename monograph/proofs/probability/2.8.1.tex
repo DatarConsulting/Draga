@@ -1,0 +1,21 @@
+\begin{proof}
+Let $T=\sum_aT_a$. The constraints give $\tau+T\mathbf1=\mathbf1$
+and $x=\alpha+xT$. Iteration shows
+$\nu=\sum_{t\ge0}\alpha T^t\le x$. Survival probabilities
+$\alpha T^t\mathbf1$ have finite sum, hence tend to zero. Thus
+termination holds from $\alpha$ and
+$1+\mathbb E|W|=\nu\mathbf1\le V$.
+
+For $x_i>0$ write $r_i=R_i/x_i$, and let $q_i$ be the possibly
+subprobability law starting in state $i$. The two recurrences imply
+\[
+ f_i-q_i=r_i+\sum_{a,j}T_a(i,j)L_a(f_j-q_j).
+\]
+After $t$ expansions and weighting by $\alpha$, the remainder has norm
+at most $2\alpha T^t\mathbf1\to0$. Prepending is an $\ell^1$
+isometry, so
+$\|p-q\|_1\le\sum_i\nu_i\|r_i\|_1\le J_\infty$.
+A zero-visit state has no incoming flow and $\alpha_i=0$, hence makes
+no contribution. Unreachable circulation in $x-\nu$ is harmless.
+The misspecification term follows by the triangle inequality.
+\end{proof}

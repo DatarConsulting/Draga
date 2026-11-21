@@ -1,0 +1,12 @@
+\begin{proof}
+If $v_t$ is a leaf ($\pi_{j^\ast}\le\theta$) then $w$ has full product
+$r_{a,r_t}\pi_{j^\ast}\le\theta$, so the first product $\le\theta$ among the newest-first
+prefixes of the full new history occurs within $w$; these prefix products coincide with
+those computed from the replayed modes, which are exact because $G$ is deterministic and
+$b_t$ is the true mode at the window base. If $v_t$ is internal it equals the whole history,
+so $w$ is the whole new history. Dropping the $j$ oldest letters moves the base from
+$t-j^\ast$ to $t-j^\ast+j=t+1-|v_{t+1}|$ and $G$ is only evaluated forwards. The true state
+at the window base and $x_0$ both lie in $X$ and undergo the same mode-dependent
+similarities, whose composition has ratio $\pi_{j^\ast}$. The length bound is the
+Lemma~\ref{III:M:lem:feedback-length}.
+\end{proof}

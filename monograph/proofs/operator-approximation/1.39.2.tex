@@ -1,0 +1,62 @@
+\begin{proof}
+Write $t=s^2$ and let $N=|\Delta|n+1$.  Every feasible $V$ has the
+exact compact parametrization
+\begin{equation}
+ V=[sz,W_s(z)Z],\qquad
+ \Rnorm z=1,\quad Z^*Z\preceq I_{n-1},\qquad
+ W_s(z)=I_N-(1-\sqrt{1-s^2})zz^*.
+ \label{I:R:eq:terminal-parametrization}
+\end{equation}
+Indeed this is the Schur complement of $I-V^*V$.  For a polynomial
+$\tau$, the quotient $T_\tau e_1/s$ has an analytic extension to
+$s=0$.  For general $\tau\in\ell^2$, the tail bound from
+\eqref{I:R:eq:terminal-refined-energy}, divided by $|s|$, is at most
+the terminal tail's $\ell^2$ norm.  Polynomial approximation therefore
+gives a uniform continuous extension on the compact parameter domain.
+
+At $s=0$ write
+\[
+ B_j(0)=\begin{pmatrix}0&b_j\\0&C_j\end{pmatrix},\qquad
+ \ell(0)=(0,l),\qquad z_j=(\alpha_j,\xi_j),
+\]
+where $z_j$ is the first-column derivative block for $B_j$, and let
+$z_o$ be its scalar output block.  The limiting divided terminal row is
+\begin{equation}
+ \overline{\tau(\varepsilon)}z_o+
+ \sum_j R_j(C,l)\xi_j,
+ \qquad
+ R_j(C,l)=\sum_v\overline{\tau(jv)}\,lC_v.
+ \label{I:R:eq:terminal-divided-limit}
+\end{equation}
+The $\alpha_j$ do not contribute.  Maximizing over unit $z$ gives
+$|\tau(\varepsilon)|^2+\sum_j\Rnorm{R_j(C,l)}^2$.
+The remaining columns in \eqref{I:R:eq:terminal-parametrization} imply
+$\sum_j C_j^*C_j+l^*l\preceq I_{n-1}$.  Conversely every such reduced
+tuple is feasible by choosing $b_j=0$.  Uniform convergence of the
+compact objective proves
+\[
+ a_{\tau,n}=|\tau(\varepsilon)|^2+
+ \max_{\sum C_j^*C_j+l^*l\preceq I_{n-1}}
+                    \sum_j\Rnorm{R_j(C,l)}^2.
+\]
+For $n=1$ the reduced state space is zero and the sum is zero.
+
+This passive maximum equals the invariant-space maximum in
+\eqref{I:R:eq:terminal-leading-coefficient}.  A canonical observation map
+on $K$ is its isometric inclusion, so $R_j$ has norm
+$\Rnorm{P_K\tau_j}$.  Conversely a passive reduced tuple has a
+contractive observation map $O$ whose finite-dimensional range $K$ is
+backward invariant.  Since $OO^*\preceq P_K$,
+$\Rnorm{O^*\tau_j}\le\Rnorm{P_K\tau_j}$.  This gives the reverse
+inequality after summing.  A maximizing passive tuple exists by
+compactness and uniform convergence; its range attains the
+invariant-space maximum as well.
+
+Finally write \eqref{I:R:eq:terminal-elimination} as
+$P_{\tau,n}(q)=\max_t K_q(t)h_{\tau,n}(t)/t$.
+The trial $t=q$ tends to $a_{\tau,n}$.  On $t\ge\eta>0$ the kernel
+$K_q(t)$ tends uniformly to zero, whereas on $0<t<\eta$ it is at most
+one and $h(t)/t\to a_{\tau,n}$.  Splitting at $\eta$ and then sending
+$\eta$ to zero proves the upper limit.  This also covers
+$a_{\tau,n}=0$.
+\end{proof}

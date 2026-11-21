@@ -1,0 +1,151 @@
+\begin{proof}
+We keep ordinary coefficient transpose ${}^{\mathsf T}$ distinct from
+Hermitian adjoint ${}^*$.  This distinction matters for complex data.
+
+\emph{Passivity and the cancellation.}
+Direct calculation gives $N_s^*N_s=I_m$, $\|z_s\|=1$ and
+\[
+ I_n-V_s^*V_s=v_sv_s^*,\qquad
+ A_s^*A_s+B_s^*B_s+l_s^*l_s=I_n.
+\]
+The zero in the last component of $z_s$ is exact.  On
+$\mathbb Ce_0\oplus\mathbb C^m$, the construction therefore has
+\begin{align}
+ B_s&=\begin{pmatrix}O(s^2)&O(s)\\
+                sx+O(s^3)&D+O(s^2)\end{pmatrix},&
+ l_s&=(0,\ l+O(s^2)),\label{I:R:eq:v4-match-blocks}\\
+ A_s&=\begin{pmatrix}r&-sx^*D+O(s^3)\\0&0\end{pmatrix},&
+ (I-rA_s)^{-1}
+ &=\begin{pmatrix}q^{-1}&-rsq^{-1}x^*D+O(s)\\0&I_m\end{pmatrix}.
+ \label{I:R:eq:v4-match-resolvent}
+\end{align}
+For fixed $d$, multiplication of the blocks gives
+\[
+ l_sB_s^de_0=s\,lD^{d-1}x+O(s^3)=s\Gamma+O(s^3),\qquad
+ l_sB_s^d|_{\mathbb C^m}=lD^d+O(s^2).
+\]
+The identity $\Gamma x^*=lD^{d-1}$ cancels the order-$s$ fast
+component of the overlap:
+\begin{equation}
+ \omega_s=(\Gamma+O(s^2),\
+ s\{lD^d-\Gamma x^*D\}+O(s^3))
+          =(\Gamma+O(q),O(s^3)).
+ \label{I:R:eq:v4-match-cancellation}
+\end{equation}
+Consequently $\beta_s=(s\Gamma+O(s^3),O(s^2))$.
+
+\emph{Joint stability by finite observability.}
+Let $\Phi_s(X)=A_sXA_s^*+B_sXB_s^*$. The exact energy identity gives
+$\Phi_s^*(I)=I-l_s^*l_s$. Since $\rho(D)<1$ and
+$D^*D+l^*l=I_m$, the pair $(l,D)$ is observable: if all $lD^jx$
+vanish, telescoping gives $\|D^t x\|=\|x\|$ for every $t$, hence $x=0$.
+Thus the $m$ rows $lD^j$, $0\le j<m$, have full column rank.
+Furthermore,
+\[
+ l_sB_s^dA_s=(l_sB_s^de_0)v_s^*
+           =(s\Gamma+O(s^3))v_s^*.
+\]
+For small $s>0$ its scalar coefficient is nonzero. The $m+1$ rows
+$v_s^*,l_s,l_sB_s,\ldots,l_sB_s^{m-1}$ converge to
+$e_0^*,(0,l),(0,lD),\ldots,(0,lD^{m-1})$, a full-rank system.
+Consequently a finite observation Gramian
+\[
+ Q_{s,L}=\sum_{|u|\le L}T_u^*l_s^*l_sT_u\succ0,
+ \qquad L=d+1,
+\]
+is positive definite. Telescoping the energy identity yields
+$(\Phi_s^*)^{L+1}(I)=I-Q_{s,L}\preceq(1-\eta_s)I$ with
+$\eta_s=\lambda_{\min}(Q_{s,L})>0$. Positivity now implies
+$\rho(\Phi_s)^{L+1}\le1-\eta_s<1$.
+The transposed realization has the same stability spectral radius.
+
+\emph{A reachability Gram estimate.}
+Let
+\[
+ P_s=\sum_u T_{\operatorname{rev}(u)}\beta_s\beta_s^*
+                    T_{\operatorname{rev}(u)}^*
+      =\begin{pmatrix}p&z^*\\z&X\end{pmatrix}.
+\]
+It exists by joint stability and solves
+$P_s=\beta_s\beta_s^*+A_sP_sA_s^*+B_sP_sB_s^*$.
+The blocks above yield, with uniform implicit constants,
+\begin{align*}
+ qp&=q\Gamma^2+O(q^2)+O(s\|z\|)+O(q\|X\|)+O(q^2p),\\
+ \|z\|&=O(s^3(1+p))+O(q\|z\|)+O(s\|X\|),\\
+ \|X\|&=O(qp)+O(s\|z\|)+O(q^2).
+\end{align*}
+The last line follows by inverting the uniformly stable fast Stein
+map.  Substitution in the middle line and absorption give
+$\|z\|=O(s^3(1+p))$ and $\|X\|=O(qp+q^2)$.
+The scalar equation becomes
+$p=\Gamma^2+O(q(1+p))$.  Absorbing the last small multiple of $p$
+proves
+\begin{equation}
+ (P_s)_{00}=\Gamma^2+O(q),\qquad
+ (P_s)_{0F}=O(s^3),\qquad (P_s)_{FF}=O(q),\qquad
+ \|P_s-\omega_s^*\omega_s\|=O(q).
+ \label{I:R:eq:v4-match-gram}
+\end{equation}
+
+\emph{Exact interpolation and a fixed spectral gap.}
+Define the reversed observation isometry and reachability operator by
+\[
+ (\mathcal O_s c)[u]=l_sT_{\operatorname{rev}(u)}c,\qquad
+ \mathcal R_s e_u=T_{\operatorname{rev}(u)}\beta_s.
+\]
+The energy identity and joint stability imply
+$\mathcal O_s^*\mathcal O_s=I_n$.
+Exact coefficient multiplication gives
+$H_{g_s}^{\mathsf T}=\mathcal O_s\mathcal R_s$ and
+$\mathcal R_s\mathcal R_s^*=P_s$.
+Let $S_s=\operatorname{ran}\mathcal O_s$, and introduce the real
+orthonormal target vectors
+\[
+ u_r=s\sum_{j\ge0}r^j e_{a^j},\qquad
+ u_h=s\sum_{j\ge0}r^j e_{a^jb^h}\quad(1\le h\le d),
+ \qquad v_r=u_d.
+\]
+The target decomposes exactly as
+\[
+ H_{f_{r,d}}=u_rv_r^*+
+       s\sum_{j=0}^{d-1}u_{d-j}e_{b^j}^*.
+\]
+By \eqref{I:R:eq:v4-match-beta},
+\[
+ \mathcal R_su_r=s(I-rA_s)^{-1}\beta_s=\omega_s^*,\qquad
+ \mathcal O_s^*v_r=\omega_s^*,\qquad
+ H_{g_s}^{\mathsf T}u_r=P_{S_s}v_r.
+\]
+Set $T=H_{f_{r,d}}^{\mathsf T}-H_{g_s}^{\mathsf T}$.
+Then $Tu_r=(I-P_{S_s})v_r$ and
+\begin{align*}
+ T^*Tu_r
+ &=H_{f_{r,d}}(I-P_{S_s})v_r\\
+ &=a_su_r-s\sum_{j=0}^{d-1}u_{d-j}
+                  [l_sB_s^j\omega_s^*],\qquad
+ a_s=1-\|\omega_s\|^2.
+\end{align*}
+The first equality uses that the residual is orthogonal to the range
+of $H_{g_s}^{\mathsf T}$.  The target is real, so its Hermitian adjoint
+in this expression is its coefficient transpose.  For $j\ge1$,
+$l_sB_s^je_0=O(s)$, while $l_se_0=0$.
+Together with \eqref{I:R:eq:v4-match-cancellation}, this shows that the
+component of $T^*Tu_r$ perpendicular to $u_r$ has norm $O(q)$.
+
+Finally the isometry and \eqref{I:R:eq:v4-match-gram} give exactly
+\[
+ \|H_{g_s}^{\mathsf T}P_{u_r^\perp}\|^2
+ =\|\mathcal R_sP_{u_r^\perp}\mathcal R_s^*\|
+ =\|P_s-\omega_s^*\omega_s\|=O(q).
+\]
+Also $\|H_{f_{r,d}}^{\mathsf T}P_{u_r^\perp}\|=s$.
+Hence the compression of $T^*T$ to $u_r^\perp$ has norm $O(q)$.
+In this orthogonal decomposition,
+\[
+ T^*T=\begin{pmatrix}a_s&O(q)\\O(q)&O(q)\end{pmatrix},\qquad
+ a_s\longrightarrow1-\Gamma^2>0.
+\]
+The scalar Schur-complement estimate across this fixed gap gives
+$\|T\|^2=a_s+O(q^2)$.  Ordinary coefficient transpose preserves
+operator norm, proving \eqref{I:R:eq:v4-match-conclusion}.
+\end{proof}

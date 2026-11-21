@@ -1,0 +1,19 @@
+\begin{proof}
+Compute the rational source Gramians $P_f,Q_f$ by their Stein
+equations.  The rational number
+$F=1+\operatorname{tr}(P_fQ_f)$ has polynomial encoding length and
+satisfies
+$\Unorm{H_f}\le\Unorm{H_f}_{\mathrm{HS}}
+=\sqrt{\operatorname{tr}(P_fQ_f)}\le F$.
+The zero competitor is feasible at threshold $F$.
+Bisect $[0,F]$ using Theorem~\ref{I:U:thm:fixed} until the interval width
+is at most $\varepsilon$, retaining a feasible upper endpoint $u$.
+The number of decisions is
+$O(1+\log_+(F/\varepsilon))$, and all intermediate thresholds have
+polynomial encoding length.
+Standard real algebraic sample-point extraction
+\cite{basu2006} applied to the feasible formula at $u$ returns
+algebraic $T_a,b,c,X$ in polynomial time for fixed $p$.
+They define a stable candidate with error at most
+$u\le\delta_k(H_f)+\varepsilon$.
+\end{proof}

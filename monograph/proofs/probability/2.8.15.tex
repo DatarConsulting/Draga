@@ -1,0 +1,28 @@
+\begin{proof}
+For an increasing contraction with fixed point $r_a$, a point below
+$r_a$ moves strictly toward $r_a$ without crossing it, and a point
+above does the same from the other side. Thus each map preserves
+$[r_-,r_+]$. All reachable points lie in it; the repeated letters
+$a_-^n,a_+^n$ approach its endpoints. Affinity and continuity into
+$\ell^1$ prove the closed convex hull assertion.
+
+All $\lambda_a^\pm$ lie in $[0,1]$. The rows sum to $w_a(r_\pm)$,
+and the residual recurrences hold exactly. Alternatively, with
+$S=\left(\begin{smallmatrix}1-r_-&r_-\\1-r_+&r_+\end{smallmatrix}\right)$,
+$B_a=SA_aS^{-1}$ and $\tau_B=S\tau$, which proves equality of
+every word coefficient. Each stop probability is at least $s_*$,
+so the model is proper.
+
+The same row normalization holds after clipping, with stop at least
+$s_*$. Hence $\rho(Q_L)\le1-s_*$ and the displayed occupation vector
+exists. Take $y_{aij}=x_i\widehat B_{a,L}(i,j)$ and
+$z_i=x_i\tau_{L,i}$ to obtain the flow equations. The source is
+exactly the mixture $\alpha_L(f_{l_L},f_{h_L})^\top$.
+The stop residual is zero, and the residuals for different first
+letters have disjoint support. Each has norm
+$L_1w_a(t)|F_a(t)-\Pi_{[l_L,h_L]}F_a(t)|$, proving
+\eqref{II:U:eq:rank-two-clip-defect}.
+Invariance bounds every distance by $\delta_L$; also
+$\sum_a w_a(t)\le1-s_*$ and $x_L\mathbf1\le1/s_*$.
+Apply Theorem~\ref{II:U:thm:flows}.
+\end{proof}

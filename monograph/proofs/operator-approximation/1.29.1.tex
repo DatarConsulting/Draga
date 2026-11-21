@@ -1,0 +1,138 @@
+\begin{proof}
+We establish joint stability, give exact error Gramians, and differentiate
+the isolated leading squared singular value.
+
+\emph{Joint stability.}
+Direct multiplication yields
+\begin{equation}
+ A_a^*A_a+A_b^*A_b
+   =\operatorname{diag}(1-q-q^2,1).
+ \label{I:F:eq:f2-passivity}
+\end{equation}
+Let $D_0=\operatorname{diag}(q+q^2,0)$. The matrix
+$D_0+A_a^*D_0A_a+A_b^*D_0A_b$ is positive definite. Indeed, its kernel
+would be contained in $\ker D_0=\operatorname{span}\{(0,1)^{\mathsf T}\}$, but
+$A_b(0,1)^{\mathsf T}=(1,1)^{\mathsf T}/\sqrt2$ has nonzero first coordinate.
+Telescoping \eqref{I:F:eq:f2-passivity} therefore gives
+\[
+ \sum_{|w|=2}A_w^*A_w\prec I.
+\]
+The column completely positive map is a strict contraction after two
+steps, and its adjoint has the same spectral radius. Thus the system is
+mean-square stable. Its word-Hankel is bounded of rank at most two.
+
+\emph{Competitor Gramians.}
+Let $R_g,Q_g$ be its exact reachability and observation Gramians. Their
+Stein equations have the solutions
+\begin{equation}
+ R_g=\begin{pmatrix}
+ \dfrac{1+q^2}{q(1+q)}&\dfrac{1-q}{1+q}\\[4pt]
+ \dfrac{1-q}{1+q}&\dfrac{2+q+2q^2+q^3}{1+q}
+ \end{pmatrix},\qquad
+ Q_g=\frac{q(1+2q)^2}{4(1+q)}I_2.
+ \label{I:F:eq:f2-own-gramians}
+\end{equation}
+These identities can be verified by substitution in
+$R_g=\beta_g\beta_g^*+\sum_j A_jR_gA_j^*$ and
+$Q_g=\alpha_g\alpha_g^*+\sum_j A_j^*Q_gA_j$.
+For example, writing the entries of $R_g$ as $u,v,w$, the off-diagonal
+and lower-right equations give
+$v=(1-q)/(1+q)$ and $w=2+q^2u-2qv$; the remaining equation gives
+$u=(1+q^2)/(q(1+q))$. Joint stability ensures uniqueness.
+
+\emph{Target and cross Gramians.}
+Use the target realization
+\[
+ F_a=\operatorname{diag}(r,0,0),\qquad
+ F_b=\begin{pmatrix}0&1&0\\0&0&1\\0&0&0\end{pmatrix},\qquad
+ \alpha_f^*=q(1,0,0),\qquad \beta_f=(0,0,1)^{\mathsf T}.
+\]
+Its Gramians are
+$R_f=\operatorname{diag}(q^{-1},1,1)$ and $Q_f=qI_3$.
+Put $\Delta=1-ra>0$. Define $X,Y\in\FC^{3\times2}$ by their rows:
+\begin{align}
+ X_0&=\left(\frac{1+q+q^2-q^3}{2\Delta},
+                 \frac{1-q+q^2+q^3}{2}\right),\notag\\
+ X_1&=\frac1{\sqrt2}(1-q^2,1+q^2),\qquad X_2=(-q,1),
+ \label{I:F:eq:f2-cross-reach}\\
+ Y_0&=\frac{qc}{\Delta}(1,0),\qquad
+ Y_1=Y_0A_b,\qquad Y_2=Y_0A_b^2.
+ \label{I:F:eq:f2-cross-observe}
+\end{align}
+The triangular form of $F_b$ gives directly
+\[
+ X=\beta_f\beta_g^*+\sum_jF_jXA_j^*,\qquad
+ Y=\alpha_f\alpha_g^*+\sum_jF_j^*YA_j.
+\]
+For example, the first equation gives successively
+$X_2=\beta_g^*$, $X_1=\beta_g^*A_b^*$, and
+$X_0=\beta_g^*(A_b^*)^2\operatorname{diag}(\Delta^{-1},1)$,
+which is \eqref{I:F:eq:f2-cross-reach}.
+
+For the composite error realization with output
+$(\alpha_f^*,-\alpha_g^*)$ and input $(\beta_f,\beta_g)$, the exact
+Gramians are therefore
+\begin{equation}
+ R=\begin{pmatrix}R_f&X\\X^*&R_g\end{pmatrix},\qquad
+ Q=\begin{pmatrix}Q_f&-Y\\-Y^*&Q_g\end{pmatrix}.
+ \label{I:F:eq:f2-error-gramians}
+\end{equation}
+Its infinite Hankel squared norm is the largest eigenvalue of
+$R^{1/2}QR^{1/2}$, equivalently the largest eigenvalue of $RQ$.
+Equations \eqref{I:F:eq:f2-own-gramians}--\eqref{I:F:eq:f2-error-gramians}
+are thus a finite exact algebraic description of this chosen error;
+there is no word-horizon cutoff.
+
+\emph{Leading eigenvalue perturbation.}
+Set $\widehat R=qR$ and $\widehat Q=Q/q$, so
+$\widehat R\widehat Q=RQ$. Both extend analytically to $q=0$.
+In particular $\Delta=q+q^2+O(q^4)$, removing the apparent
+singularities in $qX$ and $Y/q$.
+Index the five coordinates by $(f_0,f_1,f_2,g_0,g_1)$ and put
+$y=1/\sqrt2$. The expansions are
+\[
+ \widehat R=R_0+qR_1+O(q^2),\qquad
+ \widehat Q=Q_0+qQ_1+O(q^2),
+\]
+where
+\begin{equation}
+ R_0=\begin{pmatrix}
+ 1&0&0&1/2&0\\0&0&0&0&0\\0&0&0&0&0\\
+ 1/2&0&0&1&0\\0&0&0&0&0
+ \end{pmatrix},\quad
+ R_1=\begin{pmatrix}
+ 0&0&0&0&1/2\\0&1&0&y&y\\0&0&1&0&1\\
+ 0&y&0&-1&1\\1/2&y&1&1&2
+ \end{pmatrix},
+ \label{I:F:eq:f2-R-expansion}
+\end{equation}
+\begin{equation}
+ Q_0=\begin{pmatrix}
+ 1&0&0&-1/2&0\\0&1&0&0&-y/2\\0&0&1&0&-1/4\\
+ -1/2&0&0&1/4&0\\0&-y/2&-1/4&0&1/4
+ \end{pmatrix},\quad
+ Q_1=\begin{pmatrix}
+ 0&0&0&-1/2&0\\0&0&0&-y/2&-y/2\\0&0&0&1/4&-1/2\\
+ -1/2&-y/2&1/4&3/4&0\\0&-y/2&-1/2&0&3/4
+ \end{pmatrix}.
+ \label{I:F:eq:f2-Q-expansion}
+\end{equation}
+The matrix $Z_0=R_0Q_0$ has only one nonzero row:
+$Z_0[0,0]=3/4$, $Z_0[0,3]=-3/8$.
+Its sole nonzero eigenvalue $3/4$ is simple. Right and left eigenvectors,
+normalized by $w^*v=1$, are
+\[
+ v=e_0,\qquad w=e_0-\tfrac12 e_3.
+\]
+The analytic eigenvalue branch consequently has derivative
+\begin{equation}
+ \lambda'(0)=w^*(R_1Q_0+R_0Q_1)v=-\frac14.
+ \label{I:F:eq:f2-eigen-derivative}
+\end{equation}
+More explicitly, the two terms are $-1/4$ and zero, respectively.
+All other eigenvalues tend to zero, so this branch is the largest
+squared Hankel singular value for all sufficiently small positive $q$.
+Analyticity supplies a bounded $O(q^2)$ remainder and proves
+\eqref{I:F:eq:f2-branch-expansion}. Admissibility of the real two-state
+construction proves \eqref{I:F:eq:f2-optimum-upper}.
+\end{proof}

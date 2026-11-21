@@ -1,0 +1,37 @@
+\begin{proof}
+Use the observable companion coordinates
+\[
+ T=\begin{pmatrix}0&1\\-1/2&-1\end{pmatrix},\quad
+ l_0=(1,0),\quad
+ Q=\begin{pmatrix}8/5&4/5\\4/5&12/5\end{pmatrix},
+ \qquad Q-T^*QT=l_0^*l_0.
+\]
+The canonical Euclidean realization is
+$D=Q^{1/2}TQ^{-1/2}$, $l=l_0Q^{-1/2}$.  Equivalently, compute in the
+$Q$ inner product, in which
+\[
+ \Gamma=\frac{\sqrt7}{4},\qquad
+ x_{\rm raw}=\frac{(-1,-3)^{\mathsf T}}{2\sqrt7},\quad
+ a_0=-\frac1{2\sqrt7},\quad a_1=-\frac3{2\sqrt7},\quad a_2=\Gamma.
+\]
+Direct rational algebra gives
+\[
+ S=\frac{23\sqrt7}{196},\qquad
+ v_{\rm raw}=\frac{(1,3)^{\mathsf T}}{28},\qquad
+ K_{\rm raw}=\begin{pmatrix}
+ 2\sqrt7/7&-\sqrt7/7\\-\sqrt7/28&13\sqrt7/28
+ \end{pmatrix}.
+\]
+The last matrix is $Q$-self-adjoint and represents the same positive
+response operator.  In particular,
+\[
+ v_{\rm raw}^*QK_{\rm raw}^{-1}v_{\rm raw}=\frac{3\sqrt7}{196}.
+\]
+The three terms in \eqref{I:R:eq:bk-response-formula} are therefore
+\[
+ \frac9{28}-\frac{23}{112}+\frac3{112}=\frac17.
+\]
+The value for this extremizer follows without any uniqueness assertion.
+The last statement follows by taking the maximum in
+\eqref{I:R:eq:bk-response-formula}.
+\end{proof}

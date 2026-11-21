@@ -1,0 +1,33 @@
+\begin{proof}
+Let $z_j=\sqrt q\sum_{n\ge0}r^n e_{a^n b^j}$ for $0\le j\le k$.
+These are orthonormal. Directly sorting the possible cuts of $a^n b^k$ gives
+\[
+ H_{f_{r,k}}=z_0z_k^*+\sqrt q\sum_{j=0}^{k-1}z_{k-j}e_{b^j}^*.
+\]
+The right vectors $z_k,e_\varepsilon,e_b,\ldots,e_{b^{k-1}}$ are
+orthonormal, as are the corresponding left vectors. This proves the rank and
+spectrum, and the usual unstructured rank lower bound gives $\sqrt q$.
+
+Consider any bounded rank-$s$ word-Hankel $G$, where $s\le k$. Its finite
+range is invariant under the right backward shifts. The canonical realization
+on that range (proved in Lemma~\ref{I:U:lem:compact}) has letter matrices of norm
+at most one. The characteristic polynomial of its $b$ matrix, multiplied
+by $z^{k-s}$, is a monic annihilating polynomial
+$p(z)=z^k+\sum_{j=0}^{k-1}c_jz^j$. Its roots have modulus at most one.
+The elementary symmetric coefficient bounds and Vandermonde's identity yield
+\[
+ S:=\sum_{j=0}^{k-1}|c_j|^2\le\sum_{j=0}^{k-1}\binom{k}{j}^2=C_k-1.
+\]
+For each $n$, the columns indexed by $a^n b^j$ obey the annihilating
+relation. Boundedness permits summation of the convergent vectors $z_j$,
+and therefore $Gx=0$ for $x=z_k+\sum_{j<k}c_jz_j$.
+The displayed source decomposition gives
+\[
+ \|x\|^2=1+S,\qquad
+ H_{f_{r,k}}x=z_0+q\sum_{j<k}c_jz_{k-j},\qquad
+ \|H_{f_{r,k}}x\|^2=1+q^2S.
+\]
+Since $(1+q^2S)/(1+S)$ decreases with $S\ge0$, its value is at least
+$(1+q^2(C_k-1))/C_k$. Taking the infimum over $G$ proves the claim.
+The zero competitor is included by the polynomial $z^k$.
+\end{proof}

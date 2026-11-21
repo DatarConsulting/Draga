@@ -1,0 +1,17 @@
+\begin{proof}
+Put $a=lD^m$, $\mu=\Rnorm a$, and $x=a^*/\mu$.
+By compactness and Lemma~\ref{I:R:lem:cyclic-lossless-maximizer}, when
+$\mu$ is sufficiently close to $\Gamma_m$ the matrix
+$K_x=[x,Dx,\ldots,D^{m-1}x]$ has least singular value at least a fixed
+$\kappa_m>0$.  With $T=I-D^*D-l^*l$, the observation-space comparison
+and telescoping give
+\begin{align*}
+ \mu^2&\le\Gamma_m^2\Rnorm{Ox}^2,\\
+ \sum_{j=0}^{m-1}\Rnorm{T^{1/2}D^jx}^2
+ &\le1-\Rnorm{Ox}^2
+ \le\frac{\Gamma_m^2-\mu^2}{\Gamma_m^2}.
+\end{align*}
+The sum on the left is
+$\Rnorm{T^{1/2}K_x}_{\mathrm F}^2\ge\kappa_m^2\operatorname{tr}T$.
+This proves \eqref{I:R:eq:defect-gap-control}.
+\end{proof}

@@ -1,0 +1,91 @@
+\begin{proof}
+Use the orthonormal vectors
+\[
+ u=s\sum_{n\ge0}r^n e_{a^n},\qquad
+ v_j=s\sum_{n\ge0}r^n e_{a^n b^j}\quad(j\ge1),
+\]
+and put
+\[
+ v_y=\sum_{j\ge1}y^{j-1}v_j,\qquad
+ j_y=\sum_{\ell\ge0}y^\ell e_{b^\ell},\qquad e=e_\Beps.
+\]
+Their relevant norms and inner products are
+\[
+ \Bnorm{v_y}^2=\Bnorm{j_y}^2=(1-y^2)^{-1},\qquad
+ \langle v_2,v_y\rangle=y.
+\]
+The exact target and competitor decompositions become
+\begin{align*}
+ H_{f_{r,2}}&=uv_2^*+s(v_2e^*+v_1e_b^*),\\
+ H_{g_r}&=cu v_y^*+scv_yj_y^*.
+\end{align*}
+Define
+\[
+ d=v_2-cv_y,\qquad
+ R=v_2e^*+v_1e_b^*-cv_yj_y^*,\qquad A=\Bnorm{d}^2.
+\]
+For the parameters \eqref{I:B:eq:lift-k2-parameters},
+\[
+ A=1-2cy+\frac{c^2}{1-y^2}=\frac34.
+\]
+The output vector $u$ is orthogonal to the range of $R$. Therefore, for
+$E=H_{f_{r,2}}-H_{g_r}$,
+\begin{equation}
+ E=ud^*+sR,\qquad M:=E^*E=dd^*+qR^*R.
+ \label{I:B:eq:lift-k2-orthogonal-error}
+\end{equation}
+Moreover,
+\begin{equation}
+ \Bnorm R\le1+\frac{c}{1-y^2}=1+y,
+ \qquad \Bnorm R^2\le(1+y)^2<3.
+ \label{I:B:eq:lift-k2-Rnorm}
+\end{equation}
+Here the first two summands in $R$ form a partial isometry of norm one.
+
+The leading error vector has the useful cancellations
+\begin{align*}
+ e^*d&=0,& e_b^*d&=-sc,\\
+ j_y^*d&=s\left(y^2-\frac{cy}{1-y^2}\right)=0.
+\end{align*}
+Consequently
+\begin{equation}
+ Rd=-scv_1.
+ \label{I:B:eq:lift-k2-cancellation}
+\end{equation}
+Let $z=d/\sqrt A$ and decompose $M$ with respect to
+$\operatorname{span}\{z\}\oplus z^\perp$. Its scalar upper-left entry
+is
+\begin{equation}
+ a=\langle z,Mz\rangle
+   =A+q\Bnorm{Rz}^2
+   =\frac34+\frac{q^2c^2}{A}
+   =\frac34+\frac{q^2}{6}.
+ \label{I:B:eq:lift-k2-Rayleigh}
+\end{equation}
+This already proves the lower bound for the explicit competitor.
+Let $B$ be the compression of $M$ to $z^\perp$, and let
+$v=(I-zz^*)Mz$ be its off-diagonal vector. Since $dd^*$ vanishes on
+$z^\perp$, \eqref{I:B:eq:lift-k2-Rnorm} and
+\eqref{I:B:eq:lift-k2-cancellation} give
+\[
+ \Bnorm B\le q\Bnorm R^2<3q,
+ \qquad
+ \Bnorm v^2\le q^2\Bnorm R^2\Bnorm{Rz}^2
+             <\frac{q^3}{2}.
+\]
+For $q\le1/8$ the spectral gap in this block decomposition obeys
+\[
+ a-\Bnorm B\ge\frac34-3q\ge\frac38.
+\]
+The elementary positive-block estimate
+\[
+ \lambda_{\max}(M)
+ \le a+\frac{\Bnorm v^2}{a-\Bnorm B}
+\]
+therefore yields the upper inequality in
+\eqref{I:B:eq:lift-k2-sharp-bound}. For completeness, this block estimate
+follows from the Schur complement when the largest eigenvalue is above
+$a$: if it is $\lambda$, then
+$\lambda-a\le\Bnorm v^2/(\lambda-\Bnorm B)
+\le\Bnorm v^2/(a-\Bnorm B)$. If $v=0$, the estimate is immediate.
+\end{proof}

@@ -1,0 +1,48 @@
+\begin{proof}
+On the unit circle, $|P^*|=|P|$. Hence
+\eqref{I:B:eq:curvature-hardy-residual} gives
+\begin{equation}
+ |d|^2=\frac{|P|^2}{C^2}\quad\text{almost everywhere}.
+ \label{I:B:eq:curvature-boundary-modulus}
+\end{equation}
+Any boundary zeros of $P$ cancel in the rational expression for $d$;
+they do not alter this identity or its coefficient consequences.
+Integrating \eqref{I:B:eq:curvature-boundary-modulus} proves $A=C^{-2}$.
+
+The $i$th scalar coefficient of $H_dS_+\overline d$ is
+\begin{equation}
+ (H_dS_+\overline d)_i
+   =\sum_{j\ge0}d_{i+j+1}\overline{d_j},\qquad i\ge0.
+ \label{I:B:eq:curvature-autocorrelation-d}
+\end{equation}
+These sums converge absolutely by Cauchy--Schwarz. They are the positive
+Fourier coefficients of $|d|^2$. Applying
+\eqref{I:B:eq:curvature-boundary-modulus} therefore gives
+\[
+ (H_dS_+\overline d)_{i-1}
+   =\frac1{C^2}\sum_{j=0}^{m-i}p_{j+i}\overline{p_j}
+ \quad(1\le i\le m),
+\]
+and these coefficients vanish for $i>m$. Consequently,
+\begin{equation}
+ T=\frac1{C^4}\sum_{i=1}^{m}
+       \left|\sum_{j=0}^{m-i}p_{j+i}\overline{p_j}\right|^2.
+ \label{I:B:eq:curvature-autocorrelation-P}
+\end{equation}
+Parseval's identity applied to the trigonometric polynomial $|P|^2$
+shows that
+\[
+ \Bnorm P_{H^4}^4
+ =\left(\sum_{j=0}^{m}|p_j|^2\right)^2
+   +2\sum_{i=1}^{m}
+       \left|\sum_{j=0}^{m-i}p_{j+i}\overline{p_j}\right|^2.
+\]
+The squared norm of $P$ is one, proving
+\eqref{I:B:eq:curvature-hardy-coefficients}. Substitute these identities into
+Proposition~\ref{I:B:prop:lift-curvature} to obtain
+\eqref{I:B:eq:curvature-hardy-finite} and the norm expansion.
+Finally, the scalar Hardy construction has
+$E_{k-1}=1/C$, and its word lift has at most $k$ states. It is therefore
+an admissible competitor for $\delta_k$, proving the upper bound in
+\eqref{I:B:eq:curvature-hardy-norm}.
+\end{proof}

@@ -1,0 +1,23 @@
+\begin{proof}
+(i) Lemma~\ref{III:M:rev13:lem:mode-update} gives exact modes and continuous error $\le D\theta$,
+hence output error $\le CD\theta\le2^{-p-1}$ by the choice of $c_0$; the certified
+replay error allocation of Proposition~\ref{III:M:audit:prop:checkpoint} contributes the other
+$2^{-p-1}$ because only the mode-dependent constants change. The address ordinal ranges over
+$\mathcal A_\theta$, so Lemma~\ref{III:M:rev13:lem:mode-count} gives
+$\lceil\log_2|\mathcal A_\theta|\rceil\le s^\ast(p+c_0)+\log_2\frac{(1+d|\mathcal R|)C_u}{d-1}
++s^\ast\log_2\frac1{r_{\min}}+1$; the base mode is stored separately or folded into the
+ordinal. Lemma~\ref{III:M:rev13:lem:mode-dp} gives the costs.
+(ii) Indexing only reachable base modes in (i) gives the upper bound. For the lower bound
+the proof of Theorem ``Conditional joint persistent-bit optimum'' applies verbatim: in
+each reachable fibre closure, Ahlfors regularity of exponent $s^\ast$ yields a
+$(4\varepsilon/c)$-separated set of cardinality $\ge a_H\varepsilon^{-s^\ast}$, approximated
+by reachable states of the same mode within $\varepsilon/(2c)$; within-mode observability
+and the inter-mode margin make all these histories pairwise future-separated by more than
+$2\varepsilon$, and behavioural packing forces $|\mathcal R_{\rm reach}|a_H\varepsilon^{-s^\ast}$
+distinct codes.
+(iii) $M(s)\le\overline M(s)$ entrywise, where
+$\overline M(s)_{m,m'}=\sum_{a:G(m,a)=m'}\bar r_a^{\,s}$ has all row sums
+$\sum_a\bar r_a^{\,s}$, equal to $1$ at $s=\bar s$; hence
+$\rho(M(\bar s))\le\rho(\overline M(\bar s))=1$ and $s^\ast\le\bar s$. If some
+$r_{a,m}<\bar r_a$ on an edge of a cycle, irreducibility makes the inequality strict.
+\end{proof}

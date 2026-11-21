@@ -1,0 +1,24 @@
+\begin{proof}
+Let $\ell=|v_t|$. Its oldest endpoint is time $t-\ell$, whose mode is $b_t$.
+After appending one letter, discarding $j=|u_{\rm drop}|$ oldest letters
+advances that endpoint to $t-\ell+j=t+1-|v_{t+1}|$. Those discarded letters
+are precisely $\operatorname{rev}(u_{\rm drop})$ in chronological order.
+Equation (M.2) therefore advances the checkpoint to the correct new mode,
+proving its invariant by induction. This only evaluates $G$ forwards.
+
+Starting at this checkpoint, (M.3) reconstructs every subsequent mode exactly,
+because $G$ depends on that mode and the input letter alone. The true state
+at the window base and $x_0$ both lie in $X$. The two replays apply identical
+mode-dependent similarities, whose composition has contraction ratio
+$r_{v_t}$. This proves (M.4). If the whole history is retained, its base state
+is $x_0$ and the error is zero. An internal tree node necessarily retains the
+whole history. A leaf can also occur at the first threshold crossing before
+any deletion; (M.4) is still a safe upper bound there.
+
+The ratio depends only on the letter, so the address tree and composition
+counts are exactly those of Theorem~\ref{III:M:audit:thm:addresses}. The one extra mode
+uses $\lceil\log_2|\mathcal R|\rceil$ bits. Replaying or dropping letters
+adds only $O_H(p)$ mode transitions. With certified rounded affine replay,
+the numerical error satisfies the same geometric recurrence as before;
+the discrete mode remains exact. This proves the computational claims.
+\end{proof}

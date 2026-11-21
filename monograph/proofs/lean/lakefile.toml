@@ -1,0 +1,6 @@
+name = "DragaProofs"
+version = "1.0.0"
+defaultTargets = ["Draga"]
+
+[[lean_lib]]
+name = "Draga"

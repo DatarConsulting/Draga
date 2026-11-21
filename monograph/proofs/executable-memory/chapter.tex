@@ -1,0 +1,2505 @@
+\chapter{Executable Predictive Memory}\label{sec:memory}
+
+\section{Which memory is being minimized?}
+A rank-$r$ linear realization stores $r$ real coordinates. This statement
+alone does not determine how many bits an executable approximation needs,
+how much immutable code it uses, or how expensive its update and readout
+are. The purpose of this section is to separate those quantities and give
+exact results in interfaces where they can be compared rigorously.
+
+The equality between finite Hankel rank and minimum linear realization
+dimension is classical~\citep{carlyle1971,fliess1974}.
+The underlying linear convention is
+$f(w)=\alpha^\top A_w\beta$, with row state
+$s(w)=\alpha^\top A_w$. Words are read chronologically; geometric
+address strings are stored newest first and explicitly reversed for
+replay. Logarithms used for bit counts are $\log_2$. Natural logarithms
+appearing in pressure or analytic estimates are indicated by $\log$.
+We distinguish recurrent dimension, persistent identifier bits,
+immutable program size, workspace, numerical output precision and time.
+An uncharged clock is not allowed in autonomous finite-state claims.
+
+The operator norm in Section~\ref{sec:hankel} and the completed-word
+divergences in Section~\ref{sec:probability} measure different errors
+from uniform conditional prediction. We use the shared foundations in
+Subsections~\ref{I:U:sec:preliminaries}, \ref{I:S:sec:exact},
+and~\ref{I:S:sec:analytic} for the constructions below.
+
+\section{Exact residual state behind a suffix window}
+Fix a window length $N$ and write $q_N(w)=\operatorname{suff}_N(w)$,
+retaining the whole word when $|w|<N$. Define
+\[
+ U_N=\operatorname{span}\{s(u)-s(v):q_N(u)=q_N(v)\}.
+\]
+The space $U_N$ consists of differences the external window fails to
+identify. Its transition closure, rather than the ambient Hankel rank,
+determines the residual state in the fixed affine interface
+\[
+ z(wa)=z(w)B_a+g(q_N(w),a),\qquad
+ f(w)=z(w)c+h(q_N(w)).
+\]
+Here the matrices $B_a$ and readout $c$ are fixed, while the window and
+forcing tables are supplied externally.
+
+\begin{theorem}[Residual dimension for a fixed affine interface]
+For a minimal realization,
+\[
+ U_N=\sum_{|q|=N}U_0A_q,\qquad
+ U_{N+1}=\sum_a U_NA_a\subseteq U_N.
+\]
+The first plateau persists. The minimum recurrent dimension in the
+specified interface is $\dim U_N$. The minimum Loewy length is that
+of the actual letter-marked transition algebra acting on $U_N$.
+\end{theorem}
+Theorems~\ref{III:S:thm:filtration} and \ref{III:S:thm:window} give the exact
+construction and lower bound. For the latter, differences within a
+window fiber cancel both forcing and direct readout. Equality of all
+future outputs then induces a surjective letter-intertwining map onto
+the canonical difference space. Choosing its basis attains the bound.
+
+If the homogeneous update and readout may depend on the window, the
+correct interface has per-window dimensions $r_q$ and rectangular
+$B_{q,a}\in\mathbb K^{r_q\times r_{q'}}$. Its charged physical
+quantity is $\max_q r_q$, since only one window is active. Defining
+$F_N(q)=\operatorname{span}\{s(u)-s(v):q_N(u)=q_N(v)=q\}$, the
+minimum is $\max_q\dim F_N(q)$, with a marked path-image algebra
+rather than the fixed-letter algebra. Definition~\ref{III:S:def:fiber-interface}
+and Theorem~\ref{III:S:thm:fiber} make this contract explicit. The two
+interfaces optimize different quantities.
+
+An invertible neutral letter may preserve every $U_N$, even when
+another letter has a nilpotent action. Thus single-letter forgetting does
+not certify a memory saving under arbitrary ordered input sequences.
+Conditional future laws introduce another distinction: normalization can
+preserve differences that decay in the unnormalized linear state.
+
+\section{Persistent bits and exact finite-state examples}
+For a declared output error contract, an autonomous machine consists of
+$(Q,q_0,(U_a),D)$. The charged persistent identifier length is
+$B=\lceil\log_2|Q|\rceil$. Two histories with a future output difference
+strictly larger than $2\epsilon$ cannot end in the same state of an
+$\epsilon$-accurate machine. This classical packing principle becomes an
+exact finite result only after a matching executable construction is given.
+
+For the explicit rank-two family $f_a$ of
+Section~\ref{III:M:sec:memory}, the manuscript proves
+\[
+ B_{f_a}^*(2^{-((a+1)m+2)})=m+2,
+ \qquad a,m\in\mathbb Z,\quad a\ge1,\quad m\ge a+2.
+\]
+This is exact in integer bits. It does not identify the exact minimum
+number of states; distinct state counts can have the same ceiling of
+their base-two logarithm. The construction packs its clock into the state
+identifier. The leading memory coefficient varies with $a$ although
+Hankel rank stays two, so rank alone cannot determine that coefficient.
+
+For the unequal-contraction system
+\[
+ \tau_0(x)=x/4,\qquad \tau_1(x)=x/2+1/2,\qquad h(x)=x,
+\]
+let $\theta=2^{-\ell}$ and let $\mathcal L_\ell$ be the stopped
+newest-first address leaves. Put
+$U_\ell=\bigcup_{v\in\mathcal L_\ell}\tau_v([0,1])$.
+The all-history contract includes the empty history and uses no external clock.
+
+\begin{theorem}[Fibonacci optimum on the leaf union]
+For $\ell\ge1$, initial point $x_0\in U_\ell$, and error at most
+$\theta/2$ at every finite history,
+\[
+ |Q|_{\min}=F_{\ell+2},\qquad
+ B_{\min}=\lceil\log_2F_{\ell+2}\rceil.
+\]
+For every $x_0\in[0,1]$, the same state lower bound holds.
+An exact count outside $U_\ell$ is not established here.
+\end{theorem}
+Theorem~\ref{III:M:rev13:thm:fib-general} proves this statement. Stopped
+leaves supply the finite automaton and midpoint outputs. A family of
+same-length histories approaching separated leaf endpoints forces the
+matching lower bound. The initial-point restriction is necessary for the
+stated leaf-machine initialization and is not removed by an asymptotic
+dimension calculation.
+
+\section{Rational addresses and irreversible modes}
+For rational contractions, a stopped address can be ranked and unranked
+without storing an exponential transition table. Exact integer counting
+controls the persistent identifier. The proofs charge update arithmetic,
+startup and workspace separately; a bit saving does not automatically
+change byte-aligned resident memory.
+
+Now let a finite mode obey $r_{t+1}=G(r_t,a_{t+1})$, allowing irreversible
+resets, and let the contraction ratio depend on both letter and previous
+mode. Storing only the retained letters can lose the information needed
+to replay their dynamics. The construction stores a checkpoint
+$b_t=r_{t-|v_t|}$ at the beginning of the retained window, together with
+its newest-first address $v_t$. Forward replay recovers the applied mode
+sequence. The algorithm then truncates using the actual product of
+ratios and advances the checkpoint through discarded oldest letters.
+It never requires inversion of $G$.
+
+The pressure matrix is
+\[
+ M(s)_{m,m'}=\sum_{a:G(m,a)=m'}r_{a,m}^{s}.
+\]
+For the strongly connected mode graph, the positive root
+$\rho(M(s^*))=1$ controls the symbolic address count. Theorem~\ref{III:M:rev13:thm:mode}
+gives the construction and its conditional optimality statement with
+all geometric and future-observability assumptions retained. Symbolic
+pressure need not equal geometric dimension under arbitrary overlaps;
+Hausdorff dimension by itself does not supply a finite executable with
+constant overhead.
+
+Numerical guards are sound only when the certified state enclosure lies
+on one side of the decision threshold. If it intersects both sides, the
+result is inconclusive. Refinement does not guarantee eventual resolution
+at a genuinely ambiguous point. The feedback results certify cache
+choices at the time of use and distinguish bounded returned errors from
+unconditional discovery of persistent semantic facts.
+
+\section{Execution, transfer approximations and actual coding cost}
+An integer-execution certificate propagates roundoff through an explicit
+invariant error bound. For transfer operators, the real branches must
+preserve $[-1,1]$ and satisfy the stated complex two-radius bounds.
+Repeated coefficient truncation then has the finite-horizon guarantee
+\[
+ \|\mathcal L_\sigma^n1-P_n\|_\infty
+ \le n\delta_m K^{n-1},
+ \qquad P_{n+1}=\Pi_m\mathcal L_\sigma P_n.
+\]
+This includes errors accumulated after each truncation; replacing
+$P_n$ by a single final truncation is invalid in general.
+Theorem~\ref{III:U:thm:oracle} and the rounding theorem state the additional
+positivity, normalization and arithmetic hypotheses. Sound finite-horizon
+bounds do not imply that a proposed compiler always terminates or that
+its total bit complexity is optimal.
+
+For recurrent matrix states, an exact main-state-plus-residual identity
+is useful only after the serialized representation is charged. A smaller
+residual norm, covariance or rank is not itself a smaller lossless code.
+The final application develops reversible integer lifting with an actual
+coding contract and separates complete encoded length from execution
+workspace and update time. The application includes a controlled example
+and states the conditions needed for a measured coding gain.
+
+\section{Open scope and proof organization}
+Open problems include exact Fibonacci counts outside the specified leaf
+union, general nonconformal memory laws with effective updates, discovery
+of protected facts from observations, and compiler completeness with a
+sufficient precision rule and full cost bounds. A demonstrated advantage
+in complete lossless code length and execution time on independent
+recurrent trajectories is also still required for the codec application.
+
+The remaining subsections cover exact residual interfaces,
+conditional-future analysis, persistent-bit and address constructions,
+mode-aware replay and pressure bounds, numerical execution certificates,
+and the recurrent-state coding application. Every theorem is tied to its
+own interface and error contract.
+\label{III:III:main-end}
+
+\section*{Detailed proofs and supporting results}
+
+\section{Exact memory with an external suffix window}\label{III:S:sec:window}
+This section is algebraic and does not assume bounded $H_f$. In a minimal row-state realization over $\SK$, let $q_N(w)=\Ssuff_N(w)$; for $|w|<N$, retain the entire word. The external window uses the original alphabet. Define
+\[
+ U_N=\SSpan\{s(u)-s(v):q_N(u)=q_N(v)\}.
+\]
+\begin{theorem}[Canonical difference filtration]\label{III:S:thm:filtration}
+Each $U_N$ is transition-invariant, and
+\[
+ U_0=\SSpan\{s(w)-s(\Seps)\},\qquad
+ U_N=\sum_{|q|=N}U_0A_q,\qquad
+ U_{N+1}=\sum_aU_NA_a\subseteq U_N.
+\]
+The first plateau is permanent. If $\tau=\min\{N:U_N=U_{N+1}\}$, then $\tau\le\dim U_0-\dim U_\tau$. Also $U_N=0$ if and only if $f$ depends only on its $N$-suffix.
+\end{theorem}
+\input{proofs/executable-memory/3.7.1.tex}
+The initial space is the invariant closure of the finitely many rows $\alpha^\top(A_a-I)$. Indeed
+\[
+ s(a_1\cdots a_t)-\alpha^\top
+ =\sum_{i=1}^t\alpha^\top(A_{a_i}-I)A_{a_{i+1}}\cdots A_{a_t}.
+\]
+Thus the entire filtration is computable by exact basis closure and row reduction, without enumerating all histories.
+
+\begin{definition}[Charged affine interface]\label{III:S:def:affine-interface}
+An order-$N$ implementation has a recurrent row $z(w)\in\SK^{1\times r}$ and
+\[
+ z(wa)=z(w)B_a+g(q_N(w),a),\qquad
+ f(w)=z(w)c+h(q_N(w)).
+\]
+The matrices $B_a$ and recurrent readout $c$ are fixed; the forcing and direct-readout tables are unrestricted. The cost charges recurrent dimension and the actual unital algebra generated by $B_a$, while treating the window and tables as externally supplied. It does not count table bytes, arithmetic, or numerical precision.
+\end{definition}
+
+\begin{theorem}[Exact residual minimum and marked quotient]\label{III:S:thm:window}
+Let $C_N$ be the image of the transition algebra on $U_N$, with $C_N=0$ when $U_N=0$. Within the stated interface the minimum recurrent dimension is $\dim U_N$, and the minimum homogeneous Loewy length is $\SLL(C_N)$. Every exact competitor has a letter-marked generated-algebra surjection onto $C_N$. One construction attains all these lower bounds and every graded radical dimension simultaneously.
+\end{theorem}
+\input{proofs/executable-memory/3.7.3.tex}
+
+\begin{theorem}[Saturation, one-symbol bound, and invertible padding]\label{III:S:thm:windowbounds}
+Writing $\lambda_N=\SLL(C_N)$, one has
+\[
+ 0\le\lambda_N-\lambda_{N+1}\le1,\qquad
+ U_NJ(\ScA_f)^j\subseteq U_{N+j}.
+\]
+For nonzero $f$, $0\le\SLL(\ScA_f)-\lambda_0\le1$. If one transition is invertible, $U_N=U_0$ for every $N$. For a faithful finite-dimensional right $A$-module $M$, $L=\SLL(A)$, and $0\le r\le L$, the image algebra on $MJ(A)^r$ has Loewy length exactly $L-r$.
+\end{theorem}
+\input{proofs/executable-memory/3.7.4.tex}
+
+\begin{example}[The neutral-letter counterexample]
+For $f(w)=\mathbf1\{\#a(w)=1\}$ over $\{a,b\}$, take $A_a=\begin{psmallmatrix}0&1\\0&0\end{psmallmatrix}$, $A_b=I$, initial row $(1,0)$ and final column $(0,1)^\top$. The rank and Loewy length are two, and $U_0=\SR^2$. The invertible neutral letter forces $U_N=\SR^2$ at every order. Histories $b^N$ and $ab^N$ already have the same raw window and different current outputs. Finite algebraic nilpotence in one letter does not imply a saving from a raw token window when another letter can pad indefinitely.
+\end{example}
+
+\begin{example}[Sharp decrease and the limits of radical tails]
+The unary length-$m$ impulse has $\dim U_N=\lambda_N=\max(m+1-N,0)$, since $U_0$ is the whole nilpotent shift space and $U_N=U_0A^N$. This attains the one-symbol bound. Adding $(-1)^{|w|}$ preserves a semisimple coordinate in every $U_N$: the dimension becomes $\max(m+1-N,0)+1$ and the Loewy cost is $\max(m+1-N,1)$. No positive radical tail contains that semisimple coordinate. Thus the exact radical-tail restriction theorem does not assert that such tails optimize every window problem.
+\end{example}
+
+\subsection{Window-conditioned homogeneous dynamics}
+If the homogeneous matrices and recurrent readout may also depend on the window, define fibers
+\[
+ F_N(q)=\SSpan\{s(u)-s(v):q_N(u)=q_N(v)=q\}.
+\]
+They are zero for $|q|<N$, and equal $U_0A_q$ for $|q|=N$. Letters map $F_N(q)$ into $F_N(\Ssuff_N(qa))$. Let $\mathcal P_N$ be the image of the resulting path algebra on $\bigoplus_q F_N(q)$, including the vertex idempotents.
+
+\begin{definition}[Window-indexed affine interface]
+\label{III:S:def:fiber-interface}
+Let $\mathcal Q_N=\{q_N(w):w\in\Sigma^*\}$, with successor
+$q'=q_N(qa)$. Choose a dimension $r_q\ge0$ for each vertex $q$.
+The recurrent row after history $w$ belongs to
+$z(w)\in\mathbb K^{1\times r_{q_N(w)}}$, and the update/readout are
+\[
+ z(wa)=z(w)B_{q,a}+g_{q,a},\qquad
+ f(w)=z(w)c_q+h_q,\qquad q=q_N(w),
+\]
+where $B_{q,a}\in\mathbb K^{r_q\times r_{q'}}$,
+$g_{q,a}\in\mathbb K^{1\times r_{q'}}$ and
+$c_q\in\mathbb K^{r_q\times1}$. The active window is external.
+We charge peak recurrent dimension $\max_q r_q$ and, separately,
+the Loewy length of the path-image algebra on the direct sum of
+within-window reachable difference spaces, with vertex idempotents
+and letter arrows marked. Window and forcing-table storage is not
+included. This extends Definition~\ref{III:S:def:affine-interface} by
+allowing the homogeneous update and readout to depend on the window.
+\end{definition}
+
+\begin{theorem}[Fibered minimum]\label{III:S:thm:fiber}
+Within Definition~\ref{III:S:def:fiber-interface}, the minimum peak recurrent dimension is $\max_q\dim F_N(q)$. The minimum Loewy length of the actual marked path-image algebra is $\SLL(\mathcal P_N)$. These are different objectives from Theorem~\ref{III:S:thm:window}.
+\end{theorem}
+\input{proofs/executable-memory/3.7.8.tex}
+These different algebra costs need not decrease together. For the neutral-letter example at $N=1$, order the fiber coordinates as one coordinate at $a$ and two at $b$. The path radical is spanned by $E_{13},E_{21},E_{23}$; its square contains $E_{23}$ and its cube is zero. Its Loewy length is three, although the fixed-letter cost is two. This is not an extra saving or an extra physical register forced by the fixed-letter theorem: the marked algebra being charged has changed.
+
+\section{Finite-energy forgetting on the difference module}\label{III:S:sec:metric}
+For a real finite realization define the unnormalized future-energy diameter
+\[
+ \omega_N(f)=\sup_{q_N(u)=q_N(v)}
+       \left(\sum_{t\in\Swords}|f(ut)-f(vt)|^2\right)^{1/2},
+\]
+allowing $+\infty$. It is nonincreasing in $N$ and vanishes exactly for suffix-definite behavior. If $H_f,H_g$ are bounded, then
+\begin{equation}\label{III:S:eq:omegalipschitz}
+ |\omega_N(f)-\omega_N(g)|\le\sqrt2\Snorm{H_f-H_g}.
+\end{equation}
+Indeed each row difference is tested by $e_u-e_v$, of norm $\sqrt2$ when $u\ne v$. The constant is sharp: a unary impulse of length $m\ge N+1$ has operator norm one and two such residual rows at distance $\sqrt2$.
+
+Choose a basis matrix $E$ of $U_0$, and define $EA_a=C_aE$, $b=E\beta$, $g_aE=\alpha^\top(A_a-I)$. Center states by $s(w)=\alpha^\top+z(w)E$. Then
+\[
+ z(wa)=z(w)C_a+g_a,\qquad z(xq)=z(x)C_q+z(q).
+\]
+\begin{theorem}[Correct analytic domain for forgetting]\label{III:S:thm:diffstable}
+For a minimal finite realization with $U_0\ne0$, these are equivalent:
+\[
+ \omega_0<\infty;\quad
+ G_U=\sum_tC_tbb^\top C_t^\top\text{ finite};\quad
+ \rho(\mathcal T)<1;\quad
+ \exists R\succ0:R-\mathcal T(R)\succ0,
+\]
+where $\mathcal T(X)=\sum_aC_aXC_a^\top$. Then $G_U\succ0$ and
+\[
+ \omega_N^2=\max_{|q|=N}\sup_{x,y}
+ (z(x)-z(y))C_qG_UC_q^\top(z(x)-z(y))^\top.
+\]
+No boundedness of the full $H_f$ is assumed. For $U_0=0$ all diameters vanish.
+\end{theorem}
+\input{proofs/executable-memory/3.8.1.tex}
+
+\begin{theorem}[Finite computation with a certified remainder]\label{III:S:thm:finiteomega}
+Choose $R\succ0$, $0\le\eta<1$, $c>0$ such that $C_aRC_a^\top\preceq\eta^2R$ and $G_U\preceq cR$. Put $M=\max_a\Snorm{g_a}_R/(1-\eta)$ and
+\[
+ D_{N,L}=\max_{\substack{|q|=N\\|x|,|y|\le L}}
+             \Snorm{(z(x)-z(y))C_q}_{G_U}.
+\]
+Then
+\[
+ \omega_N\le2\sqrt c M\eta^N,\qquad
+ D_{N,L}\le\omega_N\le D_{N,L}+2\sqrt c M\eta^{N+L}.
+\]
+With rational data this computes $\omega_N$ to arbitrary positive accuracy by finite exact arithmetic and certified bounds on square roots.
+\end{theorem}
+\input{proofs/executable-memory/3.8.2.tex}
+
+\begin{theorem}[Exact root rate and finite extinction]\label{III:S:thm:jsr}
+Under Theorem~\ref{III:S:thm:diffstable}, let $r=\widehat\rho(\{C_a\})$ be the joint spectral radius. Then $0\le r<1$ and $\lim_N\omega_N^{1/N}=r$. If $0<r<1$ and $N_\epsilon=\min\{N:\omega_N\le\epsilon\}$, then
+\[
+ \lim_{\epsilon\downarrow0}\frac{N_\epsilon}{\log(1/\epsilon)}
+  =\frac1{\log(1/r)}.
+\]
+For any finite-dimensional real or complex difference family, $r=0$ is equivalent to simultaneous vanishing of all sufficiently long products, to $U_N=0$ for some $N$, and to finite suffix-definiteness. Extinction occurs by $\dim U_0$ when nonzero.
+\end{theorem}
+\input{proofs/executable-memory/3.8.3.tex}
+This rate comparison is a specialization of finite-dimensional realization and switched-system stability, not a new general theorem about the JSR. For any $r<\eta<1$ there is a norm $\Snorm x_\eta=\sup_{j,w:|w|=j}\eta^{-j}\Snorm{xC_w}_{G_U}$ with contraction factor $\eta$. A finite version suffices once a block length $m$ satisfies $C_wG_UC_w^\top\preceq\eta^{2m}G_U$ for every $|w|=m$: take the maximum only over lengths $0,\ldots,m-1$. Multiplying once shifts each term to the next length, and the last length is controlled by the block inequality. This need not be a quadratic norm.
+
+\begin{example}[Persistent drive; exact memory versus metric forgetting]
+Let $z(wa)=\rho z(w)+1$, $z(wb)=\rho z(w)-1$, $z(\Seps)=0$, with $0<\rho<1/\sqrt2$ and $f=z$. The supremum distance between states is $2/(1-\rho)$, and $G_U=1/(1-2\rho^2)$. Hence
+\[
+ \omega_N=\frac{2\rho^N}{(1-\rho)\sqrt{1-2\rho^2}}.
+\]
+The full Hankel is unbounded since $f(a^n)\to1/(1-\rho)\ne0$. The homogeneous difference dimension remains one despite metric forgetting. In contrast, $C_a=C_b=3/4$ has JSR $3/4<1$ but all-word positive-map radius $9/8>1$. The JSR stability domain cannot replace the finite-energy hypothesis. A Jordan block at eigenvalue $1/2$ has powers with a factor $N2^{-N}$; a root rate of $1/2$ does not imply a bound $K2^{-N}$.
+\end{example}
+
+\section{Conditional futures: normalization changes the question}\label{III:S:sec:conditional}
+\subsection{Completed-string probability semantics}
+Assume $\alpha,\beta,A_a$ are nonnegative, $T=\sum_aA_a$ has $\rho(T)<1$, and
+\[
+ v=(I-T)^{-1}\beta\text{ is entrywise positive},\qquad \alpha^\top v=1.
+\]
+Then $f(w)=\alpha^\top A_w\beta$ is a distribution on \emph{completed finite strings}. For an admissible prefix $u$, define
+\[
+ F(u)=s(u)v=\sum_t f(ut)>0,\quad
+ \bar s(u)=s(u)/F(u),\quad p(t\mid u)=\bar s(u)A_t\beta.
+\]
+The vectors $\bar s(u)$ lie in the compact simplex $\mathcal S_v=\{r\ge0:rv=1\}$. The future Gramian $Q=\sum_tA_t\beta\beta^\top A_t^\top$ is finite, since each coordinate future sequence has finite $\ell^1$ mass $v_i$. It is positive definite precisely when the future columns span. If $V=\Sdiag(v)$, the gauge $r\mapsto rV$, $A_a\mapsto V^{-1}A_aV$, $\beta\mapsto V^{-1}\beta$ gives $\widetilde\beta+\sum_a\widetilde A_a\mathbf1=\mathbf1$.
+
+Define
+\[
+ \widehat\omega_N^2=
+ \sup_{\substack{q_N(u)=q_N(w)\\F(u),F(w)>0}}
+       (\bar s(u)-\bar s(w))Q(\bar s(u)-\bar s(w))^\top.
+\]
+It is a distance between probability laws, so $0\le\widehat\omega_N\le\sqrt2$, it is nonincreasing, and it vanishes exactly when conditional complete futures agree within each admissible window fiber. In an observable realization this is equality of normalized states; it is not $U_N=0$ for unnormalized states. Cylinder probabilities of nonterminating processes require a separately declared horizon or weighting; their unrestricted sum-of-squares metric is not substituted here.
+
+\begin{theorem}[Exact projective difference identity]\label{III:S:thm:projective}
+Let $\Psi_q(r)=rA_q/(rA_qv)$ on its positive-mass domain and $B(y)=I-vy$ for $yv=1$. Then $B(y)^2=B(y)$, and
+\[
+ \Psi_q(r)-\Psi_q(r')
+ =\frac{(r-r')A_qB(\Psi_q(r'))}{rA_qv},\qquad
+ D\Psi_q(r)[h]=\frac{hA_qB(\Psi_q(r))}{rA_qv}\quad(hv=0).
+\]
+Equivalently, the numerator can use $(s(x)-s(y))A_q$ and the denominator $F(xq)$ for histories $xq,yq$.
+\end{theorem}
+\input{proofs/executable-memory/3.9.1.tex}
+
+\begin{theorem}[Finite row-simplex upper certificate]\label{III:S:thm:rowsimplex}
+For $|q|=N$, let $b_i(q)=e_i^\top A_qv$ and $r_i(q)=e_i^\top A_q/b_i(q)$ for live rows with $b_i(q)>0$. Then
+\[
+ \widehat\omega_N^2\le
+ \max_{|q|=N}\max_{i,j:\ b_i(q)b_j(q)>0}
+           (r_i(q)-r_j(q))Q(r_i(q)-r_j(q))^\top.
+\]
+The right side is exactly the squared diameter when arbitrary inputs from $\mathcal S_v$ are allowed. It need not equal the reachable-history diameter. All its squared terms are rational for rational model data.
+\end{theorem}
+\input{proofs/executable-memory/3.9.2.tex}
+
+\begin{proposition}[A qualified mass-floor bound]
+Let $D=\operatorname{diam}_2(\mathcal R)$ for the normalized reachable set, $\Pi=\sup_{y\in\mathcal S_v}\Snorm{I-vy}_2$, $a_N=\max_{|q|=N}\Snorm{A_q}_2$, and $m_N=\inf_{r\in\mathcal R,\ |q|=N,\ rA_qv>0}rA_qv$. If $m_N>0$, then
+\[
+ \widehat\omega_N\le\min\{\sqrt2,\sqrt{\lambda_{\max}(Q)}\Pi D a_N/m_N\}.
+\]
+\end{proposition}
+\input{proofs/executable-memory/3.9.3.tex}
+
+\subsection{The precise unary conditional exponent}
+For a fixed letter $j$, let $\widehat\omega_{j,N}$ be the supremum over histories $xj^N,yj^N$, rather than over every length-$N$ window.
+\begin{theorem}[Perron rate with visible modes and uniform positive overlap]\label{III:S:thm:perron}
+Assume $A=A_j$ is primitive. Let $\lambda>0$ be its Perron root and choose positive $h,\ell$ with $Ah=\lambda h$, $\ell A=\lambda\ell$, $\ell h=1$. Put $P=h\ell$, $R=A/\lambda-P$, and $\theta=\rho(R)<1$. For $0<\theta<1$, let $b$ be the largest Jordan-block size on the spectral circle $|z|=\theta$. Then
+\[
+ \widehat\omega_{j,N}\le K(1+N)^{b-1}\theta^N.
+\]
+If the realization has both full row and full column spans, then
+$\lim_N\widehat\omega_{j,N}^{1/N}=\theta$. If $\theta=0$, sufficiently long $j$-runs have identical normalized futures. Without the span assumptions the upper bound remains valid, but equality of the observable rate need not hold.
+\end{theorem}
+\input{proofs/executable-memory/3.9.4.tex}
+This is a specialization of Perron--Frobenius and projective-filtering theory~\cite{cohen,atar}. A simple dominant eigenvalue alone is insufficient, and a Jordan factor cannot in general be removed. Subsection~\ref{III:S:app:conditional} gives exact rational counterexamples to both omissions.
+
+\begin{example}[Exact separation of mass rate and conditional rate]\label{III:S:ex:rates}
+Take $\alpha^\top=(1/2,1/2)$,
+\[
+ A_j=\begin{pmatrix}6/25&4/25\\4/25&6/25\end{pmatrix},\quad
+ g=\binom{1/5}{1/10},\quad A_a=ge_1^\top,\quad A_b=ge_2^\top,
+ \quad\beta=\binom{1/5}{2/5}.
+\]
+Then $v=\mathbf1$, the realization is minimal, and the reset letters reach both simplex vertices. $A_j=(2/5)P+(2/25)(I-P)$ for $P=\mathbf1\mathbf1^\top/2$. Exact Stein calculation gives
+\[
+ (1,-1)Q(1,-1)^\top=700/16369,\qquad
+ \widehat\omega_{j,N}^2=(700/16369)25^{-N}.
+\]
+Thus the conditional root rate is $1/5$. The unnormalized pair $aj^N,bbj^N$ has a nonzero Perron contrast because $F(a)=3/20$, $F(bb)=3/200$, so its future-energy root rate is $2/5$. These are exact rates on an explicitly specified fixture, not inferred rates from an unavailable numerical trace.
+\end{example}
+
+\begin{theorem}[Uniform positive-matrix certificate]
+If every $A_a$ is strictly positive, define
+\[
+ \Delta_a=\log\max_{i,j,k,l}\frac{(A_a)_{ik}(A_a)_{jl}}{(A_a)_{il}(A_a)_{jk}},\quad
+ \Delta_* =\max_a\Delta_a,\quad\tau_* =\max_a\tanh(\Delta_a/4)<1.
+\]
+For $N\ge1$,
+\[
+ \widehat\omega_N\le
+ \min\{\sqrt2,2\tanh(\Delta_*\tau_*^{N-1}/4)\}
+ \le(\Delta_*/2)\tau_*^{N-1}.
+\]
+When $\Delta_*=0$, interpret the bound as zero after the first letter.
+\end{theorem}
+\input{proofs/executable-memory/3.9.6.tex}
+
+\begin{theorem}[Mass-qualified transfer; failure without a margin]\label{III:S:thm:conditionaltransfer}
+Let $f,g$ be completed-string distributions and use one fixed history set $\mathcal H$ admissible in both, with $F_f(u),F_g(u)\ge\mu>0$. If $\Snorm{H_f-H_g}\le e$ and $\sup_{u\in\mathcal H}|F_f(u)-F_g(u)|\le e_F$, then
+\[
+ |\widehat\omega_N^{\mathcal H}(f)-\widehat\omega_N^{\mathcal H}(g)|
+ \le2(e+e_F)/\mu.
+\]
+The hypothesis $\Snorm{f-g}_1\le\epsilon$ suffices for the alternative bound $4\epsilon/\mu$. No unqualified uniform continuity in Hankel norm holds for conditional diameters.
+\end{theorem}
+\input{proofs/executable-memory/3.9.7.tex}
+Hankel norm alone does not bound $e_F$: summing an infinite residual against the all-ones vector is not a bounded $\ell^2$ functional. Nor does an $\ell^2$ bound on completed futures imply a dimension-free total-variation or KL bound. In a finite set of $M$ outcomes, $\Snorm{p-q}_1\le\sqrt M\Snorm{p-q}_2$; using this inequality on an infinite completion space would be invalid.
+
+\section{Behavioral equivalence and autonomous certification}
+\label{III:M:sec:behavioral-contract}
+This section supplies elementary bridges needed to read the later results
+as a theory of agent memory. They are classical arguments, not asserted
+novelty. Fix an event alphabet $\Sigma$, a query set $\mathcal Q$ and a
+common answer space. Assume every history and continuation used below is
+admissible; for a restricted language, specify its state and common
+admissibility conditions as additional persistent information.
+
+\paragraph{From agent records to a predictive contract.}
+For an agent-memory application, an implementation must specify how
+observations, feedback, and corrections become letters, which queries
+are admissible, and what answer law or scalar observable is to be
+preserved. Source records and provenance can support validation of this
+encoding. The external-memory organization discussed by
+Martin~\citep{martin2026memory} motivates retaining enough evidence to
+revise a mistaken rule. The mathematical replay statements below assume
+that the supplied events and mode information describe the intended
+updates; they do not by themselves establish that a natural-language
+extractor identified the right rule or correction.
+
+FrontierMemory's task, user, and environment cases suggest complementary
+tests of this interface~\citep{letta2026frontiermemoryv1}. A proposed
+DRAGA evaluation should freeze the event and query interfaces, separate
+memory construction from held-out tasks, and compare task performance
+with and without the retained memory. It should also measure update
+correctness, correction of stale records, complete stored bytes, and
+online and offline computation. This accounting matters because the
+benchmark's reported task costs exclude its offline memory-generation
+cost. These are evaluation requirements for a future implementation;
+this paper reports no FrontierMemory score. The pseudometric below
+instead states a worst-case preservation target for a specified model,
+including the effect of future continuations.
+
+\begin{definition}[Future answer pseudometric]\label{III:M:def:agent-future}
+For reference answer laws $P_h(\cdot\mid q)$ define
+\[
+ d_{\rm fut}^{\rm ans}(h,h')
+ =\sup_{w\in\Sigma^*,\,q\in\mathcal Q}
+ \MTV\!\left(P_{hw}(\cdot\mid q),P_{h'w}(\cdot\mid q)\right).
+\]
+For scalar observables replace TV by absolute difference. The scalar
+metric in the later memory theorems is this latter convention; a scalar
+readout theorem is not automatically a theorem for an answer distribution.
+\end{definition}
+
+\begin{proposition}[Exact quotient and behavioral packing]
+\label{III:M:prop:agent-quotient}
+Zero future distance defines a right congruence:
+$h\sim h'$ implies $ha\sim h'a$ for every letter. If it has finitely
+many classes, its quotient is an exact autonomous predictive machine.
+Every exact deterministic machine has at least that many reachable states.
+More generally, if $M$ histories have pairwise future distances greater
+than $2\epsilon$, every deterministic machine with uniform answer error at
+most $\epsilon$ has at least $M$ reachable states and needs
+$\lceil\log_2M\rceil$ persistent bits.
+\end{proposition}
+\input{proofs/executable-memory/3.10.2.tex}
+The quotient result is an existence/minimality statement. An infinite
+supremum, exact class equality or the quotient transitions need not be
+computable from a finite data sample.
+
+\begin{proposition}[A sufficient finite invariant-cover certificate]
+\label{III:M:prop:agent-cover}
+Let reference states evolve by $x^+=F_a(x)$. Suppose finitely many
+nonempty sets $C_i$, a start index $i_0$, transitions $T(i,a)$ and
+answer laws $\widehat P_i(\cdot\mid q)$ satisfy
+\[
+ x_0\in C_{i_0},\qquad F_a(C_i)\subseteq C_{T(i,a)},\qquad
+ \sup_{x\in C_i,q\in\mathcal Q}\MTV(P_x(\cdot\mid q),
+                     \widehat P_i(\cdot\mid q))\le\epsilon.
+\]
+Then storing only the index $i$ and applying $T$ gives uniform answer
+error at most $\epsilon$ for all histories.
+\end{proposition}
+\input{proofs/executable-memory/3.10.3.tex}
+The finite cover alone does not supply its transition inclusion or an
+efficient description. In particular, the relation
+$d_{\rm fut}\le\epsilon$ is generally not an equivalence relation:
+three real scalar states $0,3\epsilon/4,3\epsilon/2$ already violate
+transitivity. Pairwise similarity clustering is therefore not a proof
+of an update-compatible quotient.
+
+\begin{proposition}[Bounded-loss decision transfer]\label{III:M:prop:decision-transfer}
+Let $P,Q$ be answer laws with $\MTV(P,Q)\le\epsilon$. For actions
+$a$ and loss $\ell(a,y)\in[0,1]$, suppose minimizers $a_P,a_Q$
+exist. Then
+\[
+ \mathbb E_P\ell(a_Q,Y)-\mathbb E_P\ell(a_P,Y)\le2\epsilon.
+\]
+If the $P$-optimal action is unique with loss gap greater than
+$2\epsilon$ to every other action, it remains the unique $Q$-optimal action.
+\end{proposition}
+\input{proofs/executable-memory/3.10.4.tex}
+This result concerns the declared reference loss and query. It does not
+convert a completed-word TV bound into a prefix-uniform guarantee, nor
+does it certify that two agents generating different actions encounter
+the same future observations.
+
+\subsection{Where the multiletter aspect enters}
+The order of events matters: $F_aF_b$ need not equal $F_bF_a$.
+A direction invisible to the current readout may become observable
+after another letter. A valid reduction must control all declared future
+readouts and remain compatible with every allowed update.
+Hankel theory encodes this past--future interaction linearly; the invariant
+cover and stopped-address constructions handle finite executable states.
+Neither linear Hankel rank nor spectral magnitude alone determines how
+many persistent factual distinctions survive.
+
+\paragraph{Convention for word order.}
+The linear sections use $A_w=A_{a_1}\cdots A_{a_t}$ and a row state
+updated on the right. Sequential geometric sections use
+$x_t=\tau_{a_t}\circ\cdots\circ\tau_{a_1}(x_0)$.
+The unequal-ratio address is written newest first and explicitly reversed
+for chronological replay. These conventions describe the same input
+ordering in their respective state orientations; they must not be mixed.
+
+\section{An exact optimum in persistent bits}\label{III:M:sec:memory}
+The following exact optimum does not depend on
+the real dimension of the deployed representation.
+
+\begin{definition}[Autonomous deterministic memory]\label{III:M:def:autonomous-memory}
+A machine is a finite Moore machine $(Q,q_0,T_0,T_1,y)$ with deterministic,
+time-independent transitions and output depending only on its current state.
+All persistent information, including a clock, branch flag, cache, or
+coroutine state, belongs to $Q$. Fixed code and immutable parameters may be
+arbitrary, but cannot depend on the past input. Define
+\[
+ B_f^*(\epsilon)=\min\left\{\lceil\log_2|Q|\rceil:
+       \sup_{w\in\{0,1\}^*}|f(w)-y(q(w))|\le\epsilon\right\}.
+\]
+An external clock or access to the deleted input history changes the model.
+\end{definition}
+
+Fix an integer $a\ge1$, put $\rho=2^{-a}$, and let
+\[
+ A_c=\begin{pmatrix}\rho&\rho c/2\\0&\rho/2\end{pmatrix},\quad
+ \alpha=(1,0),\quad\beta=(0,1)^\top,\quad f_a(w)=\alpha A_w\beta.
+\]
+For a word $w=c_1\cdots c_t$, define $k(w)=\sum_{j=1}^tc_j2^{j-1}$.
+The row-state recurrence and its closed form are
+\[
+ (z,x)\longmapsto(\rho z,\rho(x+cz)/2),\qquad
+ z(w)=\rho^t,\quad f_a(w)=\frac{k(w)}{2^{(a+1)t}}.
+\]
+The letter matrices do not commute. The Hankel minor on
+$\{\varepsilon,1\}$ has determinant $-\rho^2/4$, so rank is exactly
+two. For $a=1$ its exact reachability and observability Gramians are
+\[
+ P=\begin{pmatrix}4/21&2/21\\2/21&8/7\end{pmatrix},\qquad
+ Q=\begin{pmatrix}2&1/3\\1/3&4/21\end{pmatrix}.
+\]
+Thus $\|H_{f_1}\|_{\rm HS}^2=\operatorname{tr}(PQ)=292/441$.
+Since $f_a(w)=(2\rho)^{|w|}f_1(w)$ and $2\rho\le1$, every source
+has $\|H_{f_a}\|\le\sqrt{292/441}<5/6<1$.
+
+\subsection{A finite witness for every future}
+\begin{lemma}[Two suffixes determine the future metric]\label{III:M:lem:future}
+For two states with differences $\Delta z,\Delta x$ and $0<\rho\le1/2$,
+their supremum difference over all common suffixes is
+\[
+ d_{\rm fut}=\max\{|\Delta x|,\tfrac\rho2|\Delta x+\Delta z|\}.
+\]
+\end{lemma}
+\input{proofs/executable-memory/3.11.2.tex}
+
+\begin{lemma}[Behavioral packing]
+If $M$ reachable prefixes have pairwise future distances greater than
+$2\epsilon$, every admissible machine of error at most $\epsilon$
+has at least $M$ reachable states.
+\end{lemma}
+\input{proofs/executable-memory/3.11.3.tex}
+The packing principle is classical. The explicit construction and matching
+integer bit count below are the specific result.
+
+\subsection{The exact lower and upper bounds}
+\begin{theorem}[Exact persistent-bit optimum]\label{III:M:thm:bits}
+For $a\ge1$, $m\ge a+2$, and $\epsilon=2^{-((a+1)m+2)}$,
+\[
+ \boxed{B_{f_a}^*(\epsilon)=m+2.}
+\]
+The assertion is exact for $B=\lceil\log_2|Q|\rceil$, not for the minimum number of states. The lower bound allows arbitrary immutable tables. The upper construction
+uses a closed integer update and includes its clock in the state identifier.
+\end{theorem}
+\input{proofs/executable-memory/3.11.4.tex}
+\input{proofs/executable-memory/3.11.4-part-2.tex}
+By monotonicity between successive tolerances, for each fixed $a$,
+\[
+ B_{f_a}^*(\epsilon)=\frac1{a+1}\log_2(1/\epsilon)+O(1).
+\]
+The coefficient varies while Hankel rank stays two. Thus rank alone does
+not specify the optimal leading bit cost.
+
+\begin{corollary}[Robustness and rank-four sources]\label{III:M:cor:robust-bits}
+Under Theorem~\ref{III:M:thm:bits}, if $\|g-f_a\|_\infty\le\eta\le\epsilon/4$,
+then $B_g^*(\epsilon+\eta)=m+2$. In particular
+$B_g^*(5\epsilon/4)=m+2$ for every such $g$.
+An explicit normalized rank-four example is
+\[
+ g(w)=f_a(w)+\frac\eta2(3^{-|w|}+5^{-|w|}),\qquad\eta=\epsilon/4.
+\]
+\end{corollary}
+\input{proofs/executable-memory/3.11.5.tex}
+
+\subsection{What this solves, and what it leaves}
+The optimum is exact in \emph{bits}, not in state count: the latter lies
+between $2^{m+1}+1$ and the constructed $N$. Jointly encoding time is
+essential. Decoding the layer by scanning block sizes takes $O(T)$
+iterations and avoids an exponential table. A signed 64-bit implementation of these formulas
+imposes $L\le62$; larger parameters need multiword arithmetic. Temporary
+space and output precision may exceed the persistent state size.
+
+Most importantly, $f_a$
+decays uniformly with input length and the machine eventually absorbs.
+It is a sharp executable-memory example, not evidence of sustained
+language-memory retention. The rank-four perturbation depends on the
+tolerance through $\eta$; it does not establish the same law for every
+fixed rank-four source.
+\subsection{A constant-overhead existence law on regular attractors}
+\label{III:M:sec:ahlfors-memory}
+For the following theorem, extend Definition~\ref{III:M:def:autonomous-memory}
+to any fixed finite alphabet, with one deterministic transition for each
+letter. Immutable transition and output tables are allowed and charged
+separately from the persistent state identifier.
+
+\begin{theorem}[Persistent-bit existence law under Ahlfors regularity]
+\label{III:M:thm:ahlfors-memory}
+Let $\mathcal X\subset\mathbb R^k$ be compact with positive diameter,
+$x_0\in\mathcal X$, and maps $\tau_a:\mathcal X\to\mathcal X$ of
+Lipschitz constant at most $0<\lambda<1$. Suppose the reachable states
+are dense in $\mathcal X$. For $f(w)=h(\tau_w(x_0))$, assume
+\[
+ c_{\rm obs}\|x-y\|_2\le d_{\rm fut}(x,y)
+ :=\sup_v|h(\tau_v(x))-h(\tau_v(y))|
+ \le C_{\rm obs}\|x-y\|_2,
+\]
+with $0<c_{\rm obs}\le C_{\rm obs}<\infty$.
+Let a finite Borel measure $\nu$ on $\mathcal X$ have total mass
+$M\in(0,\infty)$ and satisfy, for open Euclidean balls and
+$0<r<\operatorname{diam}\mathcal X$,
+\[
+ c_{\rm AD}r^s\le\nu(B(x,r)\cap\mathcal X)
+                  \le C_{\rm AD}r^s,
+ \qquad s,c_{\rm AD},C_{\rm AD}>0.
+\]
+Then, for $0<\varepsilon<c_{\rm obs}\operatorname{diam}\mathcal X/4$,
+\begin{equation}
+ s\log_2(1/\varepsilon)+C_-
+ \le B_f^*(\varepsilon)
+ \le s\log_2(1/\varepsilon)+C_+,
+ \label{III:M:eq:ahlfors-bit-law}
+\end{equation}
+where
+\[
+ C_-=\log_2\!\left[\frac{M}{C_{\rm AD}}
+                         \left(\frac{c_{\rm obs}}4\right)^s\right],
+ \qquad
+ C_+=1+\log_2\!\left[\frac{M}{c_{\rm AD}}
+                   \left(\frac{2C_{\rm obs}}{1-\lambda}\right)^s\right].
+\]
+This is an existence theorem for persistent state bits. It does not
+assert a computable net, a succinct immutable program, or an efficient
+online state update.
+\end{theorem}
+\input{proofs/executable-memory/3.11.6.tex}
+
+The invariant-attractor condition
+$\mathcal X=\bigcup_a\tau_a(\mathcal X)$ implies the required density
+when $x_0\in\mathcal X$: every point lies in an iterated image of
+diameter at most $\lambda^n\operatorname{diam}\mathcal X$, and the
+same image of $x_0$ is reachable. The theorem's content is the
+combination of packing and an invariant rounding tube; no novelty is
+claimed for these standard ingredients. If finite-precision outputs are
+required, reserve half the error for output quantization and halve the
+tracking tolerance. This changes only the constant overhead, while all
+output constants and transition tables still need to be charged.
+
+
+\subsection{An optimal table-free executable on homogeneous separated attractors}
+\label{III:M:sec:address-memory}
+\begin{theorem}[Homogeneous addresses with all storage and update costs charged]
+\label{III:M:thm:address-memory}
+Suppose $\mathcal X\subset\mathbb R^k$ is the attractor of $d\ge2$
+similarities $\tau_a(x)=\lambda O_ax+t_a$ of a common ratio
+$0<\lambda<1$, with pairwise separated images. Let the dimension
+$k$ and the rational affine maps be fixed. Assume $\mathcal X$ has
+positive diameter, $x_0$ is the fixed point of $\tau_0$, and the
+future-observability inequalities of Theorem~\ref{III:M:thm:ahlfors-memory}
+hold for an output $h$ admitting certified $b$-bit evaluation in
+polynomial time and $O_H(b)$ scratch bits. Then there is a table-free
+finite-state executable with error at most $2^{-p}$ and
+\[
+ B(p)=\frac{\log d}{\log(1/\lambda)}p+O_H(1)
+       =B_f^*(2^{-p})+O_H(1)
+\]
+persistent state bits. Its symbol update costs $O_H(p)$ bit operations.
+For fixed-dimensional rational affine maps, readout takes
+$O_H(p\mathsf M(p))$ bit operations plus the cost of evaluating $h$,
+with $O_H(p)$ scratch and immutable parameter bits. No exponential
+transition table is stored.
+\end{theorem}
+\input{proofs/executable-memory/3.11.7.tex}
+\begin{theorem}[An effective contractive coordinate chart]
+\label{III:M:thm:chart-memory}
+Suppose predictive states admit a supplied global chart
+$\phi:[0,1]^k\to\mathcal X$ such that the conjugate updates
+$F_a=\phi^{-1}\tau_a\phi$ map the cube to itself and are
+$\lambda$-Lipschitz in maximum norm, $\lambda<1$.
+Assume reachable states are dense and
+\[
+ c\|z-z'\|_\infty\le d_{\rm fut}(\phi z,\phi z')
+                         \le C\|z-z'\|_\infty.
+\]
+Suppose the initial coordinate, the $F_a$ and $h\circ\phi$ have
+certified $q$-bit evaluators using polynomial time, $O_H(q)$ scratch
+bits and $O_H(q)$ immutable parameter bits, with fixed $k,d$.
+Then an executable without a transition table attains error $2^{-p}$
+with $kp+O_H(1)=B_f^*(2^{-p})+O_H(1)$ persistent bits and polynomial
+compilation, update and readout bit cost.
+\end{theorem}
+\input{proofs/executable-memory/3.11.8.tex}
+The chart theorem assumes contraction in the executable coordinates;
+bi-Lipschitz equivalence alone can enlarge a contraction constant
+beyond one. Discovering such a chart is not part of the theorem.
+
+Theorem~\ref{III:M:thm:packed-startup} below removes the fixed-point
+initialization restriction for effective initial coordinates by encoding
+startup lengths within the state index; it needs no address of $x_0$.
+
+\paragraph{Why unequal ratios are a different target.}
+For $\tau_0(x)=x/4$ and $\tau_1(x)=x/2+1/2$, the separated attractor
+has dimension $s$ determined by $4^{-s}+2^{-s}=1$, hence
+$s=\log_2((1+\sqrt5)/2)<1$.
+A fixed-length register based on the worst contraction $1/2$ stores
+$p+O(1)$ bits, rather than $sp+O(1)$. Thus the optimal
+coefficient does not follow from that fixed-window construction for unequal ratios. Uniform bi-Lipschitz
+bounds alone also do not prove Ahlfors regularity for arbitrary
+nonconformal systems. Adaptive address coding or effective charts need separate theorems.
+The rational-similarity case is supplied next in
+Section~\ref{III:M:audit:sec:addresses}, with its own update and storage costs.
+
+\subsection{Packed startup states remove the fixed-point initialization restriction}
+\label{III:M:sec:packed-startup}
+\begin{theorem}[Homogeneous addresses from an arbitrary effective initial state]
+\label{III:M:thm:packed-startup}
+Retain the separated homogeneous similarities and future-observability
+assumptions of Theorem~\ref{III:M:thm:address-memory}, but replace its
+fixed-point assumption by an arbitrary $x_0\in\mathcal X$ admitting
+certified $q$-bit evaluation in polynomial time and $O_H(q)$ scratch
+and immutable parameter bits. Assume also that $h$ has an effectively
+evaluable $C_{\rm obs}$-Lipschitz extension to a fixed neighborhood
+of $\mathcal X$, with the same evaluation resource bounds as before.
+Then the same optimal persistent memory
+\[
+ B(p)=\frac{\log d}{\log(1/\lambda)}p+O_H(1)
+       =B_f^*(2^{-p})+O_H(1)
+\]
+is achieved without a transition table or a supplied address of $x_0$.
+Updates use $O_H(p)$ bit operations. Readout uses
+$O_H(p\mathsf M(p))$ bit operations plus evaluation of $x_0$ and $h$,
+and $O_H(p)$ scratch and immutable parameter bits.
+\end{theorem}
+\input{proofs/executable-memory/3.11.9.tex}
+This removes an initialization restriction within the homogeneous
+class. Section~\ref{III:M:audit:sec:addresses} now treats unequal rational
+ratios; discovering effective coordinates for a general regular
+attractor remains open.
+
+\section{Unequal rational similarity addresses}\label{III:M:audit:sec:addresses}
+This section gives a constructive answer to the
+unequal-rational-ratio part of the effective-memory target. Its ingredients
+include classical stopping trees, enumerative coding, and self-similar packing.
+In particular, Reznik--Anisimov~\cite{reznik} already use composition groups and
+combinatorial indexing to avoid complete variable-to-fixed coding trees.
+Those coding ideas are not claimed as new here. The proposed addition is their
+explicit use in an autonomous predictive-state update, with initialization,
+finite precision, and bit costs stated together.
+
+\begin{theorem}[Streaming rational-similarity addresses]
+\label{III:M:audit:thm:addresses}
+Fix a finite alphabet of size $d\ge2$, a dimension $k$, and rational affine
+similarities
+\[
+ \tau_a(x)=r_aO_ax+t_a,\qquad O_a^\top O_a=I,\qquad
+ r_a\in\mathbb Q\cap(0,1).
+\]
+Assume their compact attractor $X$ has positive diameter and strongly separated
+first-level images. The affine coefficients and all model constants are fixed.
+Let $x_0\in X$ be effectively evaluable. Suppose the scalar output $h$ has a
+certified $C$-Lipschitz extension to a fixed neighborhood of $X$, and
+\[
+ c\Mnorm{x-y}\le d_{\mathrm{fut}}(x,y)
+ :=\sup_{v\in\Sigma^*}|h(\tau_vx)-h(\tau_vy)|
+ \le C\Mnorm{x-y},\qquad c,C>0.
+\]
+Suppose $x_0$ and $h$ have certified $q$-bit evaluators with polynomial time
+and $O_H(q)$ scratch and immutable parameter bits. Here $H$ denotes the fixed
+model, not an input whose size is being suppressed in a uniform claim.
+Let $s>0$ be the unique solution of $\sum_a r_a^s=1$.
+Then, for error $2^{-p}$, an autonomous finite-state executable attains
+\[
+ B(p)=sp+O_H(1)=B_f^*(2^{-p})+O_H(1)
+\]
+persistent bits, polynomial compilation/update/readout bit cost, and $O_H(p)$
+scratch and immutable parameter bits. No exponential word or transition table
+is stored. A conservative schoolbook implementation of the indexing operations
+uses $O_H(p^{d+4})$ bit operations per update or readout, in addition to the
+stipulated evaluator cost. This is not a uniform low-degree bound as $d$ varies.
+\end{theorem}
+
+\input{proofs/executable-memory/3.12.1.tex}
+
+\textbf{Scope.} Rational ratios and fixed alphabet size make the exact
+polynomial counting argument effective. This proof supplies neither efficient
+discovery of the model nor the general nonconformal or homographic state encoder.
+Persistent bits are optimal to additive constant; the leading coefficient of
+\emph{total} peak storage has not been optimized. The generic implementation
+is a proof of polynomial cost, not a latency improvement.
+
+\subsection{The unequal-ratio example already singled out in the preceding development}
+For
+\[
+ \tau_0(x)=x/4,\qquad\tau_1(x)=x/2+1/2,\qquad h(x)=x,
+\]
+the attractor has diameter one, the first-level images are separated, and
+$d_{\rm fut}(x,y)=|x-y|$. Its dimension solves
+\[
+ 4^{-s}+2^{-s}=1,\qquad s=\log_2\frac{1+\sqrt5}{2}
+ \simeq0.694241914.
+\]
+At threshold $\theta=2^{-\ell}$, the stopped tree has $F_{\ell+2}$ leaves
+and $2F_{\ell+2}-1$ nodes, where $F_0=0,F_1=1$. The leading persistent-bit
+coefficient is about 30.6\% below the worst-contraction fixed binary window.
+This percentage concerns a mathematical state representation; no measured
+memory or runtime improvement for a deployed system is asserted.
+
+\begin{center}
+\begin{tabular}{@{}rrr@{}}\toprule
+Threshold exponent $\ell$ & Stopping-address bits & Fixed-window bits, with startup\\\midrule
+8 & 7 & 9\\16 & 13 & 17\\32 & 24 & 33\\64 & 46 & 65\\128 & 91 & 129\\\bottomrule
+\end{tabular}
+\end{center}
+These are exact finite address counts. A finite-precision output budget needs
+the constant tolerance allocation used in the theorem.
+
+\section{An exact finite optimum for the Fibonacci memory}
+\label{III:M:sec:leaf-optimum}
+The 91-bit entry in the preceding table counts every node of the stopped
+tree, including startup nodes. It is a correct cost for that construction.
+This section changes the startup contract: the prescribed approximation
+error is allowed from time zero. For the explicit initial state $x_0=0$,
+leaf addresses alone then give an exact finite minimax result. No claim
+about an arbitrary initial point, exact startup, or total peak bytes is
+implicit in this improvement.
+
+Fix an integer $\ell\ge1$, put $\theta=2^{-\ell}$, and consider
+\[
+ x_{t+1}=\tau_{a_{t+1}}(x_t),\qquad
+ \tau_0(x)=x/4,\quad \tau_1(x)=x/2+1/2,\quad x_0=0.
+\]
+The readout is $h(x)=x$. A deterministic memory consists of a finite set
+$Q$, a fixed initial state, updates $U_a:Q\to Q$ and a readout
+$D:Q\to\MR$, all independent of an uncharged external clock or transcript.
+Its required error is $|D(q_t)-x_t|\le\theta/2$ for every finite input
+history, including the empty history. Persistent model constants and the
+fixed precision parameter are treated as in the earlier fixed-model
+contract; temporary arithmetic is accounted for separately below.
+
+Write addresses from newest to oldest. For a word $v=v_1\cdots v_n$, let
+\[
+ \tau_v=\tau_{v_1}\circ\cdots\circ\tau_{v_n},\qquad
+ c(v)=2\#_0(v)+\#_1(v),\qquad I_v=\tau_v([0,1]).
+\]
+Let $\mathcal L_\ell$ be the words whose cost first reaches or exceeds
+$\ell$: $c(v)\ge\ell$ and $c(v^-)<\ell$, where $v^-$ deletes the last
+letter. These are leaves, not all prefixes of leaves.
+
+\begin{lemma}[Exact leaf count and separated endpoints]
+\label{III:M:lem:fibonacci-leaf-packing}
+With $F_0=0,F_1=1$, one has $|\mathcal L_\ell|=F_{\ell+2}$.
+Every leaf interval has length $\theta$ or $\theta/2$.
+The right endpoints $b_v=\tau_v(1)$, ordered from left to right, have
+successive separation at least $3\theta/2$.
+Consequently the minimum number of closed intervals of length $\theta$
+covering the attractor $K$ is exactly $F_{\ell+2}$.
+\end{lemma}
+\input{proofs/executable-memory/3.13.1.tex}
+
+\begin{theorem}[Exact autonomous optimum with approximate startup]
+\label{III:M:thm:fibonacci-exact-optimum}
+Under the stated contract and $x_0=0$, the minimum number of executable
+memory states and the minimum fixed-length persistent bit budget are
+\[
+ |Q|_{\min}=F_{\ell+2},\qquad
+ B_{\min}(2^{-\ell-1})=\left\lceil\log_2 F_{\ell+2}\right\rceil.
+\]
+In particular, $B_{\min}(2^{-129})=90$ bits at $\ell=128$.
+\end{theorem}
+\input{proofs/executable-memory/3.13.2.tex}
+
+\begin{proposition}[Leaf identifiers without an exponential table]
+\label{III:M:prop:fibonacci-leaf-cost}
+The preceding memory can store only a leaf ordinal. With elementary
+integer arithmetic its update and exact midpoint readout use $O(\ell)$
+temporary bits and at most $O(\ell^3)$ bit operations per update.
+No list of the $F_{\ell+2}$ leaves or transition table is required.
+\end{proposition}
+\input{proofs/executable-memory/3.13.3.tex}
+
+\paragraph{What changes, and what does not.}
+The earlier $2F_{130}-1$-node representation still uses 91 bits and
+retains exact startup histories. The new 90-bit representation uses a
+midpoint readout and permits the declared error immediately. The
+91-bit count was never a lattice quantization of occupation parameters.
+The asymptotic coefficient remains
+$\log_2\varphi\simeq0.694241914$, with
+$\varphi=(1+\sqrt5)/2$; improving startup changes an additive constant.
+Hausdorff dimension alone would only give a rate with unspecified
+finite constants. The exact packing above supplies the missing finite
+argument. Independently byte-aligned 90-bit and 91-bit payloads both
+occupy 12 bytes; saving one bit is not automatically a resident-byte gain.
+Python object sizes, working storage, output buffers and time are not
+included in the persistent-bit number.
+
+
+\subsection{Extension to the leaf union and non-dyadic tolerances}\label{III:M:rev13:sec:fib}
+
+Notation as in Section~\ref{III:M:sec:leaf-optimum}: $\tau_0(x)=x/4$, $\tau_1(x)=x/2+1/2$, $h(x)=x$, $\theta=2^{-\ell}$, leaves
+$\mathcal L_\ell$ (newest-first words whose cost first reaches $\ell$),
+$I_v=\tau_v([0,1])$, $b_v=\tau_v(1)$, and $K$ the attractor. Put
+\[
+U_\ell=\bigcup_{v\in\mathcal L_\ell}I_v\supseteq K .
+\]
+The preceding theorem proves $|Q|_{\min}=F_{\ell+2}$ for $x_0=0$ and states that no claim for an
+arbitrary initial point is implicit. The proof in fact needs only $x_0\in U_\ell$.
+
+\begin{theorem}[Exact optimum for every initial point of the leaf union]
+\label{III:M:rev13:thm:fib-general}
+Fix $\ell\ge1$ and the contract $|D(q_t)-x_t|\le\theta/2$ for every finite history
+including the empty one, for an autonomous deterministic memory $(Q,q_0,(U_a),D)$ without
+an uncharged clock. For every $x_0\in U_\ell$ (in particular every $x_0\in K$),
+\[
+|Q|_{\min}=F_{\ell+2},\qquad B_{\min}(2^{-\ell-1})=\lceil\log_2F_{\ell+2}\rceil .
+\]
+For every $x_0\in[0,1]$ the lower bound $|Q|_{\min}\ge F_{\ell+2}$ holds. An exact state count for $x_0\notin U_\ell$ is not asserted here.
+\end{theorem}
+\input{proofs/executable-memory/3.13.4.tex}
+
+\begin{remark}
+The leaf union $U_\ell$ is a strict superset of $K$ (it contains the gaps of $K$ at
+depth $\ge\ell$), so the theorem covers more initial points than the attractor. For
+$x_0\in[0,1]\setminus U_\ell$ (for example $x_0=3/10$ at $\ell\ge2$) the leaf machine
+cannot be initialised, the exact value lies in $[F_{\ell+2},\,2F_{\ell+2}-1]$ (the
+all-node construction gives the upper end). The dependence of the precise
+count on $x_0$ in this residual case remains open.
+\end{remark}
+
+\begin{proposition}[Non-dyadic tolerances]\label{III:M:rev13:prop:fib-eps}
+Let $x_0\in K$, let $0<\epsilon\le1/4$ and let $\ell\ge1$ be the integer with
+$2^{-\ell-1}\le\epsilon<2^{-\ell}$, $\theta=2^{-\ell}$. For the contract
+$|D(q_t)-x_t|\le\epsilon$:
+\[
+\text{if }\ \tfrac\theta2\le\epsilon<\tfrac{3\theta}4:\quad |Q|_{\min}(\epsilon)=F_{\ell+2};
+\qquad
+\text{if }\ \tfrac{3\theta}4\le\epsilon<\theta:\quad F_{\ell+1}\le|Q|_{\min}(\epsilon)\le F_{\ell+2}.
+\]
+\end{proposition}
+\input{proofs/executable-memory/3.13.6.tex}
+
+\section{Persistent facts, checkpoint replay and certified guards}\label{III:M:audit:sec:persistent}
+The new address construction still forgets old distinctions under a sufficiently
+long common continuation. It does not solve permanent factual recall.
+
+\begin{proposition}[Uniform contraction cannot preserve a non-fading fact]
+Suppose two histories encode a binary fact $b\in\{0,1\}$ that remains unchanged
+after $t$ repetitions of an irrelevant event. The two stored states initially
+have distance at most $D$. Suppose that event is $\lambda$-contractive,
+$0<\lambda<1$, and the answer distribution is $L$-Lipschitz in state distance
+under total variation. If both fact answers have TV error at most $\epsilon$
+against the correct point-mass answers, then
+\[
+ 1\le 2\epsilon+LD\lambda^t.
+\]
+Consequently no fixed $\epsilon<1/2$ can hold for all $t$ under these assumptions.
+\end{proposition}
+\input{proofs/executable-memory/3.14.1.tex}
+This is an elementary obstruction, not a new novelty claim. Discontinuous
+exact-real readout is excluded by the Lipschitz hypothesis; finite robust
+storage cannot silently use infinitely precise coordinates.
+
+If all $N$ independently supplied bits must be individually recalled with
+worst-case error below $1/2$ by a deterministic-state encoder, at least $N$
+persistent bits are necessary. Otherwise two of the $2^N$ fact assignments
+share a state and disagree on a query. Thus growing factual content cannot be
+hidden inside a fixed total byte budget with unrestricted recall guarantees.
+
+\subsection{The persistent-plus-predictive construction target}
+\textbf{Target: a certified streaming memory with exact persistent distinctions
+and a compressed predictive component.} The deployed state has the form
+\[
+ m_t=(r_t,z_t),\qquad
+ r_{t+1}=G(r_t,a_{t+1}),\qquad z_{t+1}=F_{a_{t+1},r_t}(z_t).
+\]
+Here $r_t$ retains designated non-fading facts or exceptions, while $z_t$
+captures compressible dynamics. Exact storage refers to the chosen typed
+facts, not to infallible extraction from natural language. Every byte in
+$r_t$, provenance and indexes is counted. A guarantee must also account for
+coupling from $z_t$ into any update of $r_t$.
+
+\subsection{Constructive extension: replay from the mode at the window base}
+\begin{proposition}[Rational addresses with a mode checkpoint]
+\label{III:M:audit:prop:checkpoint}
+Let $\mathcal R$ be a nonempty finite set, $G:\mathcal R\times\Sigma\to
+\mathcal R$ a deterministic computable transition, and
+\[
+ r_{t+1}=G(r_t,a_{t+1}),\qquad
+ x_{t+1}=\tau_{a_{t+1},r_t}(x_t),\qquad
+ \tau_{a,r}(x)=r_aO_{a,r}x+t_{a,r}.
+\]
+The ratios $r_a\in\mathbb Q\cap(0,1)$ depend only on the letter; the
+orthogonal maps and translations may depend on the mode. Assume a common
+nonempty compact invariant set $X$ contains $x_0$, and let $D$ be a known
+upper bound on its diameter. Fix $0<\theta<1$ and use the stopped address
+tree of Theorem~\ref{III:M:audit:thm:addresses}, including its internal startup nodes.
+An autonomous representation is
+\[
+ m_t=(b_t,I_t),\qquad b_t=r_{\mathrm{base},t}
+       =r_{t-|v_t|},\qquad I_t=\operatorname{rank}(v_t),
+\]
+where $v_t$ is the retained word, newest letter first. It uses at most
+\[
+ \lceil\log_2|\mathcal R|\rceil+\lceil\log_2N_\theta\rceil
+\]
+persistent bits. Start with $(b_0,I_0)=(r_0,0)$. On receiving $a$, form
+\[
+ w=(a)\operatorname{unrank}(I_t)=v_{t+1}u_{\rm drop},\qquad
+ v_{t+1}=\operatorname{trim}(w),
+\]
+and update, with $G^*$ iterating $G$ in the displayed word order,
+\[
+ b_{t+1}=G^*(b_t,\operatorname{rev}(u_{\rm drop})),\qquad
+ I_{t+1}=\operatorname{rank}(v_{t+1}).                 \tag{M.2}
+\]
+To read, initialize $(\rho,y)=(b_t,x_0)$ and for each letter $a$ of
+$\operatorname{rev}(v_t)$ apply the simultaneous assignment
+\[
+ (\rho,y)\longleftarrow\bigl(G(\rho,a),\tau_{a,\rho}(y)\bigr),
+                                                        \tag{M.3}
+\]
+whose right-hand side uses the old mode. The final mode is exactly $r_t$.
+If all history is retained, $y=x_t$; otherwise
+\[
+ \Mnorm{x_t-y}\le D r_{v_t}\le D\theta.               \tag{M.4}
+\]
+Neither invertibility nor strong connectivity of $G$ is required.
+
+For executable numerical bounds, assume additionally rational affine
+coefficients and the certified evaluation hypotheses of
+Theorem~\ref{III:M:audit:thm:addresses}, uniformly over the fixed finite mode catalogue.
+Then the same polynomial indexing cost and $O_H(p)$ scratch bounds apply
+at $\theta=2^{-(p+c_0)}$. For an output uniformly $C$-Lipschitz in the
+continuous coordinate within each exact mode, the same error allocation
+gives output error $2^{-p}$ and
+\[
+ B(p)\le sp+\lceil\log_2|\mathcal R|\rceil+O_H(1),
+ \qquad \sum_a r_a^s=1.                              \tag{M.5}
+\]
+All mode/transition descriptions and numerical evaluators are charged.
+This is a constructive upper bound, not a joint optimality theorem.
+\end{proposition}
+\input{proofs/executable-memory/3.14.2.tex}
+
+Strong separation and future observability are not needed for this upper
+bound. They cannot be silently transferred from the unmixed family to the
+mode-dependent one to claim a matching lower bound. Some pairs $(b,v)$ can
+be unreachable, and different modes can have indistinguishable futures.
+The model is fixed in (M.5); a growing mode catalogue must be charged explicitly.
+
+\textbf{Feedback boundary.} If instead
+$r_{t+1}=G(r_t,a_{t+1},\sigma_{t+1})$, where $\sigma_{t+1}$ is determined
+by the continuous trajectory, the letters and checkpoint need not recover
+the branch choices. One must prove that each choice is reconstructible,
+or retain the branch information and charge its storage and update costs.
+A log of one independent binary choice per retained step costs
+$O_H(p)$ additional bits; no additive-constant overhead follows in general.
+Proposition~\ref{III:M:audit:prop:checkpoint} does not resolve this feedback case.
+
+\subsection{Numerical refinement, geometric envelopes and actual ambiguity}
+Fix a stored state $m=(b,v)$, a query/event, and its scalar guard $g$.
+Let $\Phi_{b,\operatorname{rev}(v)}$ denote chronological replay with modes
+initialized at $b$. For a leaf address put
+\[
+ c_m=\Phi_{b,\operatorname{rev}(v)}(x_0),\qquad
+ S_m=\Phi_{b,\operatorname{rev}(v)}(X),\qquad R_m=Dr_v.
+\]
+The set of states attainable by admissible histories with this \emph{full}
+stored state is
+\[
+ \mathcal C_m=\{x(h):\operatorname{Enc}(h)=m\}
+       \ \subseteq\ S_m\ \subseteq\ B(c_m,R_m).       \tag{M.6}
+\]
+In general the first inclusion is strict: arbitrary points of $X$ need not
+be reachable with the required base mode and encoding. For an internal
+startup node use $S_m=\{c_m\}$ and $R_m=0$ instead. All these histories
+have the same current mode, which is recovered by (M.3).
+
+\begin{lemma}[Termination of a centered Lipschitz sign certificate]
+\label{III:M:audit:lem:guard}
+Suppose $g$ is $L_g$-Lipschitz on a region containing the relevant states and
+evaluation points. At precision $q$ let $\widetilde g_q$ be a certified
+evaluation of the exact replay center with
+\[
+ |\widetilde g_q-g(c_m)|\le\delta_q,
+ \qquad \delta_q=L_gE_{\rm num}(q)+\eta_g(q)\longrightarrow0.
+\]
+Put $A=L_gR_m$ and $\Delta_m=|g(c_m)|-A$. The test
+\[
+ |\widetilde g_q|>A+\delta_q                          \tag{M.7}
+\]
+certifies a constant strict sign on $\mathcal C_m$. Eventual acceptance
+by this particular test is equivalent to $\Delta_m>0$; a sufficient
+precision is $2\delta_q<\Delta_m$.
+The alternative test
+\[
+ |\widetilde g_q|+\delta_q\le A                      \tag{M.8}
+\]
+certifies $\Delta_m\le0$, so further numerical refinement cannot make
+(M.7) succeed. If $\Delta_m<0$, (M.8) eventually succeeds. If $\Delta_m=0$,
+neither finite-time exit is guaranteed.
+\end{lemma}
+\input{proofs/executable-memory/3.14.3.tex}
+
+\textbf{Counterexample: numerical refinement is not a truncation certificate.}
+Take $L_g=1$, $R_m=4/256$, $\delta_q=2/256$,
+$\widetilde g_q=5/256$, and $g(c_m)=3/256$.
+Then $|\widetilde g_q|>L_gR_m$, but $\Delta_m=-1/256$.
+The weaker inequality omitting numerical uncertainty is invalid.
+For instance, $c_m=0$, $g(x)=3/256+x$ on
+$[-4/256,4/256]$ realizes a sign change despite that weaker test.
+
+\textbf{Interval certificate.} Any certified enclosure
+$[\underline g_m,\overline g_m]\supseteq g(\mathcal C_m)$ yields a
+positive decision when $\underline g_m>0$, and a negative decision when
+$\overline g_m<0$. An enclosure of $g(S_m)$ is sufficient.
+Zero in the enclosure is inconclusive. Likewise $\Delta_m\le0$ only
+excludes the centered test (M.7); it does not establish a sign change.
+For $g(x)=R^2+x^2$ on $[-R,R]$, $R>0$, one has $L_g=2R$ and
+$g(0)=R^2<2R^2=L_gR$, whereas the exact range
+$[R^2,2R^2]$ is strictly positive.
+
+\textbf{An actual information-loss certificate.} Exhibit two admissible
+histories $h^+,h^-$ with identical \emph{full} stored state, the same
+query/event, and $g(x(h^+))>0>g(x(h^-))$. No deterministic decision from
+that state alone can be correct for both. This is stronger than finding
+zero in an outer interval. A concrete example uses a single mode,
+$\tau_0(x)=x/2$, $\tau_1(x)=x/2+1/2$, $x_0=0$, and threshold $1/2$.
+Chronological histories $(0,0)$ and $(1,0)$ retain the same last-letter
+address $(0)$, but their states are $0$ and $1/4$; the guard $x-1/8$
+has opposite signs. Equality with zero requires a separately declared
+tie convention and is not used in this example.
+
+\textbf{Branching is a set-valued guarantee.} With feedback, unresolved
+guards can be handled by keeping joint hypotheses about the discrete mode,
+continuous compatible set and required replay/branch payload. Intersect each
+compatible set with its guard region, then propagate it by that branch's
+transition. This preserves containment of the reference trajectory when the
+enclosures are sound. It does not provide a unique exact mode. A subset of
+the original mode--address product alone need not encode this information,
+because different branch histories can share its elements. Explicit binary
+branching can double the number of hypotheses per unresolved step; merging
+or symbolic compression requires a separate correctness and cost argument.
+
+\subsection{Persistence is an observability property, not a spectral shortcut}
+For $F(x)=x/(1+x)$ on $[0,1]$, direct induction gives
+\[
+ F^t(1)=\frac1{t+1}\longrightarrow0,\qquad
+ \lim_{t\to\infty}(F^t(1))^{1/t}=1,\qquad F'(0)=1.
+\]
+With identity readout and this single neutral transition,
+$d_{\rm fut}(F^t(1),0)=1/(t+1)$. Thus unit asymptotic exponential rate
+does not imply a positive surviving separation.
+
+For $P_0=\operatorname{diag}(1,0)$ and
+$P_1=\operatorname{diag}(0,1)$, the joint spectral radius is one:
+all products have norm at most one and repeated $P_0$ has norm one.
+Nevertheless $P_1P_0=P_0P_1=0$, so a mixed continuation can erase every
+distinction. These projectors \emph{commute}; noncommutativity is not needed
+for the counterexample. Joint spectral radius controls the largest product
+growth, not a lower bound for every continuation.
+
+A word-Hankel operator connects pasts to future observables. Its nonzero
+singular values count linear predictive rank, and their magnitudes measure
+spectral approximation strength. They do not by themselves provide a
+common center--stable decomposition for all letter transitions.
+
+One \emph{sufficient specification} for finitely many protected facts is a
+finite history congruence $\pi:\Sigma^*\to\mathcal R$ satisfying
+$\pi(ha)=G(\pi(h),a)$, together with a designated fact label $f(r)$ and
+a declared neutral alphabet. Require fact invariance under neutral events
+and the uniform observational margin
+\[
+ \inf_{w\in\Sigma_{\rm neutral}^*}
+ d_{\rm fut}(hw,h'w)\ge2\delta>0
+ \quad\text{whenever } f(\pi(h))\ne f(\pi(h')).       \tag{M.9}
+\]
+The admissible histories and future queries in (M.9) must be specified.
+Different auxiliary control modes carrying the same fact need not be
+separated. This is a conditional design requirement, not a proved universal
+decomposition or a learning theorem. A fixed finite register cannot retain
+an unbounded number of independently queryable facts.
+
+\subsection{What remains open, and what existing proofs need}
+The difficult contribution is learning or synthesizing this decomposition
+with an efficiently checkable future-error invariant and competitive cost.
+A supplied decomposition plus a geometric error series is useful machinery,
+but does not establish a general discovery theorem.
+
+Theorem~\ref{III:M:audit:thm:addresses} and Proposition~\ref{III:M:audit:prop:checkpoint} do not
+depend on solving the feedback, learned-congruence or general Hankel
+decomposition targets. Their hypotheses and proofs are explicit above.
+Lemma~\ref{III:M:audit:lem:guard} also does not assume that an inconclusive test can
+always be resolved. Resolving those open targets is necessary only for the
+corresponding stronger claims: general closed-loop agent memory, automatic
+discovery of protected facts, or global optimality beyond the stated class.
+
+\textbf{Proof obligations.} Specify the event/query language and reference
+semantics; establish all-letter update compatibility; transport numerical and
+model error to the declared answers; and prove the storage/update bound.
+The ordinary counting-Hankel estimate does not automatically certify rare
+conditional queries. The conditional bound divides by prefix mass.
+A controlled agent whose actions change subsequent observations needs a
+controlled-system or policy-level argument in addition to a fixed-input bound.
+
+\textbf{Decisive experiment.} Use a frozen answering model and typed events
+with a known oracle: insert facts, apply corrections and retractions, interleave
+long irrelevant sequences, and ask delayed or counterfactual queries. Compare
+an exact key--value baseline, retrieval/summary baselines, a homogeneous fading
+state, the unequal-ratio state, and the persistent-plus-predictive construction.
+Match total memory rather than just injected tokens. Report factual accuracy,
+order sensitivity, certificate coverage/violations, update and readout latency,
+and peak allocation. Afterwards test paraphrased natural-language interfaces,
+separating extraction failures from memory failures. No such agent benchmark
+is reported in this paper.
+
+\section{Certified feedback, joint memory and consolidation}
+\label{III:M:sec:agent-extensions}
+This section gives conditional constructions for feedback, joint memory
+and consolidation. All input alphabets, mode catalogues and structural constants
+are fixed unless a bound explicitly varies them. The elementary packing,
+coupling, quotient and concentration arguments below are not claimed as
+new general principles. Their role is to state the exact executable contract.
+
+\subsection{Cache decisions at the time of their certification}
+Use the following time convention throughout this section:
+\begin{equation}\label{III:M:eq:feedback-time}
+ \sigma_j=\mathbf1\{g_{a_j}(x_{j-1})\ge0\},\qquad
+ x_j=\tau_{a_j,r_{j-1}}(x_{j-1}),\qquad
+ r_j=G(r_{j-1},a_j,\sigma_j).
+\end{equation}
+Both right-hand sides use the old mode; the guard uses the state before
+the continuous update. A model whose guard uses the updated state requires
+a different, explicitly stated convention. No guard is recomputed at an
+intermediate replay state.
+
+\begin{lemma}[Maximum stopped-window length]\label{III:M:lem:feedback-length}
+For $0<r_a<1$, put $r_{\max}=\max_a r_a$ and
+\[
+ L_\theta=\left\lceil\frac{\log(1/\theta)}{\log(1/r_{\max})}\right\rceil.
+\]
+Every word stopped at its first product at most $\theta$, and every
+internal startup word, has length at most $L_\theta$. For
+$\theta=2^{-(p+c_0)}$, this is $O_H(p)$ for a fixed model.
+\end{lemma}
+\input{proofs/executable-memory/3.15.1.tex}
+The slowest contraction is decisive. For ratios $1/4,3/4$ and
+$\theta=1/16$, the all-$3/4$ word first crosses at length $10$:
+$(3/4)^9>1/16\ge(3/4)^{10}$. Replacing $r_{\max}$ by $r_{\min}$
+would incorrectly give $2$.
+
+\begin{theorem}[Certified branch-cache replay]\label{III:M:thm:branch-cache}
+Assume the rational similarities, common compact $X$, initial point $x_0$,
+and effective evaluators of Proposition~\ref{III:M:audit:prop:checkpoint}, but
+replace its mode update by \eqref{III:M:eq:feedback-time}. Let $D\ge\operatorname{diam}(X)$.
+Suppose at each incoming event a finite certified computation produces
+an interval containing $g_{a_j}(x_{j-1})$ that excludes zero, using only
+the deployed state, the new event and charged model data. Store its exact
+sign bit $\sigma_j$. The hypothesis is an explicit restriction on the
+admissible trajectories and guard algorithm, not an automatic consequence
+of contraction.
+
+Let $v_t=(a_t,\ldots,a_{t-\ell+1})$ be the stopped word and store
+\[
+ m_t=(b_t,I_t,\beta_t),\qquad
+ b_t=r_{t-\ell},\quad I_t=\Mrank(v_t),\quad
+ \beta_t=(\sigma_t,\ldots,\sigma_{t-\ell+1}).
+\]
+Replay the reversed letter--bit pairs from $(b_t,x_0)$ using the
+simultaneous update $(\rho,y)\leftarrow
+(G(\rho,a,\sigma),\tau_{a,\rho}(y))$.
+Then the final mode is exactly $r_t$, and exact-arithmetic replay satisfies
+\[
+ \Mnorm{x_t-y_t}\le D r_{v_t}\le D\theta
+\]
+whenever deletion has occurred; if all history is retained, $y_t=x_t$.
+Certified numerical replay adds its explicit $E_{\rm num}$.
+
+On arrival of $a$, first certify the new bit on the current state enclosure,
+then prepend $(a,\sigma)$, and trim letters and bits together. Advance $b_t$
+through the dropped pairs in chronological order. This is an autonomous
+update, including noninvertible mode resets. A fixed-width representation
+uses at most
+\begin{equation}\label{III:M:eq:branch-bits}
+ \lceil\log_2|\mathcal R|\rceil+
+ \lceil\log_2N_\theta\rceil+L_\theta
+\end{equation}
+persistent bits. The decoded address supplies the active bit-string length;
+unused bits in the fixed field are zeroed. Addressing and mode replay keep
+the previous polynomial bounds and $O_H(p)$ scratch. Total event time also
+includes the guard's actual certification cost, for which no universal
+bound is asserted here.
+\end{theorem}
+\input{proofs/executable-memory/3.15.2.tex}
+
+The guard can use the image of $X$ under the cached mode path, enlarged
+for numerical error. This outer enclosure need not be tight. At zero
+margin the theorem does not promise a successful event: halt or abstention
+must be declared, or a separate justified mechanism must supply the bit.
+An external decision oracle is not an uncharged implementation.
+
+\paragraph{Optional augmented-alphabet encoding.}
+If only letters in a declared $\Sigma_{\rm gate}$ require a bit, encode
+the alphabet consisting of one copy of each other letter and two copies
+of each gated letter. Both copies have ratio $r_a$. The address counting
+argument gives an upper rate $\widetilde s p+O_H(1)$, in addition to the
+mode checkpoint, where
+\[
+ \sum_{a\notin\Sigma_{\rm gate}}r_a^{\widetilde s}
+ +2\sum_{a\in\Sigma_{\rm gate}}r_a^{\widetilde s}=1.
+\]
+This is an upper bound on all encoded pair words. It is not an optimality
+claim: many bit words can be unreachable and the copied geometric branches
+need not be separated. Neither this construction nor \eqref{III:M:eq:branch-bits}
+preserves the earlier coefficient $s$ without further information.
+
+\subsection{Sound coalescence with its actual cardinality bound}
+Here hypotheses are an outer representation of possible states, not a
+probability distribution. Soundness means that the actual state remains
+covered. It does not authorize selecting an arbitrary hypothesized mode
+as an exact answer.
+
+\begin{proposition}[A shared continuous address and a mode subset]
+\label{III:M:prop:oneway-coalescence}
+Suppose $\tau_{a,r}=\tau_a$ and the ratios satisfy the address assumptions.
+Maintain the single address $I_t$ and a subset $S_t\subseteq\mathcal R$
+containing the actual mode. For the new letter let $J_t\subseteq\{0,1\}$
+contain every guard value on the sound continuous enclosure; if unresolved,
+use $J_t=\{0,1\}$. Set
+\[
+ S_{t+1}=\{G(r,a,\sigma):r\in S_t,\ \sigma\in J_t\}.
+\]
+This representation remains sound and has at most $|\mathcal R|$ mode
+labels at every time. A bit-mask implementation uses
+$|\mathcal R|+\lceil\log_2N_\theta\rceil$ persistent bits.
+\end{proposition}
+\input{proofs/executable-memory/3.15.3.tex}
+The proposition controls representation size, not enclosure sharpness or
+factual ambiguity. A singleton answer is certified only when all retained
+possibilities justify it under the declared output contract.
+
+\begin{proposition}[Separated gates: settled and transient counts]
+\label{III:M:prop:dwell-coalescence}
+Allow mode-dependent similarities with letter-only ratios. Let gated
+events have binary successor choices; ordinary events keep the mode fixed.
+Between consecutive gated events require at least $L_\theta$ ordinary
+events. Start from the known initial state, or a settled representation
+with at most one canonical stopped-window hypothesis per current mode.
+Use common letter addressing and sound enclosures, and discard mode-path
+details only after they leave the stopped window.
+
+Then a sound implementation can maintain at most $|\mathcal R|$
+hypotheses immediately before each gated event, and at most
+$2|\mathcal R|$ at arbitrary intermediate times. Once the previous gate
+has left the active window, histories with the same current mode can use
+the common replay from $(r,x_0)$ and its $D\theta$ error enclosure.
+This is canonical re-encoding with a certified error, not equality of
+the original continuous states.
+\end{proposition}
+\input{proofs/executable-memory/3.15.4.tex}
+
+\paragraph{Why the all-time $|\mathcal R|$ bound is false.}
+Take $\mathcal R=\{0,1\}$, $X=[0,1]$, ratio $1/4$ and
+$\tau_r(x)=x/4+3r/4$. Before a gate, the enclosures
+$[0,1/4]$ and $[3/4,1]$ are compatible with the two modes.
+For $g(x)=(x-1/8)(x-7/8)$ both enclosures contain both signs.
+With $G(r,a,\sigma)=\sigma$, splitting at the gate produces distinct
+old-mode/new-mode pairs $(0,0),(0,1),(1,0),(1,1)$.
+The new continuous enclosures from the two old modes lie respectively
+in $[0,1/16]$ and $[15/16,1]$; sharing a new mode does not identify them.
+There can therefore be four candidates for two modes immediately after
+the gate, even though a sufficiently long subsequent dwell permits
+canonical coalescence. This is a counterexample to the claimed inference
+for the maintained sound hypothesis representation; it does not assert
+that all its outer candidates must be reachable from one exact history.
+
+\subsection{A matching lower bound for separated observable fibres}
+\begin{theorem}[Conditional joint persistent-bit optimum]
+\label{III:M:thm:joint-mode-optimum}
+Use the letter-driven model and effective hypotheses of
+Proposition~\ref{III:M:audit:prop:checkpoint}; this theorem does not include
+unlogged continuous feedback. Let $\mathcal R_{\rm reach}$ be its finite
+reachable mode set. Assume the closures $X_r$ of the reachable continuous
+fibres are nonempty $s$-Ahlfors regular, with common positive regularity
+constants and scales, where $\sum_a r_a^s=1$.
+For actual reachable states assume
+\[
+ d_{\rm fut}((r,x),(r,y))\ge c\Mnorm{x-y},\qquad
+ d_{\rm fut}((r,x),(r',y))\ge2\delta_R\quad(r\ne r'),
+\]
+with $c,\delta_R>0$. Assume also the uniform within-mode readout
+$C$-Lipschitz bound and effective numerical error allocation of the
+checkpoint proposition for every declared query. Futures are the
+declared common input continuations. For sufficiently large $p$ with
+$2^{-p}<\delta_R$,
+\[
+ \log_2|\mathcal R_{\rm reach}|+sp-O_H(1)
+ \ \le B^*(2^{-p})\ \le
+ \log_2|\mathcal R_{\rm reach}|+sp+O_H(1).
+\]
+Here $B^*$ minimizes deterministic autonomous persistent memory under
+uniform future-answer TV error. Constants may depend on the fixed model,
+including regularity, observability and readout constants.
+\end{theorem}
+\input{proofs/executable-memory/3.15.5.tex}
+The upper Lipschitz hypothesis cannot be replaced by lower observability.
+For example, the family of threshold queries $h_q(x)=\delta_{\mathbf1\{x\ge q\}}$
+separates every distinct pair by TV $1$, however close their coordinates.
+On an infinite reachable set no finite code achieves uniform error below
+$1/2$ for that family. The theorem is a supplied-model result; it neither
+discovers the fibres nor proves their regularity for a learned agent.
+For a growing catalogue, dependence hidden in $O_H(1)$ must be made uniform.
+
+\subsection{A conditional-query contract without a query prior}
+\begin{proposition}[Uniform query kernels]\label{III:M:prop:query-kernels}
+Let $h_q(r,x)$ be specified probability kernels for every declared query,
+including queries outside the support of a sampling distribution. Suppose
+\[
+ \sup_q\MTV(h_q(r,x),h_q(r,y))\le C\Mnorm{x-y}
+\]
+for all admissible within-mode pairs. If the deployed mode is exact and
+its state error is at most $e$, then its plug-in kernel has uniform query
+error at most $Ce$, independently of any query prior.
+\end{proposition}
+\input{proofs/executable-memory/3.15.6.tex}
+For a null-probability query, the kernel is part of the specified reference
+semantics, not an inferred conditional probability on a null event.
+This proposition does not remove the rare-prefix obstruction for an
+unconditional Hankel or completed-word TV approximation. It uses a
+stronger, separately verified family of conditional readouts.
+
+\subsection{External trajectory guarantees in a controlled environment}
+Compare two agents with the same initial external-state distribution and
+the same environment/observation kernels. The reference and deployed agents
+receive the same history until their actions differ. Assume standard
+measurable kernels (finite actions suffice below). ``Trajectory'' means
+external states, observations and actions; it does not include the two
+different internal memory representations. The memory error assumptions
+below must hold on every shared history in the specified support, not just
+on one realized test rollout.
+
+\begin{theorem}[Guarded actions and probability of guard failure]
+\label{III:M:thm:guarded-policy}
+Let the reference policy choose the largest of finitely many scores
+$g_a(r,x)$ with a fixed tie rule. At a shared history, suppose the mode is
+exact and certified computed scores obey
+$|\widetilde g_a-g_a(r,x)|\le\beta_t$ for every action, where for example
+$\beta_t=L_g e_t+\eta_t$. Choose a computed maximizer $a^*$ only when
+\[
+ \widetilde g_{a^*}-\max_{b\ne a^*}\widetilde g_b>2\beta_t.
+\]
+Then the selected action equals the unique reference maximizer.
+Let $\tau$ be the first failed action or memory certificate in a coupling
+that keeps the two external trajectories identical before failure. If the
+deployed policy is defined after failure as well, then
+\[
+ \MTV(P_{\rm ref}^{1:T},P_{\rm dep}^{1:T})
+ \le\Pr(\tau\le T).
+\]
+In particular the laws coincide if certificates succeed almost surely
+throughout the supported horizon. If failure at each next step, conditional
+on no earlier failure, has probability at most $\alpha_t$, the right-hand
+side is at most $\min(1,\sum_{t=1}^T\alpha_t)$.
+\end{theorem}
+\input{proofs/executable-memory/3.15.7.tex}
+
+\begin{theorem}[Stochastic-policy coupling]\label{III:M:thm:stochastic-policy}
+Suppose on every shared history the two action kernels have TV distance
+at most $d_t\le1$. Then
+\[
+ \MTV(P_{\rm ref}^{1:T},P_{\rm dep}^{1:T})
+ \le1-\prod_{t=1}^T(1-d_t)
+ \le\min\left(1,\sum_{t=1}^Td_t\right).
+\]
+In particular take $d_t=\min(1,L_\pi e_t)$ if exact modes and a uniform
+$L_\pi$-Lipschitz stochastic policy are independently established on
+shared histories. Uncertified mode errors are not covered by this choice.
+\end{theorem}
+\input{proofs/executable-memory/3.15.8.tex}
+These theorems transfer a supplied uniform memory/policy certificate to
+closed-loop behavior. They do not establish its premises for arbitrary
+trained policies or infer total-variation guarantees from benchmark scores.
+
+\subsection{Exact active-map quotients and certified approximate merging}
+\begin{proposition}[Active-map quotient with a complete finite code]
+\label{III:M:prop:active-map}
+Let $K,V$ be fixed finite sets of sizes $k,v\ge1$. Events are deterministic
+set/update, delete and no-op operations on $K\to V\cup\{\bot\}$.
+Assume every future discrete output and transition depends on the past
+only through the current map, and every continuous update depends only
+on that map, its continuous state and the next event. No historical,
+provenance, scheduled activation or expiration query is included unless
+its required metadata is added to the state.
+Then replacing the operation history by its active map preserves all
+future behavior exactly. All maps can be encoded in
+$\lceil\log_2 (v+1)^k\rceil$ bits. If every map is reachable and every
+key including absence can be queried, this number is the exact minimum
+fixed-width bit budget for the discrete map alone.
+
+A simpler enumerative code for a map with $n$ active keys uses at most
+\[
+ \lceil\log_2(k+1)\rceil+
+ \lceil\log_2\tbinom{k}{n}\rceil+n\lceil\log_2 v\rceil
+\]
+bits, including the variable cardinality. If $n$ is fixed and known as
+part of the contract, the first term can be omitted.
+\end{proposition}
+\input{proofs/executable-memory/3.15.9.tex}
+Canonical semantics does not imply that this serialization is shorter than
+every previous representation. For $k=v=1$ there are two maps, empty and
+present: omitting the cardinality from the conditional-size formula would
+assign zero bits to both. An exact old/new codec selector costs one extra
+bit and permits length $1+\min(L_{\rm old},L_{\rm map})$ if both decoders
+and their data are available and charged. Conversion workspace, retained
+logs and peak allocation must also be counted. Future-dated activations
+cannot be erased merely because they are inactive now.
+
+\begin{proposition}[Merging in a certified future pseudometric]
+\label{III:M:prop:future-merge}
+Let $d_{\rm fut}$ be the declared common-continuation pseudometric.
+Suppose a possible true state $z$ belongs to at least one certified ball
+$d_{\rm fut}(z,z_i)\le e_i$. Partition the candidate centres into groups
+and choose admissible representatives $\bar z_j$ with certified distances
+$d_{\rm fut}(z_i,\bar z_j)\le\delta_i$ for each member of group $j$.
+Replacing the groups by their representatives with radii
+$\max_{i\in j}(e_i+\delta_i)$ preserves sound coverage.
+
+Under common deterministic inputs, if the transition is nonexpansive in
+this future metric, successive certified replacements of radii at most
+$\delta_1,\ldots,\delta_n$ increase a single-representative error by at
+most $\sum_j\delta_j$. This sum, or a sharper proved transport bound,
+must be charged against the total allowed error.
+\end{proposition}
+\input{proofs/executable-memory/3.15.10.tex}
+The result certifies coverage, not a posterior weight or permission to
+select an arbitrary remaining hypothesis as true. Computationally useful
+certificates of the stated future distances remain a separate obligation.
+
+\paragraph{When a midpoint estimate is justified.}
+For an admissible convex within-mode domain and a proved bound
+$d_{\rm fut}((r,x),(r,y))\le C\Mnorm{x-y}$ on all its points,
+the midpoint of $x_i,x_j$ has future distance at most
+$C\Mnorm{x_i-x_j}/2$ from either. This controls the centres only;
+their existing uncertainty radii must be added. Convexity and the
+\emph{future} bound are essential. A current-output Lipschitz constant
+is insufficient when a later guard can switch a persistent mode.
+
+\paragraph{A rational counterexample to Euclidean branch merging.}
+Take $X=[-1,1]$, current mode $0$, and states $x=\pm\eta$, $0<\eta<1$.
+At the next gated input set $r^+=\mathbf1\{x\ge0\}$ and $x^+=x/2$;
+ordinary subsequent inputs preserve the mode. Querying that mode gives
+opposite Dirac laws, hence future TV $1$. The continuous distance is
+$2\eta\to0$. Merging into $x=0$ selects the positive branch and loses
+the negative one. Even a perfectly contractive continuous map does not
+make this merge safe. A nonconvex invariant set introduces the additional
+problem that the midpoint need not be an admissible state.
+
+\subsection{Verification from supplied probes}
+Neither numerical closeness of trajectories nor an eigenvalue gap alone
+establishes a statistical identification theorem. With exact noiseless
+observations of $x_1=\lambda x_0$ and known $x_0=1$, a single observation
+distinguishes $\lambda=1$ from every specified $\lambda<1$. Conversely,
+hidden models with identical observable laws cannot be distinguished by
+any sample size, even if their latent eigenvalues have a gap.
+
+\begin{proposition}[Finite supplied probes under explicit sampling promises]
+\label{III:M:prop:probe-test}
+Fix $M$ supplied probes, $0<\alpha<1$, $0<\delta\le1$, $D\ge\delta$,
+and $0<\gamma<1$. For each probe $i$ and chosen lag $L$, suppose one can
+obtain $n$ independent identically distributed observations in $[0,1]$
+with mean $\mu_i(L)$. Each probe is promised to be either persistent,
+with $\mu_i(L)\ge\delta$, or fading, with
+$0\le\mu_i(L)\le D(1-\gamma)^L$. Choose
+\[
+ L\ge\left\lceil\gamma^{-1}\log(4D/\delta)\right\rceil,
+ \qquad
+ n\ge\left\lceil8\delta^{-2}\log(2M/\alpha)\right\rceil.
+\]
+Classify a probe as persistent exactly when its sample mean exceeds
+$\delta/2$. All $M$ classifications are correct with probability at
+least $1-\alpha$. The count is $Mn$ probe observations at lag $L$,
+not $n$ unrestricted training examples for an unknown memory architecture.
+\end{proposition}
+\input{proofs/executable-memory/3.15.11.tex}
+The proposition assumes observable probes with separated means and
+independent sampling. It does not identify arbitrary latent modes,
+construct a protected fact congruence, validate a semantic extractor, or
+prove persistence against every neutral word. Correlated trajectories
+require their own concentration and effective-sample-size analysis.
+
+\subsection{Nonconformality is not itself an impossibility theorem}
+Take $A_0=A_1=\Mdiag(1/3,1/5)$ with translations $(0,0),(2/3,0)$.
+The attractor is the middle-third Cantor set times $\{0\}$.
+For $0\le s\le1$, every length-$n$ product has singular-value function
+$3^{-ns}$. Both norm and singular-value pressures are therefore
+$\log2-s\log3$, with the same zero $\log2/\log3<1$:
+nonconformality does not imply a strict exponent gap.
+With zero translations and distinct linear parts
+$\Mdiag(1/3,1/5),\Mdiag(1/3,1/6)$, that pressure calculation remains valid
+but the attractor is a singleton. Affinity dimension need not equal
+covering dimension in unrestricted overlapping systems.
+Memory rates require future-metric packing/covering bounds and effective
+updates; dimension alone does not give $O_H(1)$ overhead. General
+nonconformal constructions remain open here, not proved impossible.
+
+\section{Mode-dependent ratios: pressure bounds and conditional optimality}\label{III:M:rev13:sec:mode}
+
+Proposition ``Rational addresses with a mode checkpoint'' requires the ratio $r_a$ to depend
+on the letter only. This section removes that restriction, gives a constructive pressure coefficient and a conditional matching
+lower bound, and keeps the table-free polynomial update.
+
+\subsection{Setting}
+Let $\mathcal R$ be a finite mode set with deterministic transition
+$G:\mathcal R\times\Sigma\to\mathcal R$ (resets allowed), initial mode $r_0$, and
+\[
+r_{t+1}=G(r_t,a_{t+1}),\qquad x_{t+1}=\tau_{a_{t+1},r_t}(x_t),\qquad
+\tau_{a,m}(x)=r_{a,m}O_{a,m}x+t_{a,m},
+\]
+with rational ratios $r_{a,m}\in\mathbb Q\cap(0,1)$ depending on \emph{both} the letter
+and the mode, orthogonal $O_{a,m}$, a common compact invariant set $X\ni x_0$ of known
+diameter bound $D$, and all model data fixed. Write $r_{\min},r_{\max}$ for the extreme
+ratios. Define the pressure matrix
+\begin{equation}\label{III:M:rev13:eq:pressure}
+M(s)_{m,m'}=\sum_{a\in\Sigma:\,G(m,a)=m'}r_{a,m}^{\,s},\qquad s\ge0 .
+\end{equation}
+Call the mode graph (edges $m\to G(m,a)$) \emph{strongly connected} if $M(0)$ is
+irreducible. Then $s\mapsto\rho(M(s))$ is continuous and strictly decreasing, with
+$\rho(M(0))=d\ge2$ and $\rho(M(s))\to0$, so there is a unique $s^\ast>0$ with
+\begin{equation}\label{III:M:rev13:eq:sstar}
+\rho(M(s^\ast))=1,\qquad M(s^\ast)u=u\ \text{ for some }u>0 .
+\end{equation}
+This is a symbolic pressure exponent. Its identification with geometric
+Hausdorff dimension additionally requires a separation hypothesis, as in
+\citet{mauldin_williams}. Overlapping or identical branches need not have
+that dimension. In this section $d=|\Sigma|\ge2$ and $p\ge1$.
+
+\subsection{The mode-aware stopped address}
+For a history $a_1\cdots a_t$ with modes $r_0,\dots,r_t$, let
+$\pi_j=\prod_{i=t-j+1}^{t}r_{a_i,r_{i-1}}$ be the product of the ratios \emph{actually
+applied} by the $j$ newest letters ($\pi_0=1$). Let
+$j^\ast=\min\{j:\pi_j\le\theta\}$ if this set is nonempty, else $j^\ast=t$. The stored state is
+\[
+m_t=(b_t,v_t),\qquad v_t=(a_t,\dots,a_{t-j^\ast+1})\ \text{(newest first)},\qquad
+b_t=r_{t-j^\ast}.
+\]
+
+\begin{lemma}[Autonomous update and exact replay]\label{III:M:rev13:lem:mode-update}
+From $(b_t,v_t)$ and a new letter $a$, replay $\operatorname{rev}(v_t)$ from $(b_t,x_0)$ to
+obtain the modes $r_{t-j^\ast},\dots,r_t$ exactly, form $w=a\,v_t$, compute its
+newest-first prefix products with these modes, cut at the first product $\le\theta$ (or
+keep all of $w$ if none), and advance $b_t$ chronologically through the dropped oldest
+letters. The result is $(b_{t+1},v_{t+1})$. Replaying $\operatorname{rev}(v_t)$ from
+$(b_t,x_0)$ returns the exact current mode $r_t$ and a point $y_t$ with
+\[
+\Mnorm{x_t-y_t}\le D\,\pi_{j^\ast}\le D\theta\ \text{ if a deletion has occurred},\qquad
+y_t=x_t\ \text{ otherwise}.
+\]
+Every retained word has length at most
+$L_\theta=\lceil\log(1/\theta)/\log(1/r_{\max})\rceil$.
+\end{lemma}
+\input{proofs/executable-memory/3.16.1.tex}
+
+\subsection{Counting the addresses}
+For a mode $m$ and $x>0$ let
+\[
+W_m(x)=\#\Bigl\{c_1\cdots c_n\ (n\ge0)\text{ chronological from }m:\ 
+\textstyle\prod_{i=1}^n r_{c_i,m_{i-1}}>x\Bigr\},
+\]
+where $m_0=m$ and $m_i=G(m_{i-1},c_i)$.
+\begin{lemma}[Address set and growth]\label{III:M:rev13:lem:mode-count}
+Identify a newest-first stored word with its chronological reversal for
+counting and ranking. Every reachable stored state lies in
+\[
+\begin{aligned}
+\mathcal A_\theta={}&\{(r_0,w):\ w\text{ internal from }r_0\}\\
+&\cup\bigcup_{b\in\mathcal R,\ c\in\Sigma}\{(b,\,c\,w'):\ w'\text{ chronological from }
+G(b,c)\text{ with product in }(\theta,\theta/r_{c,b}]\},
+\end{aligned}
+\]
+so that $|\mathcal A_\theta|=W_{r_0}(\theta)+\sum_{b,c}\bigl[W_{G(b,c)}(\theta)-
+W_{G(b,c)}(\theta/r_{c,b})\bigr]$. If the mode graph is strongly connected then, with
+$C_u=\max_mu_m/\min_mu_m$ for the Perron vector in \eqref{III:M:rev13:eq:sstar},
+\[
+W_m(x)\le\frac{C_u\,r_{\min}^{-s^\ast}}{d-1}\,x^{-s^\ast}\quad(m\in\mathcal R,\ 0<x<1),
+\qquad
+|\mathcal A_\theta|\le\frac{(1+d|\mathcal R|)\,C_u\,r_{\min}^{-s^\ast}}{d-1}\,\theta^{-s^\ast}.
+\]
+\end{lemma}
+\input{proofs/executable-memory/3.16.2.tex}
+
+\begin{lemma}[Polynomial counting without listing words]\label{III:M:rev13:lem:mode-dp}
+For a fixed model, every $W_m(x)$ with $x=\theta/R$, $R$ a product of ratios, and every
+rank/unrank operation on $\mathcal A_\theta$ can be computed with $O_H(p^{d|\mathcal R|+O(1)})$
+bit operations on $O_H(p)$-bit integers, using exact rational comparisons only.
+\end{lemma}
+\input{proofs/executable-memory/3.16.3.tex}
+
+\begin{proposition}[Streaming type counts with linear scratch]\label{III:M:rev13:prop:euler-count}
+Let $n=(n_{a,m})$ have total length $L$, and let $N(n,s,t)$ count
+chronological words from $s$ to $t$ with those edge multiplicities.
+Let $d_m=\sum_a n_{a,m}$ and $d_m^{\rm in}=\sum_{(a,b):G(b,a)=m}n_{a,b}$.
+For $L>0$ first require
+$d_m-d_m^{\rm in}=[m=s]-[m=t]$. Restrict to the active vertices
+(incident to a positive edge, together with $s,t$), and let $T_t(n)$ be
+the weighted number of directed spanning trees oriented toward $t$,
+where an edge $(m,a)$ has weight $n_{a,m}$ and loops cannot enter a tree.
+If the balance condition fails, or an active $m\ne t$ has $d_m=0$,
+then $N=0$. Otherwise
+\[
+ N(n,s,t)=T_t(n)\,
+ \frac{\displaystyle\prod_m\binom{d_m}{(n_{a,m})_{a\in\Sigma}}}
+      {\displaystyle\prod_{m\ne t}d_m}.
+\]
+The empty-word value is $N(0,s,t)=[s=t]$.
+For fixed model size this formula can be evaluated in polynomial bit time
+using $O_H(p)$ scratch when $L=O_H(p)$. Consequently streaming the type
+vectors gives polynomial-time rank/unrank and updates with linear scratch,
+without memoising a polynomial-size DP table.
+\end{proposition}
+\input{proofs/executable-memory/3.16.4.tex}
+
+
+\subsection{The theorem}
+\begin{theorem}[Pressure upper bound and conditional persistent-bit optimum]\label{III:M:rev13:thm:mode}
+Assume the setting above, a strongly connected mode graph, and the effective evaluation
+hypotheses of Proposition ``Rational addresses with a mode checkpoint'' (certified
+$q$-bit evaluators for $x_0$ and the mode-dependent affine data, a readout uniformly
+$C$-Lipschitz in the continuous coordinate within each mode). Let $s^\ast$ be defined by
+\eqref{III:M:rev13:eq:sstar} and $\theta=2^{-(p+c_0)}$ with $CD2^{-c_0}\le1/2$.
+\begin{enumerate}[label=(\roman*)]
+\item The memory $(b_t,\operatorname{rank}(v_t))$ of Lemma~\ref{III:M:rev13:lem:mode-update} is an
+autonomous finite-state executable with exact mode recovery, output error $2^{-p}$, and
+\[
+B(p)\le s^\ast p+\lceil\log_2|\mathcal R|\rceil+O_H(1)
+\]
+persistent bits; its update and readout are polynomial in $p$ (Lemma~\ref{III:M:rev13:lem:mode-dp}
+plus the stipulated evaluators) with $O_H(p)$ scratch by Proposition~\ref{III:M:rev13:prop:euler-count} and streaming replay. No exponential
+word or transition table is stored.
+\item Let $\mathcal R_{\rm reach}$ be the reachable modes and assume, as in Theorem
+``Conditional joint persistent-bit optimum'', that the closures $X_r$ of the reachable
+continuous fibres are $s^\ast$-Ahlfors regular with common constants, that
+$d_{\rm fut}((r,x),(r,y))\ge c\Mnorm{x-y}$ within modes and
+$d_{\rm fut}((r,x),(r',y))\ge2\delta_{\mathcal R}$ across modes. Then for
+$2^{-p}<\delta_{\mathcal R}$,
+\[
+\log_2|\mathcal R_{\rm reach}|+s^\ast p-O_H(1)\ \le\ B^\ast(2^{-p})\ \le\
+\log_2|\mathcal R_{\rm reach}|+s^\ast p+O_H(1).
+\]
+\item $s^\ast\le\bar s$, where $\bar s$ solves $\sum_a\bar r_a^{\,\bar s}=1$ with
+$\bar r_a=\max_mr_{a,m}$ a pointwise dominating letter-only ratio; the inequality is strict whenever some ratio depends on the mode along a cycle of
+the mode graph.
+\end{enumerate}
+\end{theorem}
+\input{proofs/executable-memory/3.16.5.tex}
+
+\begin{remark}[Separation and startup are substantive hypotheses]
+The invariant graph-directed fibres satisfy
+\[
+ K_r=\bigcup_{(m,a):G(m,a)=r}\tau_{a,m}(K_m).
+\]
+Their construction matrix is $M(s)^\top$, which has the same spectral
+radius. A mass construction for these incoming cylinders uses a positive
+Perron vector of $M(s^\ast)^\top$, rather than the outgoing-tree vector
+$u$ used in Lemma~\ref{III:M:rev13:lem:mode-count}. With incoming strong separation
+and strong connectivity the usual cylinder argument gives
+$s^\ast$-regular fibres; compare \citet{mauldin_williams}.
+If $x_0\in K_{r_0}$, these fibres are the closures of reachable states:
+to approximate a chosen length-$n$ incoming cylinder, first reach its base
+mode from $r_0$ and then follow that cylinder; contraction makes the initial
+point immaterial as $n\to\infty$.
+
+For $x_0\notin K_{r_0}$ the extra startup orbit need not be finite. For
+example the one-mode Fibonacci system at $x_0=3/10$ has infinitely many
+reachable points $(3/10)4^{-n}$ outside $K$. They belong to scaled copies
+of the gap $(1/4,1/2)$. One must therefore not infer Ahlfors regularity of
+the entire reachable closure from ``finitely many startup points''.
+For the lower bound, it also suffices to assume regular observable compact
+subsets of the reachable fibre closures, rather than regularity of the
+whole closures.
+
+Without separation/observability there is no matching lower bound from
+pressure alone. For one mode with two identical maps $\tau_a(x)=x/2$ and
+$x_0=0$, $s^\ast=1$ but one state reproduces the continuous state exactly.
+\end{remark}
+
+
+\begin{remark}[Reducible mode graphs]
+Without strong connectivity let $s^\ast=\sup\{s:\rho(M(s))\ge1\}$ over the modes reachable
+from $r_0$. For every $s>s^\ast$ the vector $u=(I-M(s))^{-1}\mathbf 1>0$ satisfies
+$M(s)u\le u$, and the induction of Lemma~\ref{III:M:rev13:lem:mode-count} gives
+$W_m(x)\le C_s x^{-s}$, hence $B(p)\le sp+O_{H,s}(1)$ for every $s>s^\ast$; two
+components with the same exponent in sequence can add a $\log p$ term, so the clean
+$O_H(1)$ statement is the irreducible one.
+\end{remark}
+
+
+
+\begin{remark}[What this does not settle]
+Feedback-driven modes (guards on the continuous state) still need the branch cache or a
+certified reconstruction; the mode-dependent counting above assumes letter-driven $G$,
+exactly as the checkpoint proposition. Determining the optimal branch-cache coefficient in the general feedback
+setting remains open.
+\end{remark}
+
+\section{From exact algebra to a finite executable}\label{III:U:sec:execution}
+The general certificate returns a realization in exact algebraic arithmetic.
+Separate the three error contributions as follows:
+\[
+ \sup_w|f(w)-\widehat g(w)|
+ \le\epsilon_{\rm reduction}+\epsilon_{\rm coefficients}
+                                      +\epsilon_{\rm execution}.
+\]
+The two linear errors can be certified using the joint Stein construction.
+The rounded executable has a separate nonlinear state recurrence.
+
+\subsection{A sufficient integer-execution certificate}
+Use a row state initialized at $c^*$, updated by right multiplication by
+$T_a$, and read against $b$; this respects the product order in
+$g(w)=c^*T_wb$. The following standard positive-majorant bound is a useful
+reference certificate.
+\begin{proposition}[Componentwise execution tube]\label{III:U:prop:tube}
+Let $M_{ij}=\max_a|(T_a)_{ij}|$ and suppose $\rho(M)<1$.
+Use column vectors for componentwise absolute values. If each machine
+step incurs local state error at most $\eta\ge0$, and the initial error
+is at most $e_0$, then
+\[
+ e_t\le (M^\top)^te_0+\sum_{j=0}^{t-1}(M^\top)^j\eta.
+\]
+If $e_0\le E=(I-M^\top)^{-1}\eta$, then $e_t\le E$ for all $t$,
+and the state contribution to output error is at most $|b|^\top E$.
+An invariant state-radius vector is
+$R=(I-M^\top)^{-1}(|x_0|+\eta)$.
+\end{proposition}
+\input{proofs/executable-memory/3.17.1.tex}
+Unbounded verification of quantized filters has established precedents
+\citep{cox2014}. The local bound must cover the whole invariant region, including products,
+accumulation, coefficient representation, and output evaluation. For a fixed
+integer kernel, the accumulator width is checked against all products and
+sums on that region. Tie handling and operation order are part of the
+machine specification. Saturation is a different machine and requires its
+own proof. Initial state and readout quantization are charged explicitly.
+
+This sufficient condition is stronger than mean-square stability and may
+fail for a stable source. It is not a general replacement for the Hankel
+certificate. Nor is its geometric error accumulation a new principle.
+Searching for a useful invariant, choosing a base, and allocating bits are
+separate optimization tasks.
+
+\section{Polynomial transfer computation: the remaining completeness gap}\label{III:U:sec:oracle}
+Positive contracting two-state predictive models represented by homographic
+maps admit a different computational question: when can word enumeration in
+a causal state encoder be replaced by a polynomial transfer calculation?
+The following theorem gives a sufficient analytic certificate. Its existence
+does not follow from the exact-bit family.
+
+\subsection{A two-radius analytic certificate}
+On normalized coordinates $x\in[-1,1]$, write
+\[
+ G_b(x)=\frac{\alpha_b+\beta_bx}{1+\xi_bx},\qquad
+ g_b(x)=\kappa_b(1+\xi_bx)^{-2},\qquad 0<\kappa_b<1.
+\]
+Suppose rational $1<w<R$ satisfy, for each branch,
+\[
+ |\xi_b|R<1,\qquad \max(|G_b(-R)|,|G_b(R)|)\le w.
+\]
+A real homography maps the boundary circle to a circle centered on the
+real axis; its real endpoints give the maximum modulus. Thus
+$G_b(\overline D_R)\subset\overline D_w$. Strict invariance on the
+real interval and poles outside it guarantee that such radii exist near
+one, though their quantitative margins remain model-dependent.
+
+For $\sigma\in[s_-,s_+]\subset(0,\infty)$ define
+\[
+ (\mathcal L_\sigma P)(x)=\sum_{b=0}^1g_b(x)^\sigma P(G_b(x)).
+\]
+Use the analytic logarithm equal to zero at $x=0$ for $1+\xi_bx$.
+With $A_* =\lceil2s_+\rceil$ one may take
+\[
+ W=\left\lceil\sum_b(1-|\xi_b|R)^{-A_*}\right\rceil,
+ \qquad\Lambda=\frac W{1-w/R},\qquad
+ \delta_m=\frac{WR^{-m}}{R-1}.
+\]
+For $\|P\|_w=\sum_j|c_j|w^j$ and coefficient truncation $\Pi_m$,
+Cauchy's bound gives
+\[
+ \|\Pi_m\mathcal L_\sigma P\|_w\le\Lambda\|P\|_w,
+ \qquad\|(I-\Pi_m)\mathcal L_\sigma P\|_{\infty,[-1,1]}
+                                      \le\delta_m\|P\|_w.
+\]
+The section matrix can be formed without enumerating words. Its entries are
+\[
+ M_{kj}=\sum_b\kappa_b^\sigma
+ \sum_{h=0}^{\min(j,k)}\binom jh\alpha_b^{j-h}\beta_b^h
+ (-\xi_b)^{k-h}\frac{(2\sigma+j)_{k-h}}{(k-h)!}.
+\]
+For one branch, compute column zero recursively and subsequent columns by
+\[
+ a_{k+1}^{(0)}=-\xi_b\frac{2\sigma+k}{k+1}a_k^{(0)},\qquad
+ a_k^{(j+1)}=\alpha_ba_k^{(j)}+\beta_ba_{k-1}^{(j)}
+                                      -\xi_ba_{k-1}^{(j+1)}.
+\]
+This costs $O(m^2)$ scalar operations. Real powers and rounding still
+require certified enclosures in a finite implementation.
+
+\begin{theorem}[Correct propagation of repeated truncations]\label{III:U:thm:oracle}
+Assume the real branch maps satisfy $G_b([-1,1])\subseteq[-1,1]$ for $b=0,1$, and the two-radius analytic bounds above hold for fixed $1<w<R$.
+Let $V_n=\mathcal L_\sigma^n1$, $P_0=1$, and
+$P_{n+1}=\Pi_m\mathcal L_\sigma P_n$. Assume also $g_b(x)\le1$
+on $[-1,1]$. With $K=\max(2,\Lambda)$,
+\[
+ \|V_n-P_n\|_\infty\le n\delta_mK^{n-1}.
+\]
+If $g_b(x)\ge g_->0$, $g_-<1$, put $a_*=2g_-^{s_+}$.
+Then $V_n\ge a_*^n$, and relative error at most $\eta$ follows when
+\[
+ R^m\ge\frac{nWK^{n-1}}{(R-1)\eta a_*^n}.
+\]
+Consequently $m=O_H(n+\log(1/\eta)+\log(n+1))$ suffices for fixed
+model $H$ and its certified margins.
+\end{theorem}
+\input{proofs/executable-memory/3.18.1.tex}
+
+The distinction $M^n1\ne\Pi_m\mathcal L_\sigma^n1$ is essential:
+truncation and iteration generally do not commute. The propagation bound
+above is therefore necessary.
+
+\subsection{What is established and what remains conditional}
+The exact-arithmetic theorem removes exponential word enumeration for this
+finite-horizon transfer calculation. In the intended regime
+$n=O_H(\log p)$, it gives degree $O_H(\log p)$ under the stated relative
+accuracy requirements. It does not by itself prove that a numerical
+candidate generator always returns a polynomial accepted by the downstream
+rational encoder certificate.
+
+The desired $O_H(p^2\log p)$ bit cost depends on fast arithmetic and
+specific subroutine cost bounds. Ordinary arithmetic gives a different
+bound. The compiler, stored polynomial, precision, and online update
+must all be charged. The unresolved obligation is a terminating, uniformly certified construction over the
+declared model class with quantitative constants, including a proof that
+the proposed acceptance conditions can always be met. Successful instances
+do not establish that obligation.
+
+\paragraph{A second logical boundary: dimension versus bounded overhead.}
+A box dimension $h$ generally gives
+$\log N(\epsilon)=h\log(1/\epsilon)+o(\log(1/\epsilon))$, not an
+$O(1)$ remainder. For $K=\{0\}\cup\{2^{-j}:j\ge1\}$, the dimension
+is zero but the covering number at scale $2^{-p}$ grows on the order of
+$p$, giving $\log_2N\asymp\log_2p$. Stronger two-sided covering or
+separation hypotheses are required for a constant-overhead memory law.
+\subsection{Certified arithmetic error without a completeness claim}
+\label{III:U:sec:transfer-rounding}
+Strictly contracting branches do not make an unnormalized transfer
+operator a contraction toward a positive fixed function.
+For example, take
+\[
+ G_0(x)=x/4-1/2,\quad G_1(x)=x/4+1/2,\quad
+ g_0=g_1=1/4,\quad \sigma=1.
+\]
+These branches are separated on $[-1,1]$ and satisfy the two-radius
+assumptions with $R=2$, $w=3/2$, and $\xi_b=0$. Nevertheless,
+$\mathcal L_\sigma1=1/2$ and $V_n=2^{-n}$, so there is no positive
+limit of $V_n$. A positive
+eigenfunction is not, without normalization, a fixed function.
+Even after normalizing the leading eigenvalue, a quantitative
+convergence rate and its normalization must be proved separately.
+
+\begin{theorem}[Finite-horizon rounding and conditional eigenfunction error]
+\label{III:U:thm:transfer-rounding}
+Under Theorem~\ref{III:U:thm:oracle}, let
+$A_m=\Pi_m\mathcal L_\sigma$ and compute degree-at-most-$m$
+polynomials by
+\[
+ \widehat P_0=1,\qquad
+ \widehat P_{j+1}=A_m\widehat P_j+e_j,\qquad
+ \|e_j\|_w\le r_j.
+\]
+The certified errors $e_j$ must include matrix-coefficient approximation,
+arithmetic rounding, and serialization. Then
+\begin{equation}
+ \|V_n-\widehat P_n\|_{\infty,[-1,1]}
+ \le n\delta_m K^{n-1}
+                   +\sum_{j=0}^{n-1}\Lambda^{n-1-j}r_j.
+ \label{III:U:eq:transfer-rounded-error}
+\end{equation}
+If, in addition, a specified positive function $h\ge h_{\min}>0$
+and constants $C<\infty$, $0<\vartheta<1$ satisfy the independently
+proved normalization and convergence bound
+$\sup_x|V_n(x)-h(x)|/h(x)\le C\vartheta^n$, then
+\begin{equation}
+ \sup_x\frac{|\widehat P_n(x)-h(x)|}{h(x)}
+ \le C\vartheta^n+
+ \frac{n\delta_mK^{n-1}
+                 +\sum_{j=0}^{n-1}\Lambda^{n-1-j}r_j}{h_{\min}}.
+ \label{III:U:eq:transfer-conditional-eigenfunction}
+\end{equation}
+No such convergence assumption is inferred from branch contraction alone.
+\end{theorem}
+\input{proofs/executable-memory/3.18.2.tex}
+
+An $O(m^2)$ construction of the section matrix does not account for
+$n$ repeated dense matrix--vector products, which cost $O(nm^2)$
+scalar operations without further structure. Bit precision, evaluation
+of real powers, interval dependency, and verified inversion also need
+their own bounds. A small polynomial approximation error is not by
+itself proof of acceptance by the complete state compiler.
+Accordingly, universal compiler termination, a sufficient precision rule, and uniform offline/online bit bounds remain unestablished.
+
+
+\subsection{Normalized transfer convergence on a strict log-Lipschitz cone}
+\label{III:U:sec:normalized-transfer}
+The endpoint value $L=c/(1-\gamma)$ gives
+only cone invariance. Strict inclusion requires a strictly larger
+$L$. Moreover the relevant order is that of the regularity cone,
+not only pointwise positivity in $C([-1,1])$.
+
+\begin{theorem}[Quantitative normalized positive eigenfunction]
+\label{III:U:thm:normalized-transfer}
+On $I=[-1,1]$, let
+$(\mathcal L f)(x)=\sum_{a=1}^d w_a(x)f(G_a(x))$, where
+$G_a:I\to I$ have Lipschitz constants at most $\gamma<1$,
+$0<w_-\le w_a(x)\le w_+$, and
+$|\log w_a(x)-\log w_a(y)|\le c|x-y|$.
+Choose $L>c/(1-\gamma)$ and put $L'=c+\gamma L<L$.
+Define
+\[
+ t_* =\frac{L-L'}{L+L'}e^{-2(L+2L')},\qquad
+ \Delta=2\log(1/t_*),\qquad \vartheta=\tanh(\Delta/4)<1.
+\]
+There is a unique eigenfunction $h>0$ in the log-Lipschitz cone of
+constant $L$, normalized by $h(0)=1$. It satisfies
+\[
+ \mathcal L h=\lambda h,\quad
+ e^{-L'}\le h(x)\le e^{L'},\quad
+ d w_-e^{-L'}\le\lambda\le d w_+e^{L'}.
+\]
+Writing $V_n=\mathcal L^n1$, for $n\ge1$,
+\begin{equation}
+ \sup_{x\in I}\left|\frac{V_n(x)/V_n(0)}{h(x)}-1\right|
+       \le e^{\Delta\vartheta^{n-1}}-1.
+ \label{III:U:eq:normalized-transfer}
+\end{equation}
+\end{theorem}
+\input{proofs/executable-memory/3.18.3.tex}
+
+\begin{corollary}[A certified polynomial eigenfunction approximator]
+\label{III:U:cor:normalized-polynomial}
+Assume the two-radius analytic hypotheses of Theorem~\ref{III:U:thm:oracle}
+and the hypotheses of Theorem~\ref{III:U:thm:normalized-transfer}, with
+fixed effective margins. Suppose the section coefficients can be
+enclosed to $B$ bits in time polynomial in $m,B$ and their input
+description. Then, for every $p\ge1$, a terminating algorithm returns
+a dyadic polynomial $\widehat h_p$, positive on $I$, together with
+certified error $\|\widehat h_p-h\|_\infty\le2^{-p}$.
+Its horizon, degree and coefficient precision are $O_H(p)$.
+Compilation has polynomial bit cost. Horner evaluation takes
+$O_H(p\mathsf M(p))$ bit operations and $O_H(p)$ scratch bits,
+with $O_H(p^2)$ bits of stored polynomial coefficients; here
+$\mathsf M(p)$ is the cost of multiplying $O(p)$-bit integers.
+These costs concern the eigenfunction approximator, not the full state compiler.
+\end{corollary}
+\input{proofs/executable-memory/3.18.4.tex}
+For the homographic weights of Section~\ref{III:U:sec:oracle}, one can use
+$c=\max_a 2s_+|\xi_a|/(1-|\xi_a|)$ and a verified branch derivative
+bound $\gamma<1$. Rational fixed exponents and rational positive
+parameters give effective power enclosures by standard interval
+root or logarithm/exponential algorithms. Alternatively their
+certified coefficient oracle is an explicit input to the corollary.
+
+\paragraph{Implications for state compilation.}
+The normalized target, a positive lower bound, geometric convergence,
+and its polynomial approximation are now supplied under explicit
+effective hypotheses. A state compiler has additional acceptance
+conditions, inverse-coordinate operations and inductive update
+relations. The above theorem does not verify them. In particular its
+fast Horner cost cannot be relabeled the cost of every compiled state update.
+
+\section{Controlled recurrent states and exact residual coding}\label{III:U:sec:gdn}
+A word-Hankel theorem for exogenously supplied letters is not automatically
+a theorem for a trained decoder whose controls depend on its current
+activations. This section isolates the valid matrix identity from that
+unproved transfer. Gated DeltaNet combines a decay gate with a delta-rule
+state update~\citep{yang2025gated}. The controlled example below uses
+the unit-decay delta rule; it does not assume that the learned gates of
+a trained GDN layer realize that special case.
+
+\subsection{An executable core and a reduced residual}
+Write a controlled recurrence in key-by-value orientation as
+$S^+=AS+U$. Let $c$ be a retained core, $D(c)$ a computable matrix
+predictor, $B^\top B=I_r$, and $Z=(S-D(c))B$.
+\begin{proposition}[Closed projected residual update]\label{III:U:prop:core}
+Under the same controls and the same supplied core trajectory,
+\[
+ Z^+=AZ+[AD(c)+U-D(c^+)]B,
+ \qquad \widehat y=q^\top D(c)+q^\top ZB^\top.
+\]
+The readout error is
+$q^\top(S-D(c))(I-BB^\top)$.
+\end{proposition}
+\input{proofs/executable-memory/3.19.1.tex}
+The core update must itself be computed from available deployed quantities.
+It cannot silently query a deleted reference state. Further, the identity
+is over exact arithmetic; matching FP32 bits requires an explicit
+operation-order analysis or a reversible word-level residual.
+
+\begin{proposition}[Weighted core-conditioned prediction]
+Let $O$ be a specified frozen future-readout operator and $W=O^\top O$.
+Assume the needed weighted second moments exist, and take a finite-valued
+core. Define
+\[
+ D_*(c)=\mathbb E[W\mid c]^\dagger\mathbb E[WS\mid c],\qquad
+ M_c=\mathbb E[(S-D_*(c))^\top W(S-D_*(c))].
+\]
+Then
+\[
+ \inf_{D,\,B^\top B=I_r}
+ \mathbb E\|O(S-D(c))(I-BB^\top)\|_F^2
+ =\sum_{j>r}\lambda_j(M_c).
+\]
+\end{proposition}
+\input{proofs/executable-memory/3.19.2.tex}
+This is conditional weighted regression plus principal components, not a
+new general compression theorem. The operator $O$ must cover the future
+queries and intervention cuts for which a guarantee is claimed. A richer
+core can lower the optimal residual Gram, but its bits, predictor, basis,
+and execution cost must be paid for.
+
+\subsection{A constructive controlled example}
+For key and value dimensions both $n\ge2$, take
+$S=cI_n+a e_1^\top$, $D(c)=cI_n$, $B=e_1$, with a finite-valued
+stored scalar $c$. This state is reachable from zero with $n$
+rank-one delta writes: $k=e_i$, $\beta=1$, and $v=ce_i+a_i e_1$.
+Subsequently allow a unit key $k$, $\beta\in[0,1]$, and
+$v=ck+\xi e_1$. The unit-decay delta update gives
+\[
+ a^+=a+\beta k(\xi-k^\top a),\qquad
+ y=cq^\top+(q^\top a)e_1^\top.
+\]
+Thus $c$ and $n$ residual coordinates suffice for exact continuation of
+this controlled family without storing a dense $cI_n$ or dense basis.
+If $c,a$ are independent centered variables, $\operatorname{Var}c=\sigma_c^2$,
+and $\mathbb E\|a\|^2=V$, then for $W=I$ the raw value Gram is
+$\sigma_c^2I+Ve_1e_1^\top$. A raw rank-$r$ projection loses
+$(n-r)\sigma_c^2$ for $r\ge1$, whereas the core-conditioned residual
+has rank one. This is an executable synthetic separation, not a finding
+that Qwen exhibits this family.
+
+\subsection{The missing mathematical bridge to encoded length}
+An exact residual supplies injectivity. The predictor changes residual
+word statistics, not exactness. A future-readout norm can ignore state
+components that a lossless full-state codec must retain. Small floating
+values can still contain many independent mantissa bits. A positive coding
+theorem therefore needs assumptions on the encoded integer residual,
+small-magnitude behavior, predictor description length, and adaptation
+cost. A small Hankel singular tail alone does not provide them.
+
+The next useful experiment is a frozen comparison of a deployable dynamic
+core, an energy predictor, cross approximation, and existing exact residual codecs, with the
+same residual format, complete bytes, and complete update/read cost.
+Selecting on total encoded length is a new candidate that needs new held-out
+data. For a trained-model claim, controls, gates, normalization, all caches,
+logits, and free-generation token divergence must be covered, and the
+deleted native state must actually be absent from resident memory.
+\subsection{A covariance surrogate and what exact coding actually permits}
+\label{III:U:sec:codec-covariance-audit}
+Covariance does not determine exact expected code length. The valid
+algebraic inequality is the following surrogate bound.
+
+\begin{proposition}[Classical diagonal-covariance surrogate inequality]
+\label{III:U:prop:covariance-surrogate}
+For $\Gamma\succeq0$, $a,b>0$, and a real orthogonal matrix $U$,
+\begin{equation}
+ \sum_j\log_2\bigl(a+b(U^\top\Gamma U)_{jj}\bigr)
+ \ge\log_2\det(aI+b\Gamma)
+ =\sum_j\log_2(a+b\lambda_j(\Gamma)).
+ \label{III:U:eq:covariance-surrogate}
+\end{equation}
+Equality holds exactly when $U^\top\Gamma U$ is diagonal, including
+arbitrary rotations within repeated-eigenvalue eigenspaces.
+This is an inequality for a covariance surrogate, not an exact
+lossless-entropy formula.
+\end{proposition}
+\input{proofs/executable-memory/3.19.3.tex}
+
+\begin{proposition}[A valid variance bound for discrete lossless symbols]
+\label{III:U:prop:discrete-entropy-bound}
+Let $Z=(Z_1,\ldots,Z_D)$ be an integer-valued residual vector with
+finite coordinate variances $v_j$. Then
+\begin{equation}
+ H(Z)\le\sum_jH(Z_j)
+ \le\frac12\sum_j\log_2\!\bigl(2\pi e(v_j+1/12)\bigr).
+ \label{III:U:eq:discrete-entropy-bound}
+\end{equation}
+An ideal prefix code on the whole vector has expected length between
+$H(Z)$ and $H(Z)+1$; coding coordinates separately instead admits
+length less than $\sum_jH(Z_j)+D$. All model, predictor, basis,
+framing, and coding-distribution descriptions are additional costs.
+The same statements apply conditional on available side information,
+by applying the bounds to each conditional law and averaging.
+\end{proposition}
+\input{proofs/executable-memory/3.19.4.tex}
+
+\paragraph{Counterexamples and missing codec assumptions.}
+Covariance alone cannot determine discrete entropy. The symmetric
+variable $Z=\pm1$ has variance one and entropy one bit. In contrast,
+\[
+ P(Y_m=0)=1-m^{-2},\qquad
+ P(Y_m=m)=P(Y_m=-m)=\frac1{2m^2}
+\]
+also has variance one but entropy
+$h_2(m^{-2})/\log2+m^{-2}\to0$.
+More directly, the two-point variable $Z=\pm1$ remains exactly
+representable on grids $\Delta_q=1/m$ with entropy one bit, whereas
+$\tfrac12\log_2(1+2\pi e/\Delta_q^2)$ diverges. An
+$O(\Delta_q^2)$ remainder cannot repair this claimed equality for
+such a discrete source.
+Thus an equality inferred solely from covariance, or an exact saving
+threshold based on it, is false without further distributional and coding assumptions.
+
+Nor does a nonidentity readout weight force a different basis. For
+example, $\Gamma=\Udiag(1,2)$ and a diagonal weight
+$W=\Udiag(2,3)\ne I$ share the coordinate eigenbasis with their
+corresponding weighted covariance. No strict surrogate gap follows
+merely from $W\ne I$. A measured saving would require empirical evidence
+or additional structural assumptions.
+
+An arbitrary orthogonal change of basis followed by coordinate
+quantization is not an exact integer-lattice codec. For example, rotate
+$(1,0)$ and $(2,0)$ by $45$ degrees; their coordinates are respectively
+$(1/\sqrt2,1/\sqrt2)$ and $(\sqrt2,\sqrt2)$, both rounding to
+$(1,1)$ on the unit grid. Exact reconstruction requires an injective
+representation, such as an appropriate reversible integer transform
+or an additional exact residual. A finite-precision basis must itself
+be serialized and its actual decoder used.
+
+For a residual matrix $R$ with $n_k$ rows,
+$\mathbb E[R^\top R]$ aggregates row second moments. It is not the
+per-row covariance used by a scalar marginal-entropy formula; identical
+centered row laws would require division by $n_k$. Likewise, the
+dimension $n_vr-r(r+1)/2$ of a Stiefel manifold is not the bit length
+of an exact basis header. Actual encodings, including a completion
+basis when needed, determine that length.
+
+For a fixed exact codec the genuine saving condition is simply
+\[
+ L_{\rm metadata}+L_{\rm core}+\mathbb E L_{\rm residual}
+                         <\mathbb E L_{\rm baseline},
+\]
+with the same scope and all shared costs amortized explicitly.
+Equation~\eqref{III:U:eq:covariance-surrogate} can guide a heuristic or bound
+a specified surrogate; it cannot replace these code lengths. For an
+injective discrete representation $S\mapsto(C,Z)$,
+$H(S)=H(C,Z)=H(C)+H(Z\mid C)$: an invertible representation does
+not lower the fundamental joint lossless entropy, although it may
+improve a restricted practical coder or exploit already available side
+information.
+
+
+\subsection{Reversible integer lifting with an actual coding contract}
+\label{III:U:sec:integer-lifting}
+Integer lifting is classical \citep{calderbank1998}. Its relevance here
+is that it repairs injectivity of the proposed residual transform;
+it does not by itself establish a Hankel-specific compression gain.
+
+\begin{lemma}[Constructing lifting factors from a supplied orthogonal basis]
+\label{III:U:lem:rotation-lifts}
+A supplied computable $U\in SO(D)$ can be approximated arbitrarily
+closely by a product of at most $3D(D-1)$ rational shears. A planar
+rotation of angle $\theta$ is
+\[
+ \begin{pmatrix}1&-\tan(\theta/2)\\0&1\end{pmatrix}
+ \begin{pmatrix}1&0\\\sin\theta&1\end{pmatrix}
+ \begin{pmatrix}1&-\tan(\theta/2)\\0&1\end{pmatrix}.
+\]
+Split angles if necessary so that $|\theta|\le\pi/2$; each shear
+coefficient then has magnitude at most one. If all $\ell$ coefficients
+are rounded within $\delta$ while staying in $[-1,1]$, the product
+error in maximum-row-sum norm is at most $\ell2^{\ell-1}\delta$.
+\end{lemma}
+\input{proofs/executable-memory/3.19.5.tex}
+
+\begin{theorem}[Bijective lifting and a covariance bound including correlated errors]
+\label{III:U:thm:integer-lifting}
+Let $S_r=I+s_re_{i_r}e_{j_r}^\top$, $i_r\ne j_r$, be rational
+shears, $1\le r\le\ell$, and use a fixed deterministic nearest-integer
+rule. Apply $z_{i_r}\leftarrow z_{i_r}+\operatorname{round}(s_rz_{j_r})$
+in the stated order. The resulting map $T:\mathbb Z^D\to\mathbb Z^D$
+is a bijection, whose inverse applies the same rounded values with
+subtraction in reverse order. Put $U_*=S_\ell\cdots S_1$ and
+\[
+ b_j=\frac12\sum_{r=1}^\ell
+       |(S_\ell\cdots S_{r+1})_{j,i_r}|.
+\]
+For a random integer vector $Z$ of finite second moment and covariance
+$M$, the output obeys
+\begin{equation}
+ \operatorname{Var}(T(Z)_j)
+ \le\left(\sqrt{(U_*MU_*^\top)_{jj}}+b_j\right)^2.
+ \label{III:U:eq:lifting-variance}
+\end{equation}
+If a desired orthogonal $U$ diagonalizes $M$ with diagonal entries
+$\lambda_j$, the right side is at most
+\[
+ \left(\sqrt{\lambda_j}+
+    \|(U_*-U)_{j,:}\|_2\sqrt{\Utr M}+b_j\right)^2.
+\]
+These assertions apply separately to conditional laws given a core.
+\end{theorem}
+\input{proofs/executable-memory/3.19.6.tex}
+The claim that each lift adds at most $1/4$ to the \emph{output}
+variance is false. Let $Z_1=Z_2$ be Bernoulli$(1/2)$ and lift with
+$s=51/100$. The exact linear target has variance $(151/100)^2/4$,
+whereas the integer target is $2Z_1$, with variance one. The increase
+is $17199/40000>1/4$, because the rounding error is correlated with
+the signal. The propagated-error terms above are indispensable.
+
+\begin{theorem}[Complete expected length against a specified baseline]
+\label{III:U:thm:actual-lifting-code}
+Let $S$ be a finite-bit integer vector and $C=c(S)$ a core. Given $C$,
+an integer predictor and a specified lifting transform produce
+$Z'=T_C(S-D(C))$. The decoder receives the core and every model,
+predictor, transform and framing description needed for inversion;
+their total nonpayload length is at most $B_{\rm meta}$ bits.
+Fix the coding models before coding the evaluated source; any dependence
+on the transmitted core is explicitly conditional. Let prefix codes
+for $C$ and for each $Z'_j$ conditional on $C$ have
+Shannon lengths for specified full-support models $Q_C,Q_{j|C}$.
+Use base-two KL and put
+\[
+ D_C=D_2(P_C\|Q_C),\qquad
+ D_j(c)=D_2(P_{Z'_j|c}\|Q_{j|c}).
+\]
+If $v_j(c)$ is any valid bound on the conditional variance, the
+expected complete length is at most
+\begin{align}
+ \mathbb E L\le B_{\rm meta}+H(C)+D_C+1+D
+ +\mathbb E_C\sum_{j=1}^D\left[
+ \tfrac12\log_2(2\pi e(v_j(C)+1/12))+D_j(C)\right].
+ \label{III:U:eq:actual-lifting-code}
+\end{align}
+If this explicit upper bound is smaller than a proved lower bound
+on the expected length of a \emph{specified} baseline coder, the new
+coder improves that baseline in expectation at exact reconstruction.
+\end{theorem}
+\input{proofs/executable-memory/3.19.7.tex}
+This is a coding theorem for the declared models, not an assertion
+that their probabilities or description lengths are free to obtain.
+An implementation must also specify finite integer widths. For
+bounded source support, the lifting recurrence bounds every intermediate
+magnitude by $\|S_r\|_\infty$ times the previous bound plus $1/2$;
+these explicit bounds determine exact numerator, product and accumulator
+widths. In-place lifting stores $D$ integers plus multiplication scratch;
+holding additional input/output buffers must be charged. No reduction
+of update latency or peak memory is implied by \eqref{III:U:eq:actual-lifting-code}.
+
+\begin{proposition}[The universal saving threshold is impossible]
+\label{III:U:prop:no-universal-code-gain}
+For the deterministic exact representation above,
+$H(C,Z')=H(S)$. Consequently a valid complete-code upper bound cannot
+lie below a valid lower bound on $H(S)$. In particular a
+criterion for beating \emph{every} lossless coder by placing its
+complete length below an entropy lower bound has no realizable instance.
+\end{proposition}
+\input{proofs/executable-memory/3.19.8.tex}
+For comparison, let $S=(Z,Z)$ with $Z$ uniform on $b$-bit integers.
+The lift $(z_1,z_2)\mapsto(z_1,z_2-z_1)$ yields $(Z,0)$.
+With the distribution and lift fixed, $b$ payload bits suffice instead
+of a raw $2b$-bit layout; including a header of length $H_0$ still
+saves bits if $H_0<b$. The joint entropy was already $b$, so this is
+a gain over the specified raw layout, not over an optimal lossless code.
+
+For a practical fixed frame, a one-bit selector between a new exact
+codec and an exact baseline gives length at most
+$1+\min(L_{\rm new},L_{\rm base})$, with all headers included.
+This provides a deterministic fallback guarantee; it does not supply
+held-out evidence for learned Hankel predictors.
+
+\section{The homogeneous norm identity}
+Here $d=|\Sigma|$ and $C_{i,j}(f)=(f(uv))_{|u|=i,|v|=j}$.
+\begin{lemma}[Homogeneous norm and spectrum]\label{III:S:lem:homogeneous}
+If $f\ne0$ is supported at length $m$, then $\Snorm{H_f}=a:=\Snorm f_2$. If $m\ge2$, then $\sigma_1=\sigma_2=a$ and $\sigma_3\ge a/\sqrt d$.
+\end{lemma}
+\input{proofs/executable-memory/3.20.1.tex}
+
+\section{Conditional counterexamples and exact sanity checks}\label{III:S:app:conditional}
+All examples below use completed-string semantics with $v=\mathbf1$ and initial row uniform. The matrices are nonnegative and satisfy $\beta+\sum_aA_a\mathbf1=\mathbf1$, with strictly positive termination probabilities. They therefore define proper finite-string distributions.
+
+\paragraph{A simple Perron root without positive overlap is insufficient.}
+Take
+\[
+ A_j=\Sdiag(1/2,1/4),\quad
+ A_a=\tfrac18\mathbf1e_1^\top,\quad
+ A_b=\tfrac18\mathbf1e_2^\top,\quad\beta=(1/4,1/2)^\top.
+\]
+Both pure normalized states are reached by reset letters. Repeated $j$ leaves them pure, with current termination probabilities differing by $1/4$ for every run length. Thus $\widehat\omega_{j,N}\ge1/4$, although the eigenvalue ratio of $A_j$ is $1/2$. The dominant right eigenvector has a zero coordinate; the second state has zero Perron overlap. This is exactly the hypothesis missing from a simple-eigenvalue-only claim.
+
+\paragraph{A Jordan factor is necessary even with a strictly positive matrix.}
+In dimension three put $P=\mathbf1\mathbf1^\top/3$, $u=(1,-1,0)^\top$, $w=(1,1,-2)^\top$, $L=uw^\top$, and
+\[
+ A_j=\tfrac14I+\tfrac14P+\tfrac1{48}L,\quad
+ \beta=(1/8,1/4,3/8)^\top,\quad
+ g=(3/16,1/8,1/16)^\top,\quad A_a=ge_1^\top,\ A_b=ge_2^\top.
+\]
+Here $A_j>0$, $A_j\mathbf1=\mathbf1/2$, $L^2=PL=LP=0$, and both reset states are reachable. Expanding the Jordan power gives
+\[
+ (e_1^\top-e_2^\top)(2A_j)^N\beta
+       =-\frac{N+2}{16}\,2^{-N}.
+\]
+This is a coordinate of the conditional future difference. Hence no bound $K2^{-N}$ with a fixed $K$ holds, although the exact root rate is $1/2$.
+
+\paragraph{Absolute contraction may leave conditional memory unchanged.}
+For
+\[
+ A_j=I/2,\quad A_a=E_{11}/4,\quad A_b=E_{22}/4,\quad
+ \beta=\mathbf1/4,
+\]
+one has $Q=\begin{psmallmatrix}1/11&1/12\\1/12&1/11\end{psmallmatrix}$ and
+$\widehat\omega_N^2=1/66$ for all $N$. The window $j^N$ retains the two pure normalized states, and the simplex has no larger diameter. The raw transition JSR is $1/2$. This example independently checks that the metric used in Section~\ref{III:S:sec:metric} cannot simply be relabeled as a conditional one.

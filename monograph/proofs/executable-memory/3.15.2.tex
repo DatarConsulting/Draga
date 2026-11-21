@@ -1,0 +1,14 @@
+\begin{proof}
+Initially the address and bit string are empty and $b_0=r_0$.
+Inductively every cached bit is the reference event-time bit by the
+certified enclosure. If $j$ oldest pairs are dropped after appending,
+their forward mode transitions advance the base from $t-\ell$ to
+$t-\ell+j=t+1-|v_{t+1}|$. No inverse transition is used.
+Replaying cached pairs therefore follows exactly the reference mode path.
+The true state at the retained base and $x_0$ both lie in $X$ and undergo
+the same similarities. Their distance contracts by $r_{v_t}$. Before
+deletion they start from the same $x_0$. Numerical errors follow the
+geometric recurrence of the preceding checkpoint proposition.
+Lemma~\ref{III:M:lem:feedback-length} bounds the extra bit field and the number
+of added mode operations. Guard work is separate from these operations.
+\end{proof}

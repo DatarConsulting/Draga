@@ -1,0 +1,4278 @@
+\chapter{Multiletter Hankel Approximation}\label{sec:hankel}
+
+\section{Introduction and the approximation question}
+An intelligent system that receives observations over time must decide
+what to retain from its history. The retained state should support future
+predictions, remain consistent after new events, and fit the resources
+available for its execution. These requirements arise in knowledge
+representation and reasoning under uncertainty whenever an inference
+procedure replaces an event history by a compact sequential model.
+The relevant mathematical question is which distinctions between
+histories must survive so that the specified future responses remain
+accurate after further updates.
+
+Predictive representations of state express this idea through predictions
+of future observations~\citep{littman2001}. Weighted automata provide a
+finite linear model of word-dependent responses, with a classical
+equivalence between finite Hankel rank and minimal realization
+dimension~\citep{carlyle1971,fliess1974}. Spectral methods connect these
+representations to data, including learning from a single trajectory
+under finite-state policies~\citep{balle2017}. Once a model is available,
+reducing its state raises further questions about which output errors are
+controlled, whether the reduced state defines a valid probability law,
+and how many bits its recurrent implementation requires.
+
+Recent work on agent memory makes the operational questions concrete.
+Martin~\citep{martin2026memory} describes persistent external records
+organized as transcripts, notes, linked representations, and context
+loaded into later sessions. Offline consolidation can check notes against
+the source history and revise their organization. This notion of memory
+is distinct from updating model parameters or retaining activations
+within an inference run. FrontierMemory~\citep{letta2026frontiermemoryv1}
+evaluates whether memory derived from prior trajectories improves later
+tasks, distinguishing task conventions, user preferences, and knowledge
+of the working environment. Its first release studies offline memory
+formation. These systems motivate a mathematical question: which
+history distinctions must be retained to preserve specified future
+answers through subsequent updates? Empirical task utility and a
+uniform predictive certificate are different evaluation objects; their
+relationship requires an explicit task model.
+
+The distinction matters even in a simple sequence of revisions.
+An event that grants a permission followed by one that revokes it has a
+different effect from the reverse order. A representation intended to
+answer later permission queries must preserve the distinction relevant
+to those queries. The multiletter formalism keeps each event transition
+and the order of its composition. For a scalar word response $f$, its
+ordinary word-Hankel operator has entries $H_f[u,v]=f(uv)$, so a row
+records the continuations associated with a past word $u$. The choice of
+responses, transition model, and error metric determines which histories
+may be merged.
+
+This paper develops three levels of certified reduction. The first
+concerns linear realizations and structured operator error. The second
+requires a proper probabilistic model and controls discrepancies between
+laws of completed words. The third requires an autonomous executable
+state with an explicit update, readout, and storage contract.
+These levels are connected by additional assumptions that are stated
+where they are used. In particular, conditioning on a rare history and
+implementing a real coordinate with finitely many bits each introduce
+requirements beyond a small linear approximation error.
+
+The contributions are organized into three sections.
+{\clubpenalty=10000
+\begin{enumerate}[label=(\roman*)]
+\item \begin{samepage}Section~\ref{sec:hankel} gives an explicit binary family whose
+singular-value tail vanishes while its best fixed-rank word-Hankel error
+stays positive. It identifies the exact boundary limit, solves the
+finite-parameter rank-one problem, and constructs matching first-order
+responses. Joint Stein certificates yield finite algebraic descriptions.
+For rational mean-square-stable sources and real competitors, decision
+is polynomial in input bit length when alphabet size and target rank
+are fixed.
+\end{samepage}
+\item \begin{samepage}Section~\ref{sec:probability} establishes sharp one-state
+Kullback--Leibler approximation rates under exponential length tails
+and higher moments. A mean bound alone permits a discontinuity, with a
+separate construction for every fixed positive-state budget. Occupation
+flows turn a supplied probability dictionary into a proper decoded law
+with an explicit total-variation certificate. The acquisition results
+specify the positivity, conditioning, sampling, and closure premises
+under which that certificate can be obtained.
+\end{samepage}
+\item \begin{samepage}Section~\ref{sec:memory} characterizes residual state behind a
+supplied suffix window and proves exact persistent-bit optima for
+explicit systems. Its Fibonacci state count applies to the specified
+initial leaf union. Mode checkpoints support replay through irreversible
+transitions. Pressure bounds and finite-precision execution results
+include the separation, observability, and arithmetic hypotheses needed
+for their claims.
+\end{samepage}
+\end{enumerate}}
+
+For artificial intelligence, these results give conditions under which a
+compressed sequential representation supports a stated inference or
+memory contract. Operator certificates concern the modeled continuation
+responses. Probability certificates concern complete-word laws, with
+additional conditions for rare-prefix predictions. Executable-memory
+certificates account for persistent state and distinguish it from program
+size, workspace, and update time. The dictionary and interface are part of
+the mathematical input. The results are theoretical, and the final
+recurrent-state application states a separate requirement for measured
+gains in complete encoded length.
+
+\paragraph{Research programme and deployment context.}
+This work forms part of Datar Consulting's research on memory and
+compression for large language models (LLMs), with sovereign model
+deployments as an application objective. The programme studies
+persistent agent memory, numerical recurrent state---including Gated
+DeltaNet (GDN)~\citep{yang2025gated}---and exact residual encodings.
+Here a sovereign deployment means that the operator controls the
+infrastructure, retained data, and execution policy within a chosen
+deployment boundary. The research objective is to reduce storage and
+execution costs while preserving specified predictive behavior within
+that boundary. An agent's external records and a decoder's recurrent
+matrix state have different interfaces and correctness criteria.
+The results below supply contracts for those interfaces under explicit
+hypotheses; practical compression gains and complete-system behavior
+remain implementation and evaluation questions.
+
+For the operator problem, a weighted finite automaton represents a word
+series by $f(w)=c^*A_wb$, where
+$A_{a_1\cdots a_t}=A_{a_1}\cdots A_{a_t}$.
+We use counting-measure $\ell^2(\Sigma^*)$ and define
+\[
+ \delta_k^{\mathbb F}(H_f)=
+ \inf_{\substack{H_g\text{ bounded word-Hankel over }\mathbb F\\
+                  \operatorname{rank}H_g\le k}}
+                  \|H_f-H_g\|,\qquad \mathbb F\in\{\mathbb R,\mathbb C\}.
+\]
+The unconstrained lower bound is $\sigma_{k+1}(H_f)$ for compact $H_f$.
+Classical one-letter AAK theory, including its automata formulation
+\citep{lacroce2024}, gives exact optimal reduction under its hypotheses.
+Singular value automata give canonical realizations and truncation bounds
+\citep{sva2019}. A multiletter noncommutative approach was proposed in
+\citep{lacroce2022}. Here the target is the ordinary counting-measure
+word-Hankel structure. Subsection~\ref{I:U:sec:free-aak-obstruction}
+checks the row-contraction premise needed for that cited approach.
+
+The binary obstruction shows that a vanishing spectral tail alone cannot
+control the structured optimum uniformly at fixed rank. Its stability
+margin closes at the boundary, so uniform stability assumptions matter
+when comparing it with other approximation guarantees. The exact
+boundary constant has a scalar rational-approximation characterization.
+Its identification with a reciprocal Hardy coefficient norm uses
+published low-degree extremals through budget four and the stated
+external outer-extremal input at general budget. The proofs identify
+these inputs and keep the real and complex competitor classes explicit.
+
+\section{A binary obstruction with an exact limit}
+For distinct letters $a,b$, $k\ge1$ and $r\in(0,1)$, put $q=1-r^2$ and
+\begin{equation}\label{I:eq:binary-source}
+ f_{r,k}(a^j b^k)=qr^j\quad(j\ge0),\qquad
+ f_{r,k}(w)=0\text{ otherwise}.
+\end{equation}
+The same notation is used throughout the proofs. Let
+\[
+ E_m^{\mathbb F}=\inf_{\substack{h\in H^2\text{ over }\mathbb F\\
+                 \operatorname{rank}(h_{i+j})_{i,j\ge0}\le m}}
+                 \|z^m-h\|_{H^2},\qquad E_0^{\mathbb F}=1,
+\]
+where circle measure is normalized. Write $E_m=E_m^{\mathbb C}$.
+
+\begin{theorem}[Structural separation and boundary reduction]
+\label{I:I:main:separation}
+The source in \eqref{I:eq:binary-source} has rank $k+1$, norm one, and nonzero
+singular values $1,\sqrt q,\ldots,\sqrt q$, with $k$ copies of $\sqrt q$.
+For either field and every $0<r<1$,
+\[
+ \delta_k^{\mathbb F}(H_{f_{r,k}})\ge E_k>0.
+\]
+For each fixed budget and each field separately,
+\[
+ \lim_{r\uparrow1}\delta_k^{\mathbb F}(H_{f_{r,k}})=E_{k-1}^{\mathbb F}>0.
+\]
+Consequently no finite factor depending only on $(k,|\Sigma|)$ bounds
+$\delta_k^{\mathbb F}/\sigma_{k+1}$ on all bounded word-Hankel sources.
+\end{theorem}
+
+The singular decomposition is explicit. Let
+$z_j=\sqrt q\sum_{n\ge0}r^ne_{a^nb^j}$ for $0\le j\le k$.
+These vectors are orthonormal and direct enumeration of the cuts of a word gives
+\[
+ H_{f_{r,k}}=z_0z_k^*+\sqrt q\sum_{j=0}^{k-1}z_{k-j}e_{b^j}^*.
+\]
+Both input and output systems in this decomposition are orthonormal.
+The singular-value statement follows, and every usual finite-rank
+spectral-tail norm tends to zero with $q$.
+
+For the uniform floor, the row space of a rank-$k$ word-Hankel is
+invariant under each backward letter shift. Its overlap with $z_k$ is
+bounded by a scalar backward-shift invariant subspace problem. The
+constant previously denoted by $\kappa_k$ has the single interpretation
+\[
+ \kappa_k=\Gamma_k^2=1-E_k^2,
+ \qquad
+ \Gamma_k=\max_{D^*D+l^*l\preceq I_k}\|lD^k\|.
+\]
+Thus the uniform floor at budget $k$ is $E_k$, while the boundary
+limit is $E_{k-1}$. Full proofs are in
+Theorems~\ref{I:U:thm:separation}, \ref{I:M:rev13:thm:uniform} and
+\ref{I:B:thm:main}.
+
+\subsection{Why one dimension is lost at the boundary}
+Let $A,B$ be the backward shifts for $a,b$ restricted to a competitor's
+row space, and let $lx=x[\varepsilon]$. Then
+$A^*A+B^*B+l^*l\preceq I$. The exact identity
+\[
+ (I-rA^*)(I-rA)-q(I-A^*A)=(A-rI)^*(A-rI)
+\]
+implies $\|\sqrt q\,B(I-rA)^{-1}\|\le1$. By compactness, a sequence
+of passive tuples has a limit. If $I-A_0$ is invertible, the relevant
+singular-vector overlap tends to zero. Otherwise the fixed subspace of
+the contraction $A_0$ is reducing, and passivity forces both $B_0$ and
+$l_0$ to vanish on it. At least one dimension is therefore unavailable
+to the remaining scalar extremal problem. This gives the lower bound
+$E_{k-1}^{\mathbb F}$. A block realization lifting a scalar minimizer
+provides the matching upper bound. The argument is over all bounded
+rank-$k$ competitors and does not impose a common stability margin.
+
+\section{The Hardy coefficient bridge and its inputs}
+For $0<p<\infty$, define
+$C(m,p)=\sup_{\|F\|_{H^p}=1}|[z^m]F|$.
+The scalar rational class includes polynomial parts; its rank convention
+is the rank of the coefficient Hankel $(h_{i+j})$, not a rational-degree
+convention that discards those parts.
+
+\begin{theorem}[Coefficient-norm identification]
+\label{I:I:main:hardy}
+For every $m\ge0$, $E_m^{\mathbb F}\ge1/C(m,2/3)$.
+Equality over both fields for $0\le m\le3$ follows from the published
+low-degree extremals in~\citet{brevig2020}. For general $m$, equality
+over both fields uses the outer-extremal theorem of
+\citet{outer2026}, together with the polynomial structure of coefficient
+extremals in~\citet{brevig2020}.
+\end{theorem}
+
+The lower inequality has a short proof independent of that external
+outer-extremal input. A degree-$m$ model space is $K_\Theta$, with
+$\Theta=D_m^*/D$. Let $b=P_{\le m}\Theta$. Taylor coefficient extraction
+and H\"older's inequality give
+\[
+ \|D\|_2^2=[z^m](bD^2)
+ \le C(m,2/3)\|bD^2\|_{2/3}
+ \le C(m,2/3)\|b\|_2\|D\|_2^2.
+\]
+The squared projection error for $z^m$ is
+$\sum_{j=0}^m|\theta_j|^2=\|b\|_2^2$, proving the bound. Smaller
+model spaces may be enlarged, so the same inequality covers all ranks
+at most $m$.
+
+For the upper bound, an outer coefficient extremal has the form
+$P^3$, normalized by $\|P\|_2=1$ and $[z^m]P^3=C$.
+Stationarity on the polynomial unit sphere yields
+$P^2=CP_m^*+O(z^{m+1})$. Therefore
+$\Theta=P_m^*/P=P/C+O(z^{m+1})$, and the projection error is $1/C$.
+Nonnegative real coefficient extremals give a real attaining lift.
+Theorem~\ref{I:B:thm:hardy-bridge} includes the full construction and the
+precise external input; no numerical optimization is used as a proof.
+
+\begin{center}
+\begin{tabular}{cll}\toprule
+Budget $k$ & Boundary error & Source of scalar input\\\midrule
+1 & $1$ & Elementary\\
+2 & $\sqrt3/2$ & Published degree-one extremal\\
+3 & $3/4$ & Published degree-two extremal\\
+4 & $\sqrt{(1103-33\sqrt{33})/2048}$ & Published degree-three extremal\\
+General $k$ & $1/C(k-1,2/3)$ & Outer-extremal theorem~\cite{outer2026}\\\bottomrule
+\end{tabular}
+\end{center}
+The classical model-space formulation is also used in rational
+approximation~\citep{rational2026}. A numerical coincidence with a
+constant in a different rational-degree problem is not an identification
+of the approximation classes.
+
+\section{Finite-parameter optimality and first-order response}
+Write $D_k^{\mathbb F}(q)=\delta_k^{\mathbb F}(H_{f_{r,k}})^2$.
+At rank one, let $u(q)$ be the unique root in $(q,\sqrt q)$ of
+\[
+ q^2(1-u^2)(u-q)^2=(1-q)^3u^2(q-u^2).
+\]
+The exact optimum is
+\[
+ D_1^{\mathbb R}(q)=D_1^{\mathbb C}(q)
+ =\frac{q^2+(1-2q)u(q)^2}{q(1-u(q)^2)}.
+\]
+Theorem~\ref{I:F:thm:F1-exact} constructs and classifies every optimizer.
+The phase reduction is an explicit two-sided unitary conjugation; the
+real and complex equality here is proved, rather than inferred from
+real-valued input data.
+
+At every fixed budget $k\ge2$, the general response theorem gives
+\[
+ D_k^{\mathbb F}(q)=(E_{k-1}^{\mathbb F})^2-b_k^{\mathbb F}q+o(q).
+\]
+The coefficient is the attained finite variational maximum in
+\eqref{I:R:eq:main-response-coefficient}; no universal closed formula or
+uniform efficient optimizer is asserted. The diagonal real/complex
+comparison uses the scalar-extremal classification identified in
+Section~\ref{I:R:subsec:real-diagonal-orbits}. Explicit cases are
+\begin{align*}
+ D_2^{\mathbb F}(q)&=\frac34-\frac14q+O(q^2),\\
+ D_3^{\mathbb F}(q)&=\frac9{16}-\frac17q+O(q^2),\\
+ D_4^{\mathbb F}(q)&=\frac{1103-33\sqrt{33}}{2048}
+       -\frac{855+103\sqrt{33}}{15872}q+o(q).
+\end{align*}
+The theorem also permits independent state budget and terminal delay,
+and extensions to arbitrary terminal languages.
+
+The proof separates two tasks. A passive-envelope calculation bounds
+all structured competitors from below. A lossless construction then
+produces an actual word-Hankel operator attaining that response to first
+order. Passivity alone is insufficient for this second task. Joint
+stability of the constructed realization follows from a finite
+observation Gramian, and the improved $O(q^2)$ upper remainder follows
+from an exact sign-conjugation symmetry of the analytic trial. These
+steps are proved in Theorem~\ref{I:R:thm:v4-matching}. The global lower
+remainder is only $o(q)$ without the additional structure established
+in the explicit low-order cases.
+
+\section{Finite certificates and computational scope}
+Given a stable finite realization, a candidate's error realization has
+joint reachability and observability Gramians. Their Stein equations and
+a positive-semidefinite norm constraint give an exact finite certificate
+for $\delta_k(H_f)\le t$. Attainment is essential for the non-strict
+threshold. Factoring positive-semidefinite matrices yields a degree-three
+existential real formula and algebraic optimal witnesses
+(Theorem~\ref{I:U:thm:exact} and Corollary~\ref{I:U:cor:algebraic}).
+This is an application of established realization, matrix-positivity and
+real-algebraic tools, not a hardness result.
+
+For rational mean-square-stable sources and real competitors, when
+$d=|\Sigma|$ and $k$ are fixed, source-dependent Gramian variables
+can be eliminated before applying real-algebraic decision algorithms.
+There remain
+$p=dk^2+2k+k(k+1)/2$ candidate variables; the number and degrees of the
+polynomials grow polynomially with the source dimension. The resulting
+bit-time bound has a polynomial exponent $O(p)$ for fixed parameters.
+This is an XP result in $(d,k)$, not a fixed-parameter tractability claim
+and not joint polynomiality in all dimensions
+(Theorem~\ref{I:U:thm:fixed}). The constructive global net in
+Theorem~\ref{I:F:thm:g1-net} gives a separate certified approximation scheme
+with explicit but generally large costs.
+
+\section{Limits and organization of the proofs}
+The target space and norm are part of every claim. Ordinary counting-measure
+backward letter shifts have row norm $\sqrt d$, so the row-contraction
+hypothesis required by the cited noncommutative AAK route is not verified
+for those shifts. This observation does not identify that model with all
+Fock-space or bilateral-shift formulations.
+
+Three further questions remain open here: useful complexity dependence
+on varying rank; finite-parameter optimizers and field comparison beyond
+the solved examples; and a uniform multiletter balanced-truncation tail
+bound under explicit geometric hypotheses. The Stein-witness truncation
+bounds proved below do not establish the classical
+$2\sum_{j>k}\sigma_j$ estimate.
+
+The remaining subsections contain complete proofs and constructions, including the
+operator preliminaries, obstruction family, exact boundary reduction,
+Hardy bridge, finite-parameter and response analysis, structured examples,
+and numerical certificates. Repeated foundational results are cited
+within the article rather than reproved under different names.
+\label{I:I:main-end}
+
+\section*{Detailed proofs and supporting results}
+
+\section{Notation and finite stable sources}\label{I:U:sec:preliminaries}
+Let $\Sigma$ be a finite alphabet of size $d\ge1$, let $\Sigma^*$ include
+the empty word $\varepsilon$, and let $\UFF$ be either $\mathbb R$ or
+$\mathbb C$. All operators act on the corresponding Hilbert space
+$\UHH$ unless another space is specified. Its orthonormal basis is
+$(e_w)_{w\in\Sigma^*}$. A word-Hankel operator has entries
+\[
+H_f[u,v]=f(uv),\qquad u,v\in\Sigma^*.
+\]
+The real and complex optimization problems are treated separately; no
+equality between their optimal values is assumed. The notation $X^*$
+means transpose in the real case and conjugate transpose in the complex
+case. Positive semidefinite order is denoted by $\preceq$.
+
+A finite realization of dimension $n$ consists of matrices
+$A_a\in\UFF^{n\times n}$ and vectors $b_f,c_f\in\UFF^n$ such that
+\begin{equation}\label{I:U:eq:realization}
+f(w)=c_f^*A_wb_f,
+\qquad A_{a_1\cdots a_j}=A_{a_1}\cdots A_{a_j},
+\qquad A_\varepsilon=\UId_n.
+\end{equation}
+It is \emph{mean-square stable} when the positive linear map
+\[
+\Phi_A(X)=\sum_{a\in\Sigma}A_aXA_a^*
+\]
+has spectral radius less than one. This is stability of a finite linear
+map, not the generally different condition on the joint spectral radius
+of arbitrary products of the $A_a$.
+
+Under this assumption the observation and reachability maps, with rows
+$c_f^*A_u$ and columns $A_vb_f$, respectively, are bounded and satisfy
+\begin{align}
+P_f&=\sum_{w\in\Sigma^*}A_wb_fb_f^*A_w^*,
+&P_f&=b_fb_f^*+\sum_aA_aP_fA_a^*,\label{I:U:eq:sourceP}\\
+Q_f&=\sum_{w\in\Sigma^*}A_w^*c_fc_f^*A_w,
+&Q_f&=c_fc_f^*+\sum_aA_a^*Q_fA_a.\label{I:U:eq:sourceQ}
+\end{align}
+These are convergent series of finite matrices; the Stein equations have
+unique solutions. Writing the maps as $O_f,C_f$ gives
+$H_f=O_fC_f$, $P_f=C_fC_f^*$, and $Q_f=O_f^*O_f$.
+The nonzero squared singular values of $H_f$ are the nonzero eigenvalues
+of $P_f^{1/2}Q_fP_f^{1/2}$. In particular,
+\begin{equation}\label{I:U:eq:trace}
+\Unorm{H_f}^2\le\Unorm{H_f}_{\mathrm{HS}}^2
+=\Utr(P_fQ_f).
+\end{equation}
+These identities do not require invertible Gramians.
+
+Throughout the algorithmic results, the source is supplied by a finite
+stable realization, not by a table of finitely many coefficients or an
+arbitrary infinite-dimensional oracle. Algebraic input entries are given
+by effective exact representations. Bit-complexity statements concern
+rational input, with numerators and denominators encoded in binary and
+total description length denoted by $L$. For complex rational data, both
+real and imaginary parts have this encoding. The threshold is rational
+and included in $L$. A requested rank $k\ge n$ is trivial since the
+source itself is feasible; $k=0$ means that the only competitor is zero.
+
+For later use define the left and right creation operators by
+\begin{equation}\label{I:U:eq:shifts}
+L_ae_w=e_{aw},\qquad R_ae_w=e_{wa}.
+\end{equation}
+They obey
+$\sum_aL_aL_a^*=\sum_aR_aR_a^*=\UId-e_\varepsilon e_\varepsilon^*$
+and $R_a^*R_a=L_a^*L_a=\UId$. The word-Hankel identities are equivalently
+\begin{equation}\label{I:U:eq:intertwining}
+R_a^*H_f=H_fL_a\qquad(a\in\Sigma).
+\end{equation}
+Taking adjoints yields the dual identity
+\begin{equation}\label{I:U:eq:adjoint-intertwining}
+L_a^*H_f^*=H_f^*R_a\qquad(a\in\Sigma).
+\end{equation}
+In particular, the prefix residual $v\mapsto p(uv)$ of a real probability
+law is the column $H_p^*e_u$, rather than $H_pe_u$.
+For a complex series, $(H_f^*e_u)[v]=\overline{f(uv)}$ instead.
+
+
+The structured approximation problem, with scalar field fixed, is
+\begin{equation}\label{I:U:eq:problem}
+ \delta_k(H_f)=\inf\{\|H_f-H_g\|:H_g\text{ bounded word-Hankel},\ \Urank H_g\le k\}.
+\end{equation}
+The empty word is denoted by $\varepsilon$; a positive error tolerance is
+written $\epsilon$ or explicitly named when both occur.
+
+\section{A binary obstruction at every rank budget}\label{I:U:sec:obstruction}
+Use the source in \eqref{I:eq:binary-source}, with $q=1-r^2$.
+The source changes with $r$, but the alphabet and target rank stay fixed.
+
+\begin{theorem}[No uniform scalar AAK factor]\label{I:U:thm:separation}
+The source has rank $k+1$ and singular values $1,\sqrt q,\ldots,\sqrt q$,
+where $\sqrt q$ occurs $k$ times. Let $C_k=\binom{2k}{k}$. Over either
+scalar field,
+\[
+ \delta_k(H_{f_{r,k}})\ge
+ \max\left\{\sqrt q,\sqrt{\frac{1+q^2(C_k-1)}{C_k}}\right\}.
+\]
+In particular, $\sigma_{k+1}\to0$ but
+$\liminf_{r\uparrow1}\delta_k\ge C_k^{-1/2}>0$. No constant depending
+only on $k$ and the alphabet size can bound $\delta_k$ by that singular value.
+\end{theorem}
+\input{proofs/operator-approximation/1.8.1.tex}
+
+\begin{remark}[Scope of the obstruction]
+For rational $r$, the target has a nonnegative rational realization: a waiting
+state loops on $a$ with weight $r$, followed by a chain of $k$ transitions on
+$b$, with output scale $q$. It is minimal by the spectrum above and is
+mean-square stable. Its stability margin tends to zero as $r\uparrow1$.
+Thus a positive theorem depending on a fixed stability margin or additional
+geometry is not excluded. The target is not a normalized word probability
+law. The theorem is neither a computational hardness statement nor a
+persistent-bit lower bound.
+\end{remark}
+\subsection{The row-contraction hypothesis in noncommutative AAK theory}\label{I:U:sec:free-aak-obstruction}
+
+The preceding separation does not contradict Popescu's multivariable
+AAK theorem \cite{popescu2003}.  The required hypothesis is stronger than
+the Hankel intertwining identity alone.  The following calculation makes
+the distinction explicit.
+
+\begin{proposition}[Target-shift obstruction]\label{I:U:prop:rowobstruction}
+On counting-measure word space, let
+$L_ae_w=e_{aw}$ and $R_ae_w=e_{wa}$.  Every bounded word-Hankel satisfies
+\[
+ H_fL_a=R_a^*H_f.
+\]
+For an alphabet of size $d$, however,
+\begin{equation}\label{I:U:eq:row-shift-norm}
+ \Unorm{[R_1^*\ \cdots\ R_d^*]}=\sqrt d.
+\end{equation}
+Thus the tuple $(R_a^*)_{a\in\Sigma}$ is not a row contraction when
+$d\ge2$.
+\end{proposition}
+\input{proofs/operator-approximation/1.8.3.tex}
+
+Popescu's hypotheses require a row-expansive source tuple $X$ and a
+row-contractive target tuple $T$, namely
+\[
+ \Unorm{\sum_aX_ay_a}^2\ge\sum_a\Unorm{y_a}^2,
+ \qquad
+ \Unorm{\sum_aT_ah_a}^2\le\sum_a\Unorm{h_a}^2.
+\]
+The resulting theorem is stated in terms of restrictions to
+$X$-invariant subspaces of bounded codimension and, equivalently,
+multipliers on those subspaces
+\cite[Theorems~5.3--5.4]{popescu2003}.
+The left creators satisfy the first inequality, but
+Proposition~\ref{I:U:prop:rowobstruction} rules out the second for the
+ordinary backward target shifts.  Unitary word reversal preserves
+the norm in \eqref{I:U:eq:row-shift-norm}; a dilation cannot fix this by
+compression either, since compressions of row contractions remain
+row contractions.
+
+The comparison with the noncommutative framework of
+\cite[Theorems~7--10]{lacroce2022} must keep its operator conventions
+separate from the counting-measure model used here. For the latter model,
+the hypotheses of Popescu's theorem are not verified by the ordinary
+backward target shifts: their row norm is $\sqrt d$, and their ranges
+are not pairwise orthogonal. Proposition~\ref{I:U:prop:rowobstruction}
+and Theorem~\ref{I:U:thm:separation} are the precise conclusions needed
+here. They do not address a different Fock-space or bilateral-shift
+formulation without a separate identification of its norm and rank classes.
+
+\section{Attainment and finite-dimensional realizations}\label{I:U:sec:realization}
+We first separate existence from computation. Existence uses only the operator topology; the realization results subsequently turn finite-rank competitors into finite certificates.
+
+\begin{theorem}[Attainment for every bounded source]\label{I:U:thm:attainment}\label{I:S:thm:attainment}
+Let $H_f$ be any bounded operator on word space (in particular a bounded word-Hankel operator), and let $k\ge0$. There exists a bounded word-Hankel operator $G_\star$ with $\Urank G_\star\le k$ such that
+\[
+ \Unorm{H_f-G_\star}=\delta_k(H_f).
+\]
+The assertion holds separately over $\mathbb R$ and $\mathbb C$, without any finite-rank or stability assumption on the source.
+\end{theorem}
+\input{proofs/operator-approximation/1.9.1.tex}
+
+The following normalization packages bounded realizations into a compact parameter set. It uses the familiar reachability and observability factorization of a rational Hankel operator; see \cite{sva2019} for the weighted-automata setting. Its formulation with non-strict inequalities also admits singular and redundant realizations.
+
+For $M>0$ and $k\ge1$, let $\mathcal K_{k,M}$ consist of tuples
+$\theta=((T_a)_{a\in\Sigma},b,c,P)$, with $T_a\in\mathbb F^{k\times k}$,
+$b,c\in\mathbb F^k$ and $P=P^*$, satisfying
+\begin{align}
+ \sum_a T_a^*T_a+cc^*&\preceq\UId_k,\label{I:U:eq:normal-observation}\\
+ \sum_a T_aPT_a^*+bb^*&\preceq P,\label{I:U:eq:normal-reachability}\\
+ 0\preceq P&\preceq M^2\UId_k.\label{I:U:eq:normal-bound}
+\end{align}
+Here $\mathbb F$ is the chosen scalar field. Define $g_\theta(w)=c^*T_wb$.
+
+\begin{lemma}[Compact and complete parametrization]\label{I:U:lem:compact}
+The set $\mathcal K_{k,M}$ is compact, and
+\[
+ \{H_{g_\theta}:\theta\in\mathcal K_{k,M}\}
+ =\{G:G\text{ is bounded word-Hankel},\ \Urank G\le k,\ \Unorm G\le M\}.
+\]
+\end{lemma}
+\input{proofs/operator-approximation/1.9.2.tex}
+
+Although the compact set permits boundary modes, every output it represents also has a strictly stable realization of the same allowed dimension.
+
+\begin{lemma}[Stable realization of a bounded finite-rank Hankel]\label{I:U:lem:stable}
+Every bounded word-Hankel of rank at most $k$ has a realization of dimension $k$ satisfying $\rho(\Phi_T)<1$. A nonzero operator of rank $s$ has such a realization of dimension $s$.
+\end{lemma}
+\input{proofs/operator-approximation/1.9.3.tex}
+
+\begin{remark}
+Theorem~\ref{I:U:thm:attainment} is a compactness argument, not an algorithm. Lemma~\ref{I:U:lem:stable} concerns the existence of a stable representation, not the stability of every redundant representation of the same series. In particular, the closed constraints defining $\mathcal K_{k,M}$ intentionally allow unreachable or unobservable boundary modes.
+\end{remark}
+
+\section{An exact finite certificate}\label{I:U:sec:exact}
+Assume now that the source is supplied by the finite mean-square-stable realization
+$f(w)=c_f^*A_wb_f$ of dimension $n$. Let the candidate have $k$ states and put $m=n+k$. Its joint error realization is
+\begin{equation}\label{I:U:eq:error-realization}
+ B_a=\begin{pmatrix}A_a&0\\0&T_a\end{pmatrix},\qquad
+ \beta=\begin{pmatrix}b_f\\b\end{pmatrix},\qquad
+ \gamma=\begin{pmatrix}c_f\\-c\end{pmatrix}.
+\end{equation}
+Thus $\gamma^*B_w\beta=f(w)-g(w)$. No damping is applied to either block.
+
+The next theorem is a Hankel-norm certificate built from reachability and observability Stein inequalities. The two ingredients have standard precedents in weighted-automata Gramians \cite{sva2019} and realization theory over free semigroups \cite{ball2005}. We prove the equivalence directly, including singular Gramians, rather than identifying it with a transfer-function bounded-real lemma.
+
+\begin{theorem}[Exact joint Stein certificate]\label{I:U:thm:exact}
+For $t\ge0$, the inequality $\delta_k(H_f)\le t$ holds if and only if there exist candidate parameters $(T_a,b,c)$, Hermitian matrices $P,Q\in\mathbb F^{m\times m}$ and $W\in\mathbb F^{m\times m}$ such that
+\begin{align}
+ P&\succeq0, & Q&\succeq0,\label{I:U:eq:exact-positive}\\
+ P-\beta\beta^*-\sum_aB_aPB_a^*&\succeq0,\label{I:U:eq:exact-reach}\\
+ Q-\gamma\gamma^*-\sum_aB_a^*QB_a&\succeq0,\label{I:U:eq:exact-observe}\\
+ P&=WW^*,\label{I:U:eq:exact-factor}\\
+ t^2\UId_m-W^*QW&\succeq0.\label{I:U:eq:exact-norm}
+\end{align}
+Every feasible tuple defines a bounded word-Hankel $H_g$ of rank at most $k$ with $\Unorm{H_f-H_g}\le t$. At $t=\delta_k(H_f)$ a feasible tuple exists.
+\end{theorem}
+\input{proofs/operator-approximation/1.10.1.tex}
+
+\begin{corollary}[Algebraic optimization and an existential formulation]\label{I:U:cor:algebraic}\label{I:S:thm:etr}
+For a finite mean-square-stable source with algebraic coefficients, $\delta_k(H_f)$ is a nonnegative real algebraic number, and an optimal candidate exists with algebraic coefficients. Both can be computed by real quantifier elimination and algebraic sample-point extraction.
+For rational source data and a rational threshold, the decision problem $\delta_k(H_f)\le t$ has a polynomial-size existential formula over the reals, of degree at most three, using
+\[
+ O\bigl(dk^2+(n+k)^2\bigr)
+\]
+real scalar variables. In particular, the rational-input decision problem belongs to $\exists\mathbb R$.
+\end{corollary}
+Here $\exists\mathbb R$ denotes the class of decision problems admitting
+a polynomial-time many-one reduction to existential feasibility of
+polynomial equalities and inequalities over the reals; see
+\citet{schaefer2024}. Membership is an upper bound, not a hardness claim.
+\input{proofs/operator-approximation/1.10.2.tex}
+
+\begin{remark}\label{I:U:rem:exact-scope}
+The existential formulation is an exact decision and synthesis description, not a claim of polynomial-time solvability when all parameters vary. It also does not assert equality between the real and complex optima: the chosen scalar field is fixed throughout each instance. Algebraic output describes an exact optimizer; rounding it to a prescribed finite precision requires a separate error analysis. No finite-horizon or numerical optimization oracle is assumed in the certificate.
+\end{remark}
+
+\section{Polynomial-time decision for fixed alphabet and target rank}
+\label{I:U:sec:complexity}
+
+The cubic certificate of Theorem~\ref{I:U:thm:exact} uses a number of
+variables that grows with the source dimension.  For a fixed alphabet and
+target rank, one can eliminate the Gramian variables before applying real
+algebraic decision algorithms.  The resulting formulation has a fixed number
+of variables and polynomially growing degrees.  Throughout this section the
+source, threshold, and requested accuracy are rational, and competitors are
+real.  The complexity model counts bit operations on binary encodings of
+rational numbers.
+
+\begin{theorem}[Fixed-parameter slices]\label{I:U:thm:fixed}
+Fix integers $d\ge1$ and $k\ge0$.  Given a rational, mean-square-stable
+$n$-state realization of $f$ and a rational threshold $t$, deciding whether
+$\delta_k(H_f)\le t$ takes deterministic time polynomial in the binary
+input length.  The exponent may depend on $d$ and $k$.
+\end{theorem}
+
+The theorem concerns polynomial time on each slice with $d,k$ fixed.
+The construction below gives an XP algorithm with respect to $(d,k)$;
+it does not give a fixed-parameter tractable algorithm or a running time
+polynomial jointly in $d,k,n$. With $p=dk^2+2k+k(k+1)/2$ candidate variables, the semialgebraic decision step has exponent $O(p)=O(dk^2)$ in the polynomial-size input parameters; constants and prefactors may depend on $(d,k)$.
+
+\begin{lemma}[A real-rooted polynomial test]\label{I:U:lem:coefftest}
+Suppose a real $m\times m$ matrix $R$ has only real eigenvalues.
+All of its eigenvalues are nonnegative if and only if all nonleading
+coefficients of $\det(z\UId_m+R)$ are nonnegative.
+\end{lemma}
+\input{proofs/operator-approximation/1.11.2.tex}
+
+\input{proofs/operator-approximation/1.11.1.tex}
+
+\begin{corollary}[Additive synthesis on a fixed slice]\label{I:U:cor:fixed-synthesis}
+For fixed $d,k$, a rational stable source and a positive rational
+$\varepsilon$ admit an algorithm that returns real algebraic
+coefficients for a stable realization $g$ of dimension at most $k$
+such that
+\[
+ \delta_k(H_f)\le\Unorm{H_f-H_g}
+ \le\delta_k(H_f)+\varepsilon.
+\]
+Its bit complexity is polynomial in the binary encodings of the
+source and $\varepsilon$, with an exponent depending on $d,k$.
+\end{corollary}
+\input{proofs/operator-approximation/1.11.3.tex}
+
+\begin{remark}[Output model and scope]
+The corollary returns exact real algebraic data, for example through
+isolating intervals and algebraic sample-point encodings.  It does not
+assert that independently rounding the coefficients to floating point
+preserves stability or the error certificate.  Nor does it make a
+practical running-time claim for the resulting algebraic algorithms.
+For Gaussian-rational sources and complex competitors, the same
+fixed-slice argument applies after writing real and imaginary parts
+as separate variables and expressing the two Stein equations in real
+coordinates on Hermitian matrices.  Their denominators can be
+combined and squared in the norm test.  The number of candidate
+variables still depends only on $d,k$, and all degree and bit-size
+bounds remain polynomial in the source input length.
+\end{remark}
+
+\section{Sharper bounds for the binary obstruction family}\label{I:M:rev13:sec:sep}
+
+Theorem~\ref{I:U:thm:separation} gives, for the source
+$f_{r,k}(w)=q\,r^j$ on $w=a^jb^k$ ($q=1-r^2$),
+\begin{equation}\label{I:M:rev13:eq:old-bound}
+\delta_k(H_{f_{r,k}})\ge\max\Bigl\{\sqrt q,\ \sqrt{\tfrac{1+q^2(C_k-1)}{C_k}}\Bigr\},\qquad
+C_k=\tbinom{2k}k,
+\end{equation}
+so that $\liminf_{r\uparrow1}\delta_k\ge C_k^{-1/2}$. We prove a bound that is uniform in
+$r$ and much larger, and for $k=1$ we identify the limit. Throughout,
+$z_j=\sqrt q\sum_{n\ge0}r^ne_{a^nb^j}$ ($0\le j\le k$) are the orthonormal vectors of the proof of Theorem~\ref{I:U:thm:separation} and
+\[
+H_f=z_0z_k^{*}+\sqrt q\sum_{j=0}^{k-1}z_{k-j}e_{b^j}^{*},\qquad
+H_f^{*}z_0=z_k ,
+\]
+the last identity because $z_{k-j}\perp z_0$ for $j<k$.
+
+\subsection{A model-space constant}
+For a monic polynomial $\chi$ of degree $k$ with all roots in the open unit disk, let
+$V_\chi\subset\ell^2(\MN)$ be the $k$-dimensional space of $\chi$-recurrent square-summable
+sequences ($\sum_i c_iu_{j+i}=0$ for all $j\ge0$, $\chi=\sum_ic_iz^i$). Define
+\begin{equation}\label{I:M:rev13:eq:kappa}
+\kappa_k=\sup_\chi\ \sup_{0\ne u\in V_\chi}\frac{|u_k|^2}{\sum_{j\ge0}|u_j|^2}
+=\sup_\chi\Mnorm{P_{V_\chi}e_k}^2 .
+\end{equation}
+\begin{lemma}[Blaschke form of $\kappa_k$]\label{I:M:rev13:lem:kappa}
+Under $\ell^2(\MN)\cong H^2$, $V_\chi$ is the model space $K_\Theta=H^2\ominus\Theta H^2$ of
+the degree-$k$ Blaschke product $\Theta$ with zeros at the conjugates of the roots of
+$\chi$, and
+\[
+\Mnorm{P_{K_\Theta}z^k}^2=1-\sum_{m=0}^{k}|\theta_m|^2,\qquad
+\Theta(z)=\sum_{m\ge0}\theta_mz^m .
+\]
+Hence $\kappa_k=1-\inf_\Theta\sum_{m\le k}|\theta_m|^2$ over degree-$k$ Blaschke products.
+Moreover $\kappa_k\le1-1/C_k$, $\kappa_1=1/4$, and $\kappa_2=7/16$.
+\end{lemma}
+\input{proofs/operator-approximation/1.12.1.tex}
+
+\subsection{A uniform lower bound}
+\begin{theorem}[Uniform obstruction constant]\label{I:M:rev13:thm:uniform}
+For every $k\ge1$, every $0<r<1$ and either scalar field,
+\[
+\delta_k(H_{f_{r,k}})\ \ge\ \sqrt{1-\kappa_k}=E_k
+\quad\bigl(\ge C_k^{-1/2}\bigr).
+\]
+Here $E_k$ is the complex scalar distance of
+Lemma~\ref{I:B:lem:one-letter-projection}; that lemma gives
+$\kappa_k=\Gamma_k^2=1-E_k^2$ without the outer-extremal input.
+In particular $\inf_{0<r<1}\delta_1\ge\sqrt3/2$ and $\inf_{0<r<1}\delta_2\ge3/4$, while
+$\sigma_{k+1}(H_{f_{r,k}})=\sqrt q$ ranges over $(0,1)$.
+\end{theorem}
+\input{proofs/operator-approximation/1.12.2.tex}
+
+\begin{remark}
+The proof of Theorem~\ref{I:U:thm:separation} bounds the Rayleigh quotient of $H_f$ on one kernel vector of $G$;
+Theorem~\ref{I:M:rev13:thm:uniform} instead bounds how much of the top right singular vector $z_k$
+can lie in the $k$-dimensional backward-shift-invariant row space of $G$, using only the
+words $a^nb^j$. The resulting constant does not depend on $r$, so the obstruction holds at
+every $r$. The diverging ratio to $\sigma_{k+1}=\sqrt q$ occurs as $r\uparrow1$, when the source stability margin closes; a margin-dependent positive bound is not excluded.\end{remark}
+
+\subsection{The rank-one case: the obstruction is asymptotically total}
+\begin{lemma}[Rank-one word-Hankel operators]\label{I:M:rev13:lem:rank-one}\label{I:S:lem:rankone}
+Over $\MFF\in\{\MR,\mathbb C\}$, every nonzero bounded word-Hankel operator of rank one is
+$G=\gamma\,mm^{\top}$ (transpose, also over $\mathbb C$), where
+$m_w=\prod_{i}t_{w_i}$ for scalars $t_a\in\MFF$ with $\sum_a|t_a|^2<1$ and
+$\gamma\in\MFF\setminus\{0\}$; conversely each such $G$ is a bounded rank-one word-Hankel.
+\end{lemma}
+\input{proofs/operator-approximation/1.12.4.tex}
+
+\begin{theorem}[Sharpened rank-one obstruction]\label{I:M:rev13:thm:rank-one-sharp}
+For $k=1$, $0<r<1$, $q=1-r^2$, over either scalar field,
+\begin{equation}\label{I:M:rev13:eq:rank-one-sharp}
+\delta_1(H_{f_{r,1}})\ \ge\ \frac{\sqrt{1+2\sqrt q}}{1+\sqrt q}\ =\ 1-\frac q{2}+O(q^{3/2}).
+\end{equation}
+Consequently $\lim_{r\uparrow1}\delta_1(H_{f_{r,1}})=1=\Mnorm{H_{f_{r,1}}}$ while
+$\sigma_2(H_{f_{r,1}})=\sqrt q\to0$: as the stability margin closes, no rank-one
+word-Hankel operator approximates the source better than the zero operator, up to
+$O(q)$. The right-hand side of \eqref{I:M:rev13:eq:rank-one-sharp} is at least $\sqrt3/2$ for all
+$q\in(0,1]$, so it dominates Theorem~\ref{I:M:rev13:thm:uniform} at $k=1$, and it exceeds
+\eqref{I:M:rev13:eq:old-bound} for $q<0.76$ approximately.
+\end{theorem}
+\input{proofs/operator-approximation/1.12.5.tex}
+
+
+
+\begin{remark}The rank-two boundary limit is proved in Theorem~\ref{I:B:thm:main}, and its first correction is proved in Theorem~\ref{I:R:thm:main-general}.\end{remark}
+
+\section{Exact behavioral realization and the marked algebra}\label{I:S:sec:exact}
+Fix a finite nonempty alphabet $\Sigma$, $d=|\Sigma|$, and the free monoid $\Swords$ with empty word $\Seps$. A linear weighted finite automaton (WFA) over a field $\SK$ is
+\[
+ f(w)=\alpha^\top A_w\beta,\qquad A_{a_1\cdots a_m}=A_{a_1}\cdots A_{a_m},\quad A_\Seps=I_n.
+\]
+We use row states $s(w)=\alpha^\top A_w$. Here \emph{row-span minimality} means that the $s(w)$ span $\SK^{1\times n}$; \emph{column-span minimality} means that $\{A_w\beta\}$ spans $\SK^n$. A realization is minimal when both hold. In complex analytic arguments $\alpha^\top$ remains the algebraic output row; Hermitian adjoints in Gramians are written separately.
+
+\begin{theorem}[Hankel realization and exact finite witnesses]\label{I:S:thm:realization}
+The algebraic Hankel matrix $H_f[u,v]=f(uv)$ has finite rank $n$ if and only if $f$ has a finite linear realization. Its rank is the minimum linear state dimension. Two realizations of dimensions $n_1,n_2$ agree on all words if they agree on words of length at most $n_1+n_2-1$.
+\end{theorem}
+\input{proofs/operator-approximation/1.13.1.tex}
+
+An explicit minimization first restricts to the generated row space and then quotients by the rows annihilating every future column. Exact basis closure terminates in finite dimension. The same argument applies to finitely many output coordinates: the future tests include both a word and an output coordinate.
+
+\begin{proposition}[Discrete and affine memory have different costs]\label{I:S:prop:types}
+The minimum number of deterministic states realizing an observable $f$ is the number of residual classes for $u\sim v$ iff $f(ut)=f(vt)$ for every $t$. It can be infinite while $\Srank H_f$ is finite. If a vector observable has residual affine-hull dimension $r_{\rm aff}$, the minimum dimension of an affine-state realization with affine readout is $r_{\rm aff}$, and
+\[
+ \Srank H_f-1\le r_{\rm aff}\le\Srank H_f.
+\]
+\end{proposition}
+\input{proofs/operator-approximation/1.13.2.tex}
+
+Define the syntactic ideal and the generated algebra by
+\[
+ I_f=\{p\in\SK\langle\Sigma\rangle:f(upv)=0\ \forall u,v\},\quad
+ \ScA_f=\SK\langle\Sigma\rangle/I_f,\quad B=\Salg(I,(A_a)_a).
+\]
+The letters, unit, and tested observable are retained as markings. For a finite-dimensional algebra, let $J(B)$ denote its Jacobson radical and $\SLL(B)=\min\{j\ge1:J(B)^j=0\}$, with $\SLL(0)=0$.
+
+\begin{theorem}[Universal marked quotient and Loewy dominance]\label{I:S:thm:marked}
+Every finite realization induces a letter-marked surjection $B\twoheadrightarrow\ScA_f$. It is an isomorphism for a minimal realization. For any finite-dimensional algebra epimorphism $\pi:B\twoheadrightarrow A$,
+\[
+ \pi(J(B)^j)=J(A)^j\quad(j\ge0).
+\]
+Thus dimensions of the algebra and of every graded radical layer, and Loewy length, cannot increase under the quotient.
+\end{theorem}
+\input{proofs/operator-approximation/1.13.3.tex}
+
+\begin{remark}[The charged algebra matters]
+This theorem concerns a quotient of the algebra actually generated by the transitions. It is false with an arbitrary containing algebra in its place: $\SK[t]/(t^2)$ embeds in $M_2(\SK)$, which is semisimple. Loewy length is also not neural depth. A single recurrent layer with an $(m+1)$-state nilpotent shift realizes a length-$m$ impulse. For a unary matrix over $\SC$, the Chinese remainder decomposition of $\SC[t]/(\mu_A)$ shows that the Loewy length of its generated algebra is the largest Jordan-block size, not the number of network layers.
+\end{remark}
+
+\section{Bounded Hankels, strict stability, and exact norms}\label{I:S:sec:analytic}
+Now $\ScH=\ell^2(\Swords)$ has its unweighted orthonormal word basis. The analytic theorems are stated over $\SR$; the Hermitian versions hold over $\SC$. Define
+\[
+ \Phi_A(X)=\sum_a A_a^\top X A_a,\qquad
+ \Psi_A(X)=\sum_a A_a X A_a^\top
+\]
+on real symmetric matrices. They are adjoint for the trace pairing. The observability and controllability feature maps, in their operator-factorization convention, are
+\[
+ (Ox)(u)=\alpha^\top A_u x,\qquad Cz=\sum_v A_v\beta z(v).
+\]
+
+\begin{theorem}[Minimal boundedness is strict all-word stability]\label{I:S:thm:stability}
+For a minimal finite real realization the following are equivalent:
+\[
+ H_f\text{ bounded};\quad f\in\ell^2(\Swords);\quad
+ \rho(\Phi_A)<1;\quad
+ \exists X\succ0:\ X-\Phi_A(X)\succ0.
+\]
+The Gramians are finite and positive definite and satisfy
+\begin{align}
+ P&=\sum_w A_w^\top\alpha\alpha^\top A_w
+   =\alpha\alpha^\top+\Phi_A(P),\label{I:S:eq:P}\\
+ Q&=\sum_w A_w\beta\beta^\top A_w^\top
+   =\beta\beta^\top+\Psi_A(Q).\label{I:S:eq:Q}
+\end{align}
+Without minimality, strict stability remains sufficient but is not necessary for boundedness of the realized Hankel.
+\end{theorem}
+\input{proofs/operator-approximation/1.14.1.tex}
+
+\begin{corollary}[Complete contractive cover]
+Every bounded finite-rank real word Hankel has a minimal realization similar to one satisfying $\sum_a A_a^\top A_a\prec I$. Any smaller rank can be embedded in a prescribed larger stable dimension by zero-padding.
+\end{corollary}
+\input{proofs/operator-approximation/1.14.2.tex}
+
+\begin{theorem}[Finite norm formula, including singular Gramians]\label{I:S:thm:norm}
+For any stable, possibly nonminimal realization, $H_f=OC$ and
+\[
+ \Snorm{H_f}^2=\lambda_{\max}(P^{1/2}QP^{1/2})
+              =\lambda_{\max}(L^\top QL),\qquad P=LL^\top.
+\]
+Its nonzero squared singular values are the nonzero eigenvalues of these finite matrices. For $t\ge0$,
+\begin{equation}\label{I:S:eq:factorfree}
+ \Snorm{H_f}\le t\quad\Longleftrightarrow\quad t^2P-PQP\succeq0.
+\end{equation}
+\end{theorem}
+\input{proofs/operator-approximation/1.14.3.tex}
+
+For two models use $D_a=\Sdiag(A_a,B_a)$, $c=(\alpha,-\gamma)$, $b=(\beta,\nu)$ as columns. Their difference is $c^\top D_wb$. Its Gramians certify the error on \emph{all} words; a finite word section alone normally supplies only a lower bound.
+
+\begin{proposition}[Elementary norm and tail bounds]\label{I:S:prop:normbounds}
+For any series $h$,
+\[
+ \Snorm{H_h}_{\mathrm{HS}}^2=\sum_w(|w|+1)|h(w)|^2
+\]
+whenever either side is finite. If $h\in\ell^1$, then $\Snorm{H_h}\le\Snorm h_1$. If $h=\sum_m h_m$ with $h_m$ homogeneous and $\sum_m\Snorm{h_m}_2<\infty$, then $\Snorm{H_h}\le\sum_m\Snorm{h_m}_2$.
+\end{proposition}
+\input{proofs/operator-approximation/1.14.4.tex}
+
+\section{Existence, exact algebraicity, and certificate logic}\label{I:S:sec:global}
+For a real target, $\mathbb F\in\{\SR,\SC\}$, and $k\ge0$, define
+\[
+ \mathscr H_k^{\mathbb F}=\{H_g:H_g\text{ bounded},\ g:\Swords\to\mathbb F,\ \Srank H_g\le k\},
+ \qquad \SdeltaF{k}(H)=\inf_{G\in\mathscr H_k^{\mathbb F}}\Snorm{H-G}.
+\]
+Ranks are linear WFA dimensions. Competitors are not required to be commuting, nonnegative, or probabilistically normalized. For compact $H$, the unstructured lower bound is $\sigma_{k+1}(H)\le\SdeltaF{k}(H)$. Real targets satisfy $\delta_k^\SC\le\delta_k^\SR$.
+
+Attainment over either scalar field is Theorem~\ref{I:U:thm:attainment};
+its proof applies to any bounded target operator. The algebraic endpoint
+and degree-three existential formulation are Corollary~\ref{I:U:cor:algebraic}.
+
+The same conclusion holds for a bounded real-algebraic WFA after minimal
+stable realization. Strict thresholds can be encoded by requiring the
+factor of the norm slack to be invertible. No practical running-time
+bound follows from general quantifier elimination.
+
+\begin{remark}[Strict versus non-strict certificates]
+For singular $P$, strict positive definiteness of $t^2P-PQP$ is impossible even if the error is strictly below $t$. The $t^2I-L^\top QL$ encoding handles strict thresholds correctly. Alternatively, proving error at most a smaller rational threshold suffices for a strict public upper endpoint. A feasible candidate is an upper certificate, not a certificate of its optimality; a solver timeout is not an infeasibility proof.
+\end{remark}
+
+\begin{proposition}[Perturbation transfer]\label{I:S:prop:transfer}
+For one fixed competitor class, $|\SdeltaF{k}(H)-\SdeltaF{k}(\widetilde H)|\le\Snorm{H-\widetilde H}$. If $L\le\SdeltaF{k}(H_f)\le\Snorm{H_f-H_g}\le U$ and $\Snorm{H_T-H_f}\le\eta$, then
+\[
+ \max(0,L-\eta)\le\SdeltaF{k}(H_T)\le\Snorm{H_T-H_g}\le U+\eta.
+\]
+For compact operators, the spectral gap $\SdeltaF{k}-\sigma_{k+1}$ decreases by at most $2\eta$ under a perturbation of size $\eta$.
+\end{proposition}
+\input{proofs/operator-approximation/1.15.2.tex}
+
+\section{Rank-one approximation and the free-word obstruction}\label{I:S:sec:rankone}
+Let $L_a e_w=e_{aw}$ and $R_a e_w=e_{wa}$. Then $H_f L_a=R_a^*H_f$. Consequently the range of a finite-rank Hankel is invariant under every $R_a^*$, and its adjoint range is invariant under every $L_a^*$. Restricting the usual subspace-width minimization to these invariant subspaces gives lower bounds on $\SdeltaF{k}$. This restriction remembers the letter action which a free matrix SVD discards.
+
+By Lemma~\ref{I:M:rev13:lem:rank-one}, write $G=c k_zk_z^\top$,
+where $k_z(w)=\prod_i z_{w_i}$, $\sum_a|z_a|^2<1$, and
+$\|k_z\|^2=(1-\|z\|_2^2)^{-1}$. The coefficient transpose is
+intentional also for complex parameters.
+
+\begin{lemma}[One-corner completion]\label{I:S:lem:corner}
+For a bounded operator $T$ and unit output/input vectors $u,v$,
+\[
+ \min_c\Snorm{T-cuv^*}
+   =\max\{\Snorm{T(I-vv^*)},\Snorm{(I-uu^*)T}\}.
+\]
+The minimizing scalar can be real for real data.
+\end{lemma}
+\input{proofs/operator-approximation/1.16.1.tex}
+
+\begin{theorem}[An exact real rank-one variational formula]\label{I:S:thm:rankone}
+For a bounded real Hankel and $P_b$ the orthogonal projection onto $\SR k_b$,
+\[
+ \delta_1^\SR(H_f)=\min_{b\in\SR^d,\ \Snorm b<1}
+ \max\{\Snorm{H_f(I-P_b)},\Snorm{(I-P_b)H_f}\}.
+\]
+The minimum over the open ball is attained. If $H_f$ has finite rank with singular values $\sigma_j$ and right/left singular vectors $\xi_j,\eta_j$, each squared term is a finite rank-one downdate:
+\[
+ \lambda_{\max}\bigl(D^{1/2}(I-c^Rc^{R\top})D^{1/2}\bigr),\qquad
+ \lambda_{\max}\bigl(D^{1/2}(I-c^Lc^{L\top})D^{1/2}\bigr),
+\]
+where $D=\Sdiag(\sigma_j^2)$, $c^R_j=\Sip{\xi_j}{k_b/\Snorm{k_b}}$ and $c^L_j=\Sip{\eta_j}{k_b/\Snorm{k_b}}$.
+\end{theorem}
+\input{proofs/operator-approximation/1.16.2.tex}
+
+For a real minimal stable realization the kernel evaluations are rational:
+\[
+ Ck_b=(I-\sum_a b_aA_a)^{-1}\beta,\qquad
+ O^*k_b=(I-\sum_a b_aA_a^\top)^{-1}\alpha.
+\]
+The inverses exist on the ball: in the contractive gauge,
+$\Snorm{\sum b_aA_a}\le\Snorm b<1$. The transpose sum has the same norm. The power series converge absolutely by Cauchy--Schwarz against the finite Gramians.
+
+\begin{corollary}[Rank-two secular equality criterion]\label{I:S:cor:secular}
+Suppose $\Srank H_f=2$ and $\sigma_1>\sigma_2>0$. A one-sided term in Theorem~\ref{I:S:thm:rankone} equals $\sigma_2$ exactly when its corresponding normalized coefficients satisfy
+\[
+ c_2=0,\qquad c_1^2\ge1-\sigma_2^2/\sigma_1^2.
+\]
+Both the left and the right requirements must hold at the same $b$ for spectral equality. If $\sigma_1=\sigma_2=s$, every one-sided term equals $s$ and this zero test is inapplicable.
+\end{corollary}
+\input{proofs/operator-approximation/1.16.3.tex}
+
+\subsection{A commuting isospectral separation}
+\begin{theorem}[Spectrum and abstract algebra do not determine the optimum]\label{I:S:thm:commutative}
+Let $f=\mathbf1_{\Seps}+\mathbf1_b+\mathbf1_{aa}$ over $\{a,b\}$. It has nonnegative commuting minimal transitions $A_a=J$, $A_b=J^2$, where $J$ is the $3\times3$ upper shift. Its nonzero singular values are $(2,1,1)$, and
+\[
+ \sqrt{727/544}\le\delta_1^\SC(H_f)\le\delta_1^\SR(H_f)<29/25.
+\]
+There is a unary-supported nonnegative target with exactly the same singular values and abstract syntactic algebra $\mathbb F[t]/(t^3)$ whose optimal rank-one error is exactly one.
+\end{theorem}
+\input{proofs/operator-approximation/1.16.4.tex}
+
+The identification of $b$ with two unary steps is not an isometry: $b$ and $aa$ are distinct words with different splits. More generally, if a symmetric series depends only on its count vector $\mathbf m$, define $c(\mathbf m)=|\mathbf m|!/\prod_i m_i!$. Normalized sums over words with a fixed count give an isometry under which its nonzero block is
+\[
+ \widehat H_f[\mathbf m,\mathbf n]
+ =f(\mathbf m+\mathbf n)\sqrt{c(\mathbf m)c(\mathbf n)}.
+\]
+This follows by summing the identical entries over each fiber. Dropping the multinomial factors changes the norm. In a minimal rational realization, symmetry is equivalent to commuting transitions, since $f(uabv)=f(ubav)$ for all contexts forces $A_aA_b=A_bA_a$. At rank one all competitors are symmetric; at larger ranks, restricting competitors to symmetric series can increase the optimum.
+
+\section{Coefficient and trace bounds; a sharp homogeneous constant}\label{I:S:sec:homogeneous}
+For $p,q\ge0$, write $C_{p,q}(f)=(f(uv))_{|u|=p,|v|=q}$, and let $E_k(C)^2=\sum_{j>k}\sigma_j(C)^2$.
+
+\begin{theorem}[Coefficient lower bound across lengths]\label{I:S:thm:coefficient}
+For every bounded Hankel and $N\ge0$,
+\[
+ \delta_k^\SC(H_f)^2\ge
+ \sum_{m=0}^N\max_{0\le p\le m}E_k(C_{p,m-p}(f))^2.
+\]
+If $H_f$ is compact, this combines with the independent lower bound $\sigma_{k+1}(H_f)$.
+\end{theorem}
+\input{proofs/operator-approximation/1.17.1.tex}
+One must maximize, not sum, over splits of the same length; otherwise the same coefficients are counted repeatedly without justification.
+
+\begin{lemma}[Homogeneous norm and spectrum]\label{I:S:lem:homogeneous}
+If $f\ne0$ is supported at length $m$, then $\Snorm{H_f}=a:=\Snorm f_2$. If $m\ge2$, then $\sigma_1=\sigma_2=a$ and $\sigma_3\ge a/\sqrt d$.
+\end{lemma}
+\input{proofs/operator-approximation/1.17.2.tex}
+
+\begin{theorem}[A trace certificate at one length]\label{I:S:thm:trace}
+Put $A=\Snorm{H_f}$ and $a_m=(\sum_{|w|=m}|f(w)|^2)^{1/2}$. Then
+\[
+ \delta_k^\SC(H_f)\ge
+ \max\left\{0,\frac{(m+1)a_m-kA}{m+1+k}\right\}.
+\]
+For a homogeneous degree-$m$ target this becomes
+$\delta_k^\SC(H_f)\ge A\max\{0,(m+1-k)/(m+1+k)\}$.
+\end{theorem}
+\input{proofs/operator-approximation/1.17.3.tex}
+
+\begin{theorem}[Unbounded alphabet-dependent gap and sharp fixed-alphabet constant]\label{I:S:thm:sharp}
+Let $f_{d,m}=\sum_{i=1}^d\mathbf1_{a_i^m}$ with $m\ge2$. It has a nonnegative commuting nilpotent realization of rank $d(m-1)+2$ and spectrum
+\[
+ (\sqrt d,\sqrt d,\underbrace{1,\ldots,1}_{d(m-1)}).
+\]
+For $2\le k\le d$, at $m=2$,
+\[
+ \max\{1,\sqrt{d-k}\}\le\delta_k^\SC(H_{f_{d,2}})
+ \le\delta_k^\SR(H_{f_{d,2}})\le\sqrt{d-k+2}.
+\]
+Thus no multiplicative constant independent of $d$ bounds $\delta_k/\sigma_{k+1}$ for a fixed $k\ge2$. For each fixed $d\ge1$ and $\mathbb F\in\{\SR,\SC\}$,
+\begin{equation}\label{I:S:eq:sharp}
+ \sup_{\substack{f\ne0\ \text{real and homogeneous}\\ \deg f\ge2}}
+ \frac{\SdeltaF{2}(H_f)}{\sigma_3(H_f)}=\sqrt d.
+\end{equation}
+The same supremum holds within the nonnegative commuting nilpotent target class.
+\end{theorem}
+\input{proofs/operator-approximation/1.17.4.tex}
+
+For $d=100$, tolerance two, the spectral state lower bound is only two, while Theorem~\ref{I:S:thm:coefficient} excludes all ranks at most 95. Keeping 96 terms gives a rank-98 candidate with error two. Thus the true tolerance budget lies between 96 and 98. Equation~\eqref{I:S:eq:sharp} is a supremum, not an equality for every homogeneous target. It does not establish a finite factor for all binary mixed-length targets.
+
+\subsection{A strict binary rank-two lower bound without a solver}
+Let $f_0=\mathbf1_{aa}+\mathbf1_{bb}$, $h=(e_{aa}+e_{bb})/\sqrt2$, $T=\SSpan\{e_\Seps,h\}$ and $M=\SSpan\{e_a,e_b\}$. Its exact support is $S=T\oplus M$, and
+$\Snorm{H_{f_0}x}^2=\Snorm x^2+\Snorm{P_Tx}^2$ on $S$.
+
+\begin{proposition}[Uniform binary geometric obstruction]\label{I:S:prop:binary}
+Let $\tau$ be the unique root in $(1,\sqrt2)$ of
+\[
+ \Phi(t)=\sqrt2-t-\sqrt2(\sqrt2+t)(t^2-1).
+\]
+Then $\delta_2^\SC(H_{f_0})\ge\tau>2627/2500=1.0508$.
+\end{proposition}
+\input{proofs/operator-approximation/1.17.5.tex}
+
+\section{Constructive equality and controlled-gap families}\label{I:S:sec:constructive}
+\subsection{The length-only equality locus}
+\begin{proposition}[Radial unary reduction]\label{I:S:prop:radial}
+If $f(w)=\varphi(|w|)$ and $\psi(n)=d^{n/2}\varphi(n)$ has bounded finite-rank unary Hankel, then
+$H_f\simeq H_\psi\oplus0$ and $\SdeltaF{k}(H_f)=\sigma_{k+1}(H_f)$ whenever scalar AAK applies over the chosen field.
+\end{proposition}
+\input{proofs/operator-approximation/1.18.1.tex}
+
+\subsection{An exact mixed-length optimum with seven target states}
+Take real parameters $s,\eta,\rho$, with $|\rho|<1$, and let
+\[
+ g_s(w)=s\{(1/2)^{\#a(w)}(1/4)^{\#b(w)}
+             +(1/4)^{\#a(w)}(1/2)^{\#b(w)}\},\qquad s\ne0,
+\]
+and define $h_\rho(a^3)=-\rho$, $h_\rho(a^j)=(1-\rho^2)\rho^{j-4}$ for $j\ge4$, zero on other words, with $|\rho|<1$. At $\rho=0$ it is $\mathbf1_{a^4}$.
+
+\begin{theorem}[A globally optimal explicit two-state model]\label{I:S:thm:mixedexact}
+For $s\eta\ne0$, $f=g_s+\eta h_\rho$ has rank seven, commuting nonproportional transitions, and
+\[
+ \delta_2^\SC(H_f)=\delta_2^\SR(H_f)
+  =\sigma_3(H_f)=\Snorm{H_f-H_{g_s}}=|\eta|.
+\]
+If $|\eta|<2|s|/33$, one state cannot meet tolerance $|\eta|$.
+\end{theorem}
+\input{proofs/operator-approximation/1.18.2.tex}
+
+More generally, if $R$ has norm one and is an isometry on a space of dimension $2k+1$, then every $G_0$ of rank at most $k$ is a globally optimal rank-$k$ approximation to $G_0+\eta R$, with error $|\eta|$. The preceding kernel argument proves this general plateau principle. The family is deliberately solvable; it does not solve arbitrary mixed-length approximation.
+
+\subsection{Recognizable low-rank background with one homogeneous residual}
+For $r\ge1$, $m\ge2r$, let $\mathcal C_{r,m}$ consist of bounded rational real series $f$ such that some bounded $g_0$ of rank at most $r$ satisfies $f(w)=g_0(w)$ whenever $|w|\ne m$.
+
+\begin{theorem}[Reconstruction with a certified additive gap]\label{I:S:thm:constructgap}
+The background $g_0$ is unique and reconstructible from coefficients of lengths at most $2r-1$. Given the full exact WFA, membership is decidable by finite linear algebra. With $h=f-g_0$, $U=\Snorm h_2$, one obtains
+\[
+ L:=U\frac{m+1-2r}{m+1+2r}\le\delta_r^\SC(H_f)
+ \le\delta_r^\SR(H_f)\le\Snorm{H_f-H_{g_0}}=U,
+ \qquad U-L=\frac{4rU}{m+1+2r}.
+\]
+\end{theorem}
+\input{proofs/operator-approximation/1.18.3.tex}
+
+The residual norm can be computed without enumerating its degree-$m$ words: for $h(w)=c^\top D_wb$, start $Q_0=bb^\top$, iterate $Q_{j+1}=\sum_aD_aQ_jD_a^\top$, and take $U^2=c^\top Q_mc$. A perturbation of the target by Hankel norm at most $e$ transfers the bracket to $[\max(0,L-e),U+e]$. For a fixed $m$, the displayed gap is not arbitrarily small merely by rerunning the construction.
+
+\begin{proposition}[Directional trace improvement]\label{I:S:prop:directional}
+If $h=f-g_0$ is homogeneous of degree $m$, $U=\Snorm h_2>0$, $A_+\ge\Snorm{H_f}$, and $c_m=|\sum_{|w|=m}\overline{h(w)}f(w)|/U$, then
+\[
+ \delta_r^\SC(H_f)\ge
+ \max\{0,((m+1)c_m-rA_+)/(m+1+r)\}.
+\]
+\end{proposition}
+\input{proofs/operator-approximation/1.18.4.tex}
+
+For $g_0=g_s$, $s=33/736$, and $h=\mathbf1_{a^{397}}+\mathbf1_{b^{397}}$, one has $\Snorm{H_{g_0}}=1/8$, $U=\sqrt2$, and $\sigma_3(H_f)\le9/8$. Positivity gives $c_m\ge U$, so
+\[
+ \frac98\ge\sigma_3(H_f),\qquad
+ \frac{99}{100}\sqrt2-\frac1{1600}\le\delta_2^\SC(H_f)
+ \le\delta_2^\SR(H_f)\le\sqrt2.
+\]
+The left error endpoint exceeds $1.399445$, and the certified width is below $0.014768$. This is a different target from the fixed small target of the next section. Increasing $m$ changes the target and cannot be described as closing the interval for one fixed target.
+
+\section{The question and the exact answer}
+Let $\Sigma$ be any finite alphabet containing distinct letters $a,b$. All word spaces use counting measure. For a scalar series $f:\Sigma^*\to\BC$, put
+\[
+H_f[u,v]=f(uv),\qquad
+\delta_k^{\BC}(H_f)=\inf\{\Bnorm{H_f-H_g}:H_g\text{ bounded word-Hankel},\ \Brank H_g\le k\}.
+\]
+The norm is the operator norm on $\BHH$. For real $f$, let $\delta_k^{\BR}$ denote the same infimum restricted to real coefficients. Without a superscript, $\delta_k$ means $\delta_k^{\BC}$. In this part use the source \eqref{I:eq:binary-source}, with fixed $k\ge1$, $0<r<1$, and $q=1-r^2$.
+The asymptotic is always at fixed $k$, rather than uniformly over growing budgets.
+
+For $0<p<\infty$, the classical Hardy quasi-norm is
+\[
+\Bnorm{F}_{H^p}=
+\sup_{0<\rho<1}\left(\int_0^{2\pi}|F(\rho e^{it})|^p\frac{dt}{2\pi}\right)^{1/p},
+\qquad C(m,p)=\sup_{\Bnorm{F}_{H^p}=1}|[z^m]F|.
+\]
+The circle measure is normalized. In particular $C(0,p)=1$. This is the convention of Brevig--Saksman~\cite{brevig2020}; it is fixed independently of the limit we wish to prove.
+
+\begin{theorem}[Exact boundary reduction and its Hardy identification]
+\label{I:B:thm:main}
+For $\mathbb F\in\{\mathbb R,\mathbb C\}$ define
+\[
+ E_m^{\mathbb F}=\inf\{\|z^m-h\|_{H^2}:h\in H^2\text{ over }\mathbb F,
+                    \ \operatorname{rank}(h_{i+j})_{i,j\ge0}\le m\}.
+\]
+For every fixed integer $k\ge1$, the self-contained reduction gives
+\[
+ \boxed{\displaystyle\lim_{r\uparrow1}\delta_k^{\mathbb F}(H_{f_{r,k}})
+       =E_{k-1}^{\mathbb F}\ge\frac1{C(k-1,2/3)}>0.}
+\]
+For $k\le4$, the published low-degree extremals of
+Brevig--Saksman~\cite{brevig2020} give
+$E_{k-1}^{\mathbb R}=E_{k-1}^{\mathbb C}=1/C(k-1,2/3)$.
+For arbitrary $k$, the same equality uses the outer-extremal theorem
+of Brevig--S\o vik~\cite{outer2026}, together with the classical
+polynomial structure of coefficient extremals. This is an external
+theorem input; the reduction to $E_{k-1}^{\mathbb F}$ does not use it.
+Both infima use ordinary word-Hankel rank. No equality of the real and
+complex optima at finite $r$ is asserted.
+\end{theorem}
+
+The proof has two independent reductions. First, with $m=k-1$,
+\[
+\lim_{r\uparrow1}\delta_k^{\BC}(H_{f_{r,k}})
+=E_m:=\inf_{\Brank H_h\le m}\Bnorm{z^m-h}_{H^2},
+\]
+where $H_h[i,j]=h_{i+j}$ is a one-letter coefficient Hankel and $h\in H^2$. Second,
+\[
+E_m=\frac1{C(m,2/3)}.
+\]
+The first reduction follows from finite-dimensional shift geometry and an explicit construction. The second uses classical finite model spaces and the outer polynomial extremal supplied by~\cite{outer2026}. The proof below distinguishes those imported ingredients from the identities established here.
+
+The first four limits are obtained from the primary low-order constants in~\cite{brevig2020}:
+\begin{center}
+\begin{tabular}{cl}
+\toprule Budget $k$ & Exact limiting structured error\\\midrule
+1 & $1$\\
+2 & $\sqrt3/2$\\
+3 & $3/4$\\
+4 & $\sqrt{1153/[2(1103+33\sqrt{33})]}$\\\bottomrule
+\end{tabular}
+\end{center}
+Remark 2 of~\cite{rational2026} concerns degree-one rational approximation of $z^N$. Its value at $N=2$ also equals $\sqrt3/2$, but this is a different approximation problem from $E_1$, where the target is $z$. The contribution here is the precise word-Hankel boundary reduction and coefficient-norm identification.
+
+\section{Exact geometry of the target}
+Let $s=\sqrt q$. Define vectors in separate input and output copies of $\BHH$ by
+\[
+u_j=s\sum_{n\ge0}r^n e_{a^n b^j},\quad 0\le j\le k,
+\qquad v_{r,k}=s\sum_{n\ge0}r^n e_{a^n b^k}.
+\]
+All these normalized vectors with distinct $j$ have disjoint supports. Splitting the possible column words gives
+\begin{equation}\label{I:B:eq:target-svd}
+H_{f_{r,k}}=u_0v_{r,k}^*+s\sum_{j=0}^{k-1}u_{k-j}e_{b^j}^*.
+\end{equation}
+The input vectors $v_{r,k},e_\Beps,e_b,\ldots,e_{b^{k-1}}$ are orthonormal, as are the corresponding output vectors. Thus
+\[
+\Bnorm{H_{f_{r,k}}}=1,\quad \Brank H_{f_{r,k}}=k+1,\quad
+\sigma_1=1,\quad\sigma_2=\cdots=\sigma_{k+1}=s,
+\quad u_0^*H_{f_{r,k}}=v_{r,k}^*.
+\]
+Equation~\eqref{I:B:eq:target-svd} proves boundedness as well as the spectral assertions. It also exhibits the difference between the unstructured tail, which tends to zero, and the positive structured boundary limit in Theorem~\ref{I:B:thm:main}.
+
+\section{A lower bound for all complex competitors}
+\label{I:B:sec:complex-lower}
+
+We reduce the boundary obstruction to a finite-dimensional one-letter
+extremal problem. All coefficients and comparison realizations in this
+section may be complex. The alphabet may contain additional letters besides
+$a,b$; their nonnegative energy terms can be discarded in the estimates.
+
+\subsection{A one-letter distance and its passive realization formula}
+
+Identify $\BHtwo$ with $\ell^2(\mathbb N_0)$ by Taylor coefficients, and let
+$S^*$ denote its backward shift. For an integer $m\ge0$, define
+\[
+ \mathcal R_m=\left\{h\in\BHtwo:
+ \dim\operatorname{span}\{(S^*)^j h:j\ge0\}\le m\right\},
+ \qquad
+ E_m=\inf_{h\in\mathcal R_m}\Bnorm{z^m-h}_{H^2}.
+\]
+Thus $\mathcal R_0=\{0\}$ and $E_0=1$. A finite backward-shift cyclic
+span is precisely the scalar stable rational-series condition with its
+dimension equal to the one-letter Hankel rank. To see boundedness directly,
+restrict $S^*$ to this finite invariant span. It is a contraction with no
+unit-circle eigenvector, since the corresponding geometric sequence would
+not be square summable. Its spectral radius is therefore below one, and
+the generated column sequence defines a bounded finite-rank Hankel operator.
+
+For $m\ge1$, also define
+\begin{equation}
+ \Gamma_m=
+ \max_{\substack{D\in\BC^{m\times m},\ l\in\BC^{1\times m}\\
+                 D^*D+l^*l\preceq I_m}}
+              \Bnorm{lD^m},
+ \qquad \Gamma_0=0.
+ \label{I:B:eq:passive-gamma}
+\end{equation}
+The feasible set is compact and the objective continuous, so the maximum
+exists. Smaller state spaces are included by padding with zero coordinates.
+
+\begin{lemma}[One-letter projection identity]
+\label{I:B:lem:one-letter-projection}
+For every $m\ge0$,
+\begin{equation}
+ E_m^2=1-\Gamma_m^2.
+ \label{I:B:eq:E-gamma}
+\end{equation}
+The infimum defining $E_m$ is attained. Moreover,
+$\kappa_m=\Gamma_m^2=1-E_m^2$ for $m\ge1$, with $\kappa_m$ from Lemma~\ref{I:M:rev13:lem:kappa}.
+The projection and attainment argument also holds over $\mathbb R$, with field-specific $E_m^{\mathbb R}$ and $\Gamma_m^{\mathbb R}$.
+\end{lemma}
+
+\input{proofs/operator-approximation/1.21.1.tex}
+
+\begin{lemma}[An attained minimizer uses its full rank budget]
+\label{I:B:lem:exact-rank-minimizer}
+If $m\ge1$, every minimizer of $E_m$ has backward-shift cyclic dimension
+exactly $m$. In particular $E_m>0$.
+\end{lemma}
+
+\input{proofs/operator-approximation/1.21.2.tex}
+
+\subsection{The exact resolvent defect inequality}
+
+Let $G$ be any bounded word-Hankel operator with rank at most $k$, and
+let $\mathcal S_G=\operatorname{ran}G^*$ be its input row space.
+For the left creation operators $L_c e_w=e_{cw}$, the Hankel relation
+implies that $\mathcal S_G$ is invariant under $L_c^*$. Set
+\[
+ A=L_a^*|_{\mathcal S_G},\qquad
+ B=L_b^*|_{\mathcal S_G},\qquad
+ \ell x=x[\Beps].
+\]
+The partition of nonempty words according to first letter gives
+\begin{equation}
+ A^*A+B^*B+\ell^*\ell\preceq I_{\mathcal S_G}.
+ \label{I:B:eq:boundary-passivity}
+\end{equation}
+The inequality becomes equality when the alphabet is exactly $\{a,b\}$.
+
+Write $q=1-r^2$. For every contraction $A$,
+\begin{equation}
+ (I-rA^*)(I-rA)-q(I-A^*A)
+       =(A-rI)^*(A-rI)\succeq0.
+ \label{I:B:eq:resolvent-defect-exact}
+\end{equation}
+Since $B^*B\preceq I-A^*A$, congruence by $(I-rA)^{-1}$ yields
+\begin{equation}
+ \Bnorm{\sqrt q\,B(I-rA)^{-1}}\le1.
+ \label{I:B:eq:resolvent-defect-contraction}
+\end{equation}
+This is a joint passivity consequence; it does not follow merely from
+separate spectral-radius bounds on the letter matrices.
+
+\subsection{Compactness at the boundary}
+
+\begin{theorem}[Boundary lower bound over all complex competitors]
+\label{I:B:thm:all-k-boundary-lower}
+For every fixed integer $k\ge1$,
+\begin{equation}
+ \liminf_{r\uparrow1}\delta_k(H_{f_{r,k}})
+          \ge E_{k-1}=\sqrt{1-\Gamma_{k-1}^2}.
+ \label{I:B:eq:all-k-boundary-lower}
+\end{equation}
+\end{theorem}
+
+\input{proofs/operator-approximation/1.21.3.tex}
+
+For $k=2$, the passive problem has one state:
+\[
+ \Gamma_1=\max_{|d|^2+|l|^2\le1}|ld|=\frac12.
+\]
+The theorem therefore already gives
+$\liminf_{r\uparrow1}\delta_2(H_{f_{r,2}})\ge\sqrt3/2$ without any
+Hardy coefficient theorem.
+
+\section{An explicit upper construction}
+\label{I:B:sec:lift}
+
+The lower reduction isolates a scalar one-letter approximation problem.
+The construction below gives the matching direction without an abstract
+extension theorem. It also controls the error before taking the boundary
+limit.
+
+\begin{theorem}[A finite-rank lift with an exact orthogonal split]
+\label{I:B:thm:upper-lift}
+Fix an integer $k\ge1$, put $m=k-1$, and let $0<r<1$,
+$q=1-r^2$, and $s=\sqrt q$. Let $h=(h_j)_{j\ge0}$ have a bounded
+scalar Hankel operator
+\[
+ H_h[i,j]=h_{i+j},\qquad i,j\ge0,
+ \qquad \operatorname{rank}H_h\le m.
+\]
+For $m=0$ take $h=0$. Define the word series
+\begin{equation}
+ g_{r,h}(a^n b^j)=q r^n h_{j-1}
+ \quad(n\ge0,\ j\ge1),\qquad
+ g_{r,h}(w)=0\quad\text{otherwise}.
+ \label{I:B:eq:lift-series}
+\end{equation}
+Then $H_{g_{r,h}}$ is bounded, has rank at most $m+1=k$, and
+\begin{equation}
+ \boxed{\displaystyle
+ \Bnorm{H_{f_{r,k}}-H_{g_{r,h}}}^2
+ \le \Bnorm{z^m-h}_{\BHtwo}^2
+       +q\Bnorm{H_{z^m}-H_h}^2.}
+ \label{I:B:eq:lift-finite-error}
+\end{equation}
+Consequently, if
+\[
+ E_m=\inf_{\substack{H_h\text{ bounded scalar Hankel}\\
+                      \operatorname{rank}H_h\le m}}
+        \Bnorm{z^m-h}_{\BHtwo},
+\]
+then
+\begin{equation}
+ \limsup_{r\uparrow1}\delta_k(H_{f_{r,k}})\le E_{k-1}.
+ \label{I:B:eq:lift-limsup}
+\end{equation}
+All scalar coefficients and competing realizations may be complex.
+\end{theorem}
+
+\input{proofs/operator-approximation/1.22.1.tex}
+
+\subsection{A real two-state competitor and a sharper finite-parameter bound}
+\label{I:B:subsec:lift-k2}
+
+For $k=2$, the scalar one-state problem is explicit. Set
+\begin{equation}
+ y=\frac1{\sqrt2},\qquad c=y(1-y^2)=\frac1{2\sqrt2},\qquad
+ h_j=cy^j.
+ \label{I:B:eq:lift-k2-parameters}
+\end{equation}
+The lifted series is
+\begin{equation}
+ g_r(a^n b^j)=q c r^n y^{j-1}
+ \quad(n\ge0,\ j\ge1),\qquad g_r(w)=0\quad\text{otherwise}.
+ \label{I:B:eq:lift-k2-series}
+\end{equation}
+It has the real two-state realization
+\begin{equation}
+ A_a=\begin{pmatrix}r&0\\0&0\end{pmatrix},\qquad
+ A_b=\begin{pmatrix}0&1\\0&y\end{pmatrix},\qquad
+ \alpha_g^*=qc(1,0),\qquad\beta_g=(0,1)^{\mathsf T}.
+ \label{I:B:eq:lift-k2-realization}
+\end{equation}
+The following stronger bound shows that this particular competitor
+approaches its limiting error at order $q^2$.
+
+\begin{proposition}[A quantitative two-state upper bound]
+\label{I:B:prop:lift-k2-sharp}
+For $g_r$ in \eqref{I:B:eq:lift-k2-series} and $0<q\le1/8$,
+\begin{equation}
+ \boxed{\displaystyle
+ \frac34+\frac{q^2}{6}
+ \le\Bnorm{H_{f_{r,2}}-H_{g_r}}^2
+ \le\frac34+\frac{q^2}{6}+\frac43q^3.}
+ \label{I:B:eq:lift-k2-sharp-bound}
+\end{equation}
+In particular,
+\begin{equation}
+ \delta_2(H_{f_{r,2}})^2
+ \le\frac34+\frac{q^2}{6}+\frac43q^3,
+ \qquad
+ \limsup_{r\uparrow1}\delta_2(H_{f_{r,2}})\le\frac{\sqrt3}{2}.
+ \label{I:B:eq:lift-k2-limsup}
+\end{equation}
+The lower inequality in \eqref{I:B:eq:lift-k2-sharp-bound} concerns this
+explicit competitor only, rather than the structured optimum.
+\end{proposition}
+
+\input{proofs/operator-approximation/1.22.2.tex}
+
+Thus the explicit upper competitor has the expansion
+\[
+ \Bnorm{H_{f_{r,2}}-H_{g_r}}
+ =\frac{\sqrt3}{2}+\frac{q^2}{6\sqrt3}+O(q^3).
+\]
+This expansion is not asserted for the optimal structured error; the
+matching boundary value follows by combining
+\eqref{I:B:eq:lift-k2-limsup} with the independently proved lower bound.
+
+\section{The exact Hardy coefficient constant}
+\label{I:B:sec:hardy}
+
+All scalar functions and approximation classes in this section are complex.
+The circle carries normalized measure $d\theta/(2\pi)$.  For $0<p<\infty$,
+the Hardy space $H^p$ consists of analytic functions on the unit disc for which
+\[
+ \Bnorm{F}_{H^p}
+ =\sup_{0<\rho<1}\left(\int_0^{2\pi}
+       |F(\rho e^{i\theta})|^p\,\frac{d\theta}{2\pi}\right)^{1/p}<\infty.
+\]
+We write $\BHtwo=H^2$ and identify it isometrically with the square-summable
+Taylor coefficient sequences.  For $m\ge0$ define the coefficient-functional
+norm
+\begin{equation}
+ C(m,p)=\sup\bigl\{|[z^m]F|:\Bnorm{F}_{H^p}=1\bigr\}.
+ \label{I:B:eq:hardy-C-definition}
+\end{equation}
+This is the convention of Brevig--Saksman~\cite{brevig2020}; in particular,
+it is not a norm of a finite Hankel block.  Point evaluation gives $C(0,p)=1$.
+
+\subsection{The scalar rational problem and finite model spaces}
+
+Let $\mathcal R_m$ be the set of analytic functions $h(z)=\sum_{j\ge0}h_jz^j$
+whose coefficient Hankel $(h_{i+j})_{i,j\ge0}$ is bounded and has rank at most
+$m$.  Set $\mathcal R_0=\{0\}$.  Equivalently, for $m\ge1$ this is the class
+of stable rational functions
+\begin{equation}
+ h=\frac{N}{D},\qquad \deg N<m,\quad \deg D\le m,\quad D(0)=1,
+ \label{I:B:eq:hardy-rational-class}
+\end{equation}
+after cancellation, with $D$ zero-free on the closed disc.  Polynomial parts
+are included: a polynomial of degree $m-1$ can have coefficient-Hankel rank
+$m$.  Omitting these parts would change the approximation class.  Define
+\begin{equation}
+ E_m=\inf_{h\in\mathcal R_m}\Bnorm{z^m-h}_{\BHtwo}.
+ \label{I:B:eq:hardy-E-definition}
+\end{equation}
+
+For a finite Blaschke product $\Theta$, let
+$K_\Theta=\BHtwo\ominus\Theta\BHtwo$.  Its degree is its number of zeros
+inside the disc, counted with multiplicity.  A product of degree $l$ can be
+written, up to a unimodular constant, as
+\[
+ \Theta=\frac{D_l^*}{D},\qquad
+ D_l^*(z)=z^l\overline{D(1/\bar z)},\quad \deg D\le l,
+\]
+where $D$ is zero-free on the closed disc.  The reciprocal operation uses
+the specified order $l$, even when $\deg D<l$.
+
+\begin{lemma}[Classical finite-model-space formulation]
+\label{I:B:lem:hardy-model}
+The class $\mathcal R_m$ is the union of the spaces $K_\Theta$ for finite
+Blaschke products of degree at most $m$.  If
+$\Theta(z)=\sum_{j\ge0}\theta_jz^j$, then
+\begin{equation}
+ \Bnorm{z^m-P_{K_\Theta}z^m}_{\BHtwo}^2
+ =\sum_{j=0}^m|\theta_j|^2.
+ \label{I:B:eq:hardy-model-error}
+\end{equation}
+Consequently,
+\begin{equation}
+ E_m^2=\inf_{\deg\Theta\le m}\sum_{j=0}^m|\theta_j|^2.
+ \label{I:B:eq:hardy-Blaschke-variational}
+\end{equation}
+\end{lemma}
+\input{proofs/operator-approximation/1.23.1.tex}
+
+This variational formulation belongs to classical rational approximation;
+see also Theorem~1 and the monomial specialization in
+Baratchart et al.~\cite{rational2026}.  We give the argument to fix the
+rank and polynomial-part conventions precisely.
+
+\subsection{A sharp coefficient-energy identity}
+
+\begin{theorem}[Exact identification with the Hardy coefficient norm]
+\label{I:B:thm:hardy-bridge}
+For every integer $m\ge0$,
+\begin{equation}
+ \boxed{\displaystyle E_m=\frac1{C(m,2/3)}.}
+ \label{I:B:eq:hardy-exact-bridge}
+\end{equation}
+The lower bound $E_m\ge1/C(m,2/3)$ is self-contained. Equality for $m\le3$ follows from the published low-degree outer extremals in~\cite{brevig2020}. For general $m$, the matching upper construction uses the outer-extremal theorem of Brevig--S\o vik~\cite{outer2026}.
+\end{theorem}
+\input{proofs/operator-approximation/1.23.2.tex}
+
+\begin{corollary}[A real optimizer may be chosen]
+\label{I:B:cor:hardy-real}
+The infimum defining $E_m$ is unchanged if $h$ is required to have real
+Taylor coefficients.  In the upper construction one may choose $P$ with
+nonnegative real coefficients.
+\end{corollary}
+\input{proofs/operator-approximation/1.23.3.tex}
+
+\section{Completion of the theorem and algebraic construction}
+The lower-bound and lift arguments may each be carried out over either scalar field: replace the passive tuples, invariant subspaces and scalar minimizers by real ones for the real problem. They give $\lim\delta_k^{\mathbb F}=E_{k-1}^{\mathbb F}$ independently of the outer-extremal input. In particular, the lower-bound section proves $\liminf\delta_k^{\BC}\ge E_{k-1}$ over the full complex comparison class. The lift section proves $\limsup\delta_k^{\BC}\le E_{k-1}$. The Hardy section identifies $E_{k-1}$ with the reciprocal coefficient constant. This proves the complex assertion in Theorem~\ref{I:B:thm:main}.
+
+The Hardy extremal polynomial may be taken to have nonnegative real coefficients, as proved in the Hardy section. Its finite model-space projection of $z^m$ then has real coefficients, and the lifted word series is real. Therefore the same upper bound holds for $\delta_k^{\BR}$. Since $\delta_k^{\BC}\le\delta_k^{\BR}$, both limiting constants coincide. This proves the full theorem.
+
+\begin{corollary}[Finite algebraic description of the limiting constant]
+For each fixed $m\ge0$,
+\[
+C(m,2/3)=
+\max_{\substack{p_0,\ldots,p_m\ge0\\\sum_{j=0}^m p_j^2=1}}
+\sum_{i+j+\ell=m}p_i p_j p_\ell.
+\]
+Consequently $C(m,2/3)$ and its reciprocal are real algebraic numbers. Real quantifier elimination can in principle compute them and an algebraic optimal polynomial. This is exact decidability, not a polynomial-time claim.
+\end{corollary}
+\input{proofs/operator-approximation/1.24.1.tex}
+
+For a normalized extremal $P(z)=\sum_{j=0}^m p_jz^j$, let
+$P^{\sharp}(z)=z^m\overline{P(1/\bar z)}$, with the reversal order fixed at $m$. The Hardy proof gives
+\[
+\Theta=P^{\sharp}/P,\qquad
+h(z)=z^m-\frac{(P^{\sharp}(z))^2}{C(m,2/3)P(z)}.
+\]
+This $h$ is the projection of $z^m$ onto $K_\Theta$, so it has one-letter Hankel rank at most $m$. Apparent boundary factors cancel. A minimal stable realization of $h$, followed by the explicit word lift, gives a family with at most $m+1=k$ states and limiting error exactly $1/C(m,2/3)$. This construction optimizes the smaller scalar boundary problem; it does not solve the original word-Hankel optimum for each $r$.
+
+For any fixed attained scalar minimizer $h$, the orthogonal lift bound gives
+\[
+\delta_k^{\BC}(H_{f_{r,k}})^2
+\le E_{k-1}^2+q\Bnorm{H_{z^{k-1}}-H_h}^2.
+\]
+Since $E_{k-1}>0$, this immediately gives a one-sided $E_{k-1}+O(q)$ upper estimate. The next section strengthens the construction to an $O(q^2)$ upper excess for every fixed $k$. A matching finite-$r$ lower rate for the optimum is not proved.
+
+\section{A quadratic approach to the boundary for the lifted competitors}
+\label{I:B:sec:curvature}
+
+The orthogonal split in Theorem~\ref{I:B:thm:upper-lift} contains more
+information than its direct triangle estimate. For every fixed scalar
+competitor, the squared error of its lift has no term of order $q$.
+This is a statement about the explicit lifted construction; it does not
+give an asymptotic expansion of the globally optimal structured error.
+
+\begin{proposition}[Curvature of a fixed scalar lift]
+\label{I:B:prop:lift-curvature}
+Let $h$ satisfy the assumptions of Theorem~\ref{I:B:thm:upper-lift}, put
+$m=k-1$, and write $d=z^m-h$ for its scalar coefficient residual.
+Assume
+\begin{equation}
+ A=\Bnorm d_{\BHtwo}^2>0,\qquad
+ L=\Bnorm{H_d}^2,\qquad
+ T=\Bnorm{H_dS_+\overline d}_2^2,
+ \label{I:B:eq:curvature-parameters}
+\end{equation}
+where $S_+e_j=e_{j+1}$ is the scalar forward shift and
+$\overline d$ denotes coefficientwise conjugation. Let
+$E_r=H_{f_{r,k}}-H_{g_{r,h}}$. If $qL\le A/2$, then
+\begin{equation}
+ \boxed{\displaystyle
+ A+\frac{q^2T}{A}
+ \le\Bnorm{E_r}^2
+ \le A+\frac{q^2T}{A}+\frac{2q^3LT}{A^2}.}
+ \label{I:B:eq:curvature-finite-bound}
+\end{equation}
+Consequently, for each fixed admissible $h$ with $A>0$,
+\begin{align}
+ \Bnorm{E_r}^2&=A+\frac{T}{A}q^2+O(q^3),
+ \label{I:B:eq:curvature-squared-expansion}\\
+ \Bnorm{E_r}&=\sqrt A+\frac{T}{2A^{3/2}}q^2+O(q^3)
+ \qquad(q\downarrow0).
+ \label{I:B:eq:curvature-norm-expansion}
+\end{align}
+The constants may depend on the fixed scalar residual through $A,L,T$.
+\end{proposition}
+
+\input{proofs/operator-approximation/1.25.1.tex}
+
+\subsection{An autocorrelation formula for Hardy extremal lifts}
+
+For the scalar residual constructed from a Hardy coefficient extremal,
+the curvature coefficient can be written directly in terms of its outer
+polynomial. This makes the cancellation and its quantitative size
+explicit.
+
+\begin{corollary}[Curvature from the outer extremal polynomial]
+\label{I:B:cor:hardy-curvature}
+Let $m=k-1$, let $C=C(m,2/3)$, and choose an outer coefficient-extremal
+polynomial
+\[
+ P(z)=\sum_{j=0}^{m}p_jz^j,\qquad
+ \Bnorm P_{\BHtwo}=1,\qquad [z^m]P^3=C>0.
+\]
+Use reversal order $m$ in
+$P^*(z)=z^m\overline{P(1/\overline z)}$ and let $h$ be the scalar
+approximant supplied by the Hardy construction, whose residual is
+\begin{equation}
+ d=z^m-h=\frac{(P^*)^2}{CP}.
+ \label{I:B:eq:curvature-hardy-residual}
+\end{equation}
+Put $J=\Bnorm P_{H^4}^4$ and $L=\Bnorm{H_d}^2$. Then
+\begin{equation}
+ A=C^{-2},\qquad
+ T=\frac{J-1}{2C^4},\qquad
+ \frac TA=\frac{J-1}{2C^2}.
+ \label{I:B:eq:curvature-hardy-coefficients}
+\end{equation}
+For $qL\le1/(2C^2)$, the error of the corresponding explicit word lift
+satisfies
+\begin{equation}
+ \boxed{\displaystyle
+ \frac1{C^2}+\frac{J-1}{2C^2}q^2
+ \le\Bnorm{E_r}^2
+ \le\frac1{C^2}+\frac{J-1}{2C^2}q^2
+           +L(J-1)q^3.}
+ \label{I:B:eq:curvature-hardy-finite}
+\end{equation}
+In particular,
+\begin{equation}
+ \Bnorm{E_r}=\frac1C+\frac{J-1}{4C}q^2+O(q^3),
+ \qquad
+ \delta_k(H_{f_{r,k}})\le E_{k-1}+O(q^2).
+ \label{I:B:eq:curvature-hardy-norm}
+\end{equation}
+The expansion in \eqref{I:B:eq:curvature-hardy-norm} is for this chosen
+lift; the final inequality is only an upper bound for the optimum.
+\end{corollary}
+
+\input{proofs/operator-approximation/1.25.2.tex}
+
+\section{Scope and principal conclusions}
+Let $\Sigma$ be finite, $d=|\Sigma|\ge2$, and let
+\[
+H_f[u,v]=f(uv),\qquad u,v\in\Sigma^*.
+\]
+Every norm of a word-Hankel operator below is its operator norm on $\FHH$ with counting measure. For bounded $H_f$ define
+\[
+\delta_k^{\FC}(H_f)=\inf\{\Fnorm{H_f-H_g}:H_g\text{ bounded word-Hankel},\ \Frank H_g\le k\}.
+\]
+For real $f$, define $\delta_k^{\FR}$ by requiring real coefficients of $g$. A bare $\delta_k$ means the complex optimum. The standard realization convention is
+\[
+f(a_1\cdots a_t)=\alpha^*A_{a_1}\cdots A_{a_t}\beta.
+\]
+Joint mean-square stability means $\rho(\Phi_A)<1$ for $\Phi_A(X)=\sum_a A_aXA_a^*$. Separate letter spectral radii do not replace this hypothesis. On rational input this condition is verifiable by solving $Y-\sum_aA_a^*YA_a=I$ and checking $Y\succ0$. A coefficient transpose $H^{\mathsf T}$ means $\mathcal JH^*\mathcal J$, with $\mathcal J$ coordinatewise conjugation; it has the same norm and singular values as $H$.
+
+The finite-parameter family problems use the binary alphabet $\Sigma=\{a,b\}$. The synthesis theorem later allows any finite alphabet. Let
+\[
+q=1-r^2\in(0,1),\qquad f_{r,k}\text{ as in \eqref{I:eq:binary-source}}.
+\]
+Write $D_k^{\mathbb F}(q)=\delta_k^{\mathbb F}(H_{f_{\sqrt{1-q},k}})^2$.
+The new finite-parameter and first-correction conclusions are:
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Exact one-state global optimum.} Put
+\[
+\mathcal A_q(t)=(1-q)^2t^2+(q^2+2q-1)(t-q).
+\]
+Then $D_1^{\FC}(q)=D_1^{\FR}(q)$ is the unique selected root
+\[
+\boxed{\mathcal A_q(t)^2=4q^3(t-q)(1-2q+qt),\quad
+\frac{2q}{1+q}<t<1,\quad\mathcal A_q(t)>0.}
+\]
+There is a single real-analytic optimal value branch throughout $(0,1)$. The complete proof and all minimizers appear below.
+\item \textbf{Global two-state first correction.} For each field separately,
+\[
+\boxed{D_2^{\mathbb F}(q)=\frac34-\frac14q+O(q^2),
+\qquad \mathbb F\in\{\FR,\FC\}.}
+\]
+This is not an assertion that $D_2^{\FR}(q)=D_2^{\FC}(q)$ at finite $q$. It implies that their difference is nonnegative and $O(q^2)$. The remainder constant and a numerical neighborhood are not explicitly evaluated; their existence follows from the analytic proof.
+\item \textbf{Quantitative additive global synthesis.} For supplied stable rational input, an explicit finite enumeration produces a stable rational rank-at-most-$k$ competitor and rational $L,U$ with
+\[
+0\le L\le\delta_k(H_f)\le\Fnorm{H_f-H_g}\le U,\qquad U-L\le\varepsilon.
+\]
+Its candidate count is explicit and exponential in $2dk^2+4k$. Uniform moment and size bounds on the input give a nontrivial class on which the scheme is polynomial in input dimension, input bit length and $1/\varepsilon$ for fixed $d,k$. It is a theoretical enumeration scheme, not a practical fast minimizer or a polynomial algorithm in all parameters.
+\end{enumerate}
+
+The finite-parameter arguments use the boundary theorem as input and establish separate optimality statements. Classical completion, finite nets, rational Stein solves and analytic implicit-function arguments supply the supporting tools.
+
+\section{Canonical facts used in the synthesis argument}
+These are background facts. We include short proofs to make the construction's comparison class explicit.
+
+\begin{lemma}[Stable observable canonical coordinates]\label{I:F:lem:canonical-input}
+Every bounded word-Hankel $G$ of finite rank $j$ has a minimal $j$-state realization $g(w)=\ell T_w\beta$ such that
+\[
+\sum_a T_a^*T_a+\ell^*\ell=I,\qquad \Fnorm\ell\le1,
+\qquad\Fnorm\beta\le\Fnorm G.
+\]
+Its completely positive transition map is strictly stable. Padding to a larger dimension preserves the displayed equality as an inequality.
+\end{lemma}
+\input{proofs/operator-approximation/1.27.1.tex}
+
+The structured optimum is attained: a norm-bounded minimizing sequence has a weak-operator convergent subsequence; the Hankel entry equalities and all rank-$(k+1)$ minors pass to the limit, and the operator norm is lower semicontinuous. This existence fact is used in the radial comparison, not claimed as a new algorithm.
+
+For a stable finite error realization $e(w)=cD_wb$, its rational or algebraic Gramians satisfy
+\[
+P=bb^*+\sum_aD_aPD_a^*,\qquad
+Q=c^*c+\sum_aD_a^*QD_a.
+\]
+The nonzero eigenvalues of $PQ$ are the squared singular values of $H_e$, including multiplicities. They are real and nonnegative, even if $PQ$ is not Hermitian. This factorization evaluates the infinite operator norm without a word-horizon truncation.
+
+\section{The global one-state optimum at every finite parameter}
+\label{I:F:sec:F1}
+
+Let $0<q<1$, $r=\sqrt{1-q}$, and let $f=f_{r,1}$ be the binary
+series $f(a^n b)=qr^n$, zero elsewhere. All norms in this section are
+ordinary counting-measure word-Hankel operator norms. Write
+$D_1^{\FC}(q)=\delta_1^{\FC}(H_f)^2$ and similarly for real competitors.
+The result below determines the global optimum, rather than an upper
+bound within a prescribed family of amplitudes.
+
+\begin{theorem}[Exact finite-parameter solution of F1]
+\label{I:F:thm:F1-exact}
+For every $0<q<1$, there is a unique $u=u(q)$ in
+$q<u<\sqrt q$ satisfying
+\begin{equation}
+ q^2(1-u^2)(u-q)^2=(1-q)^3u^2(q-u^2).
+ \label{I:F:eq:F1-u-quartic}
+\end{equation}
+The exact real and complex optima coincide and equal
+\begin{equation}
+ \boxed{\displaystyle
+ D_1^{\FC}(q)=D_1^{\FR}(q)=t(q)
+ =\frac{q^2+(1-2q)u(q)^2}{q(1-u(q)^2)}.}
+ \label{I:F:eq:F1-value}
+\end{equation}
+They satisfy $2q/(1+q)<t(q)<1$. The selected functions $u(q)$ and
+$t(q)$ are real analytic on $(0,1)$, with no interior change of optimal
+branch.
+
+An explicit real optimizer is $g_0(w)=c a^{\#_a(w)}y^{\#_b(w)}$, where
+\begin{equation}
+ a=\frac{1-u}{r},\quad
+ y=\sqrt{\frac{u(1-u)}{1-q}},\quad
+ m=\frac{u-q}{1-q},\quad
+ \tau=\frac{u}{y(1+u)},\quad c=m\tau.
+ \label{I:F:eq:F1-optimizer-parameters}
+\end{equation}
+These parameters obey $a,y,m,c>0$ and $a^2+y^2=1-m<1$.
+All complex optimizers are precisely
+\begin{equation}
+ g_\theta(w)=c a^{\#_a(w)}y^{\#_b(w)}
+             e^{i\theta(\#_b(w)-1)},\qquad
+ \theta\in\FR/(2\pi\mathbb Z).
+ \label{I:F:eq:F1-all-optimizers}
+\end{equation}
+The real optimizers are the two cases $\theta=0,\pi$.
+\end{theorem}
+
+The equation in $u$ has degree at most four; an exceptional vanishing of
+its leading coefficient does not affect the unique interval-selected
+analytic branch. A quartic directly in the optimum is given after the
+proof.
+
+\subsection{Geometric rank-one competitors and an exact residual lower bound}
+
+Every nonzero bounded rank-one word-Hankel series has a one-state
+realization
+\[
+ g(w)=c\lambda_w,\qquad c\ne0,\qquad
+ \lambda_w=\prod_{j=1}^{|w|}\lambda_{w_j},\qquad
+ |\lambda_a|^2+|\lambda_b|^2<1.
+\]
+Indeed minimal rank-one realization matrices are scalars, and boundedness
+of the empty column forces the geometric coefficients to be square
+summable. Conversely the displayed strict inequality gives a bounded
+rank-one Hankel. Put
+\[
+ x=\lambda_a,\quad z=|\lambda_b|^2,\quad
+ m=1-|x|^2-z>0,\quad
+ p=\sqrt m\sum_w\lambda_w e_w.
+\]
+Then $\Fnorm p=1$ and $H_g=(c/m)pp^{\mathsf T}$; its input row space is
+$\operatorname{span}\{\overline p\}$, with coefficientwise conjugation.
+
+Write $s=\sqrt q$ and use the real unit vectors
+\[
+ u_0=s\sum_{n\ge0}r^n e_{a^n},\qquad
+ v=s\sum_{n\ge0}r^n e_{a^n b},\qquad e=e_\Feps.
+\]
+Here $u_0\perp v$, $v\perp e$, and $\langle u_0,e\rangle=s$. The
+target has the exact factorization
+\begin{equation}
+ H_f=u_0v^*+sve^*,\qquad H_f^*H_f=vv^*+qee^*.
+ \label{I:F:eq:F1-target}
+\end{equation}
+Define
+\begin{equation}
+ A=\frac{qm}{|1-rx|^2},\qquad B=Az.
+ \label{I:F:eq:F1-overlaps}
+\end{equation}
+The squared overlaps of $p$ with $u_0,v,e$ are $A,B,m$; since $v$ is
+real, the squared overlap of $\overline p$ with $v$ is also $B$.
+
+Let $P$ project onto $\overline p$. Every amplitude therefore satisfies
+\begin{equation}
+ \Fnorm{H_f-H_g}^2\ge R^2:=\Fnorm{H_f(I-P)}^2.
+ \label{I:F:eq:F1-input-lower}
+\end{equation}
+The nonzero eigenvalues determining $R^2$ are those of the two-by-two
+Hermitian matrix with diagonal entries $1-B,q(1-m)$ and off-diagonal
+modulus $\sqrt{qBm}$. Its trace is $1+q-B-qm$ and determinant is
+$q(1-B-m)$. For every $q<t<1$, its scalar Schur complement gives
+\begin{equation}
+ R^2\le t
+ \quad\Longleftrightarrow\quad
+ B\ge(1-t)\left(1+\frac{qm}{t-q}\right).
+ \label{I:F:eq:F1-right-feasibility}
+\end{equation}
+The complementary diagonal is $t-q+qm>0$, so the equivalence has no
+singular-denominator qualification. Rank-one interlacing also gives
+$R^2\ge q$.
+
+For fixed $|x|,z,m$, the left side of
+\eqref{I:F:eq:F1-right-feasibility} is maximized by taking $x=|x|\ge0$,
+because $|1-rx|\ge1-r|x|$. The phase of $\lambda_b$ has no effect.
+Thus optimization of this lower bound over \emph{all complex}
+competitors reduces exactly to $x=a\ge0$, $z\ge0$ and
+$m=1-a^2-z>0$. A matching real completion, rather than an assumed
+real-parameter restriction, will establish equality of the original
+complex and real optima.
+
+\subsection{A unique scalar branch solves the residual optimization}
+
+For $q<t<1$, set
+\[
+ \lambda=\frac{1-t}{t-q}>0,\qquad
+ d=(1-ra)^2,\qquad c_a=1-a^2.
+\]
+Condition~\eqref{I:F:eq:F1-right-feasibility} becomes
+\begin{equation}
+ q(c_a-z)(z-\lambda d)\ge(1-t)d.
+ \label{I:F:eq:F1-concave-z}
+\end{equation}
+Positive feasibility requires $c_a>\lambda d$. The quadratic on the
+left is strictly concave in $z$ and uniquely maximized at
+\begin{equation}
+ z=\frac{c_a+\lambda d}{2},\qquad
+ m=\frac{c_a-\lambda d}{2}.
+ \label{I:F:eq:F1-z-vertex}
+\end{equation}
+The maximum is $q(c_a-\lambda d)^2/4$. Therefore feasibility is equivalent
+to a positive value satisfying
+\begin{equation}
+ \frac{\sqrt q}{2}
+ \max_a\left\{\frac{1-a^2}{1-ra}-\lambda(1-ra)\right\}
+ \ge\sqrt{1-t}.
+ \label{I:F:eq:F1-residual-scalar}
+\end{equation}
+
+Set $u=1-ra\in(1-r,1]$. The expression to maximize is
+\begin{equation}
+ F_\lambda(u)
+ =\frac{2-(1+(1-q)\lambda)u-q/u}{1-q}.
+ \label{I:F:eq:F1-concave-u}
+\end{equation}
+It is strictly concave, with unconstrained maximum at
+\[
+ u_\lambda=\sqrt{\frac{q}{1+(1-q)\lambda}}.
+\]
+If $u_\lambda\le1-r$, its constrained maximum would occur at $1-r$
+and equal $-\lambda(1-r)<0$, precluding feasibility. Also
+$u_\lambda<\sqrt q<1$. A positive maximal value is equivalent to
+$0<\lambda<1/q$; in this case $q<u_\lambda<\sqrt q$, so it lies
+strictly inside the allowed interval. The maximum is
+\[
+ \max F_\lambda=
+ \frac{2-2\sqrt{q(1+(1-q)\lambda)}}{1-q}.
+\]
+Using $t=(1+q\lambda)/(1+\lambda)$, the threshold condition is exactly
+\begin{equation}
+ \frac{q}{(1-q)^2}
+ \left(1-\sqrt{q(1+(1-q)\lambda)}\right)^2
+ \ge\frac{(1-q)\lambda}{1+\lambda}.
+ \label{I:F:eq:F1-monotone-lambda}
+\end{equation}
+On $(0,1/q)$ its left side strictly decreases from a positive value to
+zero, while its right side strictly increases from zero to a positive
+value. There is consequently exactly one equality. Since $t$ strictly
+decreases with $\lambda$, that equality is the minimal feasible residual
+threshold.
+
+At equality, set $u=u_\lambda$. Then
+\begin{equation}
+ \lambda=\frac{q-u^2}{(1-q)u^2},\qquad
+ z=\frac{u(1-u)}{1-q},\qquad
+ m=\frac{u-q}{1-q},
+ \label{I:F:eq:F1-stationary-parameters}
+\end{equation}
+and the threshold is \eqref{I:F:eq:F1-value}. Its complement has the two
+equivalent expressions
+\begin{equation}
+ 1-t=\frac{q(u-q)^2}{(1-q)^2u^2}
+     =\frac{(1-q)(q-u^2)}{q(1-u^2)}.
+ \label{I:F:eq:F1-equality-u}
+\end{equation}
+Equating them gives \eqref{I:F:eq:F1-u-quartic}, without introducing an
+extraneous sign. Conversely any root in $(q,\sqrt q)$ satisfies the
+positive equality. The first expression in \eqref{I:F:eq:F1-equality-u}
+strictly increases from zero in $u$, while the second strictly decreases
+to zero. This proves the asserted root uniqueness directly. Their
+difference has positive $u$ derivative, so the implicit function theorem
+also proves analyticity on $(0,1)$.
+
+We have thus proved that \emph{every} bounded complex rank-one competitor
+has squared error at least the number $t(q)$ in
+\eqref{I:F:eq:F1-value}. The zero competitor has error one, and cannot be
+optimal since $t(q)<1$.
+
+\subsection{Strict output slack and a genuine Hankel completion}
+
+Take the positive-real geometric parameters in
+\eqref{I:F:eq:F1-stationary-parameters}, with $y=\sqrt z$, and let $p$ be
+the corresponding real unit vector. The output projection residual
+$L^2=\Fnorm{(I-pp^*)H_f}^2$ is the larger eigenvalue of
+\[
+ \begin{pmatrix}
+ 1-A&-A\sqrt{qz}\\
+ -A\sqrt{qz}&q(1-Az)
+ \end{pmatrix}.
+\]
+For $t>q$, its Schur threshold is
+\begin{equation}
+ L^2\le t
+ \quad\Longleftrightarrow\quad
+ A\ge(1-t)\left(1+\frac{qAz}{t-q}\right)
+ =(1-t)+\lambda qAz.
+ \label{I:F:eq:F1-left-feasibility}
+\end{equation}
+Equation~\eqref{I:F:eq:F1-equality-u} gives $1-t=Am$. Hence the final
+condition is $1-\lambda qz\ge m$. Substituting
+\eqref{I:F:eq:F1-stationary-parameters}, its strict version is equivalent to
+\[
+ qu^2+(1-q)u-q^2>0.
+\]
+This polynomial is strictly increasing on $u>0$ and at $u=q$ equals
+$q(1-q)^2>0$. Thus
+\begin{equation}
+ \Fnorm{H_f(I-pp^*)}^2=t,\qquad
+ \Fnorm{(I-pp^*)H_f}^2<t.
+ \label{I:F:eq:F1-two-corners}
+\end{equation}
+The strict second inequality supplies the required sequentially compatible
+completion. In particular, we do not assert that $H_fpp^*$ itself is
+Hankel.
+
+\begin{lemma}[Scalar one-corner norm completion]
+\label{I:F:lem:F1-completion}
+Let $H$ be bounded and let $p$ be a unit vector used as the selected
+one-dimensional input and output space. If
+\[
+ \Fnorm{H(I-pp^*)}\le\gamma,
+ \qquad\Fnorm{(I-pp^*)H}<\gamma,
+ \quad\gamma>0,
+\]
+there is an amplitude $\tau$ such that
+$\Fnorm{H-\tau pp^*}\le\gamma$. If the first displayed norm equals
+$\gamma$, this amplitude is unique. Real data admit a real amplitude.
+\end{lemma}
+
+\input{proofs/operator-approximation/1.28.2.tex}
+
+\subsection{Explicit amplitude and classification of the minimizers}
+
+Apply Lemma~\ref{I:F:lem:F1-completion} with $\gamma=\sqrt t$ and
+\eqref{I:F:eq:F1-two-corners}. To identify its unique amplitude, set
+\[
+ z_0=(tI-H_f^*H_f)^{-1}p.
+\]
+This inverse exists because $q<t<1$ and
+$\operatorname{spec}(H_f^*H_f)=\{0,q,1\}$. The right residual secular
+equation gives $p^*z_0=0$; equivalently it follows by multiplying the
+characteristic equation associated with
+\eqref{I:F:eq:F1-right-feasibility}. Hence
+\[
+ H_f^*H_fz_0=t z_0-p,
+ \qquad\Fnorm{H_fz_0}^2=t\Fnorm{z_0}^2.
+\]
+Every completion of norm at most $\sqrt t$ preserves this saturated input
+direction. Taking its scalar cross term against $p$ gives
+\begin{equation}
+ \tau=-\frac1{p^*H_fz_0}.
+ \label{I:F:eq:F1-amplitude-necessary}
+\end{equation}
+All quantities are real here. Put
+$\alpha=\langle p,u_0\rangle=\sqrt A$ and
+$\beta=\langle p,v\rangle=\alpha y$. The target factorization gives
+\[
+ p^*H_fz_0
+ =\frac{\alpha\beta}{t-1}
+  +\frac{\sqrt q\,\beta\sqrt m}{t-q}
+ =-\frac{\alpha\beta(1-u\lambda)}{1-t}.
+\]
+The denominator in \eqref{I:F:eq:F1-amplitude-necessary} is nonzero because
+\[
+ 1-u\lambda=\frac{(u-q)(1+u)}{(1-q)u}
+             =\frac{m(1+u)}u>0.
+\]
+Finally $1-t=Am$, so
+\[
+ \tau=\frac{1-t}{Ay(1-u\lambda)}
+       =\frac{u}{y(1+u)}.
+\]
+The completion lemma proves that this amplitude has error at most
+$\sqrt t$, and the universal residual lower bound proves equality.
+Since $pp^*=m(\lambda_w)_w(\lambda_w)_w^{\mathsf T}$ for these real
+parameters, this is exactly the coefficient series in
+\eqref{I:F:eq:F1-optimizer-parameters}. A real competitor has thus attained
+the lower bound over all complex competitors, proving
+$D_1^{\FR}=D_1^{\FC}=t$.
+
+For completeness, every optimizer must saturate the inequalities in the
+residual optimization. The strict phase bound for $|1-rx|$, together with
+the strict quadratic maxima, forces $\lambda_a=a>0$ and the unique
+modulus $|\lambda_b|=y$. Let
+$U_\theta e_w=e^{i\theta\#_b(w)}e_w$. Because every target word has
+exactly one $b$,
+\[
+ U_\theta H_fU_\theta=e^{i\theta}H_f.
+\]
+Consequently
+$H_{g_\theta}=e^{-i\theta}U_\theta H_{g_0}U_\theta$ satisfies
+\[
+ H_f-H_{g_\theta}
+ =e^{-i\theta}U_\theta(H_f-H_{g_0})U_\theta.
+\]
+Both side factors are unitary, so the errors have the same norm.
+Conversely, a phase-$\theta$ competitor is reduced to the real geometric
+pair by $G\mapsto e^{i\theta}U_\theta^*GU_\theta^*$ before applying
+Lemma~\ref{I:F:lem:F1-completion}. This gives
+\eqref{I:F:eq:F1-all-optimizers}. Strict output slack makes
+the amplitude unique for each fixed geometric pair, so these exhaust the
+optimizers. Since $g_\theta(\Feps)=ce^{-i\theta}\ne0$, real
+coefficients force $\theta=0$ or $\pi$; both choices are indeed real.
+This completes the proof of Theorem~\ref{I:F:thm:F1-exact}.
+
+\subsection{A quartic directly in the optimum}
+
+\begin{theorem}[Direct polynomial branch selector]
+\label{I:F:thm:F1-t-quartic}
+For $0<q<1$ put
+\[
+ B_q=q^2+2q-1,\qquad d_q(t)=1-2q+qt,\qquad
+ A_q(t)=(1-q)^2t^2+B_q(t-q).
+\]
+Then $D_1^{\FC}(q)=D_1^{\FR}(q)$ is the unique real $t$ satisfying
+\begin{equation}
+ \boxed{\displaystyle A_q(t)^2=4q^3(t-q)d_q(t),\qquad
+ \frac{2q}{1+q}<t<1,\quad A_q(t)>0.}
+ \label{I:F:eq:F1-direct-quartic}
+\end{equation}
+The optimizer is reconstructed by
+$u=\sqrt{q(t-q)/d_q(t)}$ and
+\eqref{I:F:eq:F1-optimizer-parameters}.
+\end{theorem}
+
+\input{proofs/operator-approximation/1.28.3.tex}
+
+\subsection{Short certified intervals without global elimination}
+
+The selected scalar branch also provides an elementary certification
+procedure. Let $[u_-,u_+]$ be the bracket after $N$ bisection steps from
+$[q,\sqrt q]$, using the sign of the polynomial in
+\eqref{I:F:eq:F1-u-quartic} moved to the left. Its sign agrees with the
+strictly increasing difference in \eqref{I:F:eq:F1-equality-u}; it is
+negative at $q$ and positive at $\sqrt q$. Thus bisection is certified
+without searching over realizations.
+
+Regarding the expression in \eqref{I:F:eq:F1-value} as $t_q(u)$,
+\[
+ t_q'(u)=\frac{2u(1-q)^2}{q(1-u^2)^2}\le\frac2{\sqrt q}
+ \qquad(q<u<\sqrt q).
+\]
+Since $u_+-u_-=(\sqrt q-q)2^{-N}$, monotonicity gives certified
+squared-error bounds
+\[
+ t_q(u_-)\le D_1(q)\le t_q(u_+),\qquad
+ t_q(u_+)-t_q(u_-)\le2(1-\sqrt q)2^{-N}\le2^{1-N}.
+\]
+Their positive square roots bound $\delta_1$, with gap at most
+$2^{(1-N)/2}$. In particular $N\ge1+2\log_2(1/\epsilon)$ suffices
+for a norm interval of width at most $\epsilon$. This is a uniform
+count of degree-four sign evaluations, rather than a quantifier-elimination
+procedure.
+
+For rational $q$ of binary length $B$, the bisection endpoints lie in the
+quadratic field $\mathbb Q(\sqrt q)$. After clearing denominators, each
+polynomial sign is the sign of $A+B'\sqrt{pd}$ with integers of bit length
+$O(B+N)$ when $q=p/d$ in lowest terms. Signs reduce to integer signs and,
+when necessary, comparison of $A^2$ with $(B')^2pd$. Consequently elementary
+schoolbook arithmetic gives a polynomial bit bound, for example
+$O(N(B+N)^2)$ with a common-denominator representation. The exact optimizer
+itself is specified by the degree-at-most-four selected root and the
+explicit radicals in \eqref{I:F:eq:F1-optimizer-parameters}; this avoids any
+numerical perturbation of the optimal realization.
+
+\section{A two-state branch that improves the first boundary correction}
+\label{I:F:sec:f2}
+
+The global two-state first correction is a different problem from the
+one-state optimum. The previously available fixed lift has squared error
+$3/4+q^2/6+O(q^3)$. The construction below proves that allowing the
+competitor to depend on $q$ improves the error already at order $q$.
+The matching global lower bound is proved separately by the two-dimensional passive-envelope argument.
+
+\begin{theorem}[An improving real two-state branch]
+\label{I:F:thm:f2-improvement}
+For $0<q<1/2$, set
+\[
+ r=\sqrt{1-q},\qquad a=\sqrt{1-q-2q^2},\qquad
+ c=\frac{q(1+2q)}2,
+\]
+and define the standard-order realization
+\begin{equation}
+ A_a=\begin{pmatrix}a&0\\0&0\end{pmatrix},\qquad
+ A_b=\frac1{\sqrt2}\begin{pmatrix}q&1\\-q&1\end{pmatrix},\qquad
+ \alpha_g^*=c(1,0),\qquad \beta_g=(-q,1)^{\mathsf T}.
+ \label{I:F:eq:f2-branch}
+\end{equation}
+Let $g_q(w)=\alpha_g^*A_w\beta_g$, with zero transition matrices for any
+additional alphabet letters. This is a real, jointly stable realization
+of dimension two. For the target $f_{r,2}(a^n b^2)=qr^n$,
+\begin{equation}
+ \boxed{\displaystyle
+ \Fnorm{H_{f_{r,2}}-H_{g_q}}^2
+ =\frac34-\frac14q+O(q^2)\qquad(q\downarrow0).}
+ \label{I:F:eq:f2-branch-expansion}
+\end{equation}
+Consequently
+\begin{equation}
+ D_2^{\FC}(q)\le D_2^{\FR}(q)
+ \le\frac34-\frac14q+O(q^2).
+ \label{I:F:eq:f2-optimum-upper}
+\end{equation}
+In particular the fixed lift approaching $3/4$ from above is not
+asymptotically optimal at first order.
+\end{theorem}
+
+\input{proofs/operator-approximation/1.29.1.tex}
+
+\begin{remark}[What this does and does not determine]
+The theorem refutes first-order optimality of the earlier fixed lift,
+and refutes any proposed lower bound of the form
+$D_2(q)\ge3/4+o(q)$ near zero. Taken alone it is an upper-bound result. The separate passive-envelope
+lower bound, proved in this manuscript, establishes
+$D_2^{\FC}(q)\ge3/4-q/4-O(q^2)$ against all complex competitors.
+Combining the two proves the common first correction for the real and
+complex optima. Local numerical searches played no role in the global
+lower-bound certificate; higher coefficients and exact finite-$q$
+rank-two optima are not determined here.
+\end{remark}
+
+\section{The global complex two-state first correction}
+\label{I:F:sec:f2-global-lower}
+
+We now match the real upper branch of
+Theorem~\ref{I:F:thm:f2-improvement} by a lower bound against every bounded
+complex word-Hankel competitor of rank at most two.  The central step is
+an asymptotic maximization over all passive complex two-dimensional
+systems.  The maximization is global; no restriction to a chosen real
+matrix family is imposed.  The proof does not establish an exact
+finite-$q$ classification of the optimum.
+
+\subsection{From arbitrary two-state competitors to a passive matrix problem}
+
+Write $q=1-r^2$, with $0<q<1$, and let
+\begin{equation}
+ u_r=\sqrt q\sum_{n\ge0}r^n e_{a^n},\qquad
+ v_r=\sqrt q\sum_{n\ge0}r^n e_{a^n b^2}.
+ \label{I:F:eq:f2-test-vectors}
+\end{equation}
+Both vectors have norm one in $\FHH$.  For the target
+$X_f=H_{f_{r,2}}^{\mathsf T}$, direct substitution gives
+$X_fu_r=v_r$.
+
+Let $H_g$ be any bounded complex word-Hankel operator of rank at most
+two, and let $\mathcal S=\operatorname{ran}H_g^{\mathsf T}$.
+This is a finite-dimensional backward-shift invariant subspace of
+$\FHH$.  In orthonormal canonical state coordinates, denote the
+restrictions of $L_a^*$ and $L_b^*$ by $A$ and $B$, and denote
+empty-word evaluation by the row $\ell$.  If necessary, pad the system
+by zero coordinates to dimension two.  The canonical energy identity
+implies
+\begin{equation}
+ A^*A+B^*B+\ell^*\ell\preceq I_2.
+ \label{I:F:eq:f2-passive-class}
+\end{equation}
+Additional alphabet letters only add positive terms to the omitted part
+of this identity.  Coordinate evaluation on $a^n b^2$ is the row
+$\ell B^2A^n$.  Consequently, if $P_{\mathcal S}$ is orthogonal
+projection onto $\mathcal S$,
+\begin{equation}
+ \Fnorm{P_{\mathcal S}v_r}^2
+   =q\Fnorm{\ell B^2(I-rA)^{-1}}^2.
+ \label{I:F:eq:f2-projection-passive}
+\end{equation}
+The resolvent exists because \eqref{I:F:eq:f2-passive-class} implies
+$\Fnorm{A}\le1$ and $r<1$.  Since the range of $H_g^{\mathsf T}$ is
+contained in $\mathcal S$,
+\begin{equation}
+ \Fnorm{H_{f_{r,2}}-H_g}^2
+ \ge \Fnorm{(I-P_{\mathcal S})v_r}^2
+ =1-q\Fnorm{\ell B^2(I-rA)^{-1}}^2.
+ \label{I:F:eq:f2-competitor-lower}
+\end{equation}
+Thus it suffices to understand the universal passive-tuple maximum
+\begin{equation}
+ \mathcal P(q)=
+ \max_{A^*A+B^*B+\ell^*\ell\preceq I_2}
+ q\Fnorm{\ell B^2(I-rA)^{-1}}^2,
+ \qquad r=\sqrt{1-q}.
+ \label{I:F:eq:f2-P-definition}
+\end{equation}
+The maximum exists: the feasible set is compact and the resolvent is
+continuous there for every fixed $r<1$.
+
+\subsection{Exact elimination of the waiting transition}
+
+The variable $A$ can be eliminated without relaxation.  For $0\le t\le1$,
+define the compact envelope
+\begin{equation}
+ h(t)=\max\left\{
+  |\ell B^2e_1|^2:
+  V=\begin{pmatrix}B\\\ell\end{pmatrix}\in\FC^{3\times2},\quad
+  V^*V\preceq I_2,\quad\Fnorm{Ve_1}^2=t
+ \right\}.
+ \label{I:F:eq:f2-h-definition}
+\end{equation}
+Here and below $e_1=(1,0)^{\mathsf T}$ is a state coordinate vector.
+
+\begin{lemma}[Exact scalar reduction]
+\label{I:F:lem:f2-A-elimination}
+For every $0<q<1$,
+\begin{equation}
+ \mathcal P(q)=
+ \max_{0\le t\le1}
+ \frac{q\,h(t)}{\bigl(1-\sqrt{1-q}\sqrt{1-t}\bigr)^2}.
+ \label{I:F:eq:f2-scalar-reduction}
+\end{equation}
+Moreover $0\le h(t)\le t$.
+\end{lemma}
+
+\input{proofs/operator-approximation/1.30.1.tex}
+
+\subsection{The global compact envelope near zero}
+
+\begin{lemma}[Two-term expansion of the complex envelope]
+\label{I:F:lem:f2-h-expansion}
+The envelope \eqref{I:F:eq:f2-h-definition} satisfies
+\begin{equation}
+ h(t)=\frac14t+\frac14t^2+O(t^3)
+ \qquad(t\downarrow0).
+ \label{I:F:eq:f2-h-expansion}
+\end{equation}
+The remainder applies to the global maximum over all complex
+contractions in \eqref{I:F:eq:f2-h-definition}.
+\end{lemma}
+
+\input{proofs/operator-approximation/1.30.2.tex}
+
+\subsection{Uniform scalar localization and the matching lower bound}
+
+\begin{theorem}[Global passive-tuple asymptotic]
+\label{I:F:thm:f2-passive-asymptotic}
+The maximum over all complex passive tuples in
+\eqref{I:F:eq:f2-P-definition} satisfies
+\begin{equation}
+ \mathcal P(q)=\frac14+\frac14q+O(q^2)
+ \qquad(q\downarrow0).
+ \label{I:F:eq:f2-P-expansion}
+\end{equation}
+\end{theorem}
+
+\input{proofs/operator-approximation/1.30.3.tex}
+
+\begin{theorem}[The two-state optimum to first boundary order]
+\label{I:F:thm:f2-global-first-correction}
+For each coefficient field $\mathbb F\in\{\FC,\FR\}$, the squared
+structured two-state optimum for $f_{\sqrt{1-q},2}$ satisfies
+\begin{equation}
+ \boxed{\displaystyle
+ D_2^{\mathbb F}(q)=\frac34-\frac14q+O(q^2)
+ \qquad(q\downarrow0).}
+ \label{I:F:eq:f2-global-first-correction}
+\end{equation}
+In particular
+$0\le D_2^{\FR}(q)-D_2^{\FC}(q)=O(q^2)$.
+This asserts equality of the displayed asymptotic coefficients, not
+finite-$q$ equality of the real and complex optima.
+\end{theorem}
+
+\input{proofs/operator-approximation/1.30.4.tex}
+
+The analytic proof supplies a neighborhood and bounded remainder
+constants, but no numerical threshold $q_0$ or explicit numerical
+remainder constant is provided here.  In particular,
+\eqref{I:F:eq:f2-P-expansion} does not prove the stronger proposed exact
+inequality $4r^2q\Fnorm{\ell B^2(I-rA)^{-1}}^2\le1$ for every sufficiently
+large $r<1$.  Nor does \eqref{I:F:eq:f2-global-first-correction} determine the
+full function $D_2^{\mathbb F}(q)$ away from the boundary, its second
+correction coefficient, or exact real--complex equality at positive
+$q$.
+
+\section{A quantitative global synthesis scheme by radial damping}
+\label{I:F:sec:g1-damping}
+
+This section gives an explicit solution of the additive-certification task G1
+for supplied stable realizations over the complex rationals. It uses a finite
+net, rather than quantifier elimination. Its cost is exponential in the
+reduced parameter count, and its certificate ledger may have the same size.
+Neither a new short optimality certificate nor publication priority is claimed.
+
+Let
+\[
+ f(w)=cA_wb,\qquad \Phi_A(X)=\sum_{a\in\Sigma}A_aXA_a^*,
+ \qquad \rho(\Phi_A)<1,
+\]
+be an $n$-state input realization with complex rational entries. The norm
+and comparison class are the ordinary counting-measure word-Hankel norm
+and all bounded complex word-Hankel competitors of rank at most $k$.
+Define the input moment
+\begin{equation}
+ J_2(f)^2=\sum_{w\in\Sigma^*}(|w|+1)|w|^2|f(w)|^2.
+ \label{I:F:eq:g1-input-moment}
+\end{equation}
+This is finite under the supplied joint stability assumption.
+
+\begin{theorem}[Certified additive synthesis from complete rational input]
+\label{I:F:thm:g1-net}
+Fix $1\le k<n$ and rational $\varepsilon>0$. From the input one can compute
+rational bounds $M\ge\max\{1,\Fnorm{H_f}\}$ and
+$J\ge\max\{1,J_2(f)\}$. Put
+\begin{align}
+ e&=\min\{\varepsilon,1\},& B&=2M,&
+ \gamma&=1-\frac{e}{3J},& \mu&=1-\gamma^2,\nonumber\\
+ \eta&=\frac{e\mu^2}{15B},&
+ v&=\left\lceil\sqrt{2dk^2}\right\rceil,&
+ p_0&=2dk^2+4k.
+ \label{I:F:eq:g1-parameters}
+\end{align}
+An explicit enumeration of at most
+\begin{equation}
+ N\le\left(3+\frac{2v}{\eta}\right)^{p_0}
+   \le\left(3+\frac{240vMJ^2}{e^3}\right)^{p_0}
+ \label{I:F:eq:g1-net-size}
+\end{equation}
+stable rational $k$-state candidates returns a competitor $g$ and rational
+$L,U$ satisfying
+\begin{equation}
+ 0\le L\le\delta_k(H_f)\le\Fnorm{H_f-H_g}\le U,
+ \qquad U-L\le\varepsilon.
+ \label{I:F:eq:g1-global-gap}
+\end{equation}
+Every candidate has a joint column-contraction margin $\mu$. Let
+\[
+ Z=M+B/\mu,\qquad
+ p_{\rm tr}=\left\lceil
+ \frac{18Z\max\{1,\lceil\log_2(n+k)\rceil\}}e\right\rceil.
+\]
+Construction and independent verification cost
+$N\,\operatorname{poly}(n+k,d,H,p_{\rm tr},\log(Z/e))$ bit operations,
+where $H$ bounds the rational input and grid coefficient heights after a
+common denominator is chosen. A complete interval ledger has the same
+size bound. Thus for fixed $d,k$ and polynomially bounded numerical $M,J$,
+this is a polynomial-time additive approximation scheme in input length,
+$n$, and $1/e$. No polynomial dependence on $d,k$ or $\log(1/e)$ is asserted.
+\end{theorem}
+
+The parameter restriction applies to a known nearoptimal damped competitor,
+not to the original optimum. The proof below quantifies its loss using the
+input alone, thereby avoiding a restricted-comparison-class gap.
+
+\subsection{Input moments and radial comparison}
+
+Write $R=(I-\Phi_A)^{-1}$ and $S_0=bb^*$. Four successive rational Stein
+solves give $M_j=R^{j+1}S_0$, $0\le j\le3$:
+\[
+ M_0=S_0+\Phi_A(M_0),\qquad
+ M_j=M_{j-1}+\Phi_A(M_j)\quad(1\le j\le3).
+\]
+All are positive semidefinite. Counting word splittings and using the scalar
+generating functions gives
+\begin{align}
+ \Fnorm{H_f}_{\rm HS}^2&=cM_1c^*,\label{I:F:eq:g1-HS-input}\\
+ J_2(f)^2&=c\bigl(2\Phi_A(M_2)+6\Phi_A^2(M_3)\bigr)c^*.
+ \label{I:F:eq:g1-moment-Stein}
+\end{align}
+Indeed the coefficient energy at length $t$ is
+$c\Phi_A^t(S_0)c^*$, each coefficient occurs $t+1$ times in its Hankel,
+and
+\[
+ \sum_{t\ge0}t^2(t+1)x^t
+ =\frac{2x}{(1-x)^3}+\frac{6x^2}{(1-x)^4}.
+\]
+Integer ceilings of the square roots in
+\eqref{I:F:eq:g1-HS-input}--\eqref{I:F:eq:g1-moment-Stein}, bounded below by one,
+supply rational $M,J$. These calculations use no approximation of
+$\delta_k$.
+
+For $0<\gamma<1$, let $D_\gamma e_w=\gamma^{|w|}e_w$ and
+$h_\gamma(w)=\gamma^{|w|}h(w)$. Entrywise,
+\begin{equation}
+ H_{h_\gamma}=D_\gamma H_hD_\gamma.
+ \label{I:F:eq:g1-radial-Hankel}
+\end{equation}
+This preserves the rank upper bound, and its realization is obtained by
+replacing every letter matrix by $\gamma A_a$. For the input,
+\begin{equation}
+ \Fnorm{H_f-H_{f_\gamma}}
+ \le\Fnorm{H_f-H_{f_\gamma}}_{\rm HS}
+ \le(1-\gamma)J_2(f),
+ \label{I:F:eq:g1-radial-bias}
+\end{equation}
+because $1-\gamma^t\le t(1-\gamma)$.
+
+Let $G=H_h$ attain $\delta_k(H_f)$. Since zero is admissible,
+$\Fnorm G\le2\Fnorm{H_f}\le2M$. The canonical observable realization on
+$\operatorname{ran}G$, using right backward shifts, has parameters
+$T_a,\ell,\beta$ satisfying
+\[
+ \sum_aT_a^*T_a+\ell^*\ell=I,
+ \qquad\Fnorm\ell\le1,
+ \qquad\Fnorm\beta=\Fnorm{Ge_\varepsilon}\le B.
+\]
+Padding to $k$ states changes the equality to an inequality if needed.
+Therefore its damped realization belongs to
+\begin{equation}
+ \sum_a\widehat T_a^*\widehat T_a\preceq\gamma^2I,
+ \qquad\Fnorm\ell\le1,
+ \qquad\Fnorm\beta\le B.
+ \label{I:F:eq:g1-compact-class}
+\end{equation}
+Using that $D_\gamma$ is a contraction gives
+\begin{align}
+ \Fnorm{H_f-H_{h_\gamma}}
+ &\le\Fnorm{H_f-H_{f_\gamma}}
+       +\Fnorm{D_\gamma(H_f-G)D_\gamma}\nonumber\\
+ &\le\delta_k(H_f)+(1-\gamma)J_2(f)
+ \le\delta_k(H_f)+e/3.
+ \label{I:F:eq:g1-nearoptimal-damped}
+\end{align}
+The original optimizer may have an arbitrarily poor stability margin; no
+such margin enters this argument.
+
+\subsection{An infinite-Hankel Lipschitz modulus}
+
+Consider two parameter triples $(A,c,b)$ and $(A',c',b')$ satisfying
+\eqref{I:F:eq:g1-compact-class}. Suppose
+\[
+ \Fnorm{\begin{bmatrix}A_a-A'_a\end{bmatrix}^{\rm col}}\le\eta,
+ \qquad\Fnorm{c-c'}\le\eta,
+ \qquad\Fnorm{b-b'}\le B\eta.
+\]
+Joint column contractivity gives
+$\sum_{|w|=t}\Fnorm{A_wx}^2\le\gamma^{2t}\Fnorm x^2$.
+Telescoping the product $A_w-A'_w$ and applying this energy inequality on
+both sides of each differing letter gives, at each word length $t$,
+\[
+ \left(\sum_{|w|=t}|cA_wb-c'A'_wb'|^2\right)^{1/2}
+ \le2B\eta\gamma^t+Bt\eta\gamma^{t-1}.
+\]
+For $t=0$ the last term is zero. The $t$ product-replacement terms are
+summed by Minkowski in the length-$t$ coefficient space. A second
+Minkowski inequality with weights $t+1$ yields
+\begin{align}
+ \Fnorm{H_h-H_{h'}}
+ &\le\Fnorm{H_h-H_{h'}}_{\rm HS}\nonumber\\
+ &\le\frac{2B\eta}{\mu}
+       +\frac{B\eta\sqrt{2+4\gamma^2}}{\mu^2}
+ <\frac{5B\eta}{\mu^2}=e/3.
+ \label{I:F:eq:g1-Lipschitz}
+\end{align}
+Here
+\[
+ \sum_{t\ge0}(t+1)\gamma^{2t}=\mu^{-2},\qquad
+ \sum_{t\ge1}(t+1)t^2\gamma^{2t-2}
+ =(2+4\gamma^2)\mu^{-4}.
+\]
+This supplies the summability needed for the infinite counting-measure
+operator norm, rather than transferring a worst-word bound without a tail
+argument.
+
+\subsection{A rational stable net}
+
+There are $N_A=2dk^2$ real coordinates in the complex vertical letter stack
+and $2k$ in each boundary vector. Set
+$v_A=\lceil\sqrt{N_A}\rceil$ and $v_c=\lceil\sqrt{2k}\rceil$.
+Use the following finite lattices, including ceiling endpoints.
+\begin{enumerate}[leftmargin=*]
+\item For each real letter coordinate in $[-\gamma,\gamma]$, use step
+$\eta/v_A$. Retain a raw stack only if
+$\Fnorm{A^{\rm raw}}\le\gamma+\eta/2$, checked by the rational Hermitian
+inequality $(\gamma+\eta/2)^2I-(A^{\rm raw})^*A^{\rm raw}\succeq0$.
+Scale it by $\gamma/(\gamma+\eta/2)$.
+\item For each real readout coordinate in $[-1,1]$, use step $\eta/v_c$.
+Retain $\Fnorm{c^{\rm raw}}\le1+\eta/2$ and divide by $1+\eta/2$.
+\item For each real initial-state coordinate in $[-B,B]$, use step
+$B\eta/v_c$. Retain $\Fnorm{b^{\rm raw}}\le B(1+\eta/2)$ and divide by
+$1+\eta/2$.
+\end{enumerate}
+Every retained output is rational and satisfies
+\eqref{I:F:eq:g1-compact-class}. Every target triple in that class is covered:
+rounding contributes at most $\eta/2$, $\eta/2$, $B\eta/2$ respectively,
+and final scaling contributes at most the same amount. Thus the total
+errors meet \eqref{I:F:eq:g1-Lipschitz}. The number of choices per real
+coordinate is at most $3+2v_A/\eta$, proving the first inequality in
+\eqref{I:F:eq:g1-net-size}. Since $e\le1$, $J\ge1$,
+\[
+ \mu\ge e/(2J),\qquad \eta\ge e^3/(120MJ^2),
+\]
+which proves the second count. The known column bound makes every candidate
+mean-square stable, with CP spectral radius at most $\gamma^2$.
+
+\subsection{Finite rational norm certificates and the global lower bound}
+
+For each candidate form the stable block realization of $f-g_i$, of
+dimension $m_0=n+k$, and solve its rational Stein equations
+\[
+ P_i=b_ib_i^*+\sum_aD_{i,a}P_iD_{i,a}^*,\qquad
+ Q_i=c_i^*c_i+\sum_aD_{i,a}^*Q_iD_{i,a}.
+\]
+Its squared Hankel norm is the largest eigenvalue of $P_iQ_i$; all these
+eigenvalues are nonnegative. No matrix square root is needed for the
+following interval computation. Let $p=p_{\rm tr}$ and
+$a_i=\operatorname{tr}((P_iQ_i)^p)$. If $a_i=0$, the error norm is zero.
+Otherwise
+\begin{equation}
+ (a_i/m_0)^{1/(2p)}\le\Fnorm{H_f-H_{g_i}}
+                         \le a_i^{1/(2p)}.
+ \label{I:F:eq:g1-trace-interval}
+\end{equation}
+The uniform norm bound $Z=M+B/\mu$ follows from
+$\Fnorm{H_{g_i}}\le\Fnorm{H_{g_i}}_{\rm HS}\le B/\mu$.
+The width of the exact endpoints in \eqref{I:F:eq:g1-trace-interval} is at most
+\[
+ Z\bigl(m_0^{1/(2p)}-1\bigr)
+ \le\frac{Z\log m_0}{p}\le e/18,
+\]
+using $p\ge\log m_0$ and $e^x-1\le2x$ for $0\le x\le1/2$.
+Enclose the lower root from below and the upper root from above, each
+within $e/18$, by rational bisection on $[0,2Z]$. Its comparisons are
+inequalities between rational $2p$th powers. The resulting interval
+$[a_i^-,u_i]$ contains the norm and has width at most $e/6$.
+
+Choose a candidate minimizing $u_i$, let $U$ be that endpoint, and set
+$L=\max\{0,U-5e/6\}$. The existence of the damped competitor
+\eqref{I:F:eq:g1-nearoptimal-damped}, its net approximation
+\eqref{I:F:eq:g1-Lipschitz}, and the norm-interval width imply
+\[
+ U\le\delta_k(H_f)+e/3+e/3+e/6
+   =\delta_k(H_f)+5e/6.
+\]
+The chosen candidate is admissible and has actual error at most $U$.
+This proves \eqref{I:F:eq:g1-global-gap}.
+
+The verifier may rerun the finite net or inspect a full ledger containing
+the exact Stein solutions, rational trace powers and root brackets. It
+checks the interval widths and the minimum-upper-endpoint choice. The
+ledger and its verification may have $N$ entries. A short certificate is
+not asserted.
+
+\subsection{Complexity qualifications}
+
+For rational input, vectorized Stein systems have order $(n+k)^2$ and
+rational coefficients. Fraction-free exact linear algebra, rational matrix
+powers to exponent $p_{\rm tr}$, and scalar rational-power bisection have
+polynomial bit cost in the parameters stated in Theorem~\ref{I:F:thm:g1-net}.
+All input/grid rational denominators can be combined explicitly; their
+heights are polynomial in input bit length, $\log M$, $\log J$,
+$\log(1/e)$, $d$ and $k$. Also
+$p_{\rm tr}=O(MJ\log(n+k)/e^2)$. Thus the full precision and verification
+costs are included in the finite bound.
+
+A checkable positive class fixes $d,k$ and bounds the input moments $M,J$
+by constants or by specified polynomials in input dimension. Membership is
+checked through the input Stein computations; it is not defined by an easy
+optimum. On this class the construction is polynomial in $n$, rational
+input length and $1/\varepsilon$. This does not establish a strict
+complexity improvement over every optimized QE formulation or earlier
+algorithm; that comparison and scientific priority need a separate audit.
+
+For individually encoded algebraic entries, the compositum field degree
+can be exponential in the total encoding length. A polynomial bit claim
+therefore needs a supplied common number field and its degree, height and
+embedding costs as parameters. The rational subclass avoids this issue.
+Finally, this scheme bypasses finite-block completion: it supplies no
+quantitative convergence modulus for the original $\beta_{k,L}$ hierarchy.
+
+\section{The resulting theorem and its scope}
+Let $\Sigma=\{a,b\}$, let $H_f[u,v]=f(uv)$ on $\ell^2(\Sigma^*)$, and put
+\[
+ q=1-r^2\in(0,1),\qquad
+ f_{r,d}\text{ denotes \eqref{I:eq:binary-source} with terminal index }d.
+\]
+For a field $\mathbb F\in\{\RR,\RC\}$ define
+\[
+ D_{n,d}^{\mathbb F}(q)=
+ \inf_{\substack{H_g\text{ bounded word-Hankel over }\mathbb F\\
+                 \Rrank H_g\le n}}
+       \Rnorm{H_{f_{r,d}}-H_g}^{2}.
+\]
+Write $D_k^{\mathbb F}=D_{k,k}^{\mathbb F}$. Ordinary matrix rank is
+used throughout; the comparison class contains every bounded structured
+Hankel of that rank. The letter matrices are required to be jointly
+mean-square stable only for the explicit constructions, not as an
+extra uniform-margin restriction on the optimum.
+
+For integers $p\ge j\ge1$, let
+\[
+ \gamma_{j,p}^{\mathbb F}
+ =\max_{D^*D+l^*l\preceq I_j}\Rnorm{lD^p},\qquad
+ (E_{j,p}^{\mathbb F})^2=1-(\gamma_{j,p}^{\mathbb F})^2.
+\]
+Equivalently, $E_{j,p}^{\mathbb F}$ is the distance in scalar $H^2$
+from $z^p$ to stable rational coefficient sequences of Hankel rank at
+most $j$, over the indicated field. Let $\mathcal M_{j,p}^{\mathbb F}$
+contain the lossless triples $(D,l,x)$ with
+\[
+ D^*D+l^*l=I_j,\quad \Rnorm x=1,\quad
+ lD^p x=\gamma_{j,p}^{\mathbb F}>0.
+\]
+Every such $D$ is strictly stable and $x$ is cyclic. For one such triple,
+write $\gamma=\gamma_{j,p}^{\mathbb F}$ and define
+\begin{align*}
+ a_i&=lD^i x\quad(0\le i\le p),\\
+ S&=\sum_{i=0}^{p-1}a_i\,x^*D^{p-i}x,
+ &v&=\sum_{i=0}^{p-2}a_iD^{p-2-i}x,\\
+ K&=\RHerm\!\left(\sum_{i=0}^{p}D^{p-i}x\,lD^i\right),
+ &\RHerm T&=(T+T^*)/2.
+\end{align*}
+The empty sum defining $v$ is zero. The response matrix $K$ is positive
+definite. Define the finite variational coefficient
+\begin{equation}
+ b_{n,d}^{\mathbb F}=
+ \max_{(D,l,x)\in\mathcal M_{n-1,d-1}^{\mathbb F}}
+ \left\{|a_{d-2}|^2-\gamma\Re S+
+                     \gamma v^*K^{-1}v\right\}.
+ \label{I:R:eq:main-response-coefficient}
+\end{equation}
+This maximization is part of the answer: the general theorem does not
+assert a closed-form evaluation or an efficient optimizer for every
+budget.
+
+\begin{theorem}[First-order structured approximation at every fixed budget]
+\label{I:R:thm:main-general}
+For every fixed pair of integers $2\le n\le d$, over each field separately,
+\begin{equation}
+ \boxed{\displaystyle
+ D_{n,d}^{\mathbb F}(q)=
+ (E_{n-1,d-1}^{\mathbb F})^2-b_{n,d}^{\mathbb F}q+o(q),
+ \qquad q\downarrow0.}
+ \label{I:R:eq:main-general}
+\end{equation}
+The maximum in \eqref{I:R:eq:main-response-coefficient} exists. No uniqueness
+or nondegenerate Hessian hypothesis is imposed on its scalar extremizers.
+There is a stable $n$-state construction with squared error
+$(E_{n-1,d-1}^{\mathbb F})^2-b_{n,d}^{\mathbb F}q+O(q^2)$.
+The global lower remainder is $o(q)$ in general.
+On the diagonal $n=d=k$, the leading constants and the response
+coefficients agree over the two fields. Consequently
+$D_k^{\RR}(q)-D_k^{\RC}(q)=o(q)$.
+The general diagonal field comparison uses the external scalar-extremal
+classification identified in Section~\ref{I:R:subsec:real-diagonal-orbits};
+the explicit cases through $k=4$ use the published low-degree extremals.
+\end{theorem}
+
+The proof has two distinct parts. Section~\ref{I:R:sec:all-budget-response}
+proves the unrestricted complex passive-envelope response and its
+real analogue. Section~\ref{I:R:sec:v4-matching} constructs a genuine stable
+word-Hankel attaining that response to first order. A scalar compactness
+argument then gives \eqref{I:R:eq:main-general}. The independent-budget
+version changes the fast state dimension to $j=n-1$ and the coefficient
+index to $p=d-1$ in both proofs.
+
+\begin{corollary}[Explicit consequences]
+\label{I:R:cor:main-explicit}
+For each field separately,
+\[
+ \boxed{D_3^{\mathbb F}(q)=\frac9{16}-\frac17q+O(q^2).}
+\]
+At four states,
+\[
+ \boxed{D_4^{\mathbb F}(q)=
+ \frac{1103-33\sqrt{33}}{2048}
+ -\frac{855+103\sqrt{33}}{15872}q+o(q).}
+\]
+More generally, for every fixed $d\ge2$, put
+$a_d=(d-1)^{d-1}/d^d$. Then
+\[
+ \boxed{D_{2,d}^{\mathbb F}(q)=
+       1-a_d-\frac{a_d}{(d-1)^2}q+O(q^2).}
+\]
+These common expansions do not assert finite-$q$ equality between the
+real and complex optima.
+\end{corollary}
+
+On the diagonal $n=d=k$, the earlier Hardy identification is
+\[
+ E_{k-1,k-1}=\frac1{C(k-1,2/3)},\qquad
+ C(m,p)=\sup_{\Rnorm F_{H^p}=1}|[z^m]F|.
+\]
+The Hardy constants and outer-extremal structure belong to the cited
+sources~\cite{brevig2020,outer2026}. Their use here is as scalar input to the
+passive response and structured-completion arguments. The value $9/16$
+at three states follows from $C(2,2/3)=4/3$; the new calculation here is the finite-parameter coefficient and its global matching proof.
+
+\subsection{How the rank-one benchmark constrains the extension}
+The exact one-state optimum is the unique $\tau\in(q,1)$ satisfying
+\[
+ \boxed{1-\tau=
+ \frac{q}{\left(1+\sqrt{q\tau/(\tau-q)}\right)^2}.}
+\]
+Section~\ref{I:R:sec:full-channel} derives this monotone radical formulation
+from the complete target singular decomposition and relates it to the
+selected quartic. The dominant-vector bound alone would instead give
+$1-q/(1+\sqrt q)^2$. It misses the true error at order $q^{5/2}$.
+The higher-state first-order result therefore needs the separate
+structured upper construction; sharpness of a projection envelope is
+insufficient as a general finite-$q$ principle.
+
+\subsection{Canonical row spaces and the global projection bound}
+Let $G=H_g$ be any bounded rank-at-most-$n$ word-Hankel, and regard
+its coefficient rows as columns. Their span is
+$S=\operatorname{ran}G^{\mathsf T}$, where coefficient transpose
+preserves the operator norm. If $L_c e_w=e_{cw}$, the identity
+$L_c^*(G^{\mathsf T}e_u)=G^{\mathsf T}e_{uc}$ makes $S$ invariant
+under $L_a^*,L_b^*$. In orthonormal coordinates on $S$, let
+$A=L_a^*|_S$, $B=L_b^*|_S$, and $\ell x=x[\varepsilon]$.
+Partitioning words by their first letter gives
+\[
+ A^*A+B^*B+\ell^*\ell=I_S.
+\]
+The observation map $Ox=(\ell T_{\operatorname{rev}(w)}x)_w$
+is the isometric inclusion of $S$. Moreover
+\[
+ \sum_{|w|=h}\Rnorm{T_{\operatorname{rev}(w)}x}^2
+       =\sum_{|v|\ge h}|x[v]|^2\longrightarrow0.
+\]
+Finite dimensionality makes this decay uniform on the unit sphere,
+so the tuple is jointly mean-square stable. Padding smaller spaces
+preserves the energy equality as an inequality.
+
+For the target, put
+\[
+ u_r=\sqrt q\sum_{j\ge0}r^je_{a^j},\qquad
+ v_r=\sqrt q\sum_{j\ge0}r^je_{a^jb^d}.
+\]
+Both vectors are unit, and $H_{f_{r,d}}^{\mathsf T}u_r=v_r$.
+Since $G^{\mathsf T}u_r\in S$,
+\[
+ \Rnorm{H_{f_{r,d}}-G}^2\ge1-\Rnorm{P_Sv_r}^2,
+ \qquad
+ \Rnorm{P_Sv_r}^2
+   =q\Rnorm{\ell B^d(I-rA)^{-1}}^2.
+\]
+Thus maximizing the right overlap over all passive $n$-state tuples
+is a valid lower bound against the entire comparison class. This
+argument imposes no prescribed competitor stability margin.
+
+
+% Begin all_budget_response.tex
+
+\section{An all-budget first variation of the passive envelope}
+\label{I:R:sec:all-budget-response}
+
+Let $k\ge2$, put $m=k-1$, and let $q=1-r^2\in(0,1)$.  All state
+spaces in this section are complex Euclidean spaces.  Define
+\begin{equation}
+ \mathcal P_k(q)=
+ \max_{A^*A+B^*B+\ell^*\ell\preceq I_k}
+ q\Rnorm{\ell B^k(I-rA)^{-1}}^2
+ \label{I:R:eq:Pk-definition}
+\end{equation}
+and
+\begin{equation}
+ h_k(t)=\max\left\{|\ell B^ke_1|^2:
+ V=\begin{pmatrix}B\\ \ell\end{pmatrix},\quad
+ V^*V\preceq I_k,\quad \Rnorm{Ve_1}^2=t\right\},
+ \qquad 0\le t\le1.
+ \label{I:R:eq:hk-definition}
+\end{equation}
+Both maxima are over compact sets; the inverse in
+\eqref{I:R:eq:Pk-definition} exists because $\Rnorm A\le1$ and $r<1$.
+The intrinsic scalar boundary constant is
+\begin{equation}
+ \Gamma_m=\max_{D^*D+l^*l\preceq I_m}\Rnorm{lD^m},
+ \qquad 0<\Gamma_m<1.
+ \label{I:R:eq:Gamma-intrinsic}
+\end{equation}
+Its classical observation-space interpretation gives
+$E_m^2=1-\Gamma_m^2$, where $E_m$ is the distance from $z^m$ to scalar
+stable rational series of Hankel rank at most $m$.  The separate
+identification $E_m=1/C(m,2/3)$ uses the polynomial coefficient-extremal
+structure of Brevig--Saksman~\cite{brevig2020} and the outer-extremal theorem
+of Brevig--S\o vik~\cite{outer2026}.  The argument below uses only
+\eqref{I:R:eq:Gamma-intrinsic} and classical finite model spaces.
+
+This section generalizes the passive projection mechanism.
+Section~\ref{I:R:sec:v4-matching} then constructs a word-Hankel
+approximant attaining its first-order response.
+
+\subsection{Exact elimination of the slow transition}
+
+\begin{proposition}[Exact scalar reduction in every dimension]
+\label{I:R:prop:allk-eliminate-A}
+For every $k\ge1$ and $0<q<1$,
+\begin{equation}
+ \boxed{\displaystyle
+ \mathcal P_k(q)=\max_{0\le t\le1}
+ \frac{q h_k(t)}{(1-r\sqrt{1-t})^2}.}
+ \label{I:R:eq:allk-elimination}
+\end{equation}
+\end{proposition}
+\input{proofs/operator-approximation/1.33.1.tex}
+
+\subsection{Cyclicity and quantitative control of the passivity defect}
+
+We first prove the structural fact responsible for normal coercivity.
+For integers $n\ge j\ge0$, write
+\[
+ \gamma_{j,n}=\max\{\Rnorm{lD^n}:D^*D+l^*l\preceq I_j\},
+ \qquad \gamma_{0,n}=0.
+\]
+
+\begin{lemma}[Strict improvement with the scalar state dimension]
+\label{I:R:lem:strict-dimension-improvement}
+Fix $n\ge1$.  Then
+$\gamma_{0,n}<\gamma_{1,n}<\cdots<\gamma_{n,n}$.
+\end{lemma}
+\input{proofs/operator-approximation/1.33.2.tex}
+
+\begin{lemma}[Every scalar boundary maximizer is cyclic and lossless]
+\label{I:R:lem:cyclic-lossless-maximizer}
+Suppose $D^*D+l^*l\preceq I_m$, $\Rnorm x=1$, and
+$|lD^mx|=\Gamma_m$.  Then $x$ is cyclic for $D$,
+$D^*D+l^*l=I_m$, and $\rho(D)<1$.
+\end{lemma}
+\input{proofs/operator-approximation/1.33.3.tex}
+
+Define the compact normalized boundary set
+\begin{equation}
+ \mathcal M_m=\{(D,l,x):D^*D+l^*l=I_m,\quad \Rnorm x=1,
+                    \quad lD^mx=\Gamma_m>0\}.
+ \label{I:R:eq:boundary-maximizer-set}
+\end{equation}
+It is nonempty by attainment and Lemma~\ref{I:R:lem:cyclic-lossless-maximizer}.
+Every member has an invertible cyclic matrix
+$[x,Dx,\ldots,D^{m-1}x]$.  Compactness therefore bounds its least
+singular value uniformly away from zero.  This also proves
+$0<\Gamma_m<1$: positivity follows from a scalar stable realization,
+and equality to one would put $z^m$ in an invariant space of dimension
+at most $m$.
+
+\begin{lemma}[Quantitative passivity-defect control]
+\label{I:R:lem:quantitative-defect-control}
+There are $C_m,\varepsilon_m>0$ such that every passive $(D,l)$ with
+$\Gamma_m^2-\Rnorm{lD^m}^2\le\varepsilon_m$ satisfies
+\begin{equation}
+ \operatorname{tr}(I-D^*D-l^*l)
+ \le C_m\bigl(\Gamma_m^2-\Rnorm{lD^m}^2\bigr).
+ \label{I:R:eq:defect-gap-control}
+\end{equation}
+\end{lemma}
+\input{proofs/operator-approximation/1.33.4.tex}
+
+\subsection{An explicit positive normal-response matrix}
+
+For $(D,l,x)\in\mathcal M_m$, abbreviate $\Gamma=\Gamma_m$ and set
+\begin{align}
+ a_j&=lD^jx\quad(0\le j\le m),\qquad a_m=\Gamma,
+ \label{I:R:eq:response-a}\\
+ S&=\sum_{j=0}^{m-1}a_j\,x^*D^{m-j}x,
+ &v&=\sum_{j=0}^{m-2}a_jD^{m-2-j}x,
+ \label{I:R:eq:response-S-v}\\
+ K&=\operatorname{Herm}\left(\sum_{j=0}^{m}D^{m-j}xlD^j\right),
+ &\operatorname{Herm}(Z)&=\frac{Z+Z^*}{2}.
+ \label{I:R:eq:response-K}
+\end{align}
+An empty sum is zero, so $v=0$ when $m=1$.
+
+\begin{lemma}[Strict positivity of the response matrix]
+\label{I:R:lem:response-K-positive}
+For every $(D,l,x)\in\mathcal M_m$,
+\begin{equation}
+ \boxed{\displaystyle
+ K\succeq\Gamma\sum_{j=0}^{m-1}D^jxx^*D^{*j}\succ0.}
+ \label{I:R:eq:response-K-coercivity}
+\end{equation}
+Consequently $K^{-1}$ is uniformly bounded on $\mathcal M_m$.
+\end{lemma}
+\input{proofs/operator-approximation/1.33.5.tex}
+
+\begin{theorem}[All-budget first variation of the passive envelope]
+\label{I:R:thm:all-budget-response}
+For every fixed $k\ge2$, put $m=k-1$ and define
+\begin{equation}
+ b_k=\max_{(D,l,x)\in\mathcal M_m}
+ \left\{|a_{m-1}|^2-\Gamma_m\operatorname{Re}S
+                  +\Gamma_m v^*K^{-1}v\right\}.
+ \label{I:R:eq:bk-response-formula}
+\end{equation}
+Then
+\begin{equation}
+ \boxed{\displaystyle
+ h_k(t)=\Gamma_m^2t+b_kt^2+o(t^2),\qquad
+ \mathcal P_k(q)=\Gamma_m^2+b_kq+o(q).}
+ \label{I:R:eq:all-budget-envelope-expansion}
+\end{equation}
+The maximum in \eqref{I:R:eq:bk-response-formula} exists.  No uniqueness or
+nondegenerate Hessian assumption on the scalar extremizers is needed.
+In particular, for the binary target family, the projection lower bound
+implies
+\begin{equation}
+ D_k(q)\ge E_{k-1}^2-b_kq+o(q).
+ \label{I:R:eq:all-budget-D-lower}
+\end{equation}
+\end{theorem}
+
+\input{proofs/operator-approximation/1.33.6.tex}
+
+\subsection{Independent state budget and terminal delay}
+
+The state budget and the number of terminal letters need not coincide.
+This gives a larger class of targets without another nondegeneracy
+assumption.
+
+\begin{theorem}[Independent budget and delay]
+\label{I:R:thm:independent-budget-delay-response}
+Let $n\ge2$ and $d\ge n$.  Put $j=n-1$ and $p=d-1$, and define
+\begin{align*}
+ \mathcal P_{n,d}(q)&=
+ \max_{A^*A+B^*B+\ell^*\ell\preceq I_n}
+ q\Rnorm{\ell B^d(I-rA)^{-1}}^2,\\
+ h_{n,d}(t)&=\max\{|\ell B^de_1|^2:
+                  V=\begin{pmatrix}B\\\ell\end{pmatrix}
+                  \text{ is a contraction},\ \Rnorm{Ve_1}^2=t\},\\
+ \Gamma_{j,p}&=\max_{D^*D+l^*l\preceq I_j}\Rnorm{lD^p}.
+\end{align*}
+Let
+\[
+ \mathcal M_{j,p}=\{(D,l,x):D^*D+l^*l=I_j,\ \Rnorm x=1,
+                                     \ lD^px=\Gamma_{j,p}>0\}.
+\]
+For a triple in this set put $\Gamma=\Gamma_{j,p}$ and
+\begin{align*}
+ a_i&=lD^ix\quad(0\le i\le p),\\
+ S_p&=\sum_{i=0}^{p-1}a_i x^*D^{p-i}x,
+ &v_p&=\sum_{i=0}^{p-2}a_iD^{p-2-i}x,\\
+ K_p&=\operatorname{Herm}\sum_{i=0}^{p}D^{p-i}xlD^i,
+ &b_{n,d}&=\max_{\mathcal M_{j,p}}
+    \bigl\{|a_{p-1}|^2-\Gamma\operatorname{Re}S_p
+                           +\Gamma v_p^*K_p^{-1}v_p\bigr\}.
+\end{align*}
+Then $\mathcal M_{j,p}$ is compact and nonempty,
+\begin{equation}
+ K_p\succeq\Gamma\sum_{i=0}^{j-1}D^ixx^*D^{*i}\succ0,
+ \label{I:R:eq:independent-delay-K-positive}
+\end{equation}
+and
+\begin{equation}
+ \boxed{\displaystyle
+ h_{n,d}(t)=\Gamma_{j,p}^2t+b_{n,d}t^2+o(t^2),\qquad
+ \mathcal P_{n,d}(q)=\Gamma_{j,p}^2+b_{n,d}q+o(q).}
+ \label{I:R:eq:independent-delay-expansion}
+\end{equation}
+For the target supported on $a^*b^d$, its squared rank-$n$ error therefore
+satisfies
+\[
+ D_{n,d}(q)\ge1-\Gamma_{j,p}^2-b_{n,d}q+o(q).
+\]
+\end{theorem}
+\input{proofs/operator-approximation/1.33.7.tex}
+
+\subsection{Low-order response checks}
+
+\begin{proposition}[The two-state response]
+\label{I:R:prop:two-state-response-check}
+For $k=2$, formula \eqref{I:R:eq:bk-response-formula} gives $b_2=1/4$.
+\end{proposition}
+\input{proofs/operator-approximation/1.33.8.tex}
+
+\begin{proposition}[Response of the degree-two scalar extremizer]
+\label{I:R:prop:degree-two-response-check}
+The scalar extremizer with denominator $1+z+z^2/2$ has
+$\Gamma_2^2=7/16$ and normal-response coefficient $1/7$.
+If all scalar degree-two boundary maximizers are equivalent to this
+extremizer under the scalar symmetries, then $b_3=1/7$.
+\end{proposition}
+\input{proofs/operator-approximation/1.33.9.tex}
+
+\subsection{The exact rank-one benchmark and the role of matching}
+
+The case $k=1$ is singular because its limiting passive-overlap constant is zero (the limiting squared approximation error is one).
+For a single-column contraction $V=(B,\ell)^{\mathsf T}$,
+\[
+ h_1(t)=\max_{|B|^2+|\ell|^2=t}|\ell B|^2=\frac{t^2}{4}.
+\]
+Proposition~\ref{I:R:prop:allk-eliminate-A} then gives the exact envelope
+\begin{equation}
+ \mathcal P_1(q)=\frac{q}{(1+\sqrt q)^2},\qquad
+ t_{\max}=\frac{2\sqrt q}{1+\sqrt q}.
+ \label{I:R:eq:rankone-envelope-benchmark}
+\end{equation}
+Thus
+\[
+ 1-\mathcal P_1(q)
+ =1-q+2q^{3/2}-3q^2+4q^{5/2}+O(q^3).
+\]
+The exact rank-one Hankel optimum instead has the expansion
+\[
+ D_1(q)=1-q+2q^{3/2}-3q^2+5q^{5/2}+O(q^3).
+\]
+The envelope is sharp through $q^2$ in this benchmark and has a strict
+gap at order $q^{5/2}$.  Accordingly, the all-budget response theorem
+supplies the global lower mechanism. The matching, $q$-dependent
+sequential realization needed to identify the first correction of
+$D_k$ is supplied in Section~\ref{I:R:sec:v4-matching}.
+
+All arguments above also hold over the real field, restricting
+$\mathcal M_m$ and the normal variables accordingly.  In
+Lemma~\ref{I:R:lem:strict-dimension-improvement}, a real point $a\in(-1,1)$
+can be chosen because a nonzero real analytic residual cannot vanish
+on that entire interval.  The scalar Hardy extremal can be chosen real,
+so the leading $\Gamma_m$ agrees in the two fields.
+Section~\ref{I:R:subsec:real-diagonal-orbits} proves equality of the
+diagonal response maxima by classifying the phases of all complex
+scalar extremizers. For independent budget and delay, the two
+field-specific response maxima remain distinct definitions.
+
+% End all_budget_response.tex
+
+
+% Begin matching.tex
+
+\section{A structured realization matching the envelope to first order}
+\label{I:R:sec:v4-matching}
+
+The projection estimate becomes useful for optimal approximation only
+when a genuine Hankel realization attains it to the required order.
+The following construction supplies this step in every fixed dimension.
+It applies over the complex field; real input data give a real
+competitor.  It does not assert exact finite-parameter completion.
+
+\begin{theorem}[Structured first-order matching]\label{I:R:thm:v4-matching}
+Fix integers $n\ge2$ and $d\ge n$, and put $m=n-1$.  Let
+$D\in\mathbb C^{m\times m}$ and $l\in\mathbb C^{1\times m}$ satisfy
+\[
+ D^*D+l^*l=I_m,\qquad \rho(D)<1,\qquad
+ \Gamma=\|lD^{d-1}\|\in(0,1).
+\]
+Write $x=(lD^{d-1})^*/\Gamma$.  Fix any
+$\lambda\in\mathbb C$ and $w\in\mathbb C^{1\times m}$.
+For sufficiently small positive $s$, set $q=s^2$, $r=\sqrt{1-q}$ and
+\begin{align}
+ F_s&=(I_m-s^2w^*w)^{1/2},&
+ N_s&=\begin{pmatrix}sw\\DF_s\\lF_s\end{pmatrix},&
+ z_s&=\begin{pmatrix}s\lambda\\
+       \sqrt{1-s^2|\lambda|^2}\,x\\0\end{pmatrix},\label{I:R:eq:v4-match-trial}\\
+ W_s&=I_{n+1}-(1-r)z_sz_s^*,&
+ V_s&=[\,sz_s,\ W_sN_s\,]
+       =\begin{pmatrix}B_s\\l_s\end{pmatrix},&
+ v_s&=\begin{pmatrix}r\\-sN_s^*z_s\end{pmatrix},\qquad
+ A_s=e_0v_s^*.\label{I:R:eq:v4-match-tuple}
+\end{align}
+Define the row and the boundary vector
+\begin{equation}
+ \omega_s=s\,l_sB_s^d(I-rA_s)^{-1},\qquad
+ \beta_s=s^{-1}(I-rA_s)\omega_s^*.
+ \label{I:R:eq:v4-match-beta}
+\end{equation}
+For a word $u$, let $T_u$ denote the standard product of the letters
+$T_a=A_s,T_b=B_s$, and set
+\begin{equation}
+ g_s(u)=l_sT_{\operatorname{rev}(u)}\beta_s.
+ \label{I:R:eq:v4-match-series}
+\end{equation}
+This is an $n$-state word series: in the standard, unreversed convention
+its readout is $\beta_s^{\mathsf T}$, its letters are
+$A_s^{\mathsf T},B_s^{\mathsf T}$, and its boundary is
+$l_s^{\mathsf T}$.  For all sufficiently small $s>0$ it is jointly
+mean-square stable, and
+\begin{equation}
+ \boxed{\displaystyle
+ \|H_{f_{r,d}}-H_{g_s}\|^2
+     =1-\|\omega_s\|^2+O(q^2).}
+ \label{I:R:eq:v4-match-conclusion}
+\end{equation}
+In particular, if a trial direction has
+$\|\omega_s\|^2=\Gamma^2+cq+O(q^2)$, it gives a genuine structured
+upper bound $1-\Gamma^2-cq+O(q^2)$.  Constants and neighborhoods may
+depend on the fixed data.  The same conclusion holds for any other
+analytic branch having the exact energy identity and the block orders
+used in the proof below.
+\end{theorem}
+
+\input{proofs/operator-approximation/1.34.1.tex}
+
+\begin{corollary}[Matching the three-state correction]
+\label{I:R:cor:v4-three-state-upper}
+For the three-state, three-delay problem there is an explicit real
+stable competitor with squared error
+\[
+ \frac9{16}-\frac17q+O(q^2).
+\]
+Combined with the independently established complex global envelope
+$\mathcal P_{3,3}(q)=7/16+q/7+O(q^2)$, this gives, for each field
+separately,
+\[
+ D_3^{\mathbb F}(q)=\frac9{16}-\frac17q+O(q^2),
+ \qquad\mathbb F\in\{\mathbb R,\mathbb C\}.
+\]
+\end{corollary}
+
+\input{proofs/operator-approximation/1.34.2.tex}
+
+% End matching.tex
+
+
+\input{proofs/operator-approximation/1.32.1.tex}
+
+
+% Begin three_state.tex
+
+\section{The three-state envelope and its sharp first correction}
+\label{I:R:sec:three-state}
+
+The next state budget admits an unconditional complex envelope expansion.
+The global Hessian calculation below improves the general first-response
+remainder from $o(q)$ to $O(q^2)$.  This section establishes the envelope
+and the resulting Hankel lower bound. Combined with
+Theorem~\ref{I:R:thm:v4-matching}, it proves the three-state equality in
+Corollary~\ref{I:R:cor:main-explicit}.
+
+\begin{theorem}[Three-state passive envelope]\label{I:R:thm:three-envelope}
+Let
+\[
+ h_3(t)=\max\{|\ell B^3e_1|^2:
+ V=[B;\ell]\in\RC^{4\times3},\ V^*V\preceq I_3,
+ \ \|Ve_1\|^2=t\}.
+\]
+As $t\downarrow0$ and $q\downarrow0$, respectively,
+\begin{align}
+ h_3(t)&=\frac7{16}t+\frac17t^2+O(t^3),
+ \label{I:R:eq:three-h}\\
+ \mathcal P_3(q)&:=\sup_{A^*A+B^*B+\ell^*\ell\preceq I_3}
+ q\|\ell B^3(I-\sqrt{1-q}A)^{-1}\|^2
+ =\frac7{16}+\frac17q+O(q^2).
+ \label{I:R:eq:three-P}
+\end{align}
+Both expansions hold over the full complex comparison class.  Consequently,
+for the binary target $f_{r,3}(a^jb^3)=(1-r^2)r^j$ and $q=1-r^2$,
+\[
+ D_3^{\RC}(q)\ge\frac9{16}-\frac17q-Cq^2
+\]
+for some $C<\infty$ and all sufficiently small positive $q$.
+The same lower bound holds for real competitors.
+\end{theorem}
+
+\subsection{The entire boundary maximizing set}
+
+Put $t=s^2$.  The exact contraction chart is
+\[
+ V=[sz,W_s(z)N],\quad \|z\|=1,\quad
+ W_s(z)=I-(1-\sqrt{1-s^2})zz^*,\quad N^*N\preceq I_2.
+\]
+For fixed $s,z$, the amplitude $J_s=\ell B^2z_B$ is a holomorphic
+polynomial in $N$, and $\ell B^3e_1=sJ_s$.  Applying the maximum-modulus
+principle to the two singular-value variables of $N$ shows that its maximum
+can be attained on $N^*N=I_2$.  Thus the exact maximization takes place on
+\[
+ X=S^7\times\operatorname{St}_{\RC}(4,2),\qquad
+ h_3(s^2)=s^2\max_X|J_s|^2.
+\]
+This compact real-analytic manifold has dimension $7+12=19$.
+The reduction asserts equality of maximum values; it does not assert that
+every maximizer in the original contraction ball is isometric.
+
+At $s=0$, write $z=(z_0,z_F,z_o)$ and $N=[c;D;l]$, with
+$z_F\in\RC^2$. Then
+\[
+ J_0=lD^2z_F,\qquad
+ \max|J_0|^2=\Gamma_2^2=1-E_2^2=\frac7{16}.
+\]
+Here $E_2=3/4$ is the established scalar rational-approximation constant.
+The cyclic-lossless boundary lemma gives, at every maximum,
+\[
+ z_0=z_o=0,\quad \|z_F\|=1,\quad c=0,\quad D^*D+l^*l=I_2.
+\]
+For clarity, its rigidity has a short direct proof in this dimension.
+A nonobservable pair reduces to one state, where
+$\max |ld^2|^2=\max_{0\le x\le1}(1-x)x^2=4/27<7/16$.
+For an observable pair let $G\succ0$ be its observation Gramian, so
+$G\preceq I$.  Whitening cannot decrease $\|lD^2\|$; equality at the
+maximum forces $G w^*=w^*$ for $w=lD^2$.
+With $Q=I-G$, passivity gives $D^*QD\preceq Q$, making
+$\ker Q$ invariant under $D$.
+The maximizing vector $w^*$ is cyclic for the whitened pair, and the
+whitened and original dynamics agree on $\ker Q$.
+It follows that $Q=0$.  Losslessness then forces $c=0$.
+
+There is also no unclassified scalar extremizer at this budget.
+Write a minimizing degree-two model-space denominator as $P$ and put
+$b=P_{\le2}(P^*/P)$.  Equality in the Hardy coefficient and H\"older
+bounds makes $bP^2$ a coefficient extremal in $H^{2/3}$.
+The Brevig--Saksman equality case identifies it, up to phases, with the
+cube of
+\[
+ P_\theta(z)=\frac23\left(1+e^{i\theta}z+
+                 \frac12 e^{2i\theta}z^2\right).
+\]
+Thus $bP^2=\lambda P_\theta^3$.
+The right side has degree six, forcing $\deg b=\deg P=2$.
+Its two roots are distinct; since $P^2$ divides $P_\theta^3$, necessarily
+$P$ is proportional to $P_\theta$.
+Lower-dimensional model spaces have strictly smaller monomial projection,
+so no lower-degree case is omitted.
+The canonical pair is consequently unique up to unitary state coordinates,
+circle rotation, and readout phase.
+
+A convenient representative is
+\begin{equation}
+ z_*=\begin{pmatrix}0\\1\\0\\0\end{pmatrix},\qquad
+ N_*=
+ \begin{pmatrix}
+ 0&0\\
+ -4/7&\sqrt5/7\\
+ -5\sqrt5/14&-3/7\\
+ -\sqrt7/14&\sqrt{35}/7
+ \end{pmatrix}.
+ \label{I:R:eq:three-base}
+\end{equation}
+Its middle block $D$ and last row $l$ satisfy
+$N_*^*N_*=I_2$ and $lD^2=(\sqrt7/4,0)$.
+The nonzero lower-left entry of $D$ verifies cyclicity directly.
+All boundary maxima form the orbit of \eqref{I:R:eq:three-base} under
+\[
+ B\mapsto e^{i\theta}U^*BU,\qquad
+ \ell\mapsto e^{i\phi}\ell U,\qquad
+ U=\operatorname{diag}(1,U_2),\quad U_2\in U(2).
+\]
+This orbit has dimension six.  Its continuous stabilizer is trivial:
+fixing $z_*$ makes $U_2$ diagonal; the nonzero diagonal and off-diagonal
+entries of $D$ force the letter and basis phases to vanish; the nonzero
+entries of $l$ then force the readout phase to vanish.
+
+\subsection{Exact response in rational coordinates}
+
+The all-budget normal-response formula provides a compact exact computation
+of the coefficient.  In a lossless canonical system, with
+$x=(lD^2)^*/\Gamma$, put
+\[
+ a_j=lD^jx,\quad
+ S=a_0x^*D^2x+a_1x^*Dx,\quad v=a_0x,
+\quad
+ K=\operatorname{Herm}\!\left(
+ D^2xl+DxlD+xlD^2\right).
+\]
+The coefficient is
+\begin{equation}
+ b_3=|a_1|^2-\Gamma\operatorname{Re}S+
+                  \Gamma v^*K^{-1}v.
+ \label{I:R:eq:three-response}
+\end{equation}
+It suffices to use rational observable coordinates with their Gram metric:
+\[
+ T=\begin{pmatrix}0&1\\-1/2&-1\end{pmatrix},\quad
+ l_0=(1,0),\quad
+ Q=\begin{pmatrix}8/5&4/5\\4/5&12/5\end{pmatrix},\quad
+ Q-T^*QT=l_0^*l_0.
+\]
+The corresponding canonical quantities are represented in the $Q$ inner
+product by
+\[
+ \Gamma=\frac{\sqrt7}{4},\quad
+ x=\frac{(-1,-3)^T}{2\sqrt7},\quad
+ a_0=-\frac1{2\sqrt7},\quad a_1=-\frac3{2\sqrt7},
+\]
+\[
+ S=\frac{23\sqrt7}{196},\qquad
+ v=\frac{(1,3)^T}{28},\qquad
+ K_Q=\begin{pmatrix}
+ 2\sqrt7/7&-\sqrt7/7\\
+ -\sqrt7/28&13\sqrt7/28
+ \end{pmatrix}.
+\]
+Here $K_Q$ represents the operator $K$ and is self-adjoint for the metric
+$Q$. Direct exact algebra gives
+\[
+ v^*QK_Q^{-1}v=\frac{3\sqrt7}{196},\qquad
+ b_3=\frac9{28}-\frac{23}{112}+\frac3{112}=\frac17.
+\]
+Uniqueness of the scalar boundary orbit makes this the global response,
+rather than the response of only one chosen scalar extremizer.
+
+\subsection{Complex transverse curvature and the stronger remainder}
+
+The following exact certificate verifies every complex tangent direction.
+Use seven real sphere coordinates
+\[
+ v=(x_1+iy_1,\ iy_2,\ x_3+iy_3,\ x_4+iy_4)^T,
+ \qquad z(s)=\frac{z_*+sv}{\sqrt{1+s^2\|v\|^2}},
+\]
+and sixteen real coordinates for $N(s)=e^{isH}N_*$, $H=H^*$.
+Let $h_0,\ldots,h_3$ be its diagonal entries and list its upper off-diagonal
+entries lexicographically as
+\[
+ h_4+ih_5,\ h_6+ih_7,\ h_8+ih_9,\
+ h_{10}+ih_{11},\ h_{12}+ih_{13},\ h_{14}+ih_{15}.
+\]
+For the resulting 23-vector $\xi$, direct multiplication gives
+\[
+ |J_s(z(s),N(s))|^2=\frac7{16}+
+ s^2\left(a+g^T\xi+\frac12\xi^TH\xi\right)+O(s^3),
+\]
+where
+\[
+ a=-\frac{23}{112},\qquad
+ g^T\xi=-\frac34x_1-\frac17h_5-
+             \frac{5\sqrt5}{56}h_7-\frac{\sqrt7}{56}h_9.
+\]
+The real symmetric matrix $H$ has characteristic polynomial
+\begin{align*}
+ \det(\lambda I-H)
+ ={}&\frac{\lambda^{10}(8\lambda+7)^4
+                 (16\lambda^2+42\lambda+25)^2}{368293445632}\\
+ &\quad\cdot(10976\lambda^2+56620\lambda+53525)
+       (32\lambda^3+308\lambda^2+655\lambda+350).
+\end{align*}
+Every nonzero eigenvalue is negative: all roots are real by symmetry,
+and each displayed factor has positive coefficients and nonzero constant.
+Thus $\operatorname{rank}H=13$.
+The 23-coordinate chart has four redundant directions, since the map
+$H\mapsto e^{iH}N_*$ has the four-dimensional stabilizer $U(2)$ on the
+orthogonal complement of $\operatorname{ran}N_*$.
+The physical Hessian therefore has a six-dimensional kernel on the
+19-dimensional manifold.  These are precisely the six symmetry directions
+already exhibited; the transverse Hessian is strictly negative.
+
+For an additional direct check, a solution of $H\xi=-g$ has only
+\[
+ x_1=-6/7,\qquad h_5=-2/7,\qquad h_7=-\sqrt5/35
+\]
+nonzero, and its optimized quadratic value is
+\[
+ a+\tfrac12g^T\xi=-23/112+39/112=1/7.
+\]
+The displayed chart specifies $H$ explicitly; its characteristic polynomial,
+the response equation and the optimized value can be checked with exact
+algebraic arithmetic.
+
+Compactness forces every maximizing sequence for $s\to0$ toward the
+single boundary orbit. On a local analytic slice transverse to that orbit,
+the implicit-function theorem supplies a unique analytic maximizing branch.
+The exact symmetry makes its value independent of the chosen orbit point,
+so it is the global maximum for all sufficiently small $|s|$.
+The physical class depends only on $s^2$; hence this analytic value is even.
+Its expansion is therefore
+\[
+ \max_X|J_s|^2=\frac7{16}+\frac17s^2+O(s^4),
+\]
+which proves \eqref{I:R:eq:three-h}.
+
+An exactly feasible real branch attaining this response is
+\[
+ z(s)=\frac{e_2-(6s/7)e_1}{\sqrt{1+36s^2/49}},\qquad
+ N(s)=e^{sL}N_*,
+\]
+where $L$ is real skew-symmetric with
+$L_{12}=2/7$, $L_{13}=\sqrt5/35$ and all other upper entries zero.
+Both $\|z(s)\|=1$ and $N(s)^TN(s)=I_2$ hold exactly.
+This branch certifies the real lower side of the envelope expansion;
+the full complex Hessian certifies its global upper side.
+
+Finally, exact elimination of $A$ gives
+\[
+ \mathcal P_3(q)=\max_{0\le t\le1}
+ \frac{q h_3(t)}{(1-\sqrt{(1-q)(1-t)})^2}.
+\]
+The bound $h_3(t)\le t$ localizes all maximizing $t/q$ to a compact
+subinterval of $(0,\infty)$.  The leading rescaled objective is
+$7x/[4(1+x)^2]$, with a unique nondegenerate maximum at $x=1$.
+Substitution of \eqref{I:R:eq:three-h} proves \eqref{I:R:eq:three-P}.
+The analytic scalar critical branch additionally satisfies
+$t_*(q)=q+(32/49)q^2+O(q^3)$.
+
+% End three_state.tex
+
+
+% Begin four_state.tex
+
+\section{An exact four-state first correction}
+\label{I:R:sec:four-state-correction}
+
+The all-state response formula can be evaluated exactly at the
+degree-three scalar extremizer.  Its classification follows from
+equality in the Hardy-space bridge, rather than from a new scalar
+Hessian calculation.  The scalar extremal and its uniqueness are the
+external results of Brevig--Saksman~\cite[Theorem 2]{brevig2020}; the response computation below is
+an additional finite algebraic calculation.
+
+\subsection{Classification through equality in the Hardy bridge}
+
+\begin{lemma}[Transfer of scalar-extremizer classification]
+\label{I:R:lem:Hardy-classification-transfer}
+Let $m\ge1$.  Suppose every normalized extremal for the $m$th
+coefficient functional on $H^{2/3}$ is an outer polynomial cube, and
+let its collection of cube roots be $\mathcal P_m$.  The minimizing
+degree-$m$ finite Blaschke products in the rational approximation of
+$z^m$ are precisely
+\[
+ \Theta=P^*/P,\qquad P\in\mathcal P_m,
+\]
+up to unimodular constants and the normalization of $P$.
+Consequently, uniqueness of the coefficient extremal up to rotation
+gives uniqueness of the boundary passive extremizer up to unitary
+state coordinates and the corresponding scalar phases.
+\end{lemma}
+\input{proofs/operator-approximation/1.36.1.tex}
+
+The hypothesis is supplied in general by the inspected outer-extremal
+theorem and polynomial structure.  For $m=2,3$, the complete
+Brevig--Saksman classifications also state directly that the
+extremizers are the displayed outer cubes, unique up to rotation.
+The response
+\begin{equation}
+ b(D,l,x)=|a_{m-1}|^2-\Gamma_m\Re S
+                         +\Gamma_m v^*K^{-1}v,
+ \label{I:R:eq:four-state-response-recalled}
+\end{equation}
+with the notation of the all-state theorem, is invariant under these
+state unitaries and phases.  For example, under
+$D\mapsto e^{i\theta}D$, $x\mapsto e^{-im\theta}x$, one has
+$a_j\mapsto e^{i(j-m)\theta}a_j$, $S\mapsto S$,
+$v\mapsto e^{-i(m+2)\theta}v$, and $K\mapsto K$.
+Thus evaluating one real representative determines the global
+response for $m=3$.
+
+\subsection{An exact algebraic certificate}
+
+Set
+\begin{equation}
+ \alpha=\frac{\sqrt{15-\sqrt{33}}}{8},\qquad
+ \beta=6\alpha-\frac{64}{3}\alpha^3,
+ \qquad\gamma=2-8\alpha^2.
+ \label{I:R:eq:four-state-alpha}
+\end{equation}
+Then $64\alpha^4-30\alpha^2+3=0$, $0<\alpha^2<1/4$, and
+$P(z)=1+\beta z+\gamma z^2+\alpha z^3$ is the
+Brevig--Saksman extremal denominator.  Equivalently
+$\beta=\sqrt{3+\sqrt{33}/3}/2$ and
+$\gamma=(1+\sqrt{33})/8$.
+
+Use the observable companion coordinates
+\[
+ T=\begin{pmatrix}0&1&0\\0&0&1\\-\alpha&-\gamma&-\beta\end{pmatrix},
+ \qquad l_0=(1,0,0).
+\]
+An exact solution of $Q-T^{\mathsf T}QT=l_0^{\mathsf T}l_0$ is
+\begin{equation}
+ Q=\frac1{333}
+ \begin{pmatrix}
+ 342+768\alpha^2&1116\alpha-4224\alpha^3&528-2304\alpha^2\\
+ 1116\alpha-4224\alpha^3&798-576\alpha^2&1980\alpha-6272\alpha^3\\
+ 528-2304\alpha^2&1980\alpha-6272\alpha^3&858-192\alpha^2
+ \end{pmatrix}.
+ \label{I:R:eq:four-state-Q}
+\end{equation}
+Its leading principal minors are
+\[
+ \frac{38}{37}+\frac{256}{111}\alpha^2,\quad
+ \frac{244}{111}+\frac{896}{333}\alpha^2,\quad
+ \frac{968}{333}+\frac{11008}{999}\alpha^2,
+\]
+all positive.  Since $(T,l_0)$ is observable, the positive Stein
+identity gives strict stability.  Whitening yields the Euclidean
+lossless pair $D=Q^{1/2}TQ^{-1/2}$, $l=l_0Q^{-1/2}$.
+
+The following calculation stays in companion coordinates and the
+$Q$ inner product.  Put
+\[
+ x_0=Q^{-1}(l_0T^3)^{\mathsf T}
+ =\begin{pmatrix}
+ -\alpha^3\\21\alpha^2/8-9/16\\27\alpha^3/4-15\alpha/8
+ \end{pmatrix},\qquad
+ G=l_0T^3x_0=\frac{45}{64}-\frac{33}{32}\alpha^2.
+\]
+Then $\Gamma_3=\sqrt G$, while the normalized cyclic vector has raw
+coordinates $x=x_0/\sqrt G$.
+To evaluate \eqref{I:R:eq:four-state-response-recalled} without any
+additional square roots, define
+\begin{align*}
+ c_j&=l_0T^jx_0,\\
+ S_0&=\sum_{j=0}^{2}c_jx_0^{\mathsf T}QT^{3-j}x_0,\\
+ v_0&=c_0Tx_0+c_1x_0,\\
+ M_0&=\sum_{j=0}^{3}T^{3-j}x_0l_0T^j,\\
+ K_0&=\tfrac12(M_0+Q^{-1}M_0^{\mathsf T}Q).
+\end{align*}
+Here $K=K_0/\sqrt G$, $v=v_0/G$, and $S=S_0/G^{3/2}$ in raw
+coordinates.  The symmetric matrix $H_0=QK_0$ simplifies to
+\begin{equation}
+ H_0=\begin{pmatrix}
+ 21/32+7\alpha^2/16&\alpha/2-3\alpha^3&5/8-9\alpha^2/4\\
+ \alpha/2-3\alpha^3&7/4-5\alpha^2/2&3\alpha-20\alpha^3/3\\
+ 5/8-9\alpha^2/4&3\alpha-20\alpha^3/3&3-19\alpha^2/3
+ \end{pmatrix}.
+ \label{I:R:eq:four-state-H0}
+\end{equation}
+Its leading principal minors are
+\[
+ \frac{21}{32}+\frac7{16}\alpha^2,\qquad
+ \frac{1287}{1024}-\frac{915}{512}\alpha^2,\qquad
+ \frac{153}{64}-\frac{189}{32}\alpha^2.
+\]
+They are positive using $0<\alpha^2<1/4$.  Thus the response matrix
+is positive definite directly in this example.
+
+Reduction of the following scalar products modulo
+$64\alpha^4-30\alpha^2+3$ gives
+\begin{align}
+ c_2^2&=\frac{6075}{32768}-\frac{7767}{16384}\alpha^2,\notag\\
+ S_0&=\frac{6669}{65536}-\frac{1809}{32768}\alpha^2,\notag\\
+ v_0^{\mathsf T}QK_0^{-1}v_0
+ &=\frac{171}{65536}+\frac{5625}{32768}\alpha^2.
+ \label{I:R:eq:four-state-scalar-certificate}
+\end{align}
+Therefore the exact response is
+\begin{equation}
+ b_4=\frac{c_2^2-S_0+v_0^{\mathsf T}QK_0^{-1}v_0}{G}
+    =\frac{75}{496}-\frac{103}{248}\alpha^2
+    =\boxed{\frac{855+103\sqrt{33}}{15872}}.
+ \label{I:R:eq:four-state-b4}
+\end{equation}
+The Stein equation, response matrix and coefficient admit direct exact
+arithmetic checks in $\mathbb Q(\alpha)$ using the displayed identities.
+Numerically $b_4=0.09114730044061346723567\ldots$; this decimal is
+not used to obtain the coefficient.
+
+\begin{theorem}[Four-state first boundary correction]
+\label{I:R:thm:four-state-first-correction}
+For $f_{r,4}(a^j b^4)=qr^j$, zero elsewhere, the squared optimum for
+each field satisfies
+\begin{equation}
+ \boxed{\displaystyle
+ D_4^{\mathbb F}(q)
+  =\frac{1103-33\sqrt{33}}{2048}
+    -\frac{855+103\sqrt{33}}{15872}\,q+o(q),
+ \qquad\mathbb F\in\{\mathbb R,\RC\}.}
+ \label{I:R:eq:four-state-optimum}
+\end{equation}
+\end{theorem}
+\input{proofs/operator-approximation/1.36.2.tex}
+
+% End four_state.tex
+
+
+% Begin real_diagonal_lemma.tex
+
+\section{Real representatives of every diagonal boundary extremizer}
+\label{I:R:subsec:real-diagonal-orbits}
+
+The diagonal case admits a further field comparison.  This argument
+uses the exact scalar Hardy bridge and the strict increase of the
+coefficient constants supplied by the October 2026 outer-extremal
+result~\cite{outer2026}; it is not asserted for independent budget and delay.
+
+\begin{lemma}[Positive coefficients and affine phases]
+\label{I:R:lem:positive-Hardy-extremizers}
+Fix $m\ge1$ and let $F=P^3$ be any normalized extremal for the
+$m$-th coefficient on $H^{2/3}$, with $\Rnorm P_2=1$ and $P$ outer of
+exact degree $m$.  There exist a polynomial
+$Q(z)=\sum_{j=0}^m q_jz^j$ with every $q_j>0$ and real phases
+$\alpha,\theta$ such that
+\[
+ P(z)=e^{i\alpha}Q(e^{i\theta}z).
+\]
+\end{lemma}
+\input{proofs/operator-approximation/1.37.1.tex}
+
+\begin{proposition}[All diagonal boundary models have real representatives]
+\label{I:R:prop:real-diagonal-boundary-models}
+Every maximizing complex passive triple in $\mathcal M_m$ is equivalent
+to a real triple through state unitaries and phases of the scalar
+transition and output.  In particular,
+\[
+ b_{k,k}^{\RR}=b_{k,k}^{\RC}\qquad(k=m+1\ge2).
+\]
+Consequently the real and complex structured optima have the same
+first-order diagonal expansion, without an assertion of equality at
+finite $q$.
+\end{proposition}
+\input{proofs/operator-approximation/1.37.2.tex}
+
+% End real_diagonal_lemma.tex
+
+
+% Begin full_channel.tex
+
+\section{All-state, all-delay projection bounds retaining every singular channel}
+\label{I:R:sec:full-channel}
+
+The dominant-vector argument controls only one singular direction of the target.
+We now retain all of them and eliminate the waiting transition exactly. This
+gives a finite-dimensional characterization of an invariant-subspace relaxation
+for every state budget. Structured Hankel completion remains an additional step.
+
+Fix integers $n,m\ge1$, $0<q<1$, and $r=\sqrt{1-q}$. On the binary alphabet
+$\{a,b\}$ let
+\[
+ f_{r,m}(a^j b^m)=qr^j\quad(j\ge0),\qquad
+ f_{r,m}(w)=0\text{ otherwise},\qquad
+ D_{n,m}(q)=\delta_n^{\RC}(H_{f_{r,m}})^2.
+\]
+All norms here use counting measure on words. With $e_w$ the coordinate vectors,
+put
+\[
+ v=\sqrt q\sum_{j\ge0}r^j e_{a^j b^m},\qquad
+ e_j=e_{b^j}\quad(0\le j<m),\qquad
+ \mathcal U=(v,e_0,\ldots,e_{m-1}).
+\]
+These columns are orthonormal, and direct grouping of the target's rows gives
+\begin{equation}
+ H_{f_{r,m}}^*H_{f_{r,m}}
+   =vv^*+q\sum_{j=0}^{m-1}e_je_j^*
+   =\mathcal U C\mathcal U^*,\qquad C=\operatorname{diag}(1,qI_m).
+ \label{I:R:eq:fc-singular}
+\end{equation}
+Indeed the pure-$a$ rows give the unit singular channel; rows $a^i b^h$,
+$1\le h\le m$, give the other $m$ orthogonal channels.
+
+Let $L_a,L_b$ be the left creation shifts and define
+\begin{equation}
+ R_{n,m}(q)=\inf_{\substack{\dim S\le n\\L_a^*S,L_b^*S\subseteq S}}
+          \Rnorm{H_{f_{r,m}}(I-P_S)}^2.
+ \label{I:R:eq:fc-relaxation}
+\end{equation}
+For every bounded rank-at-most-$n$ word-Hankel $G$, the row space
+$S=\operatorname{ran}G^*$ is invariant under these backward shifts and
+$G(I-P_S)=0$. Consequently
+\begin{equation}
+ D_{n,m}(q)\ge R_{n,m}(q).
+ \label{I:R:eq:fc-relaxation-bound}
+\end{equation}
+The definition allows invariant spaces that need not be cyclic row spaces of a
+word-Hankel operator. Equality in \eqref{I:R:eq:fc-relaxation-bound} therefore
+requires a separate argument.
+
+\subsection{An exact residual matrix for the relaxation}
+
+Use standard matrix products $T_{a_1\cdots a_j}=T_{a_1}\cdots T_{a_j}$, with
+$T_a=A,T_b=B$. For a passive tuple
+\begin{equation}
+ A^*A+B^*B+\ell^*\ell\preceq I_n,
+ \label{I:R:eq:fc-passive}
+\end{equation}
+the appropriate observation convention is
+\[
+ (\mathcal Ox)[w]=\ell T_{\operatorname{rev}(w)}x.
+\]
+The reversal is essential for left-backward-shift coordinates: the coordinate
+at $a^j b^m$ is $\ell B^m A^j x$. Telescoping
+\eqref{I:R:eq:fc-passive} over complete word levels proves
+$\Rnorm{\mathcal O}\le1$, and
+$L_c^*\mathcal O=\mathcal OT_c$ for $c=a,b$.
+Define
+\begin{equation}
+ w_0=\sqrt q\,\ell B^m(I-rA)^{-1},\qquad
+ Z=\begin{pmatrix}\ell\\\ell B\\\vdots\\\ell B^{m-1}\end{pmatrix},
+ \qquad W=\begin{pmatrix}w_0\\Z\end{pmatrix},\qquad
+ E=C-C^{1/2}WW^*C^{1/2}.
+ \label{I:R:eq:fc-E}
+\end{equation}
+Here $W=\mathcal U^*\mathcal O$. The inverse exists uniformly over the passive
+class because $r<1$ and $\Rnorm{A}\le1$.
+
+\begin{theorem}[Exact passive representation of the projection relaxation]
+\label{I:R:thm:fc-residual}
+For every $n,m\ge1$ and $0<q<1$,
+\begin{equation}
+ R_{n,m}(q)=\min_{A^*A+B^*B+\ell^*\ell\preceq I_n}
+                  \lambda_{\max}(E).
+ \label{I:R:eq:fc-passive-min}
+\end{equation}
+\end{theorem}
+\input{proofs/operator-approximation/1.38.1.tex}
+
+\subsection{Threshold reduction and exact elimination of the waiting matrix}
+
+For a threshold $\tau>q$, set
+\begin{equation}
+ Q_\tau=I_n+\frac{q}{\tau-q}Z^*Z\succ0.
+ \label{I:R:eq:fc-Q}
+\end{equation}
+The lower-right block of $\tau I-E$ is
+$(\tau-q)I_m+qZZ^*\succ0$. Its Schur complement, followed by the Woodbury
+identity, gives the exact equivalence
+\begin{equation}
+ E\preceq\tau I_{m+1}
+ \quad\Longleftrightarrow\quad
+ w_0Q_\tau^{-1}w_0^*\ge1-\tau.
+ \label{I:R:eq:fc-threshold}
+\end{equation}
+This includes every subdominant target channel through $Z^*Z$.
+
+\begin{lemma}[A weighted trust-region elimination]
+\label{I:R:lem:fc-trust}
+Fix $B,\ell$ with $D=I-B^*B-\ell^*\ell\succeq0$, and let $Q\succ0$.
+For a unit vector $y$, put $d=y^*Dy$ and
+\begin{equation}
+ \mathcal T_Q(y,d)=\min_{\Rnorm{z}^2\le d}(y-rz)^*Q(y-rz).
+ \label{I:R:eq:fc-trust-value}
+\end{equation}
+Then
+\begin{align}
+ &\max_{A^*A\preceq D}
+ q\ell B^m(I-rA)^{-1}Q^{-1}(I-rA^*)^{-1}(B^*)^m\ell^*
+ \nonumber\\[-2pt]
+ &\hspace{30mm}=\max_{\Rnorm{y}=1}
+       \frac{q|\ell B^m y|^2}{\mathcal T_Q(y,y^*Dy)}.
+ \label{I:R:eq:fc-eliminate-A}
+\end{align}
+If $d=0$, then $\mathcal T_Q(y,0)=y^*Qy$. If $d>0$, its unique minimizer is
+\begin{equation}
+ z_\mu=r(r^2Q+\mu I)^{-1}Qy,
+ \qquad \Rnorm{z_\mu}^2=d,
+ \label{I:R:eq:fc-secular}
+\end{equation}
+where the last equation has a unique positive solution $\mu$.
+\end{lemma}
+\input{proofs/operator-approximation/1.38.2.tex}
+
+Combining the preceding statements gives an unconditional all-state threshold
+formula. Define
+\begin{equation}
+ \Psi_{n,m}(q,\tau)=
+ \max_{\substack{B^*B+\ell^*\ell\preceq I_n\\\Rnorm{y}=1}}
+ \frac{q|\ell B^m y|^2}{\mathcal T_{Q_\tau}(y,y^*Dy)}.
+ \label{I:R:eq:fc-Psi}
+\end{equation}
+Here $Z,Q_\tau,D$ depend only on $B,\ell$. Then, for every $\tau>q$,
+\begin{equation}
+ \boxed{R_{n,m}(q)\le\tau
+       \quad\Longleftrightarrow\quad
+       \Psi_{n,m}(q,\tau)\ge1-\tau.}
+ \label{I:R:eq:fc-general-threshold}
+\end{equation}
+The remaining optimization is compact. Each objective evaluation requires one
+positive scalar secular root, in place of an optimization over $A$.
+Equation \eqref{I:R:eq:fc-general-threshold} characterizes the relaxation at
+thresholds above $q$; it does not assert structured attainability, or determine
+values below $q$ when the state budget is large.
+
+\subsection{The exact rank-one benchmark is recovered}
+
+For $n=m=1$, write $\kappa=q/(\tau-q)$ and $K=1+\kappa$. Phases may be aligned
+so that $a=|A|\ge0$ minimizes $|1-rA|$. With $x=|B|^2$ and $z=|\ell|^2$,
+the overlap in \eqref{I:R:eq:fc-threshold} is
+\[
+ \frac{qzx}{(1-ra)^2(1+\kappa z)},\qquad a^2+x+z\le1.
+\]
+At fixed $a$, the available budget $t=1-a^2$ is fully used. Direct
+differentiation gives
+\[
+ z_* =\frac{t}{1+\sqrt{1+\kappa t}},\qquad
+ \max_{0\le z\le t}\frac{z(t-z)}{1+\kappa z}
+       =\frac{t^2}{(1+\sqrt{1+\kappa t})^2}.
+\]
+The remaining maximization is elementary. Equivalently maximize
+\[
+ F(a)=\frac{\sqrt{1+\kappa(1-a^2)}-1}{1-ra},\qquad0\le a\le1.
+\]
+Its interior stationary equation is
+\[
+ \sqrt{1+\kappa(1-a^2)}+\frac{\kappa a}{r}=1+\kappa.
+\]
+Solving with this unsquared sign condition gives its unique maximum at
+$a_*=r\sqrt K/(\sqrt K+\sqrt q)$, where
+$F(a_*)=\kappa/(1+\sqrt{qK})$. Consequently
+\begin{equation}
+ \boxed{\Psi_{1,1}(q,\tau)
+      =\frac{q}{\left(1+\sqrt{q\tau/(\tau-q)}\right)^2}.}
+ \label{I:R:eq:fc-scalar-Psi}
+\end{equation}
+
+\begin{theorem}[Monotone radical representation of the exact F1 value]
+\label{I:R:thm:fc-F1-radical}
+The exact rank-one value $D_1(q)=D_{1,1}(q)$ is the unique root $\tau\in(q,1)$
+of
+\begin{equation}
+ \boxed{1-\tau
+       =\frac{q}{\left(1+\sqrt{q\tau/(\tau-q)}\right)^2}.}
+ \label{I:R:eq:fc-F1-root}
+\end{equation}
+It equals the real optimum as well.
+\end{theorem}
+\input{proofs/operator-approximation/1.38.3.tex}
+
+This benchmark also detects the limitation of keeping only the dominant
+singular direction. In scalar dimension its local envelope is
+$h_{1,1}(t)=t^2/4$, and exact maximization gives
+\[
+ P_{1,1}(q)=\frac{q}{(1+\sqrt q)^2},\qquad
+ t_* =\frac{2\sqrt q}{1+\sqrt q}.
+\]
+The corresponding lower bound $L_{\mathrm{dom}}=1-P_{1,1}$ agrees with the
+exact F1 value through $q^2$, but
+\begin{align*}
+ D_1(q)&=1-q+2q^{3/2}-3q^2+5q^{5/2}-8q^3+O(q^{7/2}),\\
+ L_{\mathrm{dom}}(q)&=1-q+2q^{3/2}-3q^2+4q^{5/2}-5q^3+O(q^{7/2}),\\
+ D_1(q)-L_{\mathrm{dom}}(q)&=q^{5/2}-3q^3+O(q^{7/2}).
+\end{align*}
+The full-channel threshold therefore passes an exact benchmark that the
+dominant-vector envelope fails at higher order. Its equality with the Hankel
+optimum has been established here only for F1; higher-state matching
+constructions remain separate problems.
+
+% End full_channel.tex
+
+
+% Begin terminal_languages.tex
+
+\section{Arbitrary terminal languages: an exact boundary reduction}
+\label{I:R:sec:terminal-languages}
+
+The waiting-letter mechanism extends beyond a monomial suffix.  The
+appropriate scalar approximation problem is replaced by simultaneous
+approximation of all terminal residuals in one common invariant space.
+This section proves that extension, without a uniqueness or a
+nondegeneracy assumption on its terminal extremizers.
+
+Let $\Delta$ be a finite alphabet, let $a\notin\Delta$, and write
+$\Sigma=\{a\}\sqcup\Delta$.  Let
+$\tau:\Delta^*\to\RC$ have bounded counting-measure word-Hankel operator
+$H_\tau$.  In particular $\tau\in\ell^2(\Delta^*)$; a polynomial
+terminal language always satisfies this hypothesis.  For
+$q=1-r^2\in(0,1)$ define
+\begin{equation}
+ f_{r,\tau}(a^j w)=qr^j\tau(w)
+ \quad(j\ge0,\ w\in\Delta^*),
+ \qquad f_{r,\tau}=0\text{ on the remaining words}.
+ \label{I:R:eq:terminal-target}
+\end{equation}
+The parsing in \eqref{I:R:eq:terminal-target} is unique.  Fix a state budget
+$n\ge1$ and put $\tau_j(v)=\tau(jv)$ for $j\in\Delta$.
+Let $\mathfrak K_{n-1}$ be the collection of subspaces of
+$\ell^2(\Delta^*)$ of dimension at most $n-1$ invariant under every
+left backward shift.  Define
+\begin{equation}
+ E_{n-1}(\tau)^2=
+ \inf_{K\in\mathfrak K_{n-1}}
+       \sum_{j\in\Delta}\Rnorm{\tau_j-P_K\tau_j}_2^2.
+ \label{I:R:eq:terminal-E}
+\end{equation}
+The same $K$ is used for every $j$; separate residual fits do not give
+the stated state budget.  When $n=1$, use $K=\{0\}$.
+
+\subsection{Exact elimination and dimension loss}
+
+We use the canonical backward-shift convention
+$B_w=B_{w_s}\cdots B_{w_1}$ for $w=w_1\cdots w_s$, and
+$B_\varepsilon=I$.  Thus coordinate evaluation is $\ell B_wx$.
+For a passive tuple
+\begin{equation}
+ A^*A+\sum_{j\in\Delta}B_j^*B_j+\ell^*\ell\preceq I_n,
+ \qquad V=\begin{pmatrix}(B_j)_{j\in\Delta}\\\ell\end{pmatrix},
+ \label{I:R:eq:terminal-passive}
+\end{equation}
+set
+\[
+ T_\tau(B,\ell)=\sum_{w\in\Delta^*}
+          \overline{\tau(w)}\,\ell B_w,
+ \qquad
+ h_{\tau,n}(t)=
+ \max_{\substack{V^*V\preceq I_n\\\Rnorm{Ve_1}^2=t}}
+                  |T_\tau(B,\ell)e_1|^2.
+\]
+The observation map $Ox=(\ell B_wx)_w$ is contractive by telescoping
+the passive energy inequality.  In fact
+\begin{equation}
+ \sum_w|\ell B_wy|^2
+ \le |\ell y|^2+\sum_j\Rnorm{B_jy}^2=\Rnorm{Vy}^2.
+ \label{I:R:eq:terminal-refined-energy}
+\end{equation}
+Consequently the series defining $T_\tau$ converges in operator norm
+uniformly over all passive tuples, and
+$0\le h_{\tau,n}(t)\le\Rnorm\tau_2^2t$.  Compactness then gives the
+maxima in this definition and below.
+
+\begin{lemma}[Universal waiting-transition elimination]
+\label{I:R:lem:terminal-elimination}
+For every $q\in(0,1)$,
+\begin{align}
+ P_{\tau,n}(q)
+ &:=\max_{\eqref{I:R:eq:terminal-passive}}
+       q\Rnorm{T_\tau(B,\ell)(I-rA)^{-1}}^2\notag\\
+ &=\max_{0\le t\le1}
+       \frac{q h_{\tau,n}(t)}{(1-r\sqrt{1-t})^2}.
+ \label{I:R:eq:terminal-elimination}
+\end{align}
+\end{lemma}
+\input{proofs/operator-approximation/1.39.1.tex}
+
+An exact factorization makes the localization transparent.  For
+$\rho(x,y)=|x-y|/|1-xy|$ on the real unit interval, put
+\begin{equation}
+ K_q(t)=\frac{qt}{(1-\sqrt{(1-q)(1-t)})^2}
+       =1-\rho\bigl(\sqrt{1-q},\sqrt{1-t}\bigr)^2.
+ \label{I:R:eq:terminal-kernel}
+\end{equation}
+Thus $0\le K_q(t)\le1$ and $K_q(q)=1$.  This is just
+$(1-r\sqrt{1-t})^2-qt=(r-\sqrt{1-t})^2$.
+
+\begin{lemma}[The residual dimension-drop coefficient]
+\label{I:R:lem:terminal-dimension-drop}
+As $t\downarrow0$,
+\begin{equation}
+ h_{\tau,n}(t)=a_{\tau,n}t+o(t),
+ \qquad
+ a_{\tau,n}=|\tau(\varepsilon)|^2+
+       \max_{K\in\mathfrak K_{n-1}}
+             \sum_{j\in\Delta}\Rnorm{P_K\tau_j}_2^2.
+ \label{I:R:eq:terminal-leading-coefficient}
+\end{equation}
+The maximum is attained, and $P_{\tau,n}(q)\to a_{\tau,n}$.
+\end{lemma}
+\input{proofs/operator-approximation/1.39.2.tex}
+
+\subsection{The exact boundary theorem and an explicit lift}
+
+\begin{theorem}[Simultaneous terminal approximation]
+\label{I:R:thm:terminal-boundary}
+For every $n\ge1$ and terminal series satisfying the stated boundedness
+hypothesis,
+\begin{equation}
+ \boxed{\displaystyle
+ \lim_{r\uparrow1}\delta_n^{\RC}(H_{f_{r,\tau}})^2
+       =E_{n-1}(\tau)^2.}
+ \label{I:R:eq:terminal-boundary-theorem}
+\end{equation}
+The infimum in \eqref{I:R:eq:terminal-E} is attained.  For real $\tau$, the
+same statement holds separately for real competitors and real
+invariant spaces.  Equality of the two fields' constants is not
+assumed.
+\end{theorem}
+\input{proofs/operator-approximation/1.39.3.tex}
+
+\begin{proposition}[A fixed optimal lift has no positive linear error]
+\label{I:R:prop:terminal-fixed-lift}
+For the fixed lift above, suppose $E=\Rnorm e_2>0$ and put
+$M=\Rnorm{K_e}$.  Then
+\begin{equation}
+ \Rnorm{H_{f_{r,\tau}}-H_{g_r}}^2
+ =E^2+\frac{\Rnorm{K_e\overline e}^2}{E^2}q^2+O(q^3).
+ \label{I:R:eq:terminal-fixed-lift-expansion}
+\end{equation}
+If $E=0$, the lift equals the target and its error is zero.
+\end{proposition}
+\input{proofs/operator-approximation/1.39.4.tex}
+
+This proposition is an upper construction.  A $q$-dependent lift can
+have a negative linear correction, as the original two-state example
+demonstrates; no matching first-order lower coefficient is inferred
+from the fixed lift.
+
+\subsection{An exact mixed-terminal example}
+
+Take $\Delta=\{b\}$, $n=2$, and let
+$\tau(b^2)=\beta$, $\tau(b^3)=\gamma$, all other coefficients zero,
+where $\beta,\gamma\ge0$ and $\beta^2+\gamma^2=1$.
+The reduced tuple in Lemma~\ref{I:R:lem:terminal-dimension-drop} is scalar,
+so phase alignment gives
+\[
+ a_{\tau,2}=\max_{0\le\rho\le1}
+          (1-\rho^2)\rho^2(\beta+\gamma\rho)^2.
+\]
+For $\beta,\gamma>0$ its unique maximizing point satisfies
+\[
+ \beta(1-2\rho^2)+\gamma\rho(2-3\rho^2)=0.
+\]
+Uniqueness follows from strict concavity of the logarithm of the
+positive objective on $(0,1)$.  When
+$\beta=\gamma=1/\sqrt2$,
+\begin{gather}
+ \rho=\frac{1+\sqrt{13}}6,\qquad
+ a_{\tau,2}=\frac{587+143\sqrt{13}}{2916},\notag\\
+ \boxed{\displaystyle
+ \lim_{r\uparrow1}\delta_2(H_{f_{r,\tau}})^2
+ =\frac{2329-143\sqrt{13}}{2916}
+ =0.62188140178623097774\ldots .}
+ \label{I:R:eq:terminal-mixed-example}
+\end{gather}
+A real scalar reduced tuple attains the complex maximum here, so the
+real and complex limits agree for this example.  This is a boundary
+value for a nonmonomial terminal language, not an exact finite-$r$
+optimization statement.
+
+\subsection{A sharp two-state correction for every terminal degree}
+\label{I:R:subsec:all-terminal-degrees}
+
+The same complex phase calculation also gives a family of sharp
+first-order results with a fixed two-state budget and arbitrary
+terminal degree.  This extension changes the target family rather than
+the state budget.
+
+\begin{theorem}[All terminal degrees with two states]
+\label{I:R:thm:two-state-all-degrees}
+Fix an integer $d\ge2$ and let
+$f_{r,d}(a^j b^d)=qr^j$, zero elsewhere.  Put
+\[
+ a_d=\frac{(d-1)^{d-1}}{d^d}.
+\]
+For each field separately,
+\begin{equation}
+ \boxed{\displaystyle
+ \delta_2^{\mathbb F}(H_{f_{r,d}})^2
+   =1-a_d-\frac{a_d}{(d-1)^2}q+O(q^2),
+ \qquad\mathbb F\in\{\mathbb R,\RC\}.}
+ \label{I:R:eq:two-state-all-degrees}
+\end{equation}
+The constants may depend on fixed $d$.  In particular $d=2$ gives
+$3/4-q/4+O(q^2)$, whereas $d=3$ gives
+$23/27-q/27+O(q^2)$.
+\end{theorem}
+\input{proofs/operator-approximation/1.39.5.tex}
+
+% End terminal_languages.tex
+
+\section{Scalar input for the response examples}
+\label{I:R:app:Hardy-bridge}
+The examples use the single Hardy bridge proved in
+Theorem~\ref{I:B:thm:hardy-bridge}; its proof is not repeated here.
+The lower bound is a direct H\"older inequality, the equality for
+$m\le3$ uses published low-degree extremals, and equality in general
+uses the external outer-extremal theorem~\cite{outer2026}.
+
+\section{Balancing and certified dyadic recertification}
+\label{I:U:sec:dyadic-recertification}
+A spectral-radius margin by itself does not supply the resolvent estimate
+needed for a spectral truncation bound. Balancing remains useful, provided
+the reduced candidate is recertified. The following statement separates
+these two steps.
+
+\begin{theorem}[Balancing and dyadic recertification]
+\label{I:U:thm:dyadic-recertification}
+\begin{enumerate}[label=(\roman*)]
+\item A minimal mean-square-stable realization with positive definite
+Gramians admits a balancing transformation
+\[
+ S^{-1}P_fS^{-*}=S^*Q_fS=\Sigma_H.
+\]
+A leading-block truncation whose mean-square stability has been verified
+is a valid candidate of the stated dimension. Its error can be certified
+by Theorem~\ref{I:U:thm:exact}; no additional spectral-tail formula is asserted
+here.
+\item Let $g=(T_a,b,c)$ have real algebraic coefficients and be
+mean-square stable. Choose a positive definite algebraic $X$ with
+$X-\sum_aT_aXT_a^*=I$. For perturbed matrices
+$\widehat T_a=T_a+E_a$, define
+\[
+ \theta=\left\|\sum_a(T_aXE_a^*+E_aXT_a^*+E_aXE_a^*)\right\|.
+\]
+If a certified bound gives $\theta<1$, then
+\begin{equation}
+ X-\sum_a\widehat T_aX\widehat T_a^*\succeq(1-\theta)I,
+ \qquad
+ \rho(\Phi_{\widehat T})\le1-\frac{1-\theta}{\|X\|}<1.
+ \label{I:U:eq:dyadic-verified-margin}
+\end{equation}
+An elementary sufficient upper bound for $\theta$ is
+\[
+ \sum_a\left(2\|T_aX^{1/2}\|\|E_aX^{1/2}\|
+                         +\|E_aX^{1/2}\|^2\right).
+\]
+\item For every positive rational $\varepsilon$, an algorithm can
+increase dyadic precision, round all entries of $T_a,b,c$, and return a
+stable dyadic realization $\widehat g$ with
+$\|H_g-H_{\widehat g}\|\le\varepsilon$. Each candidate is accepted
+only after verifying \eqref{I:U:eq:dyadic-verified-margin} and a joint
+Gramian error certificate. This search terminates. This statement gives
+no uniform polynomial bound on the required precision or search time.
+\end{enumerate}
+\end{theorem}
+\input{proofs/operator-approximation/1.41.1.tex}
+
+\paragraph{Why a radius margin is not a resolvent norm.}
+For $A_t=\left(\begin{smallmatrix}0&t\\0&0\end{smallmatrix}\right)$,
+the positive map $\Phi(X)=A_tXA_t^*$ has $\rho(\Phi)=0$, but
+\[
+ (I-\Phi)^{-1}(I)=I+A_tA_t^*
+       =\Udiag(1+t^2,1).
+\]
+Its induced operator norm is at least $1+t^2$, although the inverse
+spectral-radius margin equals one. Thus a bound by
+$\max(\gamma^{-1},\gamma_k^{-1})$ is not a general resolvent estimate.
+This counterexample to that proof step does not by itself disprove its
+separate balanced-truncation inequality. That inequality remains
+unestablished here. A uniform spectral-tail guarantee and a complete efficient synthesis theorem remain separate questions.
+
+
+\subsection{Quantitative truncation with two verified Stein witnesses}
+\label{I:U:sec:quantitative-truncation}
+The following result supplies one explicit answer to the quantitative
+truncation target. Its constants are allowed to deteriorate when the
+source approaches the obstruction of Theorem~\ref{I:U:thm:separation}.
+It uses full matrix inequalities, not a spectral-radius margin.
+
+\begin{theorem}[Conditional square-root bound for balanced truncation]
+\label{I:U:thm:quantitative-truncation}
+Let a minimal stable realization $(A_a,b,c)$ be balanced with
+$P=Q=\Sigma=\Udiag(\Sigma_1,\Sigma_2)\succ0$. Retain the first $k$
+coordinates and put $B_a=A_{a,11}$, $g(w)=c_1^*B_wb_1$.
+Assume the tuple $B$ is independently certified mean-square stable.
+Suppose positive definite matrices $X,Y$ and $0\le r_X,r_Y<1$ satisfy
+\[
+ \sum_a A_aXA_a^*\preceq r_X^2X,\qquad
+ \sum_a A_a^*YA_a\preceq r_Y^2Y.
+\]
+Write $\kappa_X=\|X\|/\lambda_{\min}(X)$ and similarly for $Y$.
+Then
+\begin{equation}
+ \|H_f-H_g\|\le\sqrt{\sigma_1\Utr\Sigma_2}
+ \left(\frac{\sqrt{\kappa_X}}{1-r_X}
+             +\frac{\sqrt{\kappa_Y}}{1-r_Y}\right).
+ \label{I:U:eq:quantitative-truncation}
+\end{equation}
+In particular $\Utr\Sigma_2\le(n-k)\sigma_{k+1}$ gives an explicit
+square-root rate with all other displayed parameters fixed.
+\end{theorem}
+\input{proofs/operator-approximation/1.41.2.tex}
+Both witnesses exist for each stable finite tuple, but their quantitative
+constants need not be uniform. A witness for the full tuple does not
+automatically give a witness for its leading block. For example,
+\[
+ A=\begin{pmatrix}2&1\\-4&-2\end{pmatrix},\qquad A^2=0,
+ \qquad X=I+AA^*,\qquad X-AXA^*=I,
+\]
+whereas $A_{11}=2$ is unstable. This refutes the proposed inheritance
+step. Balanced truncation and singular-value automata have established
+antecedents \citep{sva2019}; the theorem above records the precise
+conditional operator-norm estimate used here, without a novelty claim.
+
+\begin{theorem}[A sufficient dyadic precision chosen before recertification]
+\label{I:U:thm:explicit-dyadic}
+Let an $n$-state tuple $(A_a,b,c)$ have witnesses as above. Choose
+$r\in(0,1)$ and $\kappa\ge1$ with
+$r_X,r_Y\le r$, $\kappa_X,\kappa_Y\le\kappa$, and put $a=1-r$.
+Round every scalar entry to a dyadic number with absolute error at most
+$h=2^{-b_0}$. For complex entries, replace these scalar-error bounds
+by bounds on their complex moduli. Define
+\[
+ D_b=\frac{2\sqrt{\kappa n}}a+
+                  \frac{2\kappa\sqrt d\,n\|b\|}{a^2},\qquad
+ D_c=\frac{2\sqrt{\kappa n}}a+
+                  \frac{2\kappa\sqrt d\,n\|c\|}{a^2},
+\]
+\[
+ K= D_c\frac{\sqrt\kappa\|b\|}a
+       +\frac{2\sqrt\kappa(\|c\|+1)}a D_b.
+\]
+The choices
+\begin{equation}
+ h\le\min\left\{n^{-1/2},
+       \frac{a}{2\sqrt\kappa\sqrt d\,n},\frac\epsilon K\right\}
+ \label{I:U:eq:explicit-dyadic}
+\end{equation}
+guarantee mean-square stability of the rounded tuple and
+$\|H_f-H_{\widehat f}\|\le\epsilon$.
+If $K=0$, the last condition is omitted. Rational inputs and rational
+upper bounds for these constants give polynomial bit cost in the input
+length and $b_0$ for rounding and exact joint-Gramian recertification.
+\end{theorem}
+\input{proofs/operator-approximation/1.41.3.tex}
+
+\subsection{A second truncation certificate from positive Stein resolvents}
+\label{I:U:sec:resolvent-truncation}
+The extended proposal supplies a useful alternative to the tree estimate
+above. Its positive-resolvent argument is valid after correcting the
+block inequalities. This subsection retains that argument and exploits
+the commuting reference Gramians; it does not supply a uniform AAK factor.
+
+\begin{lemma}[Hermitian norm of a positive Stein resolvent]
+\label{I:U:lem:positive-resolvent}
+Let $\Phi(Z)=\sum_a T_aZT_a^*$ have spectral radius less than one,
+and put $\mathcal R=(I-\Phi)^{-1}$ and $X=\mathcal R(I)$.
+For every Hermitian $M$,
+\[
+ -\|M\|X\preceq\mathcal R(M)\preceq\|M\|X,
+ \qquad \|\mathcal R(M)\|\le\|X\|\,\|M\|.
+\]
+Thus the induced spectral norm on the Hermitian subspace is exactly
+$\|X\|$, with equality at $M=I$.
+\end{lemma}
+\input{proofs/operator-approximation/1.41.4.tex}
+
+\begin{theorem}[Commuting-reference certificate for balanced truncation]
+\label{I:U:thm:reference-truncation}
+Let $(A_a,b,c)$ be minimal, mean-square stable, and balanced with
+$P=Q=\Sigma=\Udiag(\Sigma_1,\Sigma_2)\succ0$, where $1\le k<n$
+coordinates are retained. Set $B_a=A_{a,11}$ and
+$g(w)=c_1^*B_wb_1$, and independently assume $B$ is mean-square
+stable. Write $\delta=\|\Sigma_2\|=\sigma_{k+1}$ and
+$\sigma_1=\|\Sigma\|$. Define the four Stein solutions
+\[
+ X_A-\sum_aA_aX_AA_a^*=I_n,\quad
+ X_B-\sum_aB_aX_BB_a^*=I_k,
+\]
+\[
+ Y_A-\sum_aA_a^*Y_AA_a=I_n,\quad
+ Y_B-\sum_aB_a^*Y_BB_a=I_k,
+\]
+and $K_P=\max(\|X_A\|,\|X_B\|)$,
+$K_Q=\max(\|Y_A\|,\|Y_B\|)$.
+On the joint space with block sizes $(k,n-k,k)$ put
+\[
+ T_a=\Udiag(A_a,B_a),\quad \beta=(b_1,b_2,b_1)^\top,
+ \quad\chi=(c_1,c_2,-c_1)^\top,
+\]
+\[
+ P_0=\begin{pmatrix}\Sigma_1&0&\Sigma_1\\0&\Sigma_2&0\\
+ \Sigma_1&0&\Sigma_1\end{pmatrix},\qquad
+ Q_0=\begin{pmatrix}\Sigma_1&0&-\Sigma_1\\0&\Sigma_2&0\\
+ -\Sigma_1&0&\Sigma_1\end{pmatrix}.
+\]
+Let
+\[
+ D_P=\beta\beta^*+\sum_aT_aP_0T_a^*-P_0,\qquad
+ D_Q=\chi\chi^*+\sum_aT_a^*Q_0T_a-Q_0,
+\]
+and take any $e_P\ge K_P\|D_P\|$, $e_Q\ge K_Q\|D_Q\|$.
+Then
+\begin{equation}
+ \|H_f-H_g\|^2\le
+ \max\{(\delta+e_P)(\delta+e_Q),\,
+                    2\sigma_1\max(e_P,e_Q)+e_Pe_Q\}.
+ \label{I:U:eq:reference-truncation}
+\end{equation}
+In particular, define
+\[
+ M_P=\Big\|\sum_aA_{a,12}A_{a,12}^*\Big\|,\quad
+ M_Q=\Big\|\sum_aA_{a,21}^*A_{a,21}\Big\|,
+\]
+\[
+ c_P=K_P(2M_P+\sqrt{M_P}),\qquad
+ c_Q=K_Q(2M_Q+\sqrt{M_Q}).
+\]
+One may take $e_P=c_P\delta$, $e_Q=c_Q\delta$, giving
+\begin{equation}
+ \|H_f-H_g\|^2\le
+ \max\{\delta^2(1+c_P)(1+c_Q),\,
+             2\sigma_1\delta\max(c_P,c_Q)+c_Pc_Q\delta^2\}.
+ \label{I:U:eq:reference-square-root}
+\end{equation}
+This is an $O(\sqrt\delta)$ bound when the other displayed quantities
+are bounded uniformly. It contains no explicit tail-dimension factor,
+but its coupling and resolvent constants may depend on that dimension.
+\end{theorem}
+\input{proofs/operator-approximation/1.41.5.tex}
+
+\paragraph{Correct balanced block inequalities.}
+The identities imply
+\[
+ b_2b_2^*+\sum_aA_{a,22}\Sigma_2A_{a,22}^*\preceq\Sigma_2,
+ \qquad
+ \Big\|\sum_aA_{a,12}\Sigma_2A_{a,12}^*\Big\|
+                  \le\min\{\sigma_1,M_P\delta\}.
+\]
+They do not permit replacing the norm of a positive sum by the sum
+of its spectral norms, nor multiplying the two independent bounds.
+For a concrete balanced counterexample let
+\[
+ A_0=E_{12},\quad A_1=E_{23},\quad
+ b=\sqrt t\,e_3,\quad c=\sqrt t\,e_1,\qquad 0<t<1,
+\]
+and retain $k=1$. All products of three letters vanish, and the
+reachability and observation Gramians are both $tI_3$; in particular
+the representation is stable and minimal. The retained tuple is zero.
+Nevertheless,
+\[
+ \|b_2\|^2+\sum_a\|A_{a,22}\Sigma_2^{1/2}\|^2=2t>t,
+ \qquad
+ \Big\|\sum_aA_{a,12}\Sigma_2A_{a,12}^*\Big\|=t>t^2.
+\]
+The reference-Gramian theorem uses neither false strengthening.
+
+\section{A rational full-operator upper certificate in the commuting example}\label{I:S:app:commupper}
+Use $b=13/24$, $c=197/200$, and the rank-one series $g(b^n)=cb^n$, zero on all words containing $a$. To avoid overloading the letter notation, the scalar $b$ in this sentence is the coefficient of the alphabet letter $b$. Take the orthogonal basis
+\[
+ e_\Seps,\ e_a,\ e_b,\ e_{aa},\
+ h=\sum_{n\ge2}b^ne_{b^n}.
+\]
+Its metric matrix is $D=\Sdiag(1,1,1,1,d_0)$, $d_0=b^4/(1-b^2)$. The kernel has coordinates $k=(1,0,b,0,1)^\top$. Put $H_5=H\oplus0$ for the four-square target in Theorem~\ref{I:S:thm:commutative}. The error bilinear-form matrix is
+$L=DH_5-cDkk^\top D$. The operator vanishes on the orthogonal complement of this five-dimensional space. Thus its norm is less than $s=29/25$ exactly when both $sD+L$ and $sD-L$ are positive definite. Their leading principal minors are:
+\begin{center}\small
+\begin{tabular}{@{}ccc@{}}
+\toprule
+Order & $sD+L$ & $sD-L$\\\midrule
+1 & $47/40$ & $229/200$\\
+2 & $1269/500$ & $229/1250$\\
+3 & $3481227/2000000$ & $1037897/4500000$\\
+4 & $13775541/100000000$ & $16067927/450000000$\\
+5 & $75291604330033/79511520000000000$ & $131840555454959/1073405520000000000$\\
+\bottomrule
+\end{tabular}
+\end{center}
+All are strictly positive. These entries are exact rational values, and the displayed inequalities require no numerical search.

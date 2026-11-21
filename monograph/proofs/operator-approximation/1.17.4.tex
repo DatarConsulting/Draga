@@ -1,0 +1,10 @@
+\begin{proof}
+Give each letter a chain of $m$ edges sharing only its source and sink with the other chains. The $d(m-1)+2$ states realize the indicated series; mixed products are zero and the letter matrices commute. The endpoint Hankel blocks have singular values $\sqrt d$, while each of the $m-1$ interior blocks is an identity on its $d$ pure words. This proves the rank and spectrum. For $m=2$, $C_{1,1}=I_d$ gives $\sqrt{d-k}$ by Theorem~\ref{I:S:thm:coefficient}. Keep $k-2$ pure-square terms to obtain a rank-$k$ candidate; the remaining $d-k+2$ terms have norm $\sqrt{d-k+2}$. At $k=2$ use zero. Letting $d\to\infty$ proves the unbounded ratio.
+
+For every homogeneous target, zero and Lemma~\ref{I:S:lem:homogeneous} give $\delta_2\le\sqrt d\,\sigma_3$. For the family above, Theorem~\ref{I:S:thm:trace} and the spectral bound give
+\[
+ \max\{1,\sqrt d(m-1)/(m+3)\}\le\delta_2\le\sqrt d,
+ \qquad\sigma_3=1.
+\]
+Let $m\to\infty$ with $d$ fixed. This proves \eqref{I:S:eq:sharp}, including its restricted-class assertion.
+\end{proof}

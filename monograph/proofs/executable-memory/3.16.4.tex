@@ -1,0 +1,32 @@
+\begin{proof}
+Label temporarily all copies of every edge. In an Euler trail ending at $t$,
+the last exit from each vertex other than $t$ forms an arborescence toward
+$t$. Conversely, choose such a tree, place its edge last in the outgoing
+list at each non-root vertex, and order all remaining outgoing edges.
+Following these lists from $s$ uses every edge: if it stopped too early,
+the balance equations force a stop at $t$. The remaining edge degrees
+are then balanced. Any unused outgoing list has its tree edge unused;
+following these last-exit edges, the remaining degree balances would force
+an unused exit at $t$, contradicting the stop. Thus the labelled count is
+$T_t(n)\prod_m(d_m-1+[m=t])!$.
+Each unlabelled word has exactly $\prod_{a,m}n_{a,m}!$ labelled versions.
+Dividing and rewriting factorial ratios as multinomials proves the formula,
+including the case $s=t$. A zero tree count gives zero walks.
+
+For fixed $|\mathcal R|$, $T_t(n)$ can be evaluated by explicitly summing
+all finitely many choices of one outgoing edge type at every non-root
+vertex and testing whether they form a tree. Each summand is a product of
+at most $|\mathcal R|-1$ integers bounded by $L$. This avoids any reliance
+on a numerical determinant. Multinomials are formed as products of
+binomial coefficients using exact incremental divisions. Their product is
+at most $d^L$; the tree factor and denominator have only $O_H(\log L)$
+bits. Hence every retained integer has $O_H(L)$ bits. In contrast, storing
+uncancelled $L!$ would require $\Theta(L\log L)$ bits.
+Enumerating the $O_H(p^{d|\mathcal R|})$ type vectors needs only the
+current vector, count and sum. The sums $W_m(x)$ and the subtree differences
+in Lemma~\ref{III:M:rev13:lem:mode-dp} therefore use $O_H(p)$ scratch. Recomputing them
+along an $O_H(p)$-letter path preserves polynomial time. With elementary
+integer arithmetic an ample bound is $O_H(p^{d|\mathcal R|+6})$ per
+rank/unrank or update. This exponent depends on the fixed model and is not
+a uniform low-degree bound.
+\end{proof}

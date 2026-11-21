@@ -1,0 +1,15 @@
+\begin{proof}
+Replace the witness rows of $F$ by the corresponding rows of $G$,
+leaving other rows unchanged, to obtain an exactly separable matrix
+$F^0$. The replacement changes each row by at most
+$\sqrt2\eta_0\|G\|_2$, since a simplex vector $h$ with
+$h_r\ge1-\eta_0$ obeys $\|h-e_r\|_2\le\sqrt2\eta_0$.
+Apply the squared-Euclidean specialization of
+\citet[Theorem 3 and Remark 2]{gillis2014} to $(F^0)^\top$ and
+$\widehat F^\top$, using the larger factor $C_{\rm SPA}$.
+Its hypotheses allow signed generator coordinates. The selected
+\emph{observed} rows are within $C_{\rm SPA}e$ of distinct rows of $G$.
+Their true rows are within $e_F+C_{\rm SPA}e$. Multiplication by
+$G^{-1}$ bounds each relative-coordinate error by
+$(e_F+C_{\rm SPA}e)/\sigma$, proving \eqref{II:U:eq:spa-relative-budget}.
+\end{proof}

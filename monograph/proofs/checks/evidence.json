@@ -1,0 +1,270 @@
+{
+  "corpus": {
+    "statements": 206,
+    "kinds": {
+      "theorem": 98,
+      "proposition": 50,
+      "lemma": 44,
+      "corollary": 14
+    },
+    "explicit_proofs": 197,
+    "associated_statements": 195,
+    "chapter_labels": 590,
+    "referenced_labels": 300,
+    "cited_keys": 33,
+    "bibliography_entries": 33
+  },
+  "archive": {
+    "releases": 43,
+    "members": 1579,
+    "distinct_objects": 1010,
+    "source_occurrences": 325,
+    "unique_sources": 163,
+    "source_types": {
+      ".py": 133,
+      ".inc": 13,
+      ".c": 16,
+      ".asm": 1
+    }
+  },
+  "typesetting": {
+    "numbered_source_labels": 194,
+    "pages": 289,
+    "numbered_pdf_destinations": 206,
+    "raster_dpi": 72,
+    "equal_text": true,
+    "equal_rasters": true,
+    "equal_outline": true
+  },
+  "date": "2026-11-21",
+  "book_base_commit": "2a124be910a642d5cb16d85e52d95c2dbd75ce30",
+  "independent_oracle": {
+    "passed": true,
+    "checks": 119,
+    "decimal_digits": 90,
+    "max_observed_fraction_of_global_bound": 0.3963378043919493,
+    "formal_proof": false
+  },
+  "negative_source_controls": {
+    "proof byte": "Changed proof probability/2.7.6.tex",
+    "dropped input": "Reconstructed chapter executable-memory",
+    "incorrect cross-reference": "Unresolved proof pointer"
+  },
+  "native_historical_units": 16,
+  "additional_native_sources": [
+    {
+      "path": "memory/code/belief.c",
+      "status": 0,
+      "error": ""
+    },
+    {
+      "path": "memory/code/kernel.c",
+      "status": 0,
+      "error": ""
+    },
+    {
+      "path": "residual/src/experiment.cpp",
+      "status": 0,
+      "error": ""
+    },
+    {
+      "path": "residual/src/guard_benchmark.cpp",
+      "status": 0,
+      "error": ""
+    },
+    {
+      "path": "residual/src/independent_eval.c",
+      "status": 0,
+      "error": ""
+    }
+  ],
+  "exact_examples": {
+    "substochastic_tables": 12297,
+    "stopping": {
+      "enumerated_leaves": 6762,
+      "F130": "659034621587630041982498215",
+      "bits_at_128": 90
+    },
+    "active_maps": {
+      "maps": 5694,
+      "individual_updates": 123702
+    }
+  },
+  "formal": {
+    "toolchain": "Lean (version 4.19.0, x86_64-unknown-linux-gnu, commit 6caaee842e94, Release)",
+    "theorems": 28,
+    "dependencies": {
+      "shiftEntry": [
+        "propext"
+      ],
+      "scalarSwap": [],
+      "replay": [
+        "propext",
+        "Quot.sound"
+      ],
+      "rightCongruence": [
+        "propext"
+      ],
+      "distinguish": [
+        "propext",
+        "Quot.sound"
+      ],
+      "invariantCover": [],
+      "certifiedReadout": [],
+      "quotientRuns": [
+        "propext",
+        "Quot.sound"
+      ],
+      "quotientAnswers": [
+        "propext",
+        "Quot.sound"
+      ],
+      "minimalClasses": [
+        "propext",
+        "Quot.sound"
+      ],
+      "packingInjection": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "mapsSeparated": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "activeMapFuture": [],
+      "projectRun": [],
+      "totalAdd": [
+        "propext",
+        "Quot.sound"
+      ],
+      "totalMono": [
+        "propext"
+      ],
+      "blockBudget": [
+        "propext",
+        "Quot.sound"
+      ],
+      "fibonacciLeaves": [],
+      "rankBound": [
+        "propext",
+        "Quot.sound"
+      ],
+      "decodeEncode": [
+        "propext"
+      ],
+      "encodeDecode": [
+        "propext"
+      ],
+      "slotsLower": [
+        "propext",
+        "Quot.sound"
+      ],
+      "mapCapacity": [
+        "propext",
+        "Quot.sound"
+      ],
+      "vandermonde": [
+        "propext",
+        "Quot.sound"
+      ],
+      "coefficientMultiplicity": [
+        "propext",
+        "Quot.sound"
+      ],
+      "reflectBinomial": [
+        "propext",
+        "Quot.sound"
+      ],
+      "centralBinomial": [
+        "propext",
+        "Quot.sound"
+      ],
+      "rayleighCross": [
+        "propext",
+        "Quot.sound"
+      ]
+    }
+  },
+  "reachable": {
+    "policies": 72,
+    "reachable_states_summed": 1893,
+    "exact_binary_edges": 3786,
+    "reference_steps": 52637040
+  },
+  "pilots": {
+    "rational": {
+      "status": "PASS",
+      "rational_replay_traces": 12,
+      "steps_per_trace": 96,
+      "exact_pointwise_coordinate_checks": 4608,
+      "exact_future_coordinate_checks_horizons_1_8_32": 720,
+      "negative_control_omitting_coupling": "detected failure",
+      "negative_control_omitting_quantization": "detected failure",
+      "local_quantization_boundary_control": "one-bin jump at epsilon 1e-6 and 1e-9, exact rational calculation",
+      "published_rows_recomputed": 2160,
+      "calibration_and_analytic_selection_verified": true,
+      "byte_budget_verified": true,
+      "scope": "Exact tests concern the rational recurrence and rational nearest-grid codec, not all floating-point executions."
+    },
+    "checkpoint_certificates": 10,
+    "checkpoint_runs": 50,
+    "residual_frames": [
+      {
+        "method": "energy_96",
+        "heads": 16,
+        "words": 262144,
+        "exact": true,
+        "frame_bytes": 1363892
+      },
+      {
+        "method": "hankel_96",
+        "heads": 16,
+        "words": 262144,
+        "exact": true,
+        "frame_bytes": 1369988
+      },
+      {
+        "method": "cross_32",
+        "heads": 16,
+        "words": 262144,
+        "exact": true,
+        "frame_bytes": 836211
+      },
+      {
+        "method": "row_ref",
+        "heads": 16,
+        "words": 262144,
+        "exact": true,
+        "frame_bytes": 935583
+      }
+    ],
+    "residual_words": 1048576
+  },
+  "recovery": {
+    "primary_releases": 43,
+    "additional_pilot_releases": 2,
+    "readable_programs_and_headers_deduplicated": 187,
+    "primary_unique": 163,
+    "application_source_occurrences": 38,
+    "overlapping_primary_and_application_sources": 14
+  },
+  "companion": {
+    "pinned_model": "onnx-community/Qwen2.5-0.5B-Instruct",
+    "revision": "22942cb7d7ba4cc81bb4673549ca4d4614469b5e",
+    "records": 8,
+    "run_differences": [
+      "seconds"
+    ],
+    "arxiv_zip_members_reproduced": 14,
+    "all_member_bytes_identical": true
+  },
+  "fibonacci_reals": {
+    "report": "fibonacci-evidence.json",
+    "mathlib_commit": "c44e0c8ee63ca166450922a373c7409c5d26b00b",
+    "theorems": 53,
+    "exact_readouts": 15576
+  },
+  "formal_declarations_total": 81
+}

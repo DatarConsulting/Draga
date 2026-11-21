@@ -1,0 +1,11 @@
+\begin{proof}
+Two rank-at-most-$r$ backgrounds agree on every coefficient up to length $2r-1$, since $m\ge2r$. Their difference is identically zero by Theorem~\ref{I:S:thm:realization}. For reconstruction set $V=\Sigma^{\le r-1}$ and $K=(f(pq))_{p,q\in V}$. Under the promise, $K$ has rank $s=\Srank H_{g_0}\le r$. Select an invertible $s$-square submatrix $M=H_f[P,Q]$ and form $M_a=(f(paq))_{P,Q}$. The realization
+\[
+ \widehat B_a=M^{-1}M_a,\qquad
+ \widehat\alpha^\top=(f(q))_{q\in Q},\qquad
+ \widehat\beta=M^{-1}(f(p))_{p\in P}
+\]
+is similar to the minimal background realization: factor $M=O_PC_Q$ and cancel the invertible factors. The zero-rank case gives zero. Reject if $\Srank K>r$.
+
+Without the promise, form $D=F-\widehat G$. For each length less than $m$, generate its exact-length row space and test the output. Generate the row space at length $m+1$, close it under all letters, and test the output on that closure. These finite tests are equivalent to vanishing outside length $m$. If they pass, the candidate is bounded as the difference of a bounded Hankel and a polynomial Hankel. Its residual norm is $U$ by Lemma~\ref{I:S:lem:homogeneous}. For any competitor $q$ of rank at most $r$, the Hankel $H_q-H_{g_0}$ has rank at most $2r$. Apply the homogeneous trace bound at budget $2r$ to $H_h$ and take infima.
+\end{proof}

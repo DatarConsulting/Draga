@@ -1,0 +1,23 @@
+\begin{proof}[Lower bound]
+For an integer $T\ge2$ take
+$p_T=(1-\delta)\delta_\varepsilon+\delta\operatorname{Unif}(\Sigma^T)$.
+In the orthonormal uniform shell basis of lengths $0,\ldots,T$, its
+Hankel is $bJ+(1-\delta)e_0e_0^*$, where $J$ reverses the coordinates
+and $b=\delta d^{-T/2}$. All orthogonal shell directions vanish.
+The endpoint block is
+$\left(\begin{smallmatrix}1-\delta&b\\b&0\end{smallmatrix}\right)$;
+one singular value exceeds $b$, one is smaller, and the $T-1$ interior
+singular values equal $b$. Hence $\sigma_2=b$ exactly.
+Proposition~\ref{II:U:prop:iprojection} gives
+\[
+ \mathcal K(p_T)=g(\delta T)-h_2(\delta).
+\]
+Choose $\delta=c_0\rho^T$, $c_0=\min(C,1)$. The tail constraint holds,
+and $p_T(\varepsilon)\ge\mu$ for large $T$.
+Expanding at zero gives
+$g(\delta T)-h_2(\delta)\sim\lambda c_0\rho^TT^2$.
+Since $\epsilon_T=c_0(\rho/\sqrt d)^T$, this is the required order.
+Successive $\epsilon_T$ have a fixed ratio, so selecting the first one
+below a given tolerance extends the bound from a subsequence to all small
+$\epsilon$.
+\end{proof}

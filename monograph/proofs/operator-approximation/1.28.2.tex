@@ -1,0 +1,32 @@
+\begin{proof}
+This is a scalar contraction-completion result; we provide its elementary
+Schur proof rather than relying on an external completion theorem (compare
+the classical mechanism discussed in~\cite{parrott2025}). Write
+\[
+ H=\begin{pmatrix}h&b\\c&D\end{pmatrix}
+\]
+relative to $\operatorname{span}\{p\}\oplus p^\perp$. Since
+$\Fnorm D<\gamma$, the complement block
+\[
+ \mathcal L=\begin{pmatrix}\gamma I&D\\D^*&\gamma I\end{pmatrix}
+\]
+is strictly positive. Put $t=\gamma^2$ and $x=h-\tau$.
+The norm inequality for $M=\left(\begin{smallmatrix}x&b\\c&D\end{smallmatrix}\right)$
+is equivalent to positivity of
+$\left(\begin{smallmatrix}\gamma I&M\\M^*&\gamma I\end{smallmatrix}\right)$.
+Its Schur complement with respect to $\mathcal L$ is the scalar block
+\[
+ \begin{pmatrix}
+ \gamma\{1-b(tI-D^*D)^{-1}b^*\}
+ &x+bD^*(tI-DD^*)^{-1}c\\
+ \overline x+c^*(tI-DD^*)^{-1}Db^*
+ &\gamma\{1-c^*(tI-DD^*)^{-1}c\}
+ \end{pmatrix}.
+\]
+The given column and row norm bounds make both diagonal entries
+nonnegative. Choose $x$ to make the off-diagonal zero. This proves
+existence. If the column norm equals $\gamma$, its scalar Schur
+complement, the first diagonal entry, is zero; positivity then forces the
+off-diagonal to vanish, proving uniqueness. All formulas preserve real
+data.
+\end{proof}

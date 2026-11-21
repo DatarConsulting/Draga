@@ -1,0 +1,28 @@
+\begin{proof}
+As $A$ ranges over $A^*A\preceq D$, its value $Ay$ ranges over exactly the ball
+$\Rnorm{z}\le\sqrt d$. Necessity follows from $\Rnorm{Ay}^2\le y^*Dy$. For
+$d>0$, the rank-one choice
+\[
+ A=zy^*D/d
+\]
+has $Ay=z$ and $A^*A\preceq D$, since
+$Dyy^*D\preceq dD$ and $\Rnorm{z}^2\le d$. The case $d=0$ is immediate.
+
+For a fixed $A$, the weighted row norm on the left of
+\eqref{I:R:eq:fc-eliminate-A} is
+\[
+ \max_{x\ne0}\frac{q|\ell B^m(I-rA)^{-1}x|^2}{x^*Qx}
+ =\max_{y\ne0}\frac{q|\ell B^m y|^2}
+                          {((I-rA)y)^*Q((I-rA)y)}.
+\]
+Homogeneity permits $\Rnorm{y}=1$. Maximizing over $A,y$ and using the exact
+ball of attainable $Ay$ gives \eqref{I:R:eq:fc-eliminate-A}. The denominator is
+strictly positive because $r<1$ and $d\le1$.
+
+The trust-region objective is strictly convex. Its unconstrained minimizer is
+$y/r$, whose norm $1/r$ exceeds the feasible radius $\sqrt d\le1$.
+The constraint is active, and the multiplier equations give
+\eqref{I:R:eq:fc-secular}. Diagonalizing $Q$ shows that
+$\Rnorm{z_\mu}^2$ decreases strictly from $1/r^2$ to zero as $\mu$ increases
+from zero to infinity. This proves existence, uniqueness and sufficiency.
+\end{proof}

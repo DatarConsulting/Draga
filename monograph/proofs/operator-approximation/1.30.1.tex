@@ -1,0 +1,38 @@
+\begin{proof}
+For fixed $A,B,\ell$, change variables in the row operator norm by
+$x=(I-rA)y$.  This gives
+\[
+ \Fnorm{\ell B^2(I-rA)^{-1}}^2
+ =\sup_{y\ne0}\frac{|\ell B^2y|^2}{\Fnorm{(I-rA)y}^2}.
+\]
+Normalize $\Fnorm{y}=1$ and set
+$D=I-B^*B-\ell^*\ell\succeq0$ and
+$t=\Fnorm{By}^2+|\ell y|^2=1-y^*Dy$.
+The constraint $A^*A\preceq D$ yields
+\begin{equation}
+ \Fnorm{(I-rA)y}\ge1-r\Fnorm{Ay}
+                 \ge1-r\sqrt{1-t}.
+ \label{I:F:eq:f2-denominator-lower}
+\end{equation}
+A unitary state change sends $y$ to $e_1$ and preserves all constraints.
+Taking suprema gives the upper direction in
+\eqref{I:F:eq:f2-scalar-reduction}.
+
+Conversely, fix $B,\ell,y$ satisfying the stated conditions.  If $t<1$,
+define the rank-one matrix
+\begin{equation}
+ A=\frac{y\,y^*D}{\sqrt{1-t}}.
+ \label{I:F:eq:f2-A-completion}
+\end{equation}
+Then $Ay=\sqrt{1-t}\,y$ and
+\[
+ A^*A=\frac{Dyy^*D}{y^*Dy}\preceq D.
+\]
+The last inequality is Cauchy--Schwarz in the positive semidefinite
+$D$ metric.  Equality holds throughout
+\eqref{I:F:eq:f2-denominator-lower}.  If $t=1$, take $A=0$ instead.
+This proves attainability of the scalar denominator and hence
+\eqref{I:F:eq:f2-scalar-reduction}.
+Finally $\Fnorm{B},\Fnorm{\ell}\le1$, so
+$|\ell B^2e_1|\le\Fnorm{Be_1}\le\sqrt t$.
+\end{proof}

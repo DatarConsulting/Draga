@@ -1,0 +1,15 @@
+\begin{proof}
+Put $P=V_kV_k^*$ and $g=L_a^*f_i$. Full row rank of
+$C_{\mathcal U}$ gives $PF_{\mathcal U}w_{a,i}^{\rm lin}=Pg$, so
+\[
+ g-F_{\mathcal U}w_{a,i}^{\rm lin}
+ =(I-P)g-(I-P)F_{\mathcal U}w_{a,i}^{\rm lin}.
+\]
+By \eqref{II:U:eq:anchor-orientation}, $\|(I-P)g\|_2\le
+\epsilon_k/\mu_{\min}$. Each column of $(I-P)F_{\mathcal U}$
+has the same bound, hence its operator norm is at most
+$\sqrt N\epsilon_k/\mu_{\min}$.
+Finally $\|g\|_2\le\|f_i\|_1=1$ yields
+$\|w_{a,i}^{\rm lin}\|_2\le\kappa$. The triangle inequality proves
+\eqref{II:U:eq:signed-anchor-defect}.
+\end{proof}

@@ -1,0 +1,16 @@
+\begin{proof}
+Use the canonical $s$-dimensional realization in the converse proof of Lemma~\ref{I:U:lem:compact}. Its observation operator is an isometry, so
+\[
+ \sum_{w\in\Sigma^*}T_w^*cc^*T_w=\UId_s.
+\]
+The identity $\UId_s=cc^*+\Psi(\UId_s)$ then yields
+\[
+ \Psi^N(\UId_s)=\UId_s-\sum_{|w|<N}T_w^*cc^*T_w\longrightarrow0
+\]
+in matrix norm. For a Hermitian matrix $X$, positivity and
+$-\Unorm X\UId_s\preceq X\preceq\Unorm X\UId_s$ imply
+$\Unorm{\Psi^N(X)}\le\Unorm X\,\Unorm{\Psi^N(\UId_s)}$.
+Splitting a general complex matrix into Hermitian real and imaginary parts shows that the powers of $\Psi$ tend to zero as linear maps on the entire matrix space. In finite dimension this is equivalent to $\rho(\Psi)<1$.
+For real realizations, apply the same argument to the complexification of the real matrix map.
+The map $\Phi_T$ is the adjoint of $\Psi$ for the Hilbert--Schmidt inner product, and hence has the same spectral radius. Zero padding preserves strict stability; the zero operator has a zero-transition realization.
+\end{proof}

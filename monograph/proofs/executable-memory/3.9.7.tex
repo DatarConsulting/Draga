@@ -1,0 +1,10 @@
+\begin{proof}
+For a history row $r_u^f(t)=f(ut)$,
+\[
+ \Snorm{r_u^f/F_f-r_u^g/F_g}_2
+ \le\frac{\Snorm{r_u^f-r_u^g}_2+|F_f-F_g|}{F_f},
+\]
+because $\Snorm{r_u^g}_2\le F_g$. A Hankel row error has norm at most $e$. Use the bound for both histories and the reverse triangle inequality, then take the same supremum. An $\ell^1$ error bounds both subtree mass and row errors by $\epsilon$.
+
+For failure without a margin, assign $f_\epsilon(b)=1-\epsilon$, $f_\epsilon(ac)=f_\epsilon(bad)=\epsilon/2$, and $g_\epsilon(b)=1-\epsilon$, $g_\epsilon(ac)=g_\epsilon(bac)=\epsilon/2$, with other masses zero. In $f_\epsilon$ the histories $a,ba$ have deterministic distinct futures, so $\widehat\omega_1(f_\epsilon)=\sqrt2$. In $g_\epsilon$ all admissible equal-last-letter histories have identical futures, so its diameter is zero. Yet $\Snorm{f_\epsilon-g_\epsilon}_1=\epsilon$ and Proposition~\ref{I:S:prop:normbounds} gives $\Snorm{H_{f_\epsilon}-H_{g_\epsilon}}\le\epsilon\to0$.
+\end{proof}

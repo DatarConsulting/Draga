@@ -1,0 +1,57 @@
+\begin{proof}
+The mass and mean assertions are immediate. The impulse Hankel
+$H_{\delta_{w_L}}$ is a partial permutation of norm one. Subtracting
+the rank-one operator $(1-\delta_L)H_{\delta_\varepsilon}$ therefore
+gives $\sigma_2(H_{p_L})\le\delta_L$.
+
+For any $q\in\mathcal Q_N^+$, pad its realization with unused states
+if necessary, and let $T=\sum_aT_a$. Since $T\mathbf1\le\mathbf1$,
+also $T^m\mathbf1\le\mathbf1$. For $B\in\Sigma^m$ put
+$\psi(B)=\|T_B\|_{\infty\to\infty}
+=\max_i(T_B\mathbf1)_i$. Nonnegativity yields
+\[
+ \sum_{B\in\Sigma^m}\psi(B)
+ \le\sum_i\sum_{B\in\Sigma^m}(T_B\mathbf1)_i
+ =\sum_i(T^m\mathbf1)_i\le N.
+\]
+If $w_L=B_1\cdots B_K$, submultiplicativity, $\|\alpha\|_1=1$,
+and $\|\tau\|_\infty\le1$ imply
+\[
+ q(w_L)\le\prod_{r=1}^K\psi(B_r)
+ \le\left(\frac NK\right)^K.
+\]
+The last inequality is arithmetic--geometric mean; it remains valid
+when a factor vanishes. Thus
+$-\log q(w_L)\ge L\log d-(L/m)\log N$.
+Using $q(\varepsilon)\le1$ gives
+\[
+ D_{\rm KL}(p_L\|q)
+ \ge-h_2(\delta_L)-\delta_L\log q(w_L),
+\]
+which proves the lower bound, including the case of infinite KL.
+
+For the upper bound use the following two-state automaton:
+\[
+ \alpha=(1,0),\qquad
+ \tau=\begin{pmatrix}1-M_0/L\\1/L\end{pmatrix},\qquad
+ T_a=\begin{pmatrix}
+ 0&M_0/(Ld)\\0&(1-1/L)/d
+ \end{pmatrix}\quad(a\in\Sigma).
+\]
+It is proper, has mean length $(M_0/L)L=M_0$, and satisfies
+\[
+ q_L(\varepsilon)=1-M_0/L,\qquad
+ q_L(w)=\frac{M_0}{L^2}(1-1/L)^{L-1}d^{-L}
+ \quad(|w|=L).
+\]
+Its divergence is exactly the upper expression in
+\eqref{II:U:eq:kl-fixed-sandwich}. The two residual terms in that expression
+vanish, as do $m^{-1}\log N$ and $h_2(\delta_L)$ for fixed $N$.
+
+Each letter occurs $md^{m-1}=L/d$ times in $w_L$. Hence
+Proposition~\ref{II:U:prop:iprojection} gives
+$\mathcal K_1(p_L)=g(M_0)+M_0\log d-h_2(\delta_L)$.
+Finally, a deterministic path of length $L$, with initial stop
+probability $1-\delta_L$, initial continuation probability $\delta_L$,
+and terminal stop probability one, realizes $p_L$ with $L+1$ states.
+\end{proof}

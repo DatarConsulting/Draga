@@ -1,0 +1,295 @@
+{
+  "date": "2026-11-21",
+  "mathlib_commit": "c44e0c8ee63ca166450922a373c7409c5d26b00b",
+  "formal": {
+    "toolchain": "Lean (version 4.19.0, x86_64-unknown-linux-gnu, commit 6caaee842e94, Release)",
+    "theorems": 53,
+    "dependencies": {
+      "theta_pos": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "theta_step": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "theta_le_one": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "value_cons": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "value_append": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "step_mono": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "value_mono": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "value_unit": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "interpolation": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "word_count": [
+        "propext"
+      ],
+      "leaf_cost_length": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "leaf_width": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "endpoint_spacing": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "trim_prefix": [
+        "propext",
+        "Quot.sound"
+      ],
+      "trim_leaf": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "trim_update_leaf": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "trim_invariant": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "index_spec": [
+        "propext"
+      ],
+      "update_address": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "history_interval": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "machine_upper": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "witness_time": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "witness_near": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "witness_gap": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "finite_packing": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "machine_lower": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "union_unit": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "minimum_states": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "zero_start": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "zero_minimum": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "bit_threshold": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "fibPair_spec": [
+        "propext"
+      ],
+      "ninety_bits": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "minimum_bits": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "invariant_union": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "invariant_value": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "minimum_cover": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "stopped_word": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "warm_value": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "padded_time": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "padded_near": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "below_three_quarters": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "relax_accuracy": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "nondyadic_bounds": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "count_correct": [
+        "propext"
+      ],
+      "count_split": [
+        "propext"
+      ],
+      "ordinal_decode": [
+        "propext",
+        "Quot.sound"
+      ],
+      "ordinal_encode": [
+        "propext",
+        "Quot.sound"
+      ],
+      "ordinal_step_correct": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "cylinder_scale": [
+        "propext"
+      ],
+      "cylinder_value": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "midpoint_exact": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "ordinal_accuracy": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  },
+  "executable_cross_check": {
+    "exhaustive_thresholds": [
+      1,
+      12
+    ],
+    "exhaustive_edges": 1968,
+    "large_thresholds": [
+      32,
+      64,
+      128
+    ],
+    "large_trace_transitions": 11520,
+    "traces": 2088,
+    "exact_readouts": 15576,
+    "states_at_128": "659034621587630041982498215",
+    "bits_at_128": 90
+  },
+  "release_replay": {
+    "cli_core": "clean-export passed",
+    "proof_notebook": "clean-export default cells passed on Linux",
+    "typesetting": {
+      "numbered_source_labels": 194,
+      "pages": 289,
+      "numbered_pdf_destinations": 206,
+      "raster_dpi": 72,
+      "equal_text": true,
+      "equal_rasters": true,
+      "equal_outline": true
+    },
+    "article_notebook": "archived-measurement mode passed on Linux",
+    "arxiv_members": 14,
+    "arxiv_zip_sha256": "22ba27f1776a84fe88f7aa984e7df5bb8b5182921067189c117f3b1c27473b24",
+    "arxiv_zip_identical": true,
+    "optional_inference": "additional replay blocked by automatic execution review on attempted ONNX Runtime telemetry connection"
+  }
+}

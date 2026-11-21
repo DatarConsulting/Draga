@@ -1,0 +1,25 @@
+\begin{proof}
+The correct identities are
+$f_i=\mathcal R_b\ell_i$ and
+$L_a^*f_i=\mathcal R_bA_a^\top\ell_i$.
+Minimality makes $P_p\succ0$, so $\mathcal R_b$ is injective and
+the spanning assumption makes $F_{\mathcal U}$ have rank $k$.
+Its image is the right singular space of $H_p$; hence the stated
+$\kappa$ is finite and the signed closure in
+Lemma~\ref{II:U:lem:signed-anchor-closure} is exact.
+
+Take $\alpha=e_1^\top$, put $T_a=(t_{aij})$ and $T=\sum_aT_a$. Its row sums are at most
+$1-\gamma_{\rm stop}$. Therefore
+$x=\alpha(I-T)^{-1}\ge0$ and $\sum_i x_i\le V$.
+Set $y_{aij}=x_it_{aij}$ and $z_i=x_if_i(\varepsilon)$.
+These satisfy both flow equations. Their stop defect is zero, and
+the exact signed closure gives
+\[
+ \eta_2=\sum_{a,i}x_i
+ \left\|L_a^*f_i-\sum_jt_{aij}f_j\right\|_2
+ \le dV\|\mathcal R_b\|\eta_{\rm pos}.
+\]
+Finally $\|\mathcal R_b\ell\|_2^2=\ell^\top P_p\ell$ proves
+the asserted operator norm. No assertion that this cone is simplicial
+is needed; it may have more than $k$ generators.
+\end{proof}

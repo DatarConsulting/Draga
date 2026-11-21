@@ -1,0 +1,189 @@
+\begin{proof}
+\emph{Exact first-column coordinates.}
+Put $t=s^2$, with $s$ real near zero.  Every contraction $V$ in
+\eqref{I:R:eq:hk-definition} can be written
+\begin{equation}
+ V=[sz,W_s(z)N],\quad \Rnorm z=1,\quad \Rnorm N\le1,\qquad
+ W_s(z)=I-(1-\sqrt{1-s^2})zz^*.
+ \label{I:R:eq:first-column-chart}
+\end{equation}
+Indeed, the Schur complement of $I-V^*V$ says that the remaining columns
+$V_F$ satisfy
+\[
+ V_F^*\left(I+\frac{s^2}{1-s^2}zz^*\right)V_F\preceq I;
+\]
+its inverse positive square root is $W_s(z)$.  Partition
+\[
+ z=\begin{pmatrix}z_0\\z_F\\z_o\end{pmatrix},\qquad
+ N=\begin{pmatrix}c\\D\\l\end{pmatrix},
+ \qquad z_F\in\RC^m,
+\]
+where $c$ is a row.  Define $J(s,z,N)=\ell B^{m+1}e_1/s$ by its
+continuous polynomial extension at $s=0$, and
+$M(s)=\max_{z,N}|J(s,z,N)|$.  Then
+\begin{equation}
+ h_k(s^2)=s^2M(s)^2,\qquad J(0,z,N)=lD^mz_F,\qquad M(0)=\Gamma.
+ \label{I:R:eq:M-and-J}
+\end{equation}
+At every leading maximizer, Lemma~\ref{I:R:lem:cyclic-lossless-maximizer}
+forces $z_0=z_o=0$, $\Rnorm{z_F}=1$, $D^*D+l^*l=I_m$, and $c=0$.
+Thus the leading maximizers are precisely the embedded scalar boundary
+set, up to an output phase.
+
+\emph{Uniform localization of the normal directions.}
+Expansion of the matrix product gives
+\begin{align}
+ J(s,z,N)&=lD^mz_F+sJ_1(z,N)+O(s^2),
+ \label{I:R:eq:J-first-order}\\
+ J_1(z,N)&=z_ocD^{m-1}z_F+z_0lD^{m-1}z_F
+       +\sum_{j=0}^{m-2}(lD^jz_F)(cD^{m-2-j}z_F).
+ \label{I:R:eq:J1-explicit}
+\end{align}
+The remainder is uniform on the compact parameter domain.  Put
+$\delta=\Gamma^2-|lD^mz_F|^2$.  Near the leading maximizers,
+\[
+ |z_0|^2+|z_o|^2\le\frac\delta{\Gamma^2},\qquad
+ \Rnorm c^2\le\operatorname{tr}(I-D^*D-l^*l)\le C\delta
+\]
+by Lemma~\ref{I:R:lem:quantitative-defect-control}.  Therefore
+$|J_1|\le C\sqrt\delta$ there.  Away from a fixed neighborhood of the
+leading maximizers, $\delta$ is bounded below, so the same estimate holds
+globally after enlarging $C$.  It follows that
+\begin{equation}
+ |J(s,z,N)|\le\Gamma-\frac\delta{2\Gamma}
+                         +C|s|\sqrt\delta+Cs^2.
+ \label{I:R:eq:normal-gap-upper}
+\end{equation}
+A fixed leading maximizer gives $M(s)\ge\Gamma-Cs^2$.
+Completing the square in \eqref{I:R:eq:normal-gap-upper} proves
+\begin{equation}
+ M(s)=\Gamma+O(s^2),\qquad
+ \delta=O(s^2)\quad\hbox{at every global maximizer.}
+ \label{I:R:eq:normal-localization}
+\end{equation}
+In particular, all maximizing $z_0,z_o,c$ are $O(s)$ and their remaining
+passivity defect is $O(s^2)$.
+
+\emph{Polar coordinates and the complex phase.}
+At any maximizing point write
+\[
+ z_0=s\lambda,\quad z_o=s\zeta,\quad c=sw,\quad
+ z_F=\sqrt{1-s^2(|\lambda|^2+|\zeta|^2)}\,x,\qquad \Rnorm x=1.
+\]
+Let $Y_{\rm raw}=\begin{pmatrix}D_{\rm raw}\\l_{\rm raw}\end{pmatrix}$
+denote the lower block of $N$, and put
+$T=I-Y_{\rm raw}^*Y_{\rm raw}$.  Then
+$T\succeq c^*c$, $\operatorname{tr}T=O(s^2)$, and the polar
+factorization is
+\begin{equation}
+ Y_{\rm raw}=U(I-T)^{1/2},\quad U^*U=I_m,\quad
+ T=s^2(w^*w+F),\qquad F\succeq0.
+ \label{I:R:eq:normal-polar}
+\end{equation}
+The variables $\lambda,\zeta,w,F$ are uniformly bounded at maximizing
+points.  Write $U=\begin{pmatrix}D\\l\end{pmatrix}$.  The slow-coordinate
+unitary $\operatorname{diag}(e^{i\psi},I_m)$ preserves feasibility and
+rotates both $J$ and $lD^mx$ by $e^{i\psi}$.  It therefore permits the
+normalization $a=lD^mx>0$.  More explicitly, it changes
+$x$ to $e^{i\psi}x$, $c$ to $e^{-i\psi}c$, $z_o$ to
+$e^{i\psi}z_o$, and leaves $z_0,D,l$ unchanged.  Thus this normalization
+discards no complex direction.  The base triples $(D,l,x)$ approach
+$\mathcal M_m$, and always satisfy $a\le\Gamma$.
+
+\emph{The normal quadratic form.}
+Expand $(I-T)^{1/2}$, $W_s(z)$, and the finite product $\ell B^{m+1}e_1/s$.
+Uniformly over the localized parameters,
+\begin{equation}
+ |J(s)|=a+s^2Q+O(s^3).
+ \label{I:R:eq:J-normal-expansion}
+\end{equation}
+At a boundary triple in $\mathcal M_m$, the quadratic coefficient is
+\begin{align}
+ Q={}&-\frac12\operatorname{Re}S
+   +\operatorname{Re}(\lambda a_{m-1})-\frac\Gamma2|\lambda|^2
+   +\operatorname{Re}(wv)-\frac12wKw^*\nonumber\\
+   &\hspace{18mm}-\frac\Gamma2|\zeta|^2
+                       -\frac12\operatorname{tr}(KF).
+ \label{I:R:eq:normal-quadratic-Q}
+\end{align}
+Off the boundary set the same formula uses the continuously varying
+phase-normalized coefficients and replaces $\Gamma$ in the two
+normalization costs by $a$.
+
+For completeness, each contribution in
+\eqref{I:R:eq:normal-quadratic-Q} can be read directly from the block
+product.  Normalizing $z_F$ contributes
+$-\Gamma(|\lambda|^2+|\zeta|^2)/2$.  The slow diagonal entry
+$s^2\lambda$ contributes $\lambda a_{m-1}$.  A single slow-to-fast return
+through the row $sw$ contributes
+\[
+ \sum_{j=0}^{m-2}(lD^jx)(wD^{m-2-j}x)=wv.
+\]
+Right contraction by $(I-s^2(w^*w+F))^{1/2}$ contributes
+\[
+ -\frac12\operatorname{Re}\sum_{j=0}^{m}
+ lD^j(w^*w+F)D^{m-j}x
+ =-\frac12wKw^*-\frac12\operatorname{tr}(KF).
+\]
+The first-column Schur factor contributes the perturbation
+$D\mapsto D-s^2xx^*D/2$, hence $-S/2$.  Finally the slow readout is
+$s^2\zeta$; using it requires a return to the slow state and first affects
+$J$ at order $s^3$.  These observations prove the displayed expansion,
+including its empty-sum case $m=1$.
+
+Lemma~\ref{I:R:lem:response-K-positive} allows the quadratic form to be
+maximized explicitly:
+\begin{equation}
+ \begin{gathered}
+ F=0,\quad\zeta=0,\quad
+ \lambda=\frac{\overline{a_{m-1}}}{\Gamma},\quad w=v^*K^{-1},\\
+ Q_{\max}=-\frac12\operatorname{Re}S
+       +\frac{|a_{m-1}|^2}{2\Gamma}+\frac12v^*K^{-1}v.
+ \end{gathered}
+ \label{I:R:eq:normal-quadratic-max}
+\end{equation}
+For the global upper bound, every sequence of maximizers has a
+subsequence whose base triples approach $\mathcal M_m$.  Their base
+contribution $a-\Gamma$ is nonpositive, all quadratic coefficients
+converge continuously, and $K$ remains uniformly positive.  Therefore
+\[
+ \limsup_{s\to0}\frac{M(s)-\Gamma}{s^2}
+ \le\max_{\mathcal M_m}Q_{\max}.
+\]
+For the reverse bound choose a boundary triple maximizing
+$Q_{\max}$, take the parameters in
+\eqref{I:R:eq:normal-quadratic-max}, and use the exact square roots in
+\eqref{I:R:eq:first-column-chart} and \eqref{I:R:eq:normal-polar}.
+They form a feasible family for all sufficiently small $|s|$ and give
+the reverse liminf.  Consequently
+\[
+ M(s)=\Gamma+s^2\max_{\mathcal M_m}Q_{\max}+o(s^2).
+\]
+Equation~\eqref{I:R:eq:M-and-J} proves the first expansion in
+\eqref{I:R:eq:all-budget-envelope-expansion}, with the coefficient
+\eqref{I:R:eq:bk-response-formula}.
+
+\emph{The final scalar maximization.}
+The elementary estimate $h_k(t)\le t$ and
+\[
+ 1-\sqrt{(1-q)(1-t)}\ge\frac{q+t}{4}
+\]
+show that the objective in \eqref{I:R:eq:allk-elimination} is at most
+$16qt/(q+t)^2$.  The trial point $t=q$ has value tending to
+$\Gamma^2>0$, so all maximizers have $x=t/q$ in a fixed compact
+subinterval of $(0,\infty)$ when $q$ is small.  Uniformly on such
+intervals,
+\begin{align*}
+ \frac{q h_k(qx)}{(1-\sqrt{(1-q)(1-qx)})^2}
+ ={}&\frac{4\Gamma^2x}{(1+x)^2}\\
+ &+q\left(\frac{4b_kx^2}{(1+x)^2}
+        -\frac{2\Gamma^2x(x-1)^2}{(1+x)^3}\right)+o(q).
+\end{align*}
+The leading term has its unique maximum $\Gamma^2$ at $x=1$.
+Thus all maximizing $x$ tend to one.  The leading term is never above
+$\Gamma^2$ and the bracket tends to $b_k$ along every maximizing
+sequence.  Taking $x=1$ gives the matching lower bound, proving the
+second expansion.  The established projection inequality
+$D_k(q)\ge1-\mathcal P_k(q)$ proves
+\eqref{I:R:eq:all-budget-D-lower}.
+\end{proof}

@@ -1,0 +1,19 @@
+\begin{proof}
+A leaf $v_t=(c_{j^\ast},\dots,c_1)$ with base $b$ and oldest letter $c_1$ satisfies
+$\pi_{j^\ast}\le\theta<\pi_{j^\ast-1}$, and $\pi_{j^\ast}=r_{c_1,b}\,\pi'$ where $\pi'$
+is the product of $c_2\cdots c_{j^\ast}$ read from $G(b,c_1)$; thus
+$\pi'\in(\theta,\theta/r_{c_1,b}]$. Shorter newest suffixes have larger products, so no
+further condition is needed. Internal states retain the whole history, so their base is
+$r_0$. This proves the inclusion and the count.
+
+For the growth, consider the forward stopped tree from $m$ at threshold $x$ (a branch
+stops at its first node of product $\le x$). It is a full $d$-ary tree whose internal
+nodes are counted by $W_m(x)$, so it has $(d-1)W_m(x)+1$ leaves, each of product in
+$(r_{\min}x,x]$. Induction from the leaves upward, using $M(s^\ast)u=u$ at every internal
+node of product $R$ and mode $m'$ (its children contribute
+$\sum_aR^{s^\ast}r_{a,m'}^{s^\ast}u_{G(m',a)}=R^{s^\ast}u_{m'}$), gives
+$\sum_{\text{leaves }\lambda}\rho_\lambda^{s^\ast}u_{\mathrm{end}(\lambda)}=u_m$.
+Hence $(\#\text{leaves})(r_{\min}x)^{s^\ast}\min_mu_m\le\max_mu_m$, which gives the bound
+on $W_m(x)$; the bound on $|\mathcal A_\theta|$ follows from the count with
+$W_{G(b,c)}(\theta/r_{c,b})\ge0$.
+\end{proof}

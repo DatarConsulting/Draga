@@ -1,0 +1,26 @@
+\begin{proof}
+Set $a=p(\varepsilon)$ and $c_x=p(x)/a$. Take a leading rank-one SVD
+term $H_p=su v^*+E$ with $\|E\|=\epsilon$ and $s\le1$.
+The empty pivot implies $|v_\varepsilon|\ge a-\epsilon\ge\mu/2$.
+For $z_x=e_x-c_xe_\varepsilon$, the row
+$h_x(v')=p(xv')-c_xp(v')$ satisfies $z_x^*H_pe_\varepsilon=0$.
+Eliminating the rank-one term using this equality gives
+$\|h_x\|_2\le\epsilon\|z_x\|(1+|v_\varepsilon|^{-1})
+\le C_\mu\epsilon$.
+
+On words of length at most $T$, sum Cauchy--Schwarz over the $d$ rows.
+On longer words, positivity gives
+\[
+ \sum_x\sum_{|v'|>T}|h_x(v')|
+ \le t_p(T+1)+\left(\sum_xc_x\right)t_p(T)
+ \le t_p(T)/a.
+\]
+The last inequality uses $\sum_xp(x)\le1-a$. Put
+$b_x=\sum_{v'}p(xv')$, so $\sum b_x=1-a$ and
+$b_x-c_x=\sum h_x$. The defect in
+$p=a\delta_\varepsilon+Kp$, where $(Kf)(xv')=b_xf(v')$, has
+$\ell^1$ norm at most $2\sum_x\|h_x\|_1$.
+The proper law $q=a\prod b_{w_i}$ solves that recurrence exactly.
+Since $\|K\|_{1\to1}=1-a$, its inverse resolvent has norm at most
+$1/a$. Divide the resulting $\ell^1$ bound by two and use $a\ge\mu$.
+\end{proof}

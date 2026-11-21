@@ -1,0 +1,74 @@
+\begin{proof}
+If $h\ne0$, choose a scalar realization
+$h_j=\alpha^*D^j\beta$ of dimension $n\le m$. The block matrices
+\begin{equation}
+ A_a=\begin{pmatrix}r&0\\0&0_n\end{pmatrix},\qquad
+ A_b=\begin{pmatrix}0&\alpha^*\\0&D\end{pmatrix},\qquad
+ \alpha_g^*=q(1,0_n),\qquad
+ \beta_g=\begin{pmatrix}0\\\beta\end{pmatrix}
+ \label{I:B:eq:lift-realization}
+\end{equation}
+give a realization of \eqref{I:B:eq:lift-series} in the convention
+$g(a_1\cdots a_t)=\alpha_g^*A_{a_1}\cdots A_{a_t}\beta_g$.
+Indeed $A_bA_a=0$, so a letter $a$ after a letter $b$ forces the
+coefficient to vanish; the empty coefficient also vanishes. Direct block
+multiplication gives the stated coefficients on $a^*b^+$. All additional
+letter matrices are zero if the alphabet is larger. The case $h=0$ gives
+the zero series. Thus the realization dimension is at most $m+1$.
+
+We prove boundedness and the error estimate directly in the infinite
+operator norm. Write $\ell^2(\mathbb N_0)$ for the scalar coefficient
+space. Define two isometries from that space to $\BHH$ by
+\begin{equation}
+ V_r e_j=s\sum_{n\ge0}r^n e_{a^n b^{j+1}},\qquad
+ W e_j=e_{b^j},\qquad j\ge0,
+ \label{I:B:eq:lift-isometries}
+\end{equation}
+and define the unit vector
+\[
+ u_r=s\sum_{n\ge0}r^n e_{a^n}.
+\]
+The geometric normalization gives $V_r^*V_r=W^*W=I$, and
+$u_r\perp\operatorname{ran}V_r$. Boundedness of $H_h$ implies
+$h=H_he_0\in\ell^2(\mathbb N_0)$. With $\overline h$ denoting
+coefficientwise conjugation, exact entry matching yields
+\begin{equation}
+ H_{g_{r,h}}
+   =u_r(V_r\overline h)^*+sV_rH_hW^*.
+ \label{I:B:eq:lift-exact-decomposition}
+\end{equation}
+The conjugation in the first term is necessary. At row $a^n$ and column
+$a^t b^j$, that term equals $q r^{n+t}h_{j-1}$, rather than its
+conjugate. At row $a^n b^j$ with $j\ge1$ and column $b^\ell$, the
+second term equals $q r^n h_{j+\ell-1}$. These account for every
+nonzero entry. In particular \eqref{I:B:eq:lift-exact-decomposition} proves
+boundedness, so the finite realization gives a bounded word-Hankel
+operator of rank at most $k$.
+
+For the scalar polynomial $z^m$, its coefficient vector is $e_m$, and
+the same identity reads
+\begin{equation}
+ H_{f_{r,k}}=u_r(V_re_m)^*+sV_rH_{z^m}W^*.
+ \label{I:B:eq:lift-target-decomposition}
+\end{equation}
+Subtracting \eqref{I:B:eq:lift-exact-decomposition} from
+\eqref{I:B:eq:lift-target-decomposition}, the two summands have orthogonal
+output ranges. For each input $x\in\BHH$ this gives
+\begin{align*}
+ \Bnorm{(H_{f_{r,k}}-H_{g_{r,h}})x}^2
+ &=\bigl|\langle V_r(e_m-\overline h),x\rangle\bigr|^2
+   +q\Bnorm{V_r(H_{z^m}-H_h)W^*x}^2\\
+ &\le\left(\Bnorm{e_m-\overline h}_2^2
+           +q\Bnorm{H_{z^m}-H_h}^2\right)\Bnorm{x}^2.
+\end{align*}
+Since $e_m$ has real coefficients,
+$\Bnorm{e_m-\overline h}_2=\Bnorm{e_m-h}_2
+=\Bnorm{z^m-h}_{\BHtwo}$. This proves
+\eqref{I:B:eq:lift-finite-error}.
+
+For every fixed admissible $h$, the second term on the right of
+\eqref{I:B:eq:lift-finite-error} tends to zero as $r\uparrow1$. First choose
+$h$ within any positive tolerance of $E_m$, next take the boundary limit,
+and finally let the tolerance decrease. This proves
+\eqref{I:B:eq:lift-limsup} without assuming attainment of $E_m$.
+\end{proof}

@@ -1,0 +1,9 @@
+\begin{proof}
+The leaf machine at threshold $\theta\le2\epsilon$ has error $\le\theta/2\le\epsilon$, giving
+the upper bound. For the lower bound repeat the construction of
+Theorem~\ref{III:M:rev13:thm:fib-general} with $T=\ell'+j$ at threshold $\theta'=2^{-\ell'}$: the
+final states are within $\theta'2^{-j}$ of the endpoints, hence pairwise more than
+$3\theta'/2-\theta'2^{1-j}$ apart, and this exceeds $2\epsilon$ for large $j$ whenever
+$\epsilon<3\theta'/4$. Take $\ell'=\ell$ in the first case and $\ell'=\ell-1$ (so
+$3\theta'/4=3\theta/2>\epsilon$) in the second.
+\end{proof}

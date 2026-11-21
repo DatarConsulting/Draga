@@ -1,0 +1,24 @@
+\begin{proof}
+Let $G$ be a bounded word-Hankel operator of rank at most $k$ and $A=H_f-G$. Then
+$\Mnorm A=\Mnorm{A^*}\ge\Mnorm{A^*z_0}=\Mnorm{z_k-G^*z_0}\ge\Mdist(z_k,\Mrange G^*)$.
+By Lemma~\ref{I:U:lem:compact}, $G=OC$ with $O$ an
+isometry of $\MFF^s$ ($s=\Mrank G\le k$), $C=O^*G$, $Ce_v=T_vb$ and $\Mnorm{T_a}\le1$; hence
+$\overline{\Mrange G^*}=\overline{\Mrange C^*}=\{h_\eta:\eta\in\MFF^s\}$ with $h_\eta(v)=\eta^*T_vb$. Complex conjugation preserves norms and fixes the real vector $z_k$,
+so it does not affect the desired projection estimate. Fix $\eta$ with
+$h_\eta\ne0$. For each $n\ge0$ the sequence $u^{(n)}_j=\eta^*T_a^nT_b^jb$, $j\ge0$,
+satisfies the recurrence of the characteristic polynomial of $T_b$ (Cayley--Hamilton),
+whose roots lie in the closed unit disk, and is square-summable because
+$\sum_j|u^{(n)}_j|^2\le\Mnorm{h_\eta}^2<\infty$. A square-summable sequence recurrent for a
+polynomial with unimodular roots has no component on those roots, so it is recurrent for a
+degree-$k$ polynomial with roots in the open disk (replace the unimodular roots by $0$).
+Padding with zero states if $s<k$ changes nothing. Therefore
+$|u^{(n)}_k|^2\le\kappa_k\sum_j|u^{(n)}_j|^2$ for every $n$, and
+\[
+|\langle z_k,h_\eta\rangle|^2\le\sum_n|h_\eta(a^nb^k)|^2
+=\sum_n|u^{(n)}_k|^2\le\kappa_k\sum_n\sum_j|h_\eta(a^nb^j)|^2\le\kappa_k\Mnorm{h_\eta}^2,
+\]
+using Cauchy--Schwarz on the support of the unit vector $z_k$ and the fact that the words
+$a^nb^j$ are distinct. Thus $\Mnorm{P_{\Mrange G^*}z_k}^2\le\kappa_k$ and
+$\Mdist(z_k,\Mrange G^*)^2\ge1-\kappa_k$. The crude bound of Lemma~\ref{I:M:rev13:lem:kappa} gives the
+parenthetical comparison.
+\end{proof}

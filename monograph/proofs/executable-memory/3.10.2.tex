@@ -1,0 +1,12 @@
+\begin{proof}
+The supremum defining $d_{\rm fut}^{\rm ans}(ha,h'a)$ ranges only over
+continuations beginning with $a$, so it is at most
+$d_{\rm fut}^{\rm ans}(h,h')$. This proves the congruence and makes
+the quotient transition $[h]\mapsto[ha]$ well defined. Empty continuation
+shows that the answer law is constant on each class. Conversely, equal
+machine states remain equal after every common continuation, so an exact
+machine cannot merge distinct classes. For approximate machines,
+if two selected histories shared a state, their reference answers after
+any common continuation would be at distance at most $2\epsilon$ by the
+triangle inequality. This contradicts their separating future.
+\end{proof}

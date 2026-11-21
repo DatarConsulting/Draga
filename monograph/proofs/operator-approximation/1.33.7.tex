@@ -1,0 +1,44 @@
+\begin{proof}
+Proposition~\ref{I:R:prop:allk-eliminate-A} concerns neither the exponent
+of $B$ nor its state dimension, so it gives exactly
+\[
+ \mathcal P_{n,d}(q)=\max_t
+       \frac{q h_{n,d}(t)}{(1-r\sqrt{1-t})^2}.
+\]
+Since $p\ge j$, Lemma~\ref{I:R:lem:strict-dimension-improvement} applies to
+the coefficient $z^p$ at every dimension up to $j$.  Its observation-map
+proof implies that a maximizing unit $x$ for $lD^px$ is cyclic in the
+$j$-dimensional state space.  The energy identity then forces
+$D^*D+l^*l=I_j$ and strict stability exactly as in
+Lemma~\ref{I:R:lem:cyclic-lossless-maximizer}.  Quantitative defect control
+uses the invertible matrix $[x,Dx,\ldots,D^{j-1}x]$, so
+\eqref{I:R:eq:defect-gap-control} holds with $lD^p$ in place of $lD^m$.
+
+The exact first-column chart has fast state dimension $j$, and the
+normalized product is now $J=\ell B^{p+1}e_1/s$.  Its leading term is
+$lD^pz_F$; its first derivative is
+\[
+ z_ocD^{p-1}z_F+z_0lD^{p-1}z_F
+   +\sum_{i=0}^{p-2}(lD^iz_F)(cD^{p-2-i}z_F).
+\]
+The same quantitative defect estimate controls this derivative by the
+square root of the leading gap.  Consequently every maximizing normal
+coordinate is $O(s)$ and the remaining defect is $O(s^2)$.
+The polar coordinates \eqref{I:R:eq:normal-polar} therefore apply with
+$j$ fast states.  Expanding the product gives the quadratic form
+\eqref{I:R:eq:normal-quadratic-Q} with $a_{m-1},S,v,K$ replaced by
+$a_{p-1},S_p,v_p,K_p$.
+
+To justify the inverse, perturb the lossless fast isometry by
+$(I-\epsilon Y)^{1/2}$.  Differentiating its coefficient $lD^px$ gives
+$K_p$, while telescoping just the first $j$ energy terms gives the right
+side of \eqref{I:R:eq:independent-delay-K-positive}.  Cyclicity makes that
+matrix positive definite.  Thus the normal quadratic form can again be
+maximized by a positive matrix inverse.  Compactness over
+$\mathcal M_{j,p}$ and the nonpositive tangential base gap give the
+matching upper and lower limits, proving the expansion of $h_{n,d}$.
+The scalar maximization in $t/q$ is identical to that in
+Theorem~\ref{I:R:thm:all-budget-response}, with leading maximum at $t/q=1$.
+This proves the expansion of $\mathcal P_{n,d}$.  The target's projection
+inequality gives the final lower bound.
+\end{proof}

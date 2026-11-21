@@ -1,0 +1,61 @@
+\begin{proof}
+Let
+\[
+ v_{r,k}=\sqrt q\sum_{n\ge0}r^n e_{a^n b^k},\qquad
+ u_{r,0}=\sqrt q\sum_{n\ge0}r^n e_{a^n}.
+\]
+The target's singular decomposition gives
+$\Bnorm{v_{r,k}}=\Bnorm{u_{r,0}}=1$ and
+$u_{r,0}^*H_{f_{r,k}}=v_{r,k}^*$. If $P_G$ projects onto
+$\mathcal S_G$, then $G(I-P_G)=0$, and therefore
+\begin{equation}
+ \Bnorm{H_{f_{r,k}}-G}
+   \ge\sqrt{1-\Bnorm{P_Gv_{r,k}}^2}.
+ \label{I:B:eq:boundary-kernel-lower}
+\end{equation}
+The coordinates of $x\in\mathcal S_G$ satisfy
+$x[a^n b^k]=\ell B^kA^nx$. Hence
+\begin{equation}
+ \Bnorm{P_Gv_{r,k}}
+ =\Bnorm{\sqrt q\,\ell B^k(I-rA)^{-1}}
+ \le\Bnorm{\ell B^{k-1}},
+ \label{I:B:eq:boundary-overlap-bound}
+\end{equation}
+where the final inequality is \eqref{I:B:eq:resolvent-defect-contraction}.
+
+Consider any sequence $r_j\uparrow1$ and arbitrary rank-at-most-$k$
+competitors $G_j$. Zero-rank terms have zero overlap. For all remaining
+terms, choose orthonormal coordinates on their row spaces and pad by
+zero coordinates to dimension $k$. The padded tuples still satisfy
+\eqref{I:B:eq:boundary-passivity}. Passing to a subsequence gives
+$A_j\to A_0$, $B_j\to B_0$, $\ell_j\to\ell_0$.
+
+If $I-A_0$ is invertible, the resolvent in
+\eqref{I:B:eq:boundary-overlap-bound}'s middle expression stays bounded,
+so that overlap tends to zero. Otherwise
+$\mathcal E=\ker(I-A_0)$ is nonzero and reduces the contraction $A_0$.
+Indeed $A_0x=x$ and contraction imply $A_0^*x=x$.
+The limiting passive inequality forces $B_0\mathcal E=0$ and
+$\ell_0\mathcal E=0$. In the orthogonal decomposition
+$\mathcal E\oplus\mathcal F$ one can consequently write
+\[
+ B_0=\begin{pmatrix}0&C\\0&D\end{pmatrix},\qquad
+ \ell_0=(0,l),\qquad \dim\mathcal F\le k-1.
+\]
+The $\mathcal F$-column part of passivity gives
+$D^*D+l^*l\preceq I_{\mathcal F}$. If $k\ge2$,
+$\ell_0B_0^{k-1}=(0,lD^{k-1})$ has norm at most $\Gamma_{k-1}$.
+If $k=1$, $\mathcal F=\{0\}$ and $\ell_0=0$, giving the same conclusion
+with $\Gamma_0=0$.
+
+Thus every subsequential limiting overlap is at most $\Gamma_{k-1}$.
+A compactness contradiction makes this uniform over all competitors:
+\[
+ \limsup_{r\uparrow1}\sup_{\substack{G\text{ bounded word-Hankel}\\
+                                  \operatorname{rank}G\le k}}
+       \Bnorm{P_Gv_{r,k}}\le\Gamma_{k-1}.
+\]
+Insert this bound into \eqref{I:B:eq:boundary-kernel-lower} and use
+Lemma~\ref{I:B:lem:one-letter-projection}. No existence assumption for a
+best word-Hankel competitor is required.
+\end{proof}

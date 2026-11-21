@@ -1,0 +1,427 @@
+[
+  {
+    "origin": "AAK_Binary_SpectralGap_Contraction_Manuscript_v1_0_Sources",
+    "entry": "aak_manuscript_sources/verify_binary_certificate.py",
+    "sha256": "3b672b84579b49886a5276df07e011081b5760def1b00e4c6d21eafca4f73f8a"
+  },
+  {
+    "origin": "AAK_Binary_SpectralGap_Contraction_Manuscript_v1_0_Sources",
+    "entry": "aak_manuscript_sources/verify_contraction_lift.py",
+    "sha256": "22a8f1c9c944d033472b50c53a14cbc98a490d586e8de6218cf124c66a54b08d"
+  },
+  {
+    "origin": "AAK_Fixed_Alphabet_Rank_Tractability_v1_0_Sources",
+    "entry": "AAK_Fixed_Alphabet_Rank_Tractability_v1_0/verify_exact_identities.py",
+    "sha256": "a92efee984bd1a8c854bf6df1fbcbedce48385c476eeae181cf0668a2e4ef417"
+  },
+  {
+    "origin": "DRAGA_AAK_Certified_Progress_v0_8_0_Sources",
+    "entry": "DRAGA_AAK_Certified_Progress_v0_8_0/verify_all.py",
+    "sha256": "9ddb12f19bac50400c917349c1ec0025bc9c44f80038a4a5711d51e574f36fdf"
+  },
+  {
+    "origin": "DRAGA_AAK_Compact_Global_Model_v0_9_0_Sources",
+    "entry": "certify_relaxation.py",
+    "sha256": "35e7e7e386602f8fd35dfac820d0086146fa5899776c288a5fe64ad5948207fd"
+  },
+  {
+    "origin": "DRAGA_AAK_Compact_Global_Model_v0_9_0_Sources",
+    "entry": "prior_v08/certify_sos.py",
+    "sha256": "68355cdf3a4f97a1f0dfad88d01535256702bbff3d48f69c61c15fa89c94ef7a"
+  },
+  {
+    "origin": "DRAGA_AAK_Compact_Global_Model_v0_9_0_Sources",
+    "entry": "verify_all.py",
+    "sha256": "9372e5d3224eb6b98ca95f3c3e17275f8697552be92f977dd4542df2d9670015"
+  },
+  {
+    "origin": "DRAGA_AAK_Compact_Global_Model_v0_9_0_Sources",
+    "entry": "verify_compact.py",
+    "sha256": "bed993ad0537177e71322b94be7b8782cc60e664baaa73acc4cfde3a8d9b9207"
+  },
+  {
+    "origin": "DRAGA_AAK_Constructive_Controlled_Gap_v0_6_0_Sources",
+    "entry": "aak_note_v06/verify_constructive_gap.py",
+    "sha256": "eb057fdce300ac4fdf8d6c51f070b9ab7b6e2016a6b69145608a202a80205ae2"
+  },
+  {
+    "origin": "DRAGA_AAK_Fixed_Target_Certificates_v0_7_0_Sources",
+    "entry": "aak_note_v07/verify_fixed_target.py",
+    "sha256": "888929fc4988fb0a71a0e56735469b606aba940012ffdde457d8f6bfd4e631c7"
+  },
+  {
+    "origin": "DRAGA_AAK_Homogeneous_Sharp_Constant_v0_4_0_Sources",
+    "entry": "verify_homogeneous.py",
+    "sha256": "5a2781156cd91c280a0e3a57d3e9746eee4d331216d8391bf281b80eb387fea3"
+  },
+  {
+    "origin": "DRAGA_AAK_Mixed_Length_Exact_Optimum_v0_5_0_Sources",
+    "entry": "verify_exact_optimum.py",
+    "sha256": "f2ff7896df48219f09a22ce8a37e374c64c9599aa187137fc9baa6e62034778d"
+  },
+  {
+    "origin": "DRAGA_AAK_Obstruction_v0_3_0_Sources",
+    "entry": "DRAGA_AAK_Obstruction_v0_3_0/verify_aak.py",
+    "sha256": "8b02f3d44afc274b82234a9b946ecd651dc914857a00190f23aae9fd3bcca2ad"
+  },
+  {
+    "origin": "DRAGA_Commutative_AAK_Reproduction",
+    "entry": "verify_commutative_aak_gap.py",
+    "sha256": "6e701dddf3f3186ac4d4acec1fb80408377b898fa52c1d423b57a06ed39713fa"
+  },
+  {
+    "origin": "DRAGA_Reviewed_Complete",
+    "entry": "verify_review_changes.py",
+    "sha256": "8a1f5ac5cbf94a6a8e4b6025d86960dd2f753a29b6dd781f47f132f9b5153a4e"
+  },
+  {
+    "origin": "Hankel_Agent_Memory_Audit_and_Verification",
+    "entry": "verify_unequal_addresses.py",
+    "sha256": "9bd656e6738abf7fc8347e6bbbad9a2d9b31623908748f9b94a572ff91b7196c"
+  },
+  {
+    "origin": "Hankel_All_Budgets_Proof_Bundle",
+    "entry": "hankel_boundary_checks.py",
+    "sha256": "5d602d82da4387b853a033b8e739b643931a3180d18e2188999cb56a0e08d6e0"
+  },
+  {
+    "origin": "Hankel_Arxiv_Source_and_Verification",
+    "entry": "anc/verify_complex_hessian.py",
+    "sha256": "5a5cc3ec253d1ff9100cc5744b3afe00fb43085416870dd5fda32eca4d0c3a31"
+  },
+  {
+    "origin": "Hankel_Arxiv_Source_and_Verification",
+    "entry": "anc/verify_explicit_results.py",
+    "sha256": "1185bc2ccd97096d7c997743c2fcad61cfd3768702d7b48e4a3232d1d9d4550e"
+  },
+  {
+    "origin": "Hankel_Finite_Optima_Proof_Bundle",
+    "entry": "f1_global_checks.py",
+    "sha256": "60d29b596233091315b47cc4d020e39cda46aa0d6cc1abfc3aed884499efbddb"
+  },
+  {
+    "origin": "Hankel_Finite_Optima_Proof_Bundle",
+    "entry": "g1_subroutine_checks.py",
+    "sha256": "e3e2d3c7eb0b8ecf8b1d996c095c697d3d901c8acded3ab215d22567e9848fb9"
+  },
+  {
+    "origin": "Hankel_Finite_Optima_Proof_Bundle",
+    "entry": "k2_first_correction_checks.py",
+    "sha256": "1c48b94577048e3c749055ec5323dc75d6846ecfdbf48e0a11e113cabd095aa0"
+  },
+  {
+    "origin": "Hankel_Passive_Response_Proof_Bundle",
+    "entry": "checks/b4_exact_response.py",
+    "sha256": "c6a8f208cf354475eb976fd46bd49afd14a0a01c4ea199f6c974aa1f7c7a05eb"
+  },
+  {
+    "origin": "Hankel_Passive_Response_Proof_Bundle",
+    "entry": "checks/generalization_checks.py",
+    "sha256": "6c7e594d13929a210b2ee1f26e5a905d3b8de4bb075072762e5d5fd0041df4c2"
+  },
+  {
+    "origin": "Hankel_Passive_Response_Proof_Bundle",
+    "entry": "checks/symbolic_k3_response.py",
+    "sha256": "ca122dfd6d57b5b1615bcddaa11c63bd529fbe22943f4835bb255cac9f3d70d9"
+  },
+  {
+    "origin": "Hankel_Research_Results_Bundle",
+    "entry": "hankel_checks.py",
+    "sha256": "bb8ea65ce1a3cf7ed7bbaf121768a9d8c9b01491141762add2330dee3cc7ed01"
+  },
+  {
+    "origin": "Hankel_Unified_Manuscript_Source_and_Evidence",
+    "entry": "Hankel_Unified_Manuscript/verify_synthesis.py",
+    "sha256": "c8443217087c32ebd3e1b3d6c65b51fef8989670e1c25ee55f5e4978442630b9"
+  },
+  {
+    "origin": "Hankel_v1_2_Math_Audit",
+    "entry": "verify_patch_v1_2.py",
+    "sha256": "0accce24562f8159fab627b64015f789d5ebbe6bb54f9a60e469edfbeee06288"
+  },
+  {
+    "origin": "Hankel_v1_3_Source_and_Verification",
+    "entry": "verify_rank_two_v1_3.py",
+    "sha256": "54524abde13cd1fb961605aa8e59e37e8b1ed318777440872e07f3b1443b1b9f"
+  },
+  {
+    "origin": "Hankel_v1_4_Source_and_Verification",
+    "entry": "revision_v1_4/verify_discovery_v1_4.py",
+    "sha256": "3c3b153b32c659d8162455270216bd547a02cef2638746c8224eae0cc40fb63f"
+  },
+  {
+    "origin": "Hankel_v1_5_Source_and_Verification",
+    "entry": "revision_v1_5/verify_closures_v1_5.py",
+    "sha256": "ca95f36459b80e7e48c5dd7094af1b1aaf3983e4a0270e037f79cf0800cdec68"
+  },
+  {
+    "origin": "Hankel_v1_6_Source_and_Verification",
+    "entry": "revision_v1_6/verify_extension_v1_6.py",
+    "sha256": "ad49d12093a12aa03f07b050f474f22e92359581f31c2f86048ec93ada90065b"
+  },
+  {
+    "origin": "Hankel_v1_7_Source_and_Verification",
+    "entry": "Hankel_v1_7_Source_and_Verification/verify_dhmc_v1_7.py",
+    "sha256": "8f95ca19463cd953ad18914ba912f4fb838582c098f00c3f36186ebd50fe375c"
+  },
+  {
+    "origin": "P0_P4_Audit_Sans_Tau_Preuve_Code",
+    "entry": "p4_cone_audit/code/audit_controls.py",
+    "sha256": "b183e0ffdc02c2747915cff87b0144420cf8498af0779409daf478715ea9761d"
+  },
+  {
+    "origin": "P0_P4_Audit_Sans_Tau_Preuve_Code",
+    "entry": "p4_cone_audit/code/audit_extension.py",
+    "sha256": "1eeaafcde5b4aef6b60c5d7cec8dace738c36f7142ec2c4d34063bdb67103870"
+  },
+  {
+    "origin": "P0_P4_Audit_Sans_Tau_Preuve_Code",
+    "entry": "p4_cone_audit/code/check_boundary.py",
+    "sha256": "f41c3d1051cdc41bf16a5206e87b9e5e7ca5afa264fb5d47d07a867e6f88ddb0"
+  },
+  {
+    "origin": "P0_P4_Audit_Sans_Tau_Preuve_Code",
+    "entry": "p4_cone_audit/code/check_oracle_reference.py",
+    "sha256": "ac18ab7953241b35f18a9f918f1659259a1b5438c60a668aa43ef5193519e8e5"
+  },
+  {
+    "origin": "P0_P4_Audit_Sans_Tau_Preuve_Code",
+    "entry": "p4_cone_audit/code/check_products.py",
+    "sha256": "4739e3b0c71140e39c19779eb16588a69e28017a505e85a85b25ec5ce11b9477"
+  },
+  {
+    "origin": "P0_P4_Audit_Sans_Tau_Preuve_Code",
+    "entry": "p4_cone_audit/code/check_root_leaf.py",
+    "sha256": "9576e4bf0aba041000332a9d6a04f6aebd6816aeb070871b661cf797571a9989"
+  },
+  {
+    "origin": "P0_P4_Audit_Sans_Tau_Preuve_Code",
+    "entry": "p4_cone_audit/code/verify.py",
+    "sha256": "974299c0b27da8ab04ecf54461ee8718d6df98ab4b4e32076e9d51214ff58d57"
+  },
+  {
+    "origin": "P0_P4_Comparaison_Directe_Code",
+    "entry": "p4_next_step/code/audit_direct_grid.py",
+    "sha256": "b30d7a4be59cbe7692cd9725296b04b9965712e2ec38070c9479b168971a5ddb"
+  },
+  {
+    "origin": "P0_P4_Comparaison_Directe_Code",
+    "entry": "p4_next_step/code/audit_hybrid_branch.py",
+    "sha256": "483465084b075bef476cfc634a7450bc4f8406cc793187b319844aa7ecc7335e"
+  },
+  {
+    "origin": "P4_Codage_Uniforme_Preuve_Code",
+    "entry": "P4_Codage_Uniforme/code/check_proof.py",
+    "sha256": "a9ba9896f2af1704c9a523bdab0aa4447c3c35e66204481296a15bb5b7b852ad"
+  },
+  {
+    "origin": "P4_Codage_Uniforme_Preuve_Code",
+    "entry": "P4_Codage_Uniforme/code/check_rolling.py",
+    "sha256": "89871ca36340f2f7fe94a0b3e2c4a2f488adec23cbef3452c41ab0a31ed6f6b6"
+  },
+  {
+    "origin": "P4_Codage_Uniforme_Preuve_Code",
+    "entry": "P4_Codage_Uniforme/code/check_stream.py",
+    "sha256": "c0eaf46a714573c58e930d6a813eefbc882e29e7192e33c70788365c03dacc9b"
+  },
+  {
+    "origin": "P4_Codage_Uniforme_Preuve_Code",
+    "entry": "P4_Codage_Uniforme/code/verify.py",
+    "sha256": "36493365f803ee4d47a2bbeeb3f23a07dce384a6c765a564f3e54d02e8d4b4da"
+  },
+  {
+    "origin": "P4_Compilation_Robuste_Preuve_Code",
+    "entry": "p4_robust/code/check_boundary.py",
+    "sha256": "5eaba83276fb2f0f7a7eaf7a3919023cf58b5658af01627b0e0496afd5139a6d"
+  },
+  {
+    "origin": "P4_Compilation_Robuste_Preuve_Code",
+    "entry": "p4_robust/code/check_products.py",
+    "sha256": "cb8af07952a20f006849b9b6c7fccd5617ffff7cbcfabb0047574776014c5d70"
+  },
+  {
+    "origin": "P4_Compilation_Robuste_Preuve_Code",
+    "entry": "p4_robust/code/check_proof.py",
+    "sha256": "9a1b8cb81ea8715e1338bcab9124b8dd6435bae74087f023f5d993324a622ff4"
+  },
+  {
+    "origin": "P4_Compilation_Robuste_Preuve_Code",
+    "entry": "p4_robust/code/check_stream_memory.py",
+    "sha256": "cd9e0fd97dd1e43eaa9d072f6c7ef4759bcbd2d0fbcdee70496f043e23e53d75"
+  },
+  {
+    "sha256": "1e721c2fdf635423d6702b5f3946998fe03281c2f88a5ea11cd7efe966de454e",
+    "entry": "p4_robust/code/reprofile_memory.py",
+    "origin": "P4_Compilation_Robuste_Preuve_Code"
+  },
+  {
+    "origin": "P4_Compilation_Robuste_Preuve_Code",
+    "entry": "p4_robust/code/verify.py",
+    "sha256": "1d63ed8e90ec3e42e0eecb33aa49b914bb06f554b9dcf6dd56493c52ccc34ee0"
+  },
+  {
+    "origin": "P4_Identifiant_Direct_Preuve_Code",
+    "entry": "P4_Identifiant_Direct/code/check_portable.py",
+    "sha256": "0680928d307fa41a2190c6d864054da3fdd935819ad18ef210d3f53047251e81"
+  },
+  {
+    "origin": "P4_Identifiant_Direct_Preuve_Code",
+    "entry": "P4_Identifiant_Direct/code/verify_direct.py",
+    "sha256": "a116b177609f070e93eefc7ef4f4776b928a0813d67462552d397567cfb7a99d"
+  },
+  {
+    "origin": "P4_LaTeX_Preuve_Relecture_Complet",
+    "entry": "P4_Manuscrit/review/check_local_lemmas.py",
+    "sha256": "e37d68257131a5eaf7d1797925a882241fb55de7f34724b4c71433030ff81966"
+  },
+  {
+    "sha256": "1d90da5a553915daddf3d475513aeb9d9371c509ea29e9a0dcadf751aaaebc84",
+    "entry": "P4_Manuscrit/supporting_code/breakthrough/code/controls.py",
+    "origin": "P4_LaTeX_Preuve_Relecture_Complet"
+  },
+  {
+    "sha256": "6f3ab5d97d2ed1ade1663677e9e94cdd0f057f0c076133bed0b12d91850a1d2e",
+    "entry": "P4_Manuscrit/supporting_code/breakthrough/code/experiment.py",
+    "origin": "P4_LaTeX_Preuve_Relecture_Complet"
+  },
+  {
+    "sha256": "02a37a45e81d1ed7c8f69fbe96a35a4e2c249a7da0788833dcad33cda8d44ae8",
+    "entry": "P4_Manuscrit/supporting_code/breakthrough/code/extensions.py",
+    "origin": "P4_LaTeX_Preuve_Relecture_Complet"
+  },
+  {
+    "origin": "P4_LaTeX_Preuve_Relecture_Complet",
+    "entry": "P4_Manuscrit/supporting_code/breakthrough/code/final_audit.py",
+    "sha256": "3e38d44c2ff7ecf25a8485a2c0669a38b300ab3367372da29e218dd30aae4576"
+  },
+  {
+    "sha256": "aaae496870d0e5b96401f3ba2434031ebe8c6ce2042e27b82867f05c9fc8e62b",
+    "entry": "P4_Manuscrit/supporting_code/breakthrough/code/kl_realization.py",
+    "origin": "P4_LaTeX_Preuve_Relecture_Complet"
+  },
+  {
+    "origin": "P4_LaTeX_Preuve_Relecture_Complet",
+    "entry": "P4_Manuscrit/supporting_code/breakthrough/code/output_audit.py",
+    "sha256": "15f437ae1d80b3784baa33b06a95359fa507c5f187080b9795f24b831fe74fc8"
+  },
+  {
+    "sha256": "970260d9317b1daac4c57e1c98597b25f61b0eb6f79695c333cf617868494dbf",
+    "entry": "P4_Manuscrit/supporting_code/breakthrough/code/probability.py",
+    "origin": "P4_LaTeX_Preuve_Relecture_Complet"
+  },
+  {
+    "origin": "P4_LaTeX_Preuve_Relecture_Complet",
+    "entry": "P4_Manuscrit/supporting_code/breakthrough/code/probability_output_audit.py",
+    "sha256": "bbdf403a41f045ec21f4a8c849dbe21838a51f5970f6e776a917815321f80f27"
+  },
+  {
+    "sha256": "43a769cd59ae537fa555f687f2c25f7e3608a791c91bce9f850d36cc86b26897",
+    "entry": "P4_Manuscrit/supporting_code/breakthrough/code/replay.py",
+    "origin": "P4_LaTeX_Preuve_Relecture_Complet"
+  },
+  {
+    "origin": "P4_LaTeX_Preuve_Relecture_Complet",
+    "entry": "P4_Manuscrit/supporting_code/breakthrough/code/verify.py",
+    "sha256": "ef8b3042cff736378be7988a807c332eb9d6d37c0a1a21efed7fa54d2323d328"
+  },
+  {
+    "origin": "P4_LaTeX_Preuve_Relecture_Complet",
+    "entry": "P4_Manuscrit/supporting_code/breakthrough/code/verify_probability.py",
+    "sha256": "6eedae604e0a9d23640cd69d390df0acc28b22e66689133b760f34b62cd7a398"
+  },
+  {
+    "origin": "P4_Loi_Memoire_Sans_Table_Preuve_Code",
+    "entry": "p4_pressure/code/certify_pressure.py",
+    "sha256": "baeaf26a78b93b39fe4a5107c79b049e6ec8bc198328c12f3a749ea9e943a007"
+  },
+  {
+    "origin": "P4_Loi_Memoire_Sans_Table_Preuve_Code",
+    "entry": "p4_pressure/code/check_family.py",
+    "sha256": "3ab1b0080fc077fffb6fdb1fdcab921e33ed6dc19f0e64315c5df11309480ef0"
+  },
+  {
+    "origin": "P4_Loi_Memoire_Sans_Table_Preuve_Code",
+    "entry": "p4_pressure/code/verify_compact.py",
+    "sha256": "a87b87d8bf3f73d091ade8c0ea517fcd1bbf376057719cc8109ecb85cf95ab58"
+  },
+  {
+    "origin": "P4_Memoire_Lineaire_Preuve_Code",
+    "entry": "p4_arithmetic/code/certify_fast.py",
+    "sha256": "9b28851a6cdd531e62c1ea57e177239576cf791a05843e6be712e1b8848e6998"
+  },
+  {
+    "origin": "P4_Memoire_Lineaire_Preuve_Code",
+    "entry": "p4_arithmetic/code/check_proof.py",
+    "sha256": "cc6e2af250166af2373545db37495cdf9086f637bd824c48f256cb6992e5623f"
+  },
+  {
+    "origin": "P4_Memoire_Lineaire_Preuve_Code",
+    "entry": "p4_arithmetic/code/check_root.py",
+    "sha256": "30ef8ffec6e1df7766e9a3c41776d301b3a452329d1193de968187f2d5b7694f"
+  },
+  {
+    "origin": "P4_Memoire_Lineaire_Preuve_Code",
+    "entry": "p4_arithmetic/code/check_universal.py",
+    "sha256": "c390d4043616f28f092d4d106e19bd50df2ada6428933ebb08ddecb3e6b451a5"
+  },
+  {
+    "origin": "P4_Memoire_Lineaire_Preuve_Code",
+    "entry": "p4_arithmetic/code/verify.py",
+    "sha256": "1637d61d3eb24554b7332fcecd9ab9773446f21c31c666987004ba89c18fcf0a"
+  },
+  {
+    "sha256": "752ecb92c847c9a4e128aa540c829d0daf860d4f7d0f076542aa68748b670bc9",
+    "entry": "P4_Optimum/code/robust_rank_four.py",
+    "origin": "P4_Optimum_Exact_Preuve_Code"
+  },
+  {
+    "origin": "P4_Optimum_Exact_Preuve_Code",
+    "entry": "P4_Optimum/code/verify_and_run.py",
+    "sha256": "b2e7ea7a002e4f98685c231777461459605535413049ac8261f6056eab955bb3"
+  },
+  {
+    "origin": "P4_Oracle_Polynomial_Preuve_Code",
+    "entry": "P4_Oracle_Polynomial/code/audit.py",
+    "sha256": "8a909860ce101af51b61a123444fb2eb95c0b568a0aa4f35b8d80bc8c89214a9"
+  },
+  {
+    "origin": "P4_Prediction_Conditionnelle_Preuve_Code",
+    "entry": "p4_conditional/code/check_analytic.py",
+    "sha256": "42c9ff3559e5e5dce77dab013a6b33b9cc52a33ea358c90cebfc4ccafd5a1f39"
+  },
+  {
+    "origin": "P4_Prediction_Conditionnelle_Preuve_Code",
+    "entry": "p4_conditional/code/verify.py",
+    "sha256": "4144e3afa214225a97a4a4000a744641248a3625576a5d075ae31c72bc950e16"
+  },
+  {
+    "origin": "P4_Reduction_Surcout_Preuve_Code",
+    "entry": "p4_reduced/code/audit_hybrid.py",
+    "sha256": "be7f4b3320978f95272f656a528b4be96dff71f2fe609e94975abb92afa41ced"
+  },
+  {
+    "origin": "P4_Reduction_Surcout_Preuve_Code",
+    "entry": "p4_reduced/code/audit_reduction.py",
+    "sha256": "6871d0058758d8dd7f88b4a11c7fec6c8af0a4098dd0bd10ad5c93a9e960f6d9"
+  },
+  {
+    "origin": "P4_Theoreme_Parametrique_Preuve_Code",
+    "entry": "p4_parametric/code/check_certificates.py",
+    "sha256": "3d1642864cc37ae2942eb22e0efd738bd72e53754b0e0c488eb570b7da5269c0"
+  },
+  {
+    "origin": "P4_Theoreme_Parametrique_Preuve_Code",
+    "entry": "p4_parametric/code/check_neighborhood.py",
+    "sha256": "c68ec7b72cfe9f46da8517bb551e1367b3bd9ff21b19ed3cd9263b5b7ca38818"
+  },
+  {
+    "origin": "P4_Theoreme_Parametrique_Preuve_Code",
+    "entry": "p4_parametric/code/check_oracle_reference.py",
+    "sha256": "5ec82a382f0bafd37b43e6090fbdc41cb6fc593aa9fe12e55760d12200577a3e"
+  },
+  {
+    "origin": "P4_Theoreme_Parametrique_Preuve_Code",
+    "entry": "p4_parametric/code/check_streams.py",
+    "sha256": "60aca4ca55fc322fe5ec2adbff45faaf59d05d04251cce1e8217446377e1857e"
+  }
+]

@@ -1,0 +1,33 @@
+\begin{proof}
+For the upper bound take $Q=\mathcal L_\ell$, initialize at
+$v_0=0^{\lceil\ell/2\rceil}$, update by
+\[
+ U_a(v)=\operatorname{trim}_\ell(av),\qquad
+ D(v)=\tau_v(1/2),
+\]
+where trimming retains the shortest prefix of cost at least $\ell$.
+Such a prefix always exists in $av$. Initially $x_0\in I_{v_0}$.
+If $x_t\in I_v$ and $av=v'u$, invariance of $[0,1]$ implies
+$x_{t+1}\in\tau_{v'}(\tau_u([0,1]))\subseteq I_{v'}$.
+Induction proves this inclusion for all histories. The midpoint readout
+therefore has error at most $|I_{v'}|/2\le\theta/2$, including startup.
+Every leaf is reachable by supplying its letters in chronological order,
+since $\operatorname{trim}_\ell(vv_0)=v$.
+
+For the lower bound one must use reachable histories, rather than assume
+that every point of $K$ occurs at finite time. Set $T=\ell+3$.
+For each leaf $v$ first supply $T-|v|$ copies of letter 1 and then the
+letters of $v$ in reverse order. The final true state is
+\[
+ y_v=\tau_v\bigl(\tau_1^{T-|v|}(0)\bigr),\qquad
+ |b_v-y_v|=r_v2^{-(T-|v|)}\le\theta/8,
+\]
+because $|v|\le\ell$. Hence two different $y_v$ are separated by at
+least $3\theta/2-2\theta/8=5\theta/4>\theta$.
+All these histories have the same length. If two ended in the same
+stored state, their common readout would be within $\theta/2$ of both,
+contradicting this separation. Thus at least $F_{\ell+2}$ states are
+necessary. Finally
+$F_{130}=659034621587630041982498215$ lies strictly between $2^{89}$
+and $2^{90}$, proving the numerical bit optimum.
+\end{proof}

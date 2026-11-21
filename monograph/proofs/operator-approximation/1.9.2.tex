@@ -1,0 +1,52 @@
+\begin{proof}
+For the forward inclusion, introduce the positive maps
+\[
+ \Psi(X)=\sum_aT_a^*XT_a,
+ \qquad \Phi_T(X)=\sum_aT_aXT_a^*.
+\]
+Iterating \eqref{I:U:eq:normal-observation} and
+\eqref{I:U:eq:normal-reachability} gives the explicit partial-sum bounds
+\begin{align*}
+ \sum_{j=0}^{N}\Psi^j(cc^*)
+ &\preceq \UId_k-\Psi^{N+1}(\UId_k)\preceq\UId_k,\\
+ \sum_{j=0}^{N}\Phi_T^j(bb^*)
+ &\preceq P-\Phi_T^{N+1}(P)\preceq P.
+\end{align*}
+The summands are respectively
+$\sum_{|u|=j}T_u^*cc^*T_u$ and
+$\sum_{|v|=j}T_vbb^*T_v^*$. Thus the matrix with rows $c^*T_u$ defines a bounded observation operator $O:\mathbb F^k\to\UHH$, and the matrix with columns $T_vb$ defines a bounded reachability operator $C:\UHH\to\mathbb F^k$, with
+\[
+ O^*O\preceq\UId_k,\qquad CC^*\preceq P.
+\]
+For $C$, one may first define $C^*x=(b^*T_v^*x)_v$ and use the second bound, avoiding any assumption of absolute convergence of an arbitrary input sum. Since
+$(OC)[u,v]=c^*T_uT_vb=g_\theta(uv)$, the product is the desired bounded Hankel, and its rank is at most $k$ and its norm at most $M$.
+
+Conversely, let $G$ be a nonzero bounded word-Hankel of rank $s\le k$. Its range $S$ is finite-dimensional and closed. Choose an isometry
+$O:\mathbb F^s\to\UHH$ onto $S$. Define the left and right creation operators by
+\[
+ L_ae_v=e_{av},\qquad R_ae_u=e_{ua}.
+\]
+The Hankel identity is $R_a^*G=GL_a$, so $S$ is invariant under $R_a^*$. Set
+\[
+ T_a=O^*R_a^*O,\quad c=O^*e_\varepsilon,
+ \quad C=O^*G,\quad b=Ce_\varepsilon.
+\]
+Then $OT_a=R_a^*O$ and $T_aC=CL_a$. To check the word order explicitly, if $o_u$ denotes row $u$ of $O$, then $o_{ua}=o_uT_a$ and $o_\varepsilon=c^*$. Thus $o_u=c^*T_u$. Similarly, column $av$ of $C$ equals $T_a$ times column $v$, so column $v$ is $T_vb$. Hence $G=OC$ has the prescribed realization.
+
+The ranges of the $R_a$ partition the nonempty words. Therefore
+\[
+ \sum_aT_a^*T_a+cc^*
+ =O^*\left(\sum_aR_aR_a^*+e_\varepsilon e_\varepsilon^*\right)O
+ =\UId_s.
+\]
+Taking $P=CC^*$ and partitioning the columns of $C$ by their first letter gives
+\[
+ P=bb^*+\sum_aT_aPT_a^*,\qquad
+ P\preceq\Unorm{G}^2\UId_s\preceq M^2\UId_s.
+\]
+Pad all state variables by zeros to reach dimension $k$. The zero Hankel is represented by the zero tuple.
+
+Finally, the constraints imply
+$\Unorm{T_a}\le1$, $\Unorm c\le1$, $\Unorm b\le M$, and
+$\Unorm P\le M^2$. They are closed conditions in a finite-dimensional real vector space, including after separating real and imaginary parts. Hence the parameter set is compact.
+\end{proof}

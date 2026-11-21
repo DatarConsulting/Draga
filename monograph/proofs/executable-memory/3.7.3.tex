@@ -1,0 +1,14 @@
+\begin{proof}
+Choose a row-basis matrix $E_N$ for $U_N$, and define $C_{N,a}$ by $E_NA_a=C_{N,a}E_N$. The coordinate relation
+\[
+ z(w)E_N=s(w)-s(q_N(w))
+\]
+is well-defined. For $q'=\Ssuff_N(qa)$, the forcing is defined uniquely by
+$g(q,a)E_N=s(q)A_a-s(q')$, which belongs to $U_N$. With $c=E_N\beta$ and $h(q)=s(q)\beta$, this gives an exact attaining implementation.
+
+For any competitor, let $V_N$ span its state differences within window fibers. Future windows match, so forcing and direct readout cancel:
+\[
+ f(ut)-f(vt)=(z(u)-z(v))B_tc.
+\]
+Send each competitor difference to $s(u)-s(v)$. A linear relation among competitor differences gives a target row annihilating every $A_t\beta$, hence zero by column-span minimality. The map $V_N\twoheadrightarrow U_N$ is therefore well-defined, onto, and intertwines all letters. This proves the dimension bound and a representation-kernel inclusion, hence the generated-algebra quotient. Apply Theorem~\ref{I:S:thm:marked} for the radical-layer bounds.
+\end{proof}

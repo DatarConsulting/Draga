@@ -1,0 +1,39 @@
+\begin{proof}
+Let $K_L$ be the closed convex cone of nonnegative Lipschitz functions
+with $f(x)\le e^{L|x-y|}f(y)$ for all $x,y$; its only function
+vanishing at a point is zero. Each positive summand of $\mathcal L f$
+has log-Lipschitz constant at most $c+\gamma L$, and their sum has
+the same bound. Thus $\mathcal L(K_L\setminus\{0\})\subset K_{L'}$.
+
+For $f,g\in K_{L'}$ normalized at zero, $g(y)/f(y)\ge e^{-2L'}$,
+and hence also $g(y)/f(y)\ge e^{-4L'}$. For $r=|x-y|\in(0,2]$,
+\[
+ \frac{e^{Lr}-e^{L'r}}{e^{Lr}-e^{-L'r}}
+ \ge\frac{L-L'}{L+L'}e^{-2L}.
+\]
+This follows by expressing numerator and denominator as integrals
+of $r e^{ur}$. Therefore
+$e^{Lr}g(y)-g(x)\ge
+t_*[e^{Lr}f(y)-f(x)]$. Pointwise positivity also holds, so
+$g-t_*f\in K_L$, and symmetrically $f-t_*g\in K_L$.
+The image diameter in the Hilbert metric of $K_L$ is at most
+$2\log(1/t_*)=\Delta$.
+
+For projective contraction, use the Lipschitz Banach space: the strict
+constant $L'<L$ places these positive image functions in the interior
+of $K_L$. The normalized slice $f(0)=1$ of $K_L$ is convex and compact in the
+uniform norm by uniform bounds and equicontinuity. The continuous
+map $f\mapsto\mathcal L f/(\mathcal L f)(0)$ has a fixed point
+by Schauder. Birkhoff's projective contraction theorem
+\citep{gaubert2015} gives contraction factor at most $\vartheta$ on
+comparable rays. Every eigenfunction in $K_L$ lies in the image,
+whose diameter is finite, so this also gives uniqueness.
+Both $\mathcal L1$ and $\mathcal Lh$ are image points; iteration
+gives projective distance at most $\Delta\vartheta^{n-1}$.
+Cone order implies pointwise order. Since both representatives have
+value one at zero, their pointwise ratios are between $e^{-D}$ and
+$e^D$ when their projective distance is at most $D$. This proves
+\eqref{III:U:eq:normalized-transfer}. The fixed point lies in $K_{L'}$;
+its normalization gives the bounds on $h$, and evaluation at zero
+gives those on $\lambda$.
+\end{proof}

@@ -1,0 +1,38 @@
+\begin{proof}
+Let $P_E,Q_E$ be the exact joint error Gramians. Subtracting the
+reference Stein equations gives
+$P_E-P_0=(I-\Phi_T)^{-1}D_P$, and the dual identity for $Q_E$.
+The identity forcings have solutions
+$\Udiag(X_A,X_B)$ and $\Udiag(Y_A,Y_B)$, respectively.
+Lemma~\ref{I:U:lem:positive-resolvent} therefore gives
+\[
+ 0\preceq P_E\preceq P_0+e_PI=:\overline P,\qquad
+ 0\preceq Q_E\preceq Q_0+e_QI=:\overline Q.
+\]
+For positive semidefinite matrices the quantity
+$\lambda_{\max}(P^{1/2}QP^{1/2})$ is separately monotone in $P,Q$:
+use congruence for $Q$, and the equality of the nonzero spectra of
+$P^{1/2}QP^{1/2}$ and $Q^{1/2}PQ^{1/2}$ for $P$.
+Apply Theorem~\ref{I:U:thm:exact}. The reference matrices commute.
+On the retained symmetric and antisymmetric subspaces their pairs
+of eigenvalues are $(2\sigma_j,0)$ and $(0,2\sigma_j)$; on a tail
+coordinate they are $(\sigma_j,\sigma_j)$.
+The largest eigenvalue of $\overline P\overline Q$ is exactly the
+right-hand side of~\eqref{I:U:eq:reference-truncation}.
+
+For the explicit estimates put
+$S=\sum_aA_{a,12}\Sigma_2A_{a,12}^*$ and
+$U=\sum_aA_{a,22}\Sigma_2A_{a,12}^*$.
+Direct multiplication of the balanced Stein equations gives
+\[
+ D_P=-\begin{pmatrix}0&0&S\\0&0&U\\S&U^*&S\end{pmatrix}.
+\]
+Here $\|S\|\le M_P\delta$, and operator Cauchy--Schwarz, together
+with $\sum_aA_{a,22}\Sigma_2A_{a,22}^*\preceq\Sigma_2$, gives
+$\|U\|\le\sqrt{M_P}\delta$.
+Split $D_P$ into its $S$ and $U$ parts; their norms are at most
+$2\|S\|$ and $\|U\|$. Hence
+$\|D_P\|\le(2M_P+\sqrt{M_P})\delta$.
+Apply the same calculation to $A_a^*,c$, followed by changing the
+sign of the last joint block, to obtain the asserted $D_Q$ bound.
+\end{proof}

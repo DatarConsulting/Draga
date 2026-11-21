@@ -1,0 +1,137 @@
+\begin{proof}
+We first prove the lower bound globally over complex tuples.  Write
+\[
+ h_{2,d}(t)=\max_{\substack{[B;\ell]^*[B;\ell]\preceq I_2\\
+                       \Rnorm{[B;\ell]e_1}^2=t}}
+                         |\ell B^d e_1|^2.
+\]
+In the exact parametrization
+$[B;\ell]=[sz,W_s(z)\nu]$ put
+$\mathcal J_d=\ell B^de_1/s$.  At $s=0$,
+\[
+ \mathcal J_d=z_2\nu_3\nu_2^{d-1},\qquad
+ \max|\mathcal J_d|=M_0=lc^{d-1}=\sqrt{a_d},\qquad
+ c=\sqrt{\frac{d-1}{d}},\quad l=d^{-1/2}.
+\]
+Equality holds precisely when $z_1=z_3=\nu_1=0$,
+$|z_2|=1$, $|\nu_2|=c$, and $|\nu_3|=l$.
+The exact symmetries
+$B\mapsto e^{i\theta}U^*BU$, $\ell\mapsto e^{i\phi}\ell U$,
+$U=\operatorname{diag}(1,e^{i\psi})$, change the phases of
+$(z_2,\nu_2,\nu_3)$ by
+$(\theta-\psi,\theta,\phi+\psi)$.  This invertible phase map fixes
+$z_2,\nu_2,\nu_3$ positive near the maximizing torus without discarding
+any complex transverse direction.  The outward
+radial derivative in $\nu$ is $dM_0>0$, so maximizers have
+$\Rnorm\nu=1$ for small $|s|$.
+
+Let $\theta_0=\arccos c$.  In the resulting seven real coordinates,
+take $z_1,z_3,\nu_1\in\RC$, $\xi\in\mathbb R$, and
+\[
+ z_2=\sqrt{1-|z_1|^2-|z_3|^2},\quad
+ \nu_2=\sqrt{1-|\nu_1|^2}\cos(\theta_0+\xi),\quad
+ \nu_3=\sqrt{1-|\nu_1|^2}\sin(\theta_0+\xi).
+\]
+The analytic objective $F_d=|\mathcal J_d|$ has the expansion
+\begin{align}
+ F_d(s,x)=M_0
+ &-\frac{d-1}{2}M_0s^2
+   +\frac{M_0}{c}s\Re z_1
+   +\frac{(d-2)M_0}{c^2}s\Re\nu_1\notag\\
+ &-\frac{M_0}{2}(|z_1|^2+|z_3|^2)
+   -\frac{dM_0}{2}|\nu_1|^2-dM_0\xi^2
+   +O((|s|+\Rnorm x)^3).
+ \label{I:R:eq:degree-d-Hessian}
+\end{align}
+For clarity, the pure $s^2$ term follows from the exact value
+$F_d(s,0)=M_0(1-s^2)^{(d-1)/2}$.  The mixed $z_1$ term is the path
+with one extra waiting step in the first state.  There are $d-2$
+paths producing the mixed $\nu_1$ term: one return from the second
+state to the first, followed immediately by re-entry.  The angular
+second logarithmic derivative of
+$\cos^{d-1}\theta\sin\theta$ at $\theta_0$ is $-2d$.
+These observations give every coefficient in
+\eqref{I:R:eq:degree-d-Hessian}.
+
+Its transverse Hessian is negative definite.  Compact localization,
+the complete phase gauge, and the analytic implicit function theorem
+therefore identify its local maximum with the global maximum for
+small $|s|$.  The optimizing first derivatives are
+\[
+ \Re z_1=s/c+O(s^2),\qquad
+ \Re\nu_1=\frac{d-2}{dc^2}s+O(s^2),
+\]
+with all other transverse coordinates $O(s^2)$.  The maximum modulus's
+$s^2$ coefficient is
+\[
+ \frac{M_0}{2}\left[-(d-1)+\frac1{c^2}
+                         +\frac{(d-2)^2}{dc^4}\right]
+   =\frac{M_0}{2(d-1)^2}.
+\]
+Physical evenness removes the odd analytic coefficients.  Hence
+\begin{equation}
+ h_{2,d}(t)=a_dt+\frac{a_d}{(d-1)^2}t^2+O(t^3),\qquad
+ P_{2,d}(q)=a_d+\frac{a_d}{(d-1)^2}q+O(q^2).
+ \label{I:R:eq:two-state-all-degree-envelope}
+\end{equation}
+The second equality follows by scalar localization in
+Lemma~\ref{I:R:lem:terminal-elimination}; its leading profile is
+$4a_dx/(1+x)^2$ for $t=qx$, with a unique quadratic maximum at $x=1$.
+Projection gives the claimed complex lower bound.
+
+For completeness the matching real trial is explicit.  With
+$s=\sqrt q$, set
+\[
+ \lambda=1/c,\quad w=\frac{d-2}{d-1},\quad
+ F_s=\sqrt{1-s^2w^2},\quad
+ N_s=\begin{pmatrix}sw\\cF_s\\lF_s\end{pmatrix},\quad
+ z_s=\begin{pmatrix}s\lambda\\\sqrt{1-s^2\lambda^2}\\0\end{pmatrix}.
+\]
+For sufficiently small $s>0$, define
+\[
+ V_s=[sz_s,W_s(z_s)N_s]=\begin{pmatrix}B_s\\\ell_s\end{pmatrix},
+ \quad v_s=\begin{pmatrix}r\\-sN_s^{\mathsf T}z_s\end{pmatrix},
+ \quad A_s=e_1v_s^{\mathsf T}.
+\]
+Then $N_s^{\mathsf T}N_s=1$, $\Rnorm{z_s}=1$, and
+$A_s^{\mathsf T}A_s+B_s^{\mathsf T}B_s+
+\ell_s^{\mathsf T}\ell_s=I_2$ exactly.  Define
+\[
+ \omega_s=s\ell_sB_s^d(I-rA_s)^{-1},\qquad
+ b_s=s^{-1}(I-rA_s)\omega_s^{\mathsf T},\qquad
+ g_s(u)=\ell_sT_{\operatorname{rev}(u)}b_s.
+\]
+Here $T_u$ is the standard ordered product of $A_s,B_s$ along $u$.
+This is a real two-state series.  The structured first-order matching
+argument applies with terminal power $d$: its required cancellation is
+\[
+ l c^{d-1}=M_0,\qquad
+ l c^d-M_0c=0.
+\]
+In particular
+$\omega_s=(M_0+O(q),O(s^3))$, $b_s=(sM_0+O(s^3),O(q))$.
+The exact energy identity and the block orders
+\[
+ B_s=\begin{pmatrix}O(q)&O(s)\\s+O(s^3)&c+O(q)\end{pmatrix},
+ \qquad
+ A_s=\begin{pmatrix}r&-sc+O(s^3)\\0&0\end{pmatrix}
+\]
+give joint stability for small positive $s$: the unique transition
+eigenvalue near one is $1-q+O(q^2)$ and all other eigenvalues remain
+strictly smaller in modulus.  The reachability Gram has slow entry
+$M_0^2+O(q)$, off-diagonal $O(s^3)$ and fast entry $O(q)$.
+As in the structured matching proof, interpolation on the dominant
+input is exact, the error's squared dominant Rayleigh quotient is
+$1-\Rnorm{\omega_s}^2$, its off-diagonal block is $O(q)$, and its
+remaining block is $O(q)$.  The fixed spectral gap $1-a_d>0$ gives
+\[
+ \Rnorm{H_{f_{r,d}}-H_{g_s}}^2
+       =1-\Rnorm{\omega_s}^2+O(q^2).
+\]
+The chosen $\lambda,w$ realize the quadratic maximum in
+\eqref{I:R:eq:degree-d-Hessian}, so
+$\Rnorm{\omega_s}^2=a_d+a_dq/(d-1)^2+O(q^2)$.
+This matches the global complex lower bound by a real construction,
+proving \eqref{I:R:eq:two-state-all-degrees} for each field.  Equality of
+their full finite-$q$ optimum functions is not asserted.
+\end{proof}

@@ -1,0 +1,37 @@
+\begin{proof}
+Suppose first that a tuple is feasible. Iterating
+\eqref{I:U:eq:exact-reach}--\eqref{I:U:eq:exact-observe} gives
+\[
+ \sum_{|w|\le N}B_w\beta\beta^*B_w^*\preceq P,
+ \qquad
+ \sum_{|w|\le N}B_w^*\gamma\gamma^*B_w\preceq Q
+\]
+for every $N$. Exactly as in Lemma~\ref{I:U:lem:compact}, these inequalities define bounded reachability and observation maps $C_E$ and $O_E$, with exact Gramians
+\[
+ P_E=C_EC_E^*\preceq P,\qquad Q_E=O_E^*O_E\preceq Q.
+\]
+Restriction to the candidate state coordinates also gives bounded candidate maps $C_g,O_g$: the lower diagonal blocks of the partial sums are precisely their partial Gramians. Thus $H_g=O_gC_g$ is bounded and has rank at most $k$, and
+$E:=H_f-H_g=O_EC_E$.
+
+For bounded operators factoring through an $m$-dimensional space,
+\begin{equation}\label{I:U:eq:gram-norm}
+ \Unorm E^2=\lambda_{\max}(Q_E^{1/2}P_EQ_E^{1/2}).
+\end{equation}
+Indeed, $E^*E=C_E^*Q_EC_E$ has the same nonzero eigenvalues as $Q_E^{1/2}C_EC_E^*Q_E^{1/2}$; the equality also holds when both operators are zero. Congruence preserves the positive-semidefinite order, so
+\begin{align*}
+ \Unorm E^2
+ &\le\lambda_{\max}(Q_E^{1/2}P Q_E^{1/2})\\
+ &=\lambda_{\max}(W^*Q_EW)
+ \le\lambda_{\max}(W^*QW)\le t^2.
+\end{align*}
+The middle equality follows from $P=WW^*$ and equality of the nonzero spectra of $ZZ^*$ and $Z^*Z$, with $Z=Q_E^{1/2}W$. No inverse or positive definiteness is used.
+
+Conversely, Theorem~\ref{I:U:thm:attainment} supplies an optimal bounded rank-$\le k$ Hankel. Choose the canonical realization of Lemma~\ref{I:U:lem:compact}, padded with zeros, and form \eqref{I:U:eq:error-realization}. The source maps are bounded by its mean-square stability; the candidate maps are bounded by the lemma. Consequently
+\[
+ C_E=\begin{pmatrix}C_f\\ C_g\end{pmatrix},\qquad
+ O_E=\begin{pmatrix}O_f&-O_g\end{pmatrix}
+\]
+are bounded. Their finite-dimensional Gramians $P_E,Q_E$ satisfy the exact Stein equations obtained by splitting words at the first and last letter, respectively. Set $P=P_E$, $Q=Q_E$ and choose $W=P_E^{1/2}$. Equation~\eqref{I:U:eq:gram-norm} then implies
+$W^*QW\preceq\delta_k(H_f)^2\UId_m\preceq t^2\UId_m$.
+This proves necessity and feasibility at the optimum.
+\end{proof}

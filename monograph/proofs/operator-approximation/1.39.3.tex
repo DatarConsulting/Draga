@@ -1,0 +1,71 @@
+\begin{proof}
+The unit vector
+$u_r=\sqrt q\sum_{m\ge0}r^m e_{a^m}$ is mapped by
+$H_{f_{r,\tau}}^{\mathsf T}$ to
+\[
+ v_r=\sqrt q\sum_{m,w}r^m\tau(w)e_{a^m w},\qquad
+ \Rnorm{v_r}=\Rnorm\tau_2.
+\]
+For a bounded rank-at-most-$n$ competitor, its transposed range $S$ is
+backward invariant.  Canonical orthonormal state coordinates yield
+\eqref{I:R:eq:terminal-passive} and
+\[
+ \Rnorm{P_Sv_r}^2
+   =q\Rnorm{T_\tau(B,\ell)(I-rA)^{-1}}^2.
+\]
+Orthogonal projection thus gives
+\[
+ \delta_n^{\RC}(H_{f_{r,\tau}})^2
+   \ge\Rnorm\tau_2^2-P_{\tau,n}(q).
+\]
+Lemma~\ref{I:R:lem:terminal-dimension-drop} proves the lower boundary
+bound in \eqref{I:R:eq:terminal-boundary-theorem}, because
+$\Rnorm\tau_2^2=|\tau(\varepsilon)|^2+\sum_j\Rnorm{\tau_j}_2^2$.
+
+For the upper bound choose a maximizing space $K$ in
+Lemma~\ref{I:R:lem:terminal-dimension-drop}.  Put
+\[
+ h(\varepsilon)=\tau(\varepsilon),\qquad
+ h(jv)=(P_K\tau_j)(v),\qquad e=\tau-h.
+\]
+All residuals $x_j=P_K\tau_j$ share $K$.  With $C_j$ the canonical
+backward shifts on $K$ and $l$ evaluation at the empty word, the usual
+forward realization of the lifted series
+$g_r(a^m w)=qr^m h(w)$ uses at most $1+\dim K\le n$ states:
+\begin{equation}
+ A_a=\begin{pmatrix}r&0\\0&0\end{pmatrix},\qquad
+ A_j=\begin{pmatrix}0&x_j^{\mathsf T}\\0&C_j^{\mathsf T}\end{pmatrix},
+ \quad\alpha^*=q(1,0),\quad
+ \beta=\begin{pmatrix}\tau(\varepsilon)\\l^{\mathsf T}\end{pmatrix}.
+ \label{I:R:eq:terminal-lift}
+\end{equation}
+These are coefficient transposes, not Hermitian adjoints.  Products
+give $h(jv)=lC_vx_j$ with the reversed canonical word order.  A letter
+$a$ following a terminal letter makes the product zero, as required.
+The common terminal tuple is jointly strictly stable: in its
+finite-dimensional shift-invariant space, finite-horizon tail energies
+tend uniformly to zero.  Thus its lifted Hankel is bounded.
+
+Here is also a direct infinite-operator check.  Let $U_r$ be the
+isometry from $\ell^2(\Delta^+)$ given by
+$U_re_w=\sqrt q\sum_mr^m e_{a^m w}$, let $W$ embed
+$\ell^2(\Delta^*)$ as words without $a$, and let
+$K_e[w,v]=e(wv)$ with $w\ne\varepsilon$.  Since
+$e(\varepsilon)=0$, direct entry matching gives
+\begin{equation}
+ H_{f_{r,\tau}}-H_{g_r}
+   =u_r(U_r\overline e)^*+\sqrt q\,U_rK_eW^*.
+ \label{I:R:eq:terminal-error-decomposition}
+\end{equation}
+The two output ranges are orthogonal.  Also $K_e$ is bounded: the
+terminal Hankel of $\tau$ is bounded by hypothesis, and that of $h$ is
+bounded by its stable finite realization.  Consequently
+\[
+ \Rnorm{H_{f_{r,\tau}}-H_{g_r}}^2
+   \le\Rnorm e_2^2+q\Rnorm{K_e}^2
+   =E_{n-1}(\tau)^2+q\Rnorm{K_e}^2.
+\]
+This proves the upper boundary bound and attainment.  The argument
+over real coefficients uses orthogonal state changes and real spaces
+throughout.
+\end{proof}

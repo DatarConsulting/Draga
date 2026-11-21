@@ -1,0 +1,20 @@
+\begin{proof}
+For a unit vector $y$, put $D=I-V^*V$ and
+$t=\Rnorm{Vy}^2=1-y^*Dy$.  The substitution $x=(I-rA)y$ in the row
+operator norm and the passive inequality give
+\[
+ \Rnorm{(I-rA)y}\ge1-r\Rnorm{Ay}\ge1-r\sqrt{1-t}.
+\]
+A unitary state change sends $y$ to $e_1$ and preserves the terminal
+row and constraints.  This proves the upper direction of
+\eqref{I:R:eq:terminal-elimination}.  Conversely, for fixed $V,y$ and
+$t<1$, choose
+\[
+ A=\frac{yy^*D}{\sqrt{1-t}}.
+\]
+Then $Ay=\sqrt{1-t}\,y$ and
+$A^*A=Dyy^*D/(y^*Dy)\preceq D$, by Cauchy--Schwarz in the $D$
+metric.  Both denominator inequalities are equalities.  When $t=1$
+choose $A=0$.  This proves exact attainability of the scalar
+denominator.
+\end{proof}

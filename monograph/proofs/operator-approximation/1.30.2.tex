@@ -1,0 +1,169 @@
+\begin{proof}
+We first parametrize the entire feasible set, then remove the phase
+symmetries at its limiting maximizing set.  The resulting maximum is a
+nondegenerate analytic critical point in seven real variables.
+
+\emph{An exact compact parametrization.}
+Put $t=s^2$, initially allowing either sign of the real parameter $s$.
+Write the first column of $V$ as $u=sz$, where
+$z\in\FC^3$ and $\Fnorm{z}=1$, and write the second column as $v$.
+For $|s|<1$, the Schur complement of $I-V^*V$ gives the exact equivalence
+\begin{equation}
+ V^*V\preceq I
+ \quad\Longleftrightarrow\quad
+ \Fnorm{v}^2+\frac{s^2}{1-s^2}|z^*v|^2\le1.
+ \label{I:F:eq:f2-column-ellipsoid}
+\end{equation}
+Thus every feasible second column is uniquely of the form
+\begin{equation}
+ v=W_s(z)\nu,\qquad \Fnorm{\nu}\le1,\qquad
+ W_s(z)=I_3-\bigl(1-\sqrt{1-s^2}\bigr)zz^*.
+ \label{I:F:eq:f2-W-parametrization}
+\end{equation}
+The matrix $W_s(z)$ is analytic and even in $s$ near zero.  In these
+coordinates,
+\[
+ B=\begin{pmatrix}sz_1&v_1\\sz_2&v_2\end{pmatrix},\qquad
+ \ell=(sz_3,v_3),
+\]
+and direct multiplication gives
+\begin{align}
+ \ell B^2e_1&=s\,\mathcal J(s,z,\nu),\notag\\
+ \mathcal J(s,z,\nu)
+ &=z_2v_2v_3+s z_2(z_3v_1+z_1v_3)+s^2z_3z_1^2.
+ \label{I:F:eq:f2-J-objective}
+\end{align}
+Consequently
+\begin{equation}
+ h(s^2)=s^2\mathcal M(s)^2,\qquad
+ \mathcal M(s)=\max_{\Fnorm{z}=1,\,\Fnorm{\nu}\le1}
+                  |\mathcal J(s,z,\nu)|.
+ \label{I:F:eq:f2-M-definition}
+\end{equation}
+
+At $s=0$,
+\[
+ |\mathcal J(0,z,\nu)|=|z_2\nu_2\nu_3|\le\frac12.
+\]
+Equality is possible exactly on the phase torus
+\begin{equation}
+ z_1=z_3=\nu_1=0,\qquad
+ |z_2|=1,\qquad |\nu_2|=|\nu_3|=2^{-1/2}.
+ \label{I:F:eq:f2-maximizing-torus}
+\end{equation}
+The parameter space is compact, and the objective converges uniformly
+as $s\to0$.  Hence every global maximizing pair for sufficiently small
+$|s|$ lies arbitrarily close to this torus.
+
+\emph{All complex phase degeneracies can be removed.}
+The original optimization is invariant under
+\begin{equation}
+ B\longmapsto e^{i\theta}U^*BU,\qquad
+ \ell\longmapsto e^{i\phi}\ell U,\qquad
+ U=\operatorname{diag}(1,e^{i\psi}).
+ \label{I:F:eq:f2-phase-action}
+\end{equation}
+The scalar $\ell B^2e_1$ is multiplied only by
+$e^{i(\phi+2\theta)}$.  On the compact parameters, the same action is
+\[
+ z\longmapsto Dz,\qquad
+ \nu\longmapsto e^{i\psi}D\nu,\qquad
+ D=\operatorname{diag}\bigl(e^{i\theta},e^{i(\theta-\psi)},e^{i\phi}\bigr).
+\]
+Indeed \eqref{I:F:eq:f2-W-parametrization} is equivariant under diagonal
+unitaries.  The phases of $(z_2,\nu_2,\nu_3)$ change respectively by
+$(\theta-\psi,\theta,\phi+\psi)$, an invertible linear transformation
+of the three phase parameters.  Since those three coordinates are
+nonzero near \eqref{I:F:eq:f2-maximizing-torus}, they may all be fixed to be
+positive real in a smooth local gauge.  No transverse complex direction
+is excluded by this choice.
+
+A global maximizer also satisfies $\Fnorm{\nu}=1$ for all sufficiently
+small $|s|$.  To see this, use radial coordinates
+$\nu=\rho\widehat\nu$, $\Fnorm{\widehat\nu}=1$.
+At the limiting torus the derivative of
+$|\mathcal J|$ in the increasing radial direction is $1$ at $\rho=1$.
+It remains positive in a neighborhood of that compact torus.  Global
+maximizers approach the torus, so a maximizing point with $\rho<1$
+would admit a feasible radial increase of its objective.
+
+\emph{Seven real coordinates and a strictly negative Hessian.}
+After fixing the phases and the radial constraint, choose local
+coordinates
+\begin{equation}
+ \begin{gathered}
+ z_1,z_3,\nu_1\in\FC,\qquad \xi\in\FR,\qquad
+ z_2=\sqrt{1-|z_1|^2-|z_3|^2},\\
+ \nu_2=\sqrt{1-|\nu_1|^2}\cos(\pi/4+\xi),\qquad
+ \nu_3=\sqrt{1-|\nu_1|^2}\sin(\pi/4+\xi).
+ \end{gathered}
+ \label{I:F:eq:f2-seven-coordinates}
+\end{equation}
+Let $x\in\FR^7$ list, in order,
+$\Re z_1,\Im z_1,\Re z_3,\Im z_3,\Re\nu_1,\Im\nu_1,\xi$.
+The gauge sends the entire limiting maximizing torus to $x=0$.
+The objective
+$F(s,x)=|\mathcal J(s,z(x),\nu(x))|$ is real analytic near $(0,0)$,
+because $\mathcal J(0,0)=1/2\ne0$.
+At $s=0$ its expansion is
+\begin{equation}
+ F(0,x)=\frac12-\frac{|z_1|^2+|z_3|^2}{4}
+                  -\frac{|\nu_1|^2}{2}-\xi^2+O(\Fnorm{x}^4).
+ \label{I:F:eq:f2-transverse-Hessian}
+\end{equation}
+Thus
+\begin{equation}
+ \partial_x^2F(0,0)=
+ \operatorname{diag}\!\left(-\frac12,-\frac12,-\frac12,-\frac12,
+                           -1,-1,-2\right)\prec0.
+ \label{I:F:eq:f2-Hessian-matrix}
+\end{equation}
+The full expansion through total degree two is
+\begin{align}
+ F(s,x)=\frac12-\frac14s^2+\frac{s\,\Re z_1}{\sqrt2}
+          -\frac{|z_1|^2+|z_3|^2}{4}
+          -\frac{|\nu_1|^2}{2}-\xi^2
+          +O\bigl((|s|+\Fnorm{x})^3\bigr).
+ \label{I:F:eq:f2-full-quadratic}
+\end{align}
+For completeness, the pure $s^2$ term follows from the exact identity
+$\mathcal J(s,0)=\sqrt{1-s^2}/2$.  In
+\eqref{I:F:eq:f2-J-objective}, the only mixed term of total degree two
+contributing to the modulus is $s\Re z_1/\sqrt2$.
+
+The analytic implicit function theorem applied to
+$\partial_xF(s,x)=0$ gives a unique analytic critical branch $x=x(s)$
+near zero.  The negative definite Hessian persists in a fixed small
+coordinate neighborhood, where the objective is strictly concave.
+Every global maximizer lies in that neighborhood after the phase gauge,
+by the compact localization already proved.  It must therefore be this
+critical branch.  This justifies applying the local analytic expansion
+to the \emph{global} maximum $\mathcal M(s)$.
+Differentiating the critical equations using
+\eqref{I:F:eq:f2-Hessian-matrix}--\eqref{I:F:eq:f2-full-quadratic} gives
+\begin{equation}
+ x'(0)=(\sqrt2,0,0,0,0,0,0).
+ \label{I:F:eq:f2-critical-derivative}
+\end{equation}
+Substituting into \eqref{I:F:eq:f2-full-quadratic} yields
+\begin{equation}
+ \mathcal M(s)=\frac12+\frac14s^2+O(s^3).
+ \label{I:F:eq:f2-M-preliminary}
+\end{equation}
+
+\emph{Physical evenness improves the remainder.}
+The feasible physical matrices with first-column squared norm $s^2$
+are identical for $s$ and $-s$.  Equivalently, replacing
+$(s,z,\nu)$ by $(-s,-z,\nu)$ preserves $v$ and changes
+$\mathcal J$ only by its sign.  Therefore
+$\mathcal M(-s)=\mathcal M(s)$.  We have proved that the maximizing
+value is analytic near zero, so all its odd Taylor coefficients vanish.
+Equation \eqref{I:F:eq:f2-M-preliminary} sharpens to
+\begin{equation}
+ \mathcal M(s)=\frac12+\frac14s^2+O(s^4).
+ \label{I:F:eq:f2-M-even}
+\end{equation}
+Finally \eqref{I:F:eq:f2-M-definition} gives
+$h(t)=t(1/2+t/4+O(t^2))^2$, which is
+\eqref{I:F:eq:f2-h-expansion}.
+\end{proof}

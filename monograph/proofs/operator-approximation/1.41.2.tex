@@ -1,0 +1,37 @@
+\begin{proof}
+Let $E:\mathbb F^k\to\mathbb F^n$ be the coordinate inclusion and
+let $C,O$ and $C_B,O_B$ denote reachability and observation maps.
+The leading Stein blocks show $P_B,Q_B\preceq\Sigma_1$: for example,
+iterate $\Sigma_1\succeq b_1b_1^*+\sum_aB_a\Sigma_1B_a^*$ and
+use stability of $B$. Hence $\|O\|=\sqrt{\sigma_1}$ and
+$\|C_B\|\le\sqrt{\sigma_1}$.
+
+For $z_w=A_wb-EB_wb_1$, the tree recursion is
+\[
+ z_\varepsilon=(0,b_2)^\top,\qquad
+ z_{aw}=A_az_w+(0,A_{a,21}B_wb_1)^\top.
+\]
+On the Hilbert sum of state vectors indexed by words, with each state
+norm $\|z\|_Y$, the map $(z_w)\mapsto(A_az_w)_{aw}$ has norm at
+most $r_Y$. Root and nonroot forcing coordinates are disjoint. Their
+squared Euclidean sum is
+\[
+ \|b_2\|^2+\sum_a\Utr(A_{a,21}P_BA_{a,21}^*)
+ \le\Utr\Sigma_2,
+\]
+by the lower reachability Stein block. The Neumann series on the tree
+and equivalence of the state norms therefore give
+\[
+ \|C-EC_B\|_{\rm HS}
+ \le\frac{\sqrt{\kappa_Y\Utr\Sigma_2}}{1-r_Y}.
+\]
+Apply the identical argument to $(A_a^*,c)$ with witness $X$, reversing
+word order, to obtain
+$\|O-O_BE^*\|_{\rm HS}\le
+\sqrt{\kappa_X\Utr\Sigma_2}/(1-r_X)$. Finally,
+\[
+ H_f-H_g=O(C-EC_B)+(O-O_BE^*)EC_B.
+\]
+The operator norm is at most the displayed Hilbert--Schmidt bounds
+times $\sqrt{\sigma_1}$, proving the assertion.
+\end{proof}

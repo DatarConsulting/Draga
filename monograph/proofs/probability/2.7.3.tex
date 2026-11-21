@@ -1,0 +1,33 @@
+\begin{proof}[Upper bound]
+Restrict to sufficiently small $0<\epsilon\le\mu/2$ and put
+$\lambda=\log(1/\rho)$ and
+$T=\lfloor\log(1/\epsilon)/(\lambda+\tfrac12\log d)\rfloor\in\mathbb Z_{\ge0}$ in
+Lemma~\ref{II:U:lem:spectral-tv}. Both terms are $O(\epsilon^\gamma)$.
+Let $\Delta\le1/2$ be a positive such upper bound. Smooth the event
+law $\pi=(a,b_1,\ldots,b_d)$ to
+$\pi_\Delta=(1-\Delta)\pi+\Delta\operatorname{Unif}(d+1)$,
+and call the resulting proper law $q_\Delta$.
+
+Couple $W\sim p,V\sim q$ maximally, enlarging the mismatch event $E$
+to probability $\Delta$ if necessary. Exponential tails imply
+\[
+ \mathbb E[|W|1_E]\le\Delta A_p(\Delta),\quad
+ \mathbb E[|V|1_E]\le\Delta A_q(\Delta),\quad A_p,A_q=O(\log(1/\Delta)).
+\]
+For example, summing $\min(\Delta,C\rho^{t+1})$ proves the first
+bound. With $A=\max(A_p,A_q)$, conditional entropy and the geometric
+maximum-entropy bound imply
+\[
+ |H(p)-H(q)|\le h_2(\Delta)+\Delta\{g(A)+A\log d\}.
+\]
+All smoothed event probabilities are at least $\Delta/(d+1)$. The stop
+term cancels when comparing two word cross-entropies, giving a difference
+at most $\Delta(A_p+A_q)\log((d+1)/\Delta)$.
+Finally the event-by-event renewal calculation yields
+\[
+ D_{\rm KL}(q\|q_\Delta)=a^{-1}D_{\rm KL}(\pi\|\pi_\Delta)
+ \le-\mu^{-1}\log(1-\Delta).
+\]
+Adding the three estimates gives $D_{\rm KL}(p\|q_\Delta)
+=O(\Delta\log^2(1/\Delta))$. Optimization can only reduce it.
+\end{proof}

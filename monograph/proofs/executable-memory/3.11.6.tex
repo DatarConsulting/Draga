@@ -1,0 +1,36 @@
+\begin{proof}
+Put $r_-=4\varepsilon/c_{\rm obs}$. A maximal finite
+$r_-$-separated set has open $r_-$-balls covering $\mathcal X$;
+maximality and compactness ensure both statements. Upper regularity
+therefore gives at least
+$M/(C_{\rm AD}r_-^s)$ centers. Their pairwise future distances are
+at least $4\varepsilon$. By reachable density and the upper
+Lipschitz bound, choose reachable states arbitrarily near the finitely
+many centers so their future distances remain strictly greater than
+$2\varepsilon$. Behavioral packing forces at least as many distinct
+machine states and proves the lower bound.
+
+For the upper bound, set
+$\eta=(1-\lambda)\varepsilon/C_{\rm obs}$.
+Choose a maximal $\eta$-separated set
+$\{\widehat x_1,\ldots,\widehat x_N\}\subset\mathcal X$.
+It is an $\eta$-net, and its open balls of radius $\eta/2$ are
+pairwise disjoint. Lower regularity gives
+\[
+ N\le\frac{M}{c_{\rm AD}}
+                   \left(\frac2\eta\right)^s.
+\]
+The net is chosen by separation; a minimum-cardinality net would not
+automatically have the disjointness property used here.
+Initialize at a nearest center to $x_0$, send center $i$ under letter
+$a$ to a nearest center to $\tau_a(\widehat x_i)$, and output
+$h(\widehat x_i)$. Tie-breaking is fixed. The tracking error satisfies
+\[
+ e_0\le\eta,\qquad e_{t+1}\le\lambda e_t+\eta,
+ \qquad e_t\le\frac\eta{1-\lambda}
+                          =\frac\varepsilon{C_{\rm obs}}.
+\]
+Since the empty suffix is allowed in $d_{\rm fut}$, output error is
+at most $C_{\rm obs}e_t\le\varepsilon$. Finally
+$\lceil\log_2N\rceil\le\log_2N+1$ yields $C_+$.
+\end{proof}

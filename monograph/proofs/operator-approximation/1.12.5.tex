@@ -1,0 +1,29 @@
+\begin{proof}
+Let $G=\gamma mm^{\top}$ be any bounded rank-one competitor (Lemma~\ref{I:M:rev13:lem:rank-one};
+$G=0$ gives error $\Mnorm{H_f}=1$) and $A=H_f-G$, with
+$H_f=z_0z_1^{\top}+\sqrt q\,z_1e_\varepsilon^{\top}$. Put
+\[
+p=m^{\top}z_0=\sqrt q\sum_nr^nt_a^n=\frac{\sqrt q}{1-rt_a},\qquad
+s=m^{\top}z_1=\sqrt q\sum_nr^nt_a^nt_b=t_bp .
+\]
+Then $Az_1=z_0-\gamma s\,m$ and, since $H_f^{\top}z_0=z_1$ and $G^{\top}=G$,
+$A^{\top}z_0=z_1-\gamma p\,m$. With $c=\gamma sp$,
+\[
+\Mnorm{Az_1}^2=1-2\operatorname{Re}c+|c|^2\frac{\Mnorm m^2}{|p|^2},\qquad
+\Mnorm{A^{\top}z_0}^2=1-2\operatorname{Re}c+|c|^2\frac{\Mnorm m^2}{|s|^2}.
+\]
+Because $|s|=|t_b||p|\le|p|$, the second expression dominates, so
+$\Mnorm A^2\ge1-2|c|+|c|^2\Mnorm m^2/|s|^2\ge1-|s|^2/\Mnorm m^2$ after minimising over
+$|c|\ge0$ (if $t_b=0$ then $s=0$ and $\Mnorm{Az_1}=\Mnorm{z_0}=1$). Now
+\[
+\frac{|s|^2}{\Mnorm m^2}=\frac{q\,|t_b|^2(1-|t_a|^2-|t_b|^2)}{|1-rt_a|^2}
+\le\frac{q\,\beta(1-\alpha^2-\beta)}{(1-r\alpha)^2}\le\frac q4\,\frac{(1-\alpha^2)^2}{(1-r\alpha)^2},
+\]
+with $\alpha=|t_a|$, $\beta=|t_b|^2\le1-\alpha^2$. The function
+$\varphi(\alpha)=(1-\alpha^2)/(1-r\alpha)$ on $[0,1)$ has derivative proportional to
+$r\alpha^2-2\alpha+r$ and attains its maximum $2/(1+\sqrt q)$ at
+$\alpha=(1-\sqrt q)/r$ (where $1-\alpha^2=2\sqrt q/(1+\sqrt q)$ and $1-r\alpha=\sqrt q$).
+Hence $|s|^2/\Mnorm m^2\le q/(1+\sqrt q)^2$ and
+$\delta_1^2\ge1-q/(1+\sqrt q)^2=(1+2\sqrt q)/(1+\sqrt q)^2$. The expansion and the limit
+are immediate, and $\delta_1\le\Mnorm{H_f}=1$ because $G=0$ is admissible.
+\end{proof}

@@ -1,0 +1,15 @@
+\begin{table}[ht]
+\centering\small
+\caption{Teacher-forced log probabilities in nats. Each target includes the final stop. The last column applies to every proper autonomous one-state controller.}\label{tab:qwen}
+\begin{tabular}{rr rr rr r}\toprule
+&& \multicolumn{2}{c}{Three-token policy}&\multicolumn{2}{c}{Full vocabulary}&\\
+$m$ & Length & Asc. & Desc. & Asc. & Desc. & $\log c_1$\\\midrule
+1 & 2 & -0.885 & -6.406 & -10.114 & -14.347 & -3.296 \\
+2 & 8 & -12.932 & -11.707 & -21.962 & -20.515 & -8.685 \\
+3 & 24 & -36.975 & -32.099 & -49.213 & -43.229 & -20.834 \\
+4 & 64 & -72.306 & -63.446 & -88.294 & -78.497 & -49.528 \\
+\bottomrule\end{tabular}
+\end{table}
+On the ascending two-action instance the constrained policy assigned the valid trace probability $0.4127$ (rounded). Its best one-state competitor can assign at most $1/27$. Equation~\eqref{eq:event} gives a floor of $0.7046$ nats, rounded down. The other seven one-state event tests, and all eight tests at budgets two and four, returned zero. None of the eight restricted greedy rollouts solved its instance, as determined by the first mismatch with the verified action sequence, including the stop. The full-vocabulary policy crossed none of the reported caps. A teacher-forced success probability and a greedy success indicator answer different questions.
+
+On the two width-one prompts we also enumerated all completed traces under a three-action horizon. For ascending and descending order, the ratios $\sigma_2/\sigma_1$ were respectively 0.856 and 0.989. In both cases the antisymmetric lower bound was below $\sigma_2$. These checkpoint observations do not establish the spectral separation proved for the constructed law.

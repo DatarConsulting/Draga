@@ -1,0 +1,20 @@
+\begin{proof}
+Markov's inequality and Lemma~\ref{II:U:lem:spectral-tv}, with
+$T=\lfloor\log(1/\epsilon)/\log d\rfloor$, give a proper $q$ with
+$\UTV(p,q)\le\Delta=O((\log(1/\epsilon))^{-s})$.
+Its length is geometric with stop at least $\mu$, so its $s$th moment
+is uniformly bounded. In the preceding coupling, H\"older gives
+$\mathbb E[(|W|+|V|)1_E]=O(\Delta^{1-1/s})$.
+The same entropy and smoothed cross-entropy argument gives KL
+$O(\Delta^{1-1/s}\log(1/\Delta))$.
+
+For the lower bound use the uniform shell source with $\delta=M_s/T^s$
+and large integer $T$ with $M_s/T^s\le1-\mu$. Its $s$th moment is exactly $M_s$,
+$\epsilon_T=M_sT^{-s}d^{-T/2}$, and
+\[
+ \mathcal K(p_T)=g(M_sT^{1-s})-h_2(M_sT^{-s})
+ \sim M_s(s-1)T^{1-s}\log T.
+\]
+Here $\log(1/\epsilon_T)\sim T\log d/2$; consecutive spectral values
+have ratios bounded away from zero. The asserted order follows.
+\end{proof}

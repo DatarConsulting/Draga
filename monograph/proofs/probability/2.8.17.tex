@@ -1,0 +1,24 @@
+\begin{proof}
+A continuous monotone map sends an interval to the interval between
+its endpoint images. Induction therefore identifies $K_n$ with the
+convex hull of the finite set of coordinates at depths at most $n$;
+each new extreme is attained by a previous extreme followed by one
+letter, or by the empty prefix. The interval map in
+\eqref{II:U:eq:rank-two-envelope} is monotone for inclusion and is a
+$\gamma$-contraction in Hausdorff distance: each image map is, and
+adjoining the same point and taking interval hulls cannot increase the
+maximum endpoint discrepancy. The space of nonempty compact
+subintervals of $I$ is complete. The contraction theorem gives a
+unique $K_*$ and the error bound. Since $K_0\subseteq K_1$, induction
+gives nesting and identifies $K_*$ as the closed convex hull of all
+reachable coordinates.
+
+Rank two rules out a singleton reachable hull. Its endpoint laws are
+probabilities by continuity and are invariant under all letters.
+The barycentric construction and clipping proof of
+Theorem~\ref{II:U:thm:rank-two-monotone} now apply on $K_*$ and $K_n$.
+Prefix witnesses can be retained as endpoint backpointers; there are
+at most two new witnesses per round. Exact arithmetic and certified
+input hypotheses, including the interval of nonnegative laws, are
+assumptions of this construction.
+\end{proof}

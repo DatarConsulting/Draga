@@ -1,0 +1,88 @@
+\begin{proof}
+The case $m=0$ is immediate, so assume $m\ge1$ and abbreviate
+$C=C(m,2/3)$.
+
+\emph{Lower bound, by a direct H\"older argument.}
+First take $\Theta$ of degree exactly $m$.  Multiplying by a unimodular
+constant does not affect \eqref{I:B:eq:hardy-model-error}, so write
+\[
+ \Theta=\frac{D_m^*}{D},\qquad
+ D_m^*(z)=z^m\overline{D(1/\bar z)}.
+\]
+Let $b=P_{\le m}\Theta=\sum_{j=0}^m\theta_jz^j$.  Since Taylor truncation
+does not affect the coefficient of degree $m$ after multiplication by an
+analytic polynomial,
+\begin{equation}
+ [z^m](bD^2)=[z^m](\Theta D^2)
+ =[z^m](D_m^*D)=\Bnorm{D}_{\BHtwo}^2.
+ \label{I:B:eq:hardy-key-coefficient}
+\end{equation}
+The definition of $C$ and H\"older's inequality therefore give
+\begin{equation}
+ \Bnorm{D}_{\BHtwo}^2
+ \le C\Bnorm{bD^2}_{H^{2/3}}
+ \le C\Bnorm{b}_{\BHtwo}\Bnorm{D}_{\BHtwo}^2.
+ \label{I:B:eq:hardy-holder-bound}
+\end{equation}
+For clarity, the second step is precisely
+\[
+ \left(\int |b|^{2/3}|D|^{4/3}\right)^{3/2}
+ \le\left(\int |b|^2\right)^{1/2}\int |D|^2,
+\]
+using H\"older exponents $3$ and $3/2$ and normalized circle measure.
+Division by $\Bnorm{D}_{\BHtwo}^2>0$ proves
+$\Bnorm{b}_{\BHtwo}\ge1/C$.
+
+If $\deg\Theta=l<m$, append any finite Blaschke factor $\Psi$ of degree
+$m-l$.  The inclusion $K_\Theta\subset K_{\Theta\Psi}$ shows that the
+projection error for $\Theta$ is at least that for the degree-$m$ product
+$\Theta\Psi$.  Thus the same lower bound holds for every degree at most
+$m$.  Lemma~\ref{I:B:lem:hardy-model} gives $E_m\ge1/C$.  This part of the
+proof uses neither stationarity of a rational minimizer nor existence of
+such a minimizer.
+
+\emph{Matching upper bound, from an outer coefficient extremal.}
+Coefficient extremals exist by a normal-family argument.  Theorem~1 and
+Corollary~3 of Brevig--S\o vik~\cite{outer2026}, combined with the
+polynomial structure in Brevig--Saksman~\cite{brevig2020}, imply that an
+extremal for \eqref{I:B:eq:hardy-C-definition} at $p=2/3$ is $F=P^3$, where
+$P$ is an outer polynomial of exact degree $m$.  Normalize its phase and
+norm so that
+\begin{equation}
+ \Bnorm{P}_{\BHtwo}=1,\qquad [z^m]P^3=C>0.
+ \label{I:B:eq:hardy-extremal-normalization}
+\end{equation}
+For every polynomial $Q$ one has
+$\Bnorm{Q^3}_{H^{2/3}}=\Bnorm{Q}_{\BHtwo}^3$.  Hence $P$ maximizes
+$\operatorname{Re}[z^m]Q^3$ over the entire unit sphere of the
+$(m+1)$-dimensional polynomial Hilbert space; the variations do not need
+to remain outer.
+
+Write $P(z)=\sum_{j=0}^mp_jz^j$.  Differentiation with respect to the real
+and imaginary parts of all $p_j$, with the unit-sphere constraint, yields
+\[
+ [z^{m-j}]P^2=\lambda\overline{p_j}\qquad(0\le j\le m).
+\]
+Multiplying by $p_j$ and summing shows
+$\lambda=[z^m]P^3=C$, since $\sum_j|p_j|^2=1$.
+Thus, for the reciprocal of order $m$,
+\begin{equation}
+ P^2=C P_m^*+O(z^{m+1}),\qquad
+ P_m^*(z)=z^m\overline{P(1/\bar z)}.
+ \label{I:B:eq:hardy-EL}
+\end{equation}
+The ratio $\Theta=P_m^*/P$ is a finite Blaschke product of degree at most
+$m$, after cancelling any common factors on the unit circle.  Outerness
+ensures $P(0)\ne0$, so division of \eqref{I:B:eq:hardy-EL} as a Taylor series
+at zero gives
+\[
+ \Theta=P/C+O(z^{m+1}).
+\]
+Consequently,
+\[
+ \sum_{j=0}^m|\theta_j|^2
+ =\frac{\Bnorm{P}_{\BHtwo}^2}{C^2}=\frac1{C^2}.
+\]
+The projection $h=P_{K_\Theta}z^m$ belongs to $\mathcal R_m$ and attains
+this error.  Therefore $E_m\le1/C$, completing the proof.
+\end{proof}

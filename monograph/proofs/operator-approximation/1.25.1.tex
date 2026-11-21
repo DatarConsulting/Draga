@@ -1,0 +1,62 @@
+\begin{proof}
+Use the isometries $V_r,W$ and the unit vector $u_r$ from
+\eqref{I:B:eq:lift-isometries}. Define $v_d=V_r\overline d$. The exact
+error decomposition is
+\[
+ E_r=u_rv_d^*+\sqrt q\,V_rH_dW^*,
+ \qquad u_r\perp\operatorname{ran}V_r.
+\]
+In particular,
+\begin{equation}
+ M:=E_r^*E_r=v_dv_d^*+qWH_d^*H_dW^*.
+ \label{I:B:eq:curvature-error-square}
+\end{equation}
+The overlap between the two embeddings is especially simple:
+\begin{equation}
+ W^*V_re_j=\sqrt q\,e_{j+1},\qquad
+ W^*v_d=\sqrt q\,S_+\overline d.
+ \label{I:B:eq:curvature-overlap}
+\end{equation}
+Indeed the only term in $V_re_j$ supported on a pure power of $b$ is
+its $n=0$ term, at the word $b^{j+1}$.
+
+Let $z=v_d/\sqrt A$, so $\Bnorm z=1$, and decompose $M$ relative to
+$\operatorname{span}\{z\}\oplus z^\perp$. By
+\eqref{I:B:eq:curvature-overlap}, its upper-left scalar entry is
+\begin{equation}
+ a=\langle z,Mz\rangle
+   =A+q\Bnorm{H_dW^*z}^2
+   =A+\frac{q^2T}{A}.
+ \label{I:B:eq:curvature-rayleigh}
+\end{equation}
+This is a Rayleigh quotient of $M$ and proves the lower inequality in
+\eqref{I:B:eq:curvature-finite-bound} for the explicit error $E_r$.
+
+Let $B_0$ be the compression of $M$ to $z^\perp$, and let
+$v=(I-zz^*)Mz$ be the off-diagonal vector. The rank-one term
+$v_dv_d^*$ vanishes on $z^\perp$. Since $W$ is an isometry,
+\begin{equation}
+ \Bnorm{B_0}\le qL.
+ \label{I:B:eq:curvature-complement}
+\end{equation}
+Moreover, using \eqref{I:B:eq:curvature-error-square} and
+\eqref{I:B:eq:curvature-overlap},
+\begin{align}
+ \Bnorm v^2
+ &\le q^2\Bnorm{WH_d^*H_dW^*z}^2\\
+ &\le q^2L\Bnorm{H_dW^*z}^2
+  =\frac{q^3LT}{A}.
+ \label{I:B:eq:curvature-offdiagonal}
+\end{align}
+The assumed inequality $qL\le A/2$ gives
+$a-\Bnorm{B_0}\ge A/2$. Applying the positive-block estimate used in
+Proposition~\ref{I:B:prop:lift-k2-sharp} yields
+\[
+ \Bnorm M\le a+\frac{\Bnorm v^2}{a-\Bnorm{B_0}}
+ \le a+\frac{2q^3LT}{A^2},
+\]
+which is the upper inequality in
+\eqref{I:B:eq:curvature-finite-bound}. The two expansions follow immediately;
+in taking the square root, the next Taylor correction from the $q^2$
+term is of order $q^4$ and is absorbed by the displayed $O(q^3)$.
+\end{proof}

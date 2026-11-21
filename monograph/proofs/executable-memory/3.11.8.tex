@@ -1,0 +1,18 @@
+\begin{proof}
+Set $\epsilon=2^{-p}$ and choose a mesh $\delta=2^{-q}$ with
+$\delta\le(1-\lambda)\epsilon/(4C)$, so $q=p+O_H(1)$.
+Store the $k$ integer grid coordinates in $\{0,\ldots,2^q\}$.
+Evaluate each update to maximum-norm error at most $\delta/2$,
+clip to the cube and round to the nearest grid point. Clipping is
+nonexpansive; the total one-step numerical error is at most $\delta$.
+Initialize with error at most $\delta$. Thus
+$e_{t+1}\le\lambda e_t+\delta$ and
+$e_t\le\delta/(1-\lambda)$ for every history.
+Output error from state tracking is at most $\epsilon/4$; evaluating
+the readout to error at most $\epsilon/2$ meets the target.
+Each coordinate needs $q+1$ bits, giving the asserted upper bound
+and the stated computational costs by the supplied evaluators.
+A grid packing of the cube at spacing greater than $2\epsilon/c$,
+and reachable density, forces $\Omega_H(\epsilon^{-k})$ distinct
+executable states by future observability. This gives the lower bound.
+\end{proof}

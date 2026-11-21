@@ -1,0 +1,23 @@
+\begin{proof}
+In either witness norm the tree-operator perturbation has norm at most
+$\sqrt\kappa\sqrt d\,nh\le a/2$. Thus both rounded tree operators
+have norm at most $1-a/2$, proving stability. The resolvent identity,
+$\|\delta b\|,\|\delta c\|\le\sqrt n h$, and the original and
+rounded resolvent bounds $a^{-1}$ and $2a^{-1}$ give
+\[
+ \|\widehat C-C\|_{\rm HS}\le D_bh,\qquad
+ \|\widehat O-O\|_{\rm HS}\le D_ch.
+\]
+Indeed, the two terms for reachability are the changed root vector
+and the changed tree operator applied to the original reachability
+sequence; their bounds are exactly the two terms of $D_bh$.
+The dual argument gives $D_ch$. Also
+$\|C\|\le\sqrt\kappa\|b\|/a$ and
+$\|\widehat O\|\le2\sqrt\kappa(\|c\|+1)/a$.
+Use $\widehat H-H=(\widehat O-O)C+\widehat O(\widehat C-C)$.
+This proves the bound $Kh$. Rational Stein systems and their joint
+error systems have polynomial dimension; exact linear algebra and
+positive-semidefinite tests have polynomial bit cost. This is a
+bound for specified witnesses, not for finding a well-conditioned
+balancing transform or a uniformly well-conditioned truncation.
+\end{proof}

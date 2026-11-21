@@ -1,0 +1,52 @@
+\begin{proof}
+Apply Hoeffding simultaneously to every prefix of depth at most
+$L_0$ and its $R$ completed-word suffix queries, and to the core
+queries. The union bound uses $K$ even though only observed frequent
+prefixes are processed. Combine it with the joint-letter event in
+\eqref{II:U:eq:joint-count-event}; the two failure budgets are $\delta/2$.
+Every witness is retained, and every retained prefix has true mass
+at least $p_*/2$. Proposition~\ref{II:U:prop:pool-estimation}, with this
+lower mass, and affine normalization give row $\ell^1$ error $e_F$.
+
+In native coordinates $\widetilde P=D_q^{-1}P$ is stochastic.
+Thus $\sigma_R(J_\mu\widetilde P^{-1})\ge a_\mu/\sqrt R=s_G$.
+The suffix matrix $C$ in $H=PC$ has nonnegative rows of mass at most
+one, because suffixes are distinct. Hence
+$\|V_*\|_\infty=\|CH^{-1}D_q\|_\infty\le h_0$ and
+$\|J_\mu V_*\|_2\le S_G$.
+The conservative SPA tests therefore imply that the selected
+\emph{true} rows have relative purity $1-\eta$.
+
+Their basis $V=D_mU$ has margins $\gamma_0,s_*$ by
+Theorem~\ref{II:U:thm:doeblin-sandwich}. Every true observable residual
+row has $\ell^1$ norm at most $h_0$, giving $\|V\|_\infty\le v_+$.
+The identities
+\[
+ V^{-1}=\widetilde P J_\mu^{-1}\Pi^{-1}D_m^{-1},\quad
+ \|\Pi^{-1}\|_\infty\le(1-2\eta)^{-1},\quad
+ \|D_m^{-1}\|_\infty=1
+\]
+give the claimed $v_-$ bound. Moreover
+$\|\widehat V-V\|_\infty\le e_V$ and both bases send
+$\mathbf1$ to $\mathbf1$. Lemma~\ref{II:U:lem:learned-basis} implies
+that the true law in the empirical basis has margins
+$\gamma_0/2,s_*/2$ and the displayed inverse/norm bounds.
+
+Now apply the deterministic product estimates from the proof of
+Theorem~\ref{II:U:thm:fixed-basis-sampling} on the same uniform event.
+They hold for every selected basis obeying these norm bounds; no
+sample-independence claim for $\widehat V$ is needed. The raw initial
+and transition errors are bounded by $e_\alpha,e_A$. The small-error
+tests imply all stipulated margins after initial normalization.
+Downward rounding preserves properness. Pathwise perturbation with
+true STOP at least $s_*/2$ proves \eqref{II:U:eq:learned-basis-tv}.
+A change of exact basis itself changes no word probability; it is
+used to prove positivity, not counted as an additional distribution error.
+
+All retained prefixes occur in the observed trie. Query lookup,
+matrix products and SPA require polynomially many operations in its
+size and the stated parameters. Squared-norm SPA comparisons can be
+performed exactly on rationals; no square roots are needed to execute
+the pivots. Fraction-free algebra and dyadic floor operations give
+the polynomial bit bound as in Theorem~\ref{II:U:thm:fixed-basis-sampling}.
+\end{proof}

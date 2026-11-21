@@ -1,0 +1,14 @@
+\begin{proof}
+Hoeffding and a union bound give entry error at most
+$e/\sqrt{MN}$ and thus the operator bound via the Frobenius norm.
+The variational singular-value inequalities give
+$\widehat\sigma_r\ge s_0-e$ and
+$\widehat\sigma_{r+1}\le e$.
+Writing $\widehat K\widehat V_r=\widehat U_r\widehat\Sigma_r$
+and multiplying by $I-P$ gives
+$(I-P)\widehat U_r=(I-P)(\widehat K-K)\widehat V_r
+\widehat\Sigma_r^{-1}$. The norm is at most $e/(s_0-e)$.
+For two projectors of equal rank this is their operator-norm distance;
+the transposed argument gives the right projector. Finally
+$\|\widehat K_r-K\|\le\|\widehat K_r-\widehat K\|+e\le2e$.
+\end{proof}

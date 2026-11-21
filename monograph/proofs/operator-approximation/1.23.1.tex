@@ -1,0 +1,25 @@
+\begin{proof}
+For degree $l$, the standard rational description is
+\[
+ K_\Theta=\left\{\frac{N}{D}:\deg N<l\right\}.
+\]
+It follows, for example, from the $l$-element Takenaka--Malmquist orthonormal
+basis associated with the zeros of $\Theta$: the common denominator is $D$,
+the numerators have degree less than $l$, and dimension is $l$.  This
+space is invariant under the scalar backward shift.  Hence the Hankel
+columns of each member span a space of dimension at most $l$.  Conversely,
+the stable rational realization of a bounded finite-rank scalar Hankel
+has the form \eqref{I:B:eq:hardy-rational-class}, at its minimal order; its
+denominator supplies such a finite Blaschke product.  This proves the union
+assertion, including denominators of degree below the specified order.
+
+Multiplication by $\Theta$ is an isometry on $\BHtwo$, so the orthogonal
+projection onto $\Theta\BHtwo$ is
+\[
+ z^m-P_{K_\Theta}z^m
+ =\Theta P_+(\overline\Theta z^m)
+ =\Theta\sum_{j=0}^m\overline{\theta_j}z^{m-j}.
+\]
+Taking the squared norm proves \eqref{I:B:eq:hardy-model-error}, and minimizing
+over the union proves \eqref{I:B:eq:hardy-Blaschke-variational}.
+\end{proof}

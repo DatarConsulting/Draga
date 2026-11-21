@@ -1,0 +1,35 @@
+\begin{proof}
+Write $C=C(m,2/3)$.  The established Hardy bridge gives
+$E_m=1/C$.  Every minimizing model space has exact dimension $m$:
+otherwise adjoining a reproducing-kernel direction with nonzero
+overlap with the residual strictly improves its fit.  Write its
+Blaschke product as $\Theta=D^*/D$, with $D$ an outer polynomial of
+degree at most $m$, and set $b=P_{\le m}\Theta$.
+The coefficient identity and H\"older inequality used in the bridge
+are
+\begin{equation}
+ \Rnorm D_2^2=[bD^2]_m
+ \le C\Rnorm{bD^2}_{2/3}
+ \le C\Rnorm b_2\Rnorm D_2^2.
+ \label{I:R:eq:classification-Holder-chain}
+\end{equation}
+At a minimizing space $\Rnorm b_2=E_m=1/C$, so equality holds
+throughout.  In particular normalized $bD^2$ is a coefficient
+extremal.  It is outer by the stated hypothesis, hence $b$ is outer
+as well.  Equality in H\"older gives
+$|b|/\Rnorm b_2=|D|/\Rnorm D_2$ almost everywhere on the circle.
+Uniqueness of an outer function with its boundary modulus therefore
+gives $b=cD$ for a nonzero scalar $c$.  It follows that the normalized
+cube of $D$ is a coefficient extremal: $D$ is a scalar multiple of
+some $P\in\mathcal P_m$.  Conversely the stationarity identity
+$P^2=C P^*+O(z^{m+1})$ in the upper half of the Hardy bridge makes
+$P^*/P$ a minimizing Blaschke product.  This proves the asserted
+classification.
+
+For a lossless observable boundary tuple $(D,l,x)$, its observation
+map is an isometry onto the minimizing model space and
+$O^*e_m=(lD^m)^*=\Gamma_m x$.  Thus the model space fixes the tuple
+up to a unitary state change and fixes the unit cyclic vector by this
+display.  A rotation of the scalar variable only produces the
+corresponding phase changes in the tuple.
+\end{proof}

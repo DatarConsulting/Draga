@@ -1,0 +1,67 @@
+\begin{proof}
+For fixed $(i,j)$, the events $W=u_iav_j$ over $a$ are disjoint.
+Cauchy--Schwarz bounds the expected sum of absolute frequency errors
+by $\sqrt{d/n}$. Changing one observation changes that sum by at most
+$2/n$. McDiarmid and a union bound over $R^2$ pairs, together with
+Hoeffding for the $R^2+2R$ base entries, give a common event of
+probability at least $1-\delta$ on which
+\begin{equation}
+ \|\widehat H-H\|_{\max},\ \|\widehat h-h\|_\infty,
+ \|\widehat q-q\|_\infty\le t_n,
+ \qquad
+ \sum_a\|\widehat M_a-M_a\|_\infty\le R^2b_n.
+ \label{II:U:eq:joint-count-event}
+\end{equation}
+The last inequality sums over both row and column indices. A
+per-pair union bound cannot replace this step by exchanging a sum
+over letters with a maximum over rows.
+
+Since $\|H^{-1}\|_\infty\le h_0$, the first two sample thresholds give
+\begin{align*}
+ \|\widehat H^{-1}\|_\infty&\le2h_0,&
+ \|\widehat H^{-1}-H^{-1}\|_\infty&\le2Rh_0^2t_n,\\
+ \|D_{\widehat q}^{-1}\|_\infty&\le2/q_*,&
+ \|D_{\widehat q}^{-1}-D_q^{-1}\|_\infty&\le2t_n/q_*^2.
+\end{align*}
+Distinct suffixes imply $\|h\|_1,\|\widehat h\|_1\le1$.
+For each fixed core prefix, the words $u_iav_j$ over $(a,j)$ are
+distinct, so
+$\sum_a\|M_a\|_\infty,\sum_a\|\widehat M_a\|_\infty\le R$.
+Also $\|D_q\|_\infty,\|D_{\widehat q}\|_\infty\le1$.
+Telescoping the three factors in $hH^{-1}D_q$ gives
+$\|a^0-\alpha\|_1\le K_\alpha t_n=e_\alpha$.
+Telescoping $D_q^{-1}M_aH^{-1}D_q$ and summing over $a$ gives
+\[
+ \sum_a\|\bar A_a-A_a\|_\infty
+ \le v_+v_-\left[
+ \frac{2h_0}{q_*}\sum_a\|\widehat M_a-M_a\|_\infty+K_0t_n\right]
+ \le e_A.
+\]
+The remaining thresholds imply $e_\alpha\le\gamma/4$ and
+$e_A\le\min(\gamma,s)/2$. Thus $a^0$ is positive, and its sum is
+within $e_\alpha$ of one. Its normalized entries are at least
+$(\gamma-e_\alpha)/(1+e_\alpha)\ge\gamma/2$;
+$\|\bar\alpha-\alpha\|_1\le2e_\alpha/(1-e_\alpha)$.
+The transition entries are at least $\gamma/2$ and the recomputed
+stopping probabilities at least $s/2$. All exact checks therefore pass.
+
+Downward rounding changes at most $dR$ entries in each transition row,
+with total change at most $dRh_b$; STOP absorbs this mass. Initial TV
+changes by at most $(R-1)h_b$. The original source has occupation
+sum at most $1/s$. Apply Lemma~\ref{II:U:lem:stopped-coupling}, or
+\eqref{II:U:eq:pathwise-general} with the row-remainder identity, to obtain
+\eqref{II:U:eq:fixed-basis-tv}. The rounding restriction leaves initial
+and transition entries at least $\gamma/4$ and never reduces STOP.
+
+For complexity, a trie of the $O(dR^2)$ queried words and prefixes
+permits counting in $O(nD+dR^2D)$ symbol operations. Counts have
+$O(\log n)$ bits. Fraction-free elimination computes the rational
+inverses; determinants of the integer matrices have polynomial bit
+length in $R,\log n$ and the input bit length of $V$. The remaining
+$O(dR^3)$ dense rational arithmetic operations, normalization, and
+integer floor divisions also have polynomial bit cost. This proves
+the stated polynomial bound; it does not assert a small uniform
+degree or a fixed-word-size implementation. Dyadic probabilities
+are stored as their integer numerators, with remainders determined
+exactly, giving the output bound.
+\end{proof}

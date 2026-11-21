@@ -1,0 +1,14 @@
+\begin{proof}
+The two-state realization of $g_s$ has diagonal transitions
+$B_a=\Sdiag(1/2,1/4)$, $B_b=\Sdiag(1/4,1/2)$, initial row $(s,s)$ and final column $(1,1)^\top$. The residual has $A_b=0$ and
+\[
+ T_\rho=\begin{pmatrix}0&1&0&0&0\\0&0&1&0&0\\0&0&0&1&0\\0&0&0&0&1\\0&0&0&0&\rho\end{pmatrix},
+ \quad c=e_1,\quad v=(0,0,0,-\rho,1-\rho^2)^\top.
+\]
+Its exact Stein solutions are
+$P=\Sdiag(1,1,1,1,(1-\rho^2)^{-1})$ and
+$Q=\Sdiag(1,1,1,1,1-\rho^2)$, so $PQ=I_5$. Thus $H_{h_\rho}$ has norm one and is an isometry on a five-dimensional input subspace. For any rank-two operator $G$, the difference $H_{g_s}-G$ has rank at most four and has a unit kernel vector in that subspace. The error on that vector is $|\eta|$. The candidate $H_{g_s}$ attains it, even among unstructured rank-two operators, proving the singular-value equality as well.
+
+The direct-sum realization has seven states. The principal section indexed by $\Seps$, $a$, $a^2$, $a^3$, $a^4$, $b$, $b^2$ has determinant
+$s^2\eta^5(1-\rho^2)/1024\ne0$: eliminate the invertible $(b,b^2)$ block of the rank-two part, whose determinant is $s^2/1024$, leaving the residual five-block of determinant $1-\rho^2$. This establishes minimality. The two geometric kernels have Gram matrix $\begin{psmallmatrix}16/11&4/3\\4/3&16/11\end{psmallmatrix}$, so the smaller singular value of $H_{g_s}$ is $4|s|/33$. Weyl's bound gives $\sigma_2(H_f)\ge4|s|/33-|\eta|>|\eta|$ under the final assumption.
+\end{proof}

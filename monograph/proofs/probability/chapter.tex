@@ -1,0 +1,2175 @@
+\chapter{Probability Guarantees and Positive Realization}\label{sec:probability}
+
+\section{From a linear representation to a probability law}
+Finite Hankel rank describes the dimension of a linear realization
+\citep{carlyle1971,fliess1974}. It
+does not impose nonnegative transitions, almost-sure termination, or
+robust predictions after conditioning on a rare prefix. These constraints
+are distinct and must enter a probabilistic reduction theorem separately.
+Section~\ref{sec:hankel} treats the operator approximation problem.
+Here we ask when spectral information or an acquired dictionary can
+certify a proper approximation of a finite-word law.
+
+Let $\Sigma$ have $d\ge2$ letters and let $p$ be a probability law on
+completed words, including the empty word. All logarithms in this section
+are natural. The word-Hankel operator is $H_p[u,v]=p(uv)$ and
+$t_p(T)=\Pr_p\{|W|>T\}$ for integer $T\ge0$. We assume
+$p(\varepsilon)\ge\mu$ with $0<\mu<1$ when using the empty pivot in the spectral
+bridge. Let $\mathcal Q_N^+$ be the proper nonnegative automata with
+at most $N$ states, and write
+\[
+ \mathcal K(p)=\inf_{q\in\mathcal Q_1^+}D_{\rm KL}(p\|q).
+\]
+A one-state law consists of an independent stop/letter event distribution.
+Its information projection is explicit: with $M=\mathbb E_p|W|$,
+letter-frequency law $\pi$, and
+$g(M)=(M+1)\log(M+1)-M\log M$,
+\[
+ \mathcal K(p)=g(M)+M H(\pi)-H(p)
+\]
+when the terms are finite, with the conventions in
+Proposition~\ref{II:U:prop:iprojection}. This classical calculation fixes
+the comparison class; the new issue is the sharp dependence on a small
+second Hankel singular value.
+
+\section{Sharp spectral-to-probability regimes}
+\begin{theorem}[Three length regimes]
+Fix $0<\mu<1$, $C>0$, $M_s>0$, $M_0>0$, and the alphabet size; use the indicated parameters in each class.
+\begin{enumerate}
+\item If $t_p(T)\le C\rho^{T+1}$ for all integers $T\ge0$, where
+$0<\rho<1$, then
+\[
+ \sup_{\substack{p(\varepsilon)\ge\mu,\ t_p(T)\le C\rho^{T+1}\\
+                   \sigma_2(H_p)\le\epsilon}}\mathcal K(p)
+ =\Theta\bigl(\epsilon^\gamma\log^2(1/\epsilon)\bigr),\qquad
+ \gamma=\frac{\log(1/\rho)}{\log(1/\rho)+\tfrac12\log d}.
+\]
+\item If $s>1$ and $\mathbb E|W|^s\le M_s$, the corresponding supremum is
+\[
+ \Theta\bigl((\log(1/\epsilon))^{1-s}\log\log(1/\epsilon)\bigr).
+\]
+\item Under only $\mathbb E|W|\le M_0$, that supremum equals
+$g(M_0)+M_0\log d$ for every $\epsilon>0$, but equals zero at
+$\epsilon=0$.
+\end{enumerate}
+The asymptotic bounds use sufficiently small
+$0<\epsilon\le\mu/2$ and integer truncation lengths. Constants depend
+on the fixed class parameters; they are not uniform as $s\downarrow1$.
+\end{theorem}
+The exact statements and proofs are
+Theorems~\ref{II:U:thm:kl-exp}, \ref{II:U:thm:kl-moment} and
+\ref{II:U:thm:kl-mean}.
+
+The proof first converts the rank-one spectral defect into a proper law
+$q$ through the nonvanishing empty pivot. For every integer $T\ge0$,
+\[
+ \operatorname{TV}(p,q)
+ \le\frac{dC_\mu}{\mu}\epsilon\sqrt{\sum_{j=0}^Td^j}
+       +\frac{t_p(T)}{\mu^2},\qquad
+ C_\mu=(1+1/\mu)(1+2/\mu).
+\]
+The first term is a finite-head Cauchy--Schwarz estimate; the second uses
+positivity and the source tail. Length-tail information then controls
+entropy and the cross-entropy loss after smoothing the event law.
+Explicit integer choices of $T$ and $0<\Delta\le1/2$ are given in the
+proofs. Smoothing is a step in the bound, not a claim that an arbitrary
+spectral truncation is positive.
+
+Sharp lower bounds use laws concentrating a small probability on a long
+length shell. For
+$p_T=(1-\delta)\delta_\varepsilon+\delta\operatorname{Unif}(\Sigma^T)$,
+$T\ge2$, the shell-basis singular decomposition gives
+$\sigma_2(H_{p_T})=\delta d^{-T/2}$ exactly, while
+$\mathcal K(p_T)=g(\delta T)-h_2(\delta)$.
+The choices of $\delta$ corresponding to exponential and moment tails
+produce the stated rates. Under a mean bound, a single long word with
+balanced letter counts supplies the discontinuity. A separate argument
+in Theorem~\ref{II:U:thm:kl-fixed-states} shows that allowing any fixed
+number of positive states does not restore a universal spectral-to-KL
+continuity theorem under the hypotheses stated there.
+
+\section{A constructive certificate from a supplied dictionary}
+Let $f_1,\ldots,f_N$ be probability laws, let $\alpha$ be a probability
+row, and assume explicitly
+\[
+ p=\sum_i\alpha_i f_i.
+\]
+For nonnegative occupation variables $x_i,z_i,y_{aij}$, impose
+\[
+ x_j=\alpha_j+\sum_{a,i}y_{aij},\qquad
+ x_i=z_i+\sum_{a,j}y_{aij},\qquad \sum_i x_i\le V.
+\]
+Define the residuals
+$R_i=x_if_i-z_i\delta_\varepsilon-\sum_{a,j}y_{aij}L_af_j$.
+The local defects must be weighted by how often the decoded process
+visits the corresponding states.
+
+\begin{theorem}[Occupation certificate]
+For $x_i>0$, decode $T_a(i,j)=y_{aij}/x_i$ and
+$\tau_i=z_i/x_i$; use an immediate stop for zero-occupation rows.
+The resulting law $q$ started from $\alpha$ is proper and satisfies
+\[
+ \mathbb E_q|W|\le V-1,\qquad
+ \operatorname{TV}(p,q)\le\frac12\sum_i\|R_i\|_1.
+\]
+If the source mixture is only accurate to $\epsilon_0$ in $\ell^1$,
+add $\epsilon_0/2$ to the bound.
+\end{theorem}
+Theorem~\ref{II:U:thm:flows} proves properness and the telescoping residual
+estimate. The budget $V$ controls expected visits; an unweighted maximum
+local defect cannot replace the occupation-weighted total in general.
+
+The finite-sample version fixes the dictionary before validation, or uses
+an independent split. For each dictionary law, empirical bins up to an
+integer horizon $L$ and one overflow bin give a simultaneous confidence
+event. On this event a finite LP may optimize its flows using the same
+histograms, since the event is uniform over feasible flows. The bound
+$\operatorname{TV}(p,\widehat q)\le\widehat C_L/2$ certifies an actually
+returned feasible model. This is a high-probability statement under the
+sampling model, not an unconditional certificate from arbitrary traces.
+The complete oracle inequality is Theorem~\ref{II:U:thm:flow-lp}.
+
+\section{What positive acquisition requires}
+The preceding theorem starts with a dictionary and its source-mixture
+relation. Discovering a small suitable dictionary is a different problem.
+The conditional spectral--conic bridge explicitly combines prefix-mass
+bounds, spectral conditioning, a feasible visit budget, and a conic defect.
+Its bound charges the whole product of these parameters; a small local
+closure defect alone is insufficient.
+
+The constructive results below separate several access models:
+a supplied finite candidate pool; positive closure in dual state
+coordinates; rank-two monotone endpoint acquisition; observable-coordinate
+rounding; relatively separated prefix pools; and bounded-depth promise
+classes. Each theorem states its own conditioning, positivity, sampling
+and feasibility assumptions. None supplies unrestricted discovery from
+uninterpreted observations.
+
+A two-state proper law already prevents replacing latent positive states
+by an arbitrary finite set of actual prefix residuals with exact closure.
+The golden-ratio example makes this obstruction quantitative. Additional
+counterexamples show that uniform Doeblin positivity does not imply
+arbitrary hidden-state purification and that changes to a rare-prefix
+posterior invalidate naive conditional smoothing bounds. These examples
+are part of the theorem scope, rather than failures of an implementation.
+
+\section{Word laws, conditional futures and filtering}
+A total-variation guarantee for complete words does not directly become
+a uniform next-event guarantee after every prefix. Conditioning divides
+by prefix mass. Likewise, a projective contraction statement for a filter
+state and a KL statement for the law of an entire word are different
+claims. Projective contraction and stability of nonlinear filters have
+a substantial prior literature~\citep{cohen,atar}. The final proofs in this section give the sharp projective-to-KL
+envelope, finite-horizon word-law estimates, and the precise columnwise
+limit hypothesis used for word laws. Intermittent contraction controls the
+filter state under its own assumptions.
+
+The open acquisition problem is to find, with quantified sample and bit
+costs, a small dictionary satisfying the hypotheses that make the entire
+certificate useful. A successful theorem must account for rare-prefix
+sampling, adaptive dictionary selection and numerical feasibility. The
+transfer-operator constructions in Section~\ref{sec:memory} assume
+a supplied dynamical model.
+
+\section{Reading guide}
+The proofs below use the linear preliminaries and attainment result in
+Subsections~\ref{I:U:sec:preliminaries} and~\ref{I:U:sec:realization}.
+They begin with the three KL regimes and the fixed-state obstruction.
+The occupation and positive-realization section contains all constructive
+and conditional acquisition results. The final sections give projective
+bounds and exact counterexamples. Numerical agreement is not used to
+establish global optimality or bibliographic priority.
+\label{II:II:main-end}
+
+\section*{Detailed proofs and supporting results}
+
+\section{Probability guarantees: rank one and fixed state budgets}\label{II:U:sec:probability}
+This section concerns probability distributions on \emph{completed finite
+words}. All logarithms are natural. Let $p$ be such a law, $d\ge2$, and
+$p(\varepsilon)\ge\mu>0$. Define
+\[
+ \mathcal Q_1=\left\{q_{a,b}(w)=a\prod_{i=1}^{|w|}b_{w_i}:
+ a>0,\ b_x\ge0,\ a+\sum_xb_x=1\right\},\quad
+ \mathcal K(p)=\inf_{q\in\mathcal Q_1}D_{\rm KL}(p\|q).
+\]
+An impulse word-Hankel is a finite partial permutation of norm one.
+Consequently $H_p$ is a norm-convergent sum of finite-rank operators and is
+compact with $\|H_p\|\le1$. A nonzero normalized nonnegative rank-one
+word-Hankel has a positive empty pivot and multiplicative coefficients;
+its law is in $\mathcal Q_1$.
+
+\subsection{The information projection is explicit}
+Let $M=\mathbb E_p|W|$, $c_x=\mathbb E_p\#_x(W)$, and
+$g(M)=(1+M)\log(1+M)-M\log M$, with $g(0)=0$.
+\begin{proposition}[Classical one-state information projection]\label{II:U:prop:iprojection}
+If $M<\infty$, the optimum is attained at
+\[
+ a_*=(1+M)^{-1},\qquad b_{*,x}=c_x/(1+M),
+\]
+and, for $M>0$ and $\pi_x=c_x/M$,
+\[
+ \mathcal K(p)=g(M)+M H(\pi)-H(p).
+\]
+The value is zero when $M=0$.
+\end{proposition}
+\input{proofs/probability/2.7.1.tex}
+This proposition is an ingredient, not a novelty claim. The substantive
+question is how small $\sigma_2(H_p)$ forces $\mathcal K(p)$ to be.
+
+\subsection{From a spectral tail to a proper approximation}
+Write $t_p(T)=\Pr_p\{|W|>T\}$ and $N_d(T)=\sum_{j=0}^Td^j$.
+\begin{lemma}[Spectral-to-TV bridge]\label{II:U:lem:spectral-tv}
+If $\epsilon=\sigma_2(H_p)\le\mu/2$, there is a proper
+$q\in\mathcal Q_1$ such that, for every integer $T\ge0$,
+\[
+ \UTV(p,q)\le \frac{dC_\mu}{\mu}\epsilon\sqrt{N_d(T)}
+                    +\frac{t_p(T)}{\mu^2},\qquad
+ C_\mu=(1+1/\mu)(1+2/\mu).
+\]
+It can be chosen with stop probability $p(\varepsilon)$, hence with
+$\Pr_q\{|W|>T\}\le(1-\mu)^{T+1}$.
+\end{lemma}
+\input{proofs/probability/2.7.2.tex}
+
+\subsection{Three sharp regimes}
+For fixed $C>0$, $0<\rho<1$, and $0<\mu<1$, let
+\[
+ \mathcal P_{\exp}=\{p:p(\varepsilon)\ge\mu,
+       \ t_p(t)\le C\rho^{t+1}\text{ for every integer }t\ge0\},
+ \quad \gamma=\frac{\log(1/\rho)}{\log(1/\rho)+\tfrac12\log d}.
+\]
+\begin{theorem}[Sharp exponential-tail rate]\label{II:U:thm:kl-exp}
+As $\epsilon\downarrow0$,
+\[
+ \sup_{\substack{p\in\mathcal P_{\exp}\\\sigma_2(H_p)\le\epsilon}}
+ \mathcal K(p)
+ =\Theta\!\left(\epsilon^\gamma\log^2(1/\epsilon)\right).
+\]
+The asymptotic range may be chosen with $0<\epsilon\le\mu/2$ and with the TV upper bound $0<\Delta\le1/2$ used below; all truncation horizons are integers. The constants depend on $d,\mu,C,\rho$. The claim is for the best
+normalized one-state law, not a particular spectral estimator.
+\end{theorem}
+\input{proofs/probability/2.7.3.tex}
+\input{proofs/probability/2.7.3-part-2.tex}
+
+\begin{theorem}[Only a mean bound: exact discontinuity]\label{II:U:thm:kl-mean}
+Fix $M_0>0$ and $0<\mu<1$. For every $\epsilon>0$,
+\[
+ \sup_{\substack{p(\varepsilon)\ge\mu,\ \mathbb E|W|\le M_0\\
+                      \sigma_2(H_p)\le\epsilon}}\mathcal K(p)
+ =g(M_0)+M_0\log d.
+\]
+At $\epsilon=0$ this supremum is zero.
+\end{theorem}
+\input{proofs/probability/2.7.4.tex}
+
+\begin{theorem}[Higher length moments]\label{II:U:thm:kl-moment}
+Fix $s>1$, $M_s>0$, and $0<\mu<1$. Then
+\[
+ \sup_{\substack{p(\varepsilon)\ge\mu,\ \mathbb E|W|^s\le M_s\\
+                      \sigma_2(H_p)\le\epsilon}}\mathcal K(p)
+ =\Theta\!\left((\log(1/\epsilon))^{1-s}
+                     \log\log(1/\epsilon)\right).
+\]
+This is an $\epsilon\downarrow0$ assertion; take $0<\epsilon\le\mu/2$ sufficiently small that the TV bound $\Delta$ in the proof is at most $1/2$. All truncation and shell lengths are integers. The constants are not uniform as $s\downarrow1$.
+\end{theorem}
+\input{proofs/probability/2.7.5.tex}
+
+\subsection{Why the probability theorem does not contradict the obstruction}
+The binary family in Subsection~\ref{I:U:sec:obstruction} is not the fixed-tail
+probability class above. Here rank-one positivity and the nonvanishing empty
+pivot give a special closure recurrence; the tail condition converts an
+$\ell^2$ defect to $\ell^1$ and controls entropy. None of those steps gives a
+general rank-$k$ proper realization with $k$ positive states. Nor does a
+small completed-word TV guarantee uniform next-token error after every
+prefix: conditioning divides by the prefix probability. Those are separate
+positive-realization and conditional-prediction questions.
+\subsection{A KL discontinuity at every fixed positive-state budget}
+\label{II:U:sec:kl-fixed-states}
+Let $\mathcal Q_N^+$ be the laws generated by proper probabilistic
+automata with at most $N$ states. Concretely,
+$q(w)=\alpha T_w\tau$, where $\alpha\ge0$, $\alpha\mathbf1=1$,
+$T_a\ge0$, $\tau\ge0$, and
+$\tau+\sum_aT_a\mathbf1=\mathbf1$; termination is almost sure from
+$\alpha$. Zero transition weights and unused states are permitted.
+Write $\mathcal K_N(p)=\inf_{q\in\mathcal Q_N^+}D_{\rm KL}(p\|q)$,
+so that $\mathcal K_1=\mathcal K$.
+
+\begin{theorem}[Mean-constrained KL discontinuity for fixed $N\ge2$]
+\label{II:U:thm:kl-fixed-states}
+Fix $d\ge2$, $M_0>0$, and $\mu\in(0,1)$. For an integer $m\ge1$,
+put $K=d^m$ and $L=mK$, and concatenate the $K$ distinct words of
+$\Sigma^m$, each exactly once and in any order, to form $w_L$.
+Whenever $L>M_0/(1-\mu)$, define
+\[
+ \delta_L=\frac{M_0}{L},\qquad
+ p_L=(1-\delta_L)\delta_\varepsilon+\delta_L\delta_{w_L}.
+\]
+Then $\mathbb E_{p_L}|W|=M_0$, $p_L(\varepsilon)\ge\mu$, and
+$\sigma_{k+1}(H_{p_L})\le\sigma_2(H_{p_L})\le M_0/L$ for every
+$k\ge1$. For every integer $N\ge2$,
+\begin{align}
+ M_0\log d-\frac{M_0\log N}{m}-h_2(\delta_L)
+ &\le\mathcal K_N(p_L)\notag\\
+ &\le M_0\log d+\frac{M_0}{L}
+ \left[\log L-(L-1)\log(1-1/L)\right],
+ \label{II:U:eq:kl-fixed-sandwich}
+\end{align}
+where $h_2(s)=-s\log s-(1-s)\log(1-s)$. Consequently, for each
+\emph{fixed} $N\ge2$,
+\[
+ \lim_{m\to\infty}\mathcal K_N(p_L)=M_0\log d>0.
+\]
+For the same family, $\mathcal K_1(p_L)\to g(M_0)+M_0\log d$,
+whereas $L+1$ states realize $p_L$ exactly.
+\end{theorem}
+\input{proofs/probability/2.7.6.tex}
+
+\paragraph{Quantifiers and comparison classes.}
+For every fixed $N\ge2$ and every positive spectral tolerance, the
+mean-constrained worst-case value of $\mathcal K_N$ is at least
+$M_0\log d$. At tolerance $\sigma_2(H_p)=0$, it is zero because
+$p\in\mathcal Q_1\subset\mathcal Q_N^+$. The theorem identifies the
+exact limiting value on the displayed family, not the exact worst-case
+supremum over all sources at a positive tolerance. It also does not assert
+that every source with small spectral tail has large KL error. The
+quantifier that $N$ is fixed before $m\to\infty$ is essential.
+Replacing $\delta_{w_L}$ by the uniform law on $\Sigma^L$ changes the
+example: the same two-state $q_L$ then has divergence
+$\frac{M_0}{L}[\log L-(L-1)\log(1-1/L)]\to0$.
+
+\section{Positive realization through occupation flows}\label{II:U:sec:flows}
+The second probability bridge starts from a finite dictionary rather than a
+singular value. Let $f_1,\ldots,f_N$ be probability laws on finite words,
+$\alpha$ a probability row vector, and initially assume
+$p=\sum_i\alpha_i f_i$. Let $(L_af)(av)=f(v)$ and zero elsewhere.
+For a visit budget $V\ge1$, choose nonnegative $x_i,z_i,y_{aij}$ with
+\begin{equation}\label{II:U:eq:flow}
+ x_j=\alpha_j+\sum_{a,i}y_{aij},\qquad
+ x_i=z_i+\sum_{a,j}y_{aij},\qquad \sum_i x_i\le V.
+\end{equation}
+These imply $\sum z_i=1$ and $x\ge\alpha$. Define
+\[
+ R_i=x_if_i-z_i\delta_\varepsilon-\sum_{a,j}y_{aij}L_af_j,
+ \qquad J_\infty=\sum_i\|R_i\|_1.
+\]
+
+\begin{theorem}[Properness and the occupation-weighted certificate]\label{II:U:thm:flows}
+For $x_i>0$ set $T_a(i,j)=y_{aij}/x_i$ and $\tau_i=z_i/x_i$.
+For $x_i=0$, take a zero transition row and $\tau_i=1$.
+The automaton started at $\alpha$ terminates almost surely and defines
+a normalized law $q$ with
+\[
+ \mathbb E_q|W|\le V-1,\qquad \UTV(p,q)\le J_\infty/2.
+\]
+If $\|p-\sum_i\alpha_if_i\|_1\le\epsilon_0$, add
+$\epsilon_0/2$ to the TV bound.
+\end{theorem}
+\input{proofs/probability/2.8.1.tex}
+
+\paragraph{Sharpness of the visit factor.}
+Take a state looping on $c$ with probability $\beta<1$, exiting on $a,b$
+to an immediate-stop state with probabilities $\gamma$ each, and otherwise
+stopping; let $0<2\gamma\le1-\beta$. Change the two source exit
+probabilities to $\gamma+\eta,\gamma-\eta$, $0<\eta\le\gamma$.
+Using the source future law and the terminal law as dictionary gives
+$r_1=\eta(\delta_a-\delta_b)$, $r_2=0$, and
+$\nu_1=(1-\beta)^{-1}$. The discrepancies occur on disjoint pairs
+$c^na,c^nb$, so
+$\UTV(p,q)=\eta/(1-\beta)=\nu_1\|r_1\|_1/2$.
+The factor cannot be replaced by a uniform unweighted local error.
+
+\subsection{A finite-sample linear program}\label{II:U:sec:flow-lp}
+Fix $L\ge1$. For each dictionary law take $n_i$ independent samples and
+record words up to length $L$ plus an overflow category. The dictionary
+must be fixed before these samples, or chosen on an independent split.
+Independence between the sample sets for different dictionary entries is
+not needed. Let
+\[
+ K_L=1+\sum_{j=0}^Ld^j,\qquad
+ b_i=\min\left\{2,\sqrt{\frac{2(K_L\log2+\log(N/\delta))}{n_i}}\right\}.
+\]
+A union bound over all sign vectors and all dictionary entries, with
+Hoeffding's inequality, gives simultaneous histogram $\ell^1$ errors
+at most $b_i$ with probability at least $1-\delta$.
+
+Use hats for empirical probabilities and tails. For feasible flows put
+\begin{align*}
+ \widehat H_L&=\sum_i\sum_{|w|\le L}
+  \left|x_i\widehat f_i(w)-z_i1_{w=\varepsilon}
+             -\sum_{a,j}y_{aij}(L_a\widehat f_j)(w)\right|,\\
+ \widehat U_L&=\sum_i x_i\widehat t_i(L)
+                 +\sum_{a,i,j}y_{aij}\widehat t_j(L-1),\\
+ S(x)&=\sum_i x_ib_i+\sum_{a,i,j}y_{aij}b_j
+       =\sum_i(2x_i-\alpha_i)b_i,\\
+ \widehat C_L&=\widehat H_L+\widehat U_L+S(x).
+\end{align*}
+Minimizing $\widehat C_L$ subject to \eqref{II:U:eq:flow} is a finite LP,
+using the usual epigraph variables for absolute values.
+
+\begin{theorem}[Uniform data-dependent certificate and defect oracle]\label{II:U:thm:flow-lp}
+Assume $f_i$ are probability laws, $\alpha$ is a probability vector and $p=\sum_i\alpha_i f_i$. Fix the dictionary independently of the validation data and use the sampling scheme above. On one event of probability at least $1-\delta$, every feasible decoded
+law satisfies $\UTV(p,q)\le\widehat C_L/2$. In particular the LP
+solution $\widehat q$ satisfies
+\[
+ \UTV(p,\widehat q)\le
+ \inf_{\text{feasible flows}}\left\{\tfrac12J_\infty
+                     +\sum_i x_it_i(L)+S(x)\right\}.
+\]
+If $t_i(L)\le t_{\max}(L)$ and $b_i\le b$, this is at most
+$\tfrac12\inf J_\infty+Vt_{\max}(L)+(2V-1)b$.
+\end{theorem}
+\input{proofs/probability/2.8.2.tex}
+
+The oracle compares occupation-weighted \emph{closure defects in the supplied
+dictionary}, not the best arbitrary $N$-state TV or KL approximation.
+Cancellations can make actual error smaller than the certificate. An
+additive LP objective gap $\zeta$ costs at most $\zeta/2$ in TV if the
+returned flow is feasible. Numerical feasibility itself must be checked or
+repaired. The LP has size $O(dN^2+NK_L)$ up to constants; $K_L$ is
+exponential in $L$. Under uniform exponential dictionary tails and
+$n_i\ge n$, balancing terms gives a rate of order
+\[
+ Vn^{-\lambda/(2\lambda+\log d)}
+       +V\sqrt{\log(N/\delta)/n},\qquad\lambda=\log(1/\rho),
+\]
+apart from the approximation defect and fixed constants. This is not a
+dimension-free or minimax-optimal claim.
+
+\subsection{A safe KL extension with an explicitly charged extra state}\label{II:U:sec:flow-smoothing}
+For any proper $q$ with $\UTV(p,q)\le\Delta<1$, set
+$u(w)=2^{-|w|-1}d^{-|w|}$ and
+$q^+=(1-\Delta)q+\Delta u$. This mixture can be realized by adding
+one probabilistic state and modifying the initial mixture. Define
+$\Psi_p(\Delta)=\sum_{t\ge0}\min(\Delta,t_p(t))$.
+\begin{proposition}[Smoothing a completed-word TV approximation]
+For finite $\Psi_p(\Delta)$,
+\[
+ D_{\rm KL}(p\|q^+)\le-\log(1-\Delta)+\Delta\log2
+                            +\log(2d)\Psi_p(\Delta).
+\]
+\end{proposition}
+\input{proofs/probability/2.8.3.tex}
+For exponential source tails this is $O(\Delta\log(1/\Delta))$.
+The extra state changes the approximation class; it does not improve the
+sharp one-state rate in Theorem~\ref{II:U:thm:kl-exp} within the same class.
+
+\paragraph{Keeping the same positive-state count.}
+Alternatively, for $0<\Delta<1$ smooth each state locally:
+\[
+ \tau_i^{(\Delta)}=(1-\Delta)\tau_i+\frac\Delta{d+1},\qquad
+ T_a^{(\Delta)}=(1-\Delta)T_a+\frac\Delta{d+1}I_N.
+\]
+The rows remain stochastic and every state has stop probability at least
+$\Delta/(d+1)$. The all-original and all-smoothing choices in the expanded
+product give the sum of two nonnegative contributions:
+\[
+ q_\Delta(w)\ge(1-\Delta)^{|w|+1}q(w)
+                   +\left(\frac\Delta{d+1}\right)^{|w|+1}.
+\]
+Applying log-sum to the common and excess submeasures as before gives,
+when $\UTV(p,q)\le\Delta$,
+\begin{align*}
+ D_{\rm KL}(p\|q_\Delta)
+ &\le-\log(1-\Delta)(1+\mathbb E_p|W|)\\
+ &\quad+\Delta\log(d+1)+\Psi_p(\Delta)\log\frac{d+1}{\Delta}.
+\end{align*}
+For exponential tails this is $O(\Delta\log^2(1/\Delta))$.
+Sharpness for a general fixed $N$ is not established by this construction.
+Local smoothing can increase the original visit budget and changes the
+transition topology; both effects must be accounted for.
+
+\subsection{The unresolved acquisition problem}\label{II:U:sec:acquisition-obstruction}
+For a prefix anchor $u_i$, a residual dictionary law is
+$f_i(v)=p(u_iv)/P_p(u_i\Sigma^*)$. The denominator is a prefix mass,
+not the completed-word value $p(u_i)$. Rare anchors may require many
+samples; source tails do not provide uniform residual-tail constants
+without accounting for that denominator. The supplied-dictionary theorem
+does not discover a small nearly closed dictionary or bound its acquisition
+cost. Linear rank and positive state size also differ: nonnegative rational
+series need not have finite positive realizations. A rank bound alone cannot
+replace the positive dictionary hypothesis.
+
+\begin{proposition}[A classical positive-realization obstruction]\label{II:U:prop:positive-obstruction}
+For $0<x<1$ and binary words, put $d(w)=\#_a(w)-\#_b(w)$ and
+\[
+ p_x(w)=(1-x)^2(x/2)^{|w|}(1+d(w))^2.
+\]
+This is a probability law of counting-Hankel rank exactly three, with
+positive empty mass and an exponential tail, but no finite nonnegative
+weighted-automaton realization.
+\end{proposition}
+\input{proofs/probability/2.8.4.tex}
+This is a classical type of signed-versus-positive realization obstruction
+\citep{denis2008}; this is not a new impossibility claim.
+It already has $\sigma_4(H_{p_x})=0$ and shows why the higher-rank bridge
+cannot rely on a spectral tail alone to guarantee an exact finite positive
+realization.
+\subsection{Conditioned residual anchors and signed spectral closure}
+\label{II:U:sec:anchored-closure}
+The following bridge is conditional on a chosen dictionary and a positive
+flow defect. It supplies the previously missing explicit hypotheses; it
+does not derive positivity or a small dictionary from singular values.
+All data in this subsection are real, and $p$ is a probability law.
+
+\begin{definition}[Conditioned residual anchors]
+\label{II:U:def:conditioned-anchors}
+Fix $k\ge1$, $N\ge k$, and constants $\mu_{\min}>0$ and
+$\kappa<\infty$. Choose prefix anchors
+$\mathcal U=(u_1,\ldots,u_N)$ with $u_1=\varepsilon$ and
+\[
+ \mu_i=P_p(u_i\Sigma^*)=\sum_v p(u_iv)\ge\mu_{\min},\qquad
+ f_i(v)=\frac{p(u_iv)}{\mu_i}.
+\]
+Each $f_i$ is a probability law, $f_1=p$, and, with
+$E_{\mathcal U}=[e_{u_1},\ldots,e_{u_N}]$ and
+$D_\mu=\Udiag(\mu_1,\ldots,\mu_N)$,
+\[
+ F_{\mathcal U}=[f_1,\ldots,f_N]
+ =H_p^*E_{\mathcal U}D_\mu^{-1}.
+\]
+Write $H_p=U_k\Sigma_kV_k^*+E_k$ for a truncated SVD and put
+$\epsilon_k=\|E_k\|=\sigma_{k+1}(H_p)$. The spectral coordinate
+matrix must satisfy
+\begin{equation}
+ C_{\mathcal U}=V_k^*F_{\mathcal U}
+ =\Sigma_kU_k^*E_{\mathcal U}D_\mu^{-1},\qquad
+ \Urank C_{\mathcal U}=k,\qquad
+ \|C_{\mathcal U}^{\dagger}\|_{2\to2}
+ =\frac1{\sigma_k(C_{\mathcal U})}\le\kappa.
+ \label{II:U:eq:anchor-coordinates}
+\end{equation}
+These conditions define
+$\mathcal H_{\rm anchor}(k,N,\mu_{\min},\kappa)$.
+\end{definition}
+
+The orientation is forced by \eqref{I:U:eq:intertwining}: its adjoint is
+$L_a^*H_p^*=H_p^*R_a$. Therefore
+\begin{equation}
+ f_i=\mu_i^{-1}H_p^*e_{u_i},\qquad
+ L_a^*f_i=\mu_i^{-1}H_p^*R_ae_{u_i}
+ =\mu_i^{-1}H_p^*e_{u_i a},\qquad
+ (L_a^*f_i)(v)=f_i(av).
+ \label{II:U:eq:anchor-orientation}
+\end{equation}
+The future subspace is the right singular subspace of $H_p$; using its
+left singular vectors here would interchange the prefix and suffix roles.
+
+\begin{lemma}[Conditioned signed linear closure]
+\label{II:U:lem:signed-anchor-closure}
+Under Definition~\ref{II:U:def:conditioned-anchors}, set
+\[
+ w_{a,i}^{\rm lin}=C_{\mathcal U}^{\dagger}V_k^*(L_a^*f_i).
+\]
+These coefficients, which need not be nonnegative, satisfy
+\begin{equation}
+ \|w_{a,i}^{\rm lin}\|_2\le\kappa,\qquad
+ \left\|L_a^*f_i-F_{\mathcal U}w_{a,i}^{\rm lin}\right\|_2
+ \le c_{\mathcal U}\epsilon_k,\qquad
+ c_{\mathcal U}=\frac{1+\kappa\sqrt N}{\mu_{\min}}.
+ \label{II:U:eq:signed-anchor-defect}
+\end{equation}
+This is linear closure, not affine or positive closure.
+\end{lemma}
+\input{proofs/probability/2.8.6.tex}
+
+\subsection{The conic hypothesis and the conditional higher-rank bridge}
+\label{II:U:sec:conditional-cone-bridge}
+Fix the anchored dictionary above and $\alpha=(1,0,\ldots,0)$.
+For $V\ge1$, let $\mathcal F_N(V)$ consist of nonnegative flows
+$(x,z,y)$ satisfying \eqref{II:U:eq:flow}; explicitly,
+\[
+ x_j=\alpha_j+\sum_{a,i}y_{aij},\qquad
+ x_i=z_i+\sum_{a,j}y_{aij},\qquad \sum_i x_i\le V.
+\]
+This is a nonempty compact polytope. In particular,
+$\sum_i z_i=1$ and $\sum_{a,i,j}y_{aij}=\sum_i x_i-1$.
+
+\begin{definition}[Spectral-reference conic defect in $\ell^2$]
+\label{II:U:def:cone-defect}
+For a feasible flow, define
+\begin{align}
+ \eta_2(x,z,y)
+ &=\sum_i|x_if_i(\varepsilon)-z_i|\notag\\
+ &\quad+\sum_{a,i}
+ \left\|F_{\mathcal U}
+       (x_iw_{a,i}^{\rm lin}-y_{a,i,\cdot})\right\|_2,
+ \label{II:U:eq:cone-defect}
+\end{align}
+where $y_{a,i,\cdot}=(y_{ai1},\ldots,y_{aiN})^\top$.
+The condition $\mathcal H_{\rm cone}^{(2)}(V,\eta_{\rm cone})$
+means that some flow in $\mathcal F_N(V)$ has
+$\eta_2(x,z,y)\le\eta_{\rm cone}$.
+Equivalently, the attained minimum
+$\eta_2^*(\mathcal U,V)=\min_{\mathcal F_N(V)}\eta_2$ is at most
+$\eta_{\rm cone}$. This hypothesis is separate from
+$\mathcal H_{\rm anchor}$ and the spectral bound.
+\end{definition}
+
+\paragraph{SOCP versus LP.}
+Let $G=F_{\mathcal U}^*F_{\mathcal U}$, so
+$G_{jj'}=\langle f_j,f_{j'}\rangle_{\ell^2}$ and
+$\|F_{\mathcal U}c\|_2=\|G^{1/2}c\|_2$.
+With $G$, $w_{a,i}^{\rm lin}$, and $f_i(\varepsilon)$ fixed and
+known, epigraph constraints
+$\|G^{1/2}(x_iw_{a,i}^{\rm lin}-y_{a,i,\cdot})\|_2\le s_{ai}$,
+together with linear epigraphs for the absolute values, give a finite
+second-order cone program (SOCP). Singularity of $G$ is harmless.
+An arbitrary infinite Hankel oracle does not automatically supply these
+finite coefficients with certified accuracy. Computing or estimating the
+SVD, prefix masses, Gram matrix, and feasible flows must be charged.
+The LP of Theorem~\ref{II:U:thm:flow-lp} instead minimizes a confidence-adjusted
+upper bound for the truncated $\ell^1$ closure certificate; it neither
+computes nor minimizes \eqref{II:U:eq:cone-defect} directly.
+
+\begin{theorem}[Conditional spectral--conic TV bridge]
+\label{II:U:thm:conditional-cone-bridge}
+Assume $p=\sum_i\alpha_i f_i$ with the anchored choice $f_1=p$ and $\alpha=e_1$, as well as $\mathcal H_{\rm anchor}(k,N,\mu_{\min},\kappa)$ and
+$\mathcal H_{\rm cone}^{(2)}(V,\eta_{\rm cone})$ and choose a
+witnessing feasible flow. Decode $\widehat q$ as in
+Theorem~\ref{II:U:thm:flows}. It has at most $N$ states, is proper, and
+$\mathbb E_{\widehat q}|W|\le V-1$. Define
+$t_p(s)=P_p(|W|>s)$ for nonnegative integers $s$, and
+$D_T=\sum_{\ell=0}^{T-1}d^\ell$ for $T\ge1$. Then
+\begin{align}
+ J_\infty
+ &\le\sqrt{D_T}\bigl(dV c_{\mathcal U}\epsilon_k
+                        +\eta_{\rm cone}\bigr)
+       +\frac{2V-1}{\mu_{\min}}t_p(T-1),
+       \label{II:U:eq:conditional-cone-j}\\
+ \UTV(p,\widehat q)&\le\tfrac12J_\infty.
+       \label{II:U:eq:conditional-cone-tv}
+\end{align}
+The conic defect in this theorem is the $\ell^2$ quantity
+\eqref{II:U:eq:cone-defect}, not the total $\ell^1$ defect $J_\infty$.
+\end{theorem}
+\input{proofs/probability/2.8.8.tex}
+
+\paragraph{An alternative direct $\ell^1$ hypothesis.}
+One can instead require a feasible flow with
+\[
+ \eta_1(x,z,y):=\sum_i|x_if_i(\varepsilon)-z_i|
+       +\sum_{a,i}\left\|x_iL_a^*f_i-\sum_jy_{aij}f_j\right\|_1
+       \le\eta_1^{\rm target}.
+\]
+The empty word and letter branches have disjoint supports, so
+$\eta_1=J_\infty$ exactly and the TV bound is
+$\eta_1^{\rm target}/2$, without spectral truncation or a separate
+tail term. This directly certifying formulation must not be
+identified with Definition~\ref{II:U:def:cone-defect}.
+For a KL bound without increasing the number of states, apply the local
+smoothing construction in Section~\ref{II:U:sec:flow-smoothing} with a
+\emph{prescribed positive upper bound} $\Delta$ on the certified TV.
+Its tail assumptions and possible increase in expected visits remain
+part of the guarantee. A mean bound alone does not make KL vanish
+uniformly, by Theorem~\ref{II:U:thm:kl-fixed-states}.
+
+\subsection{Certified search and the unresolved acquisition theorem}
+\label{II:U:sec:acquisition-contract}
+An anchor-search heuristic may start with $\varepsilon$, fit a feasible
+flow, and add a previously absent child $u_i a$ whose estimated branch
+defect is large and whose prefix mass passes a declared threshold.
+The exact local identity
+\[
+ L_a^*f_{u_i}=\frac{P_p(u_i a\Sigma^*)}{P_p(u_i\Sigma^*)}f_{u_i a}
+\]
+holds whenever the child mass is positive. It closes that branch if its
+coefficient is used, but the resulting flows must still jointly satisfy
+\eqref{II:U:eq:flow}. Neither the visit budget, the spectral conditioning,
+nor all other branch defects are thereby controlled.
+
+\paragraph{What a successful run certifies.}
+Freeze the dictionary before the certification sample, or establish a
+uniform concentration event covering its adaptive selection. On the event
+in Theorem~\ref{II:U:thm:flow-lp}, an actually returned feasible flow with
+$\widehat C_L\le2\varepsilon$ certifies
+$\UTV(p,\widehat q)\le\varepsilon$. This is a probability-at-least
+$1-\delta$ statement when empirical data are used, not an unconditional
+deterministic guarantee. The LP may optimize its flows on those data
+because its event is uniform over feasible flows for the fixed dictionary.
+If successive selected dictionaries are certified on fresh data, allocate
+failure probabilities $\delta_r$ with $\sum_r\delta_r\le\delta$.
+Reusing a holdout to select dictionaries without such control is not
+covered. Numerical flow feasibility and the achieved objective must also
+be verified; the unknown optimum alone is not a certificate. This LP
+certificate does not require spectral full rank or a condition-number
+bound unless the spectral bridge is separately claimed.
+
+\paragraph{The remaining acquisition problem.}
+A discovery theorem must specify an independently checkable source class,
+an input/access model, and an algorithm, then prove all of the following:
+\begin{enumerate}[label=(A\arabic*)]
+\item A dictionary of at most $N(\varepsilon)$ anchors is found in
+bounded time, with explicitly controlled minimum prefix masses and
+spectral conditioning, rather than assumed to exist.
+\item A globally feasible flow is obtained with controlled visit budget
+$V$ and conic defect. Their dependence on the accuracy must make the
+\emph{whole} right side of \eqref{II:U:eq:conditional-cone-j} at most
+$2\varepsilon$ for a stated choice of $T$. Merely requiring
+$\eta_{\rm cone}\le\varepsilon$ is insufficient when $D_T$, $V$,
+$\kappa$, or $\mu_{\min}^{-1}$ grow.
+\item Anchor discovery, conditional sampling, spectral/Gram estimation,
+finite precision, and optimization have explicit sample, bit, and runtime
+costs, including rare-prefix and adaptive-selection effects.
+\item The algorithm returns a verified model under the stated assumptions;
+outside them, failure to find a certificate is reported as unresolved,
+not as nonexistence of a positive approximation.
+\end{enumerate}
+The smallness of $\sigma_{k+1}(H_p)$ alone proves none of these
+acquisition claims. Proposition~\ref{II:U:prop:positive-obstruction} rules out
+an exact universal positive-realization implication even at zero spectral
+tail. It does not rule out approximation with a growing state count:
+conditioning $p$ on $|W|\le T$ gives a finite-support law at TV distance
+$t_p(T)$, realizable by a finite prefix tree. This construction neither
+provides a small state bound nor finite KL for unbounded-support $p$.
+The transfer-operator result in Subsection~\ref{III:U:sec:oracle} concerns
+already supplied contracting two-state homographic models and supplies
+no missing anchor-discovery theorem.
+
+
+\subsection{What can be certified over a finite candidate family}
+\label{II:U:sec:finite-family-search}
+Existence of a good hidden anchor tree does not prove that a local greedy
+rule reaches it within the same number of nodes. A finite exhaustive
+search has the following weaker, explicit guarantee.
+
+\begin{theorem}[Finite-family search with a common validation event]
+\label{II:U:thm:finite-family-search}
+Fix $M$ candidate prefix laws $f_1=p,f_2,\ldots,f_M$ before validation,
+and a finite family $\mathcal D$ of subsets containing index one, each
+of size at most $N_*$. Assume conditional samples from these laws are
+available. Each candidate dictionary is started with $\alpha=e_1$, so $p=\sum_i\alpha_i f_i$ holds exactly. For an integer horizon $L\ge1$, take $n_i$ independent samples per candidate
+law, with no independence required between different candidate laws,
+and use
+\[
+ b_i=\min\left\{2,\sqrt{
+    \frac{2(K_L\log2+\log(M/\delta))}{n_i}}\right\},\qquad
+ K_L=1+\sum_{j=0}^Ld^j.
+\]
+Solve the flow LP for every dictionary in $\mathcal D$ with budget $V$,
+using the same histograms and the applicable $b_i$. With probability
+at least $1-\delta$, every feasible returned model satisfies its
+certificate $\UTV(p,q)\le\widehat C_L/2$ simultaneously.
+If one candidate dictionary admits a flow satisfying
+\begin{equation}
+ J_\infty+2\sum_i x_it_i(L)+2S(x)\le2\varepsilon,
+ \label{II:U:eq:finite-family-witness}
+\end{equation}
+then, with exact LP solves, the search finds a certified model of error
+at most $\varepsilon$ after at most $|\mathcal D|$ solves.
+Otherwise it may return \texttt{UNRESOLVED}. For all subsets of size
+at most $N_*$, the number of solves is bounded by
+$\sum_{j=0}^{N_*-1}\binom{M-1}{j}$, with terms beyond $M-1$ omitted.
+\end{theorem}
+\input{proofs/probability/2.8.9.tex}
+
+This theorem neither discovers the candidate universe nor promises a
+small search. Access to conditional samples, certification of prefix
+masses, numerical LP feasibility, and spectral data are separate costs.
+For numerical LP solves, a verified objective gap must be included in
+\eqref{II:U:eq:finite-family-witness}. An existential witness-tree assumption
+does not yield the proposed greedy guarantee. In particular, ordinary
+column pivoting is not the strong rank-revealing QR algorithm of
+Gu--Eisenstat \citep{gu1996}; moreover the inequality
+$2/\sqrt{k(N_*-k)+1}\ge1$ is already false at $(k,N_*)=(3,6)$.
+
+\subsection{Positive closure in the correct dual state coordinates}
+\label{II:U:sec:dual-positive-closure}
+For $p(w)=c^\top A_wb$, prefix residuals are represented by
+\emph{dual} state vectors. The vectors $A_ub$ instead represent suffix
+columns and cannot be substituted without changing the word order.
+
+\begin{theorem}[A sufficient dual-coordinate positive closure condition]
+\label{II:U:thm:dual-positive-closure}
+Let $p$ have a real minimal mean-square-stable realization of dimension
+$k$. Choose anchors with $u_1=\varepsilon$, masses
+$\mu_i\ge\mu_{\min}>0$, and vectors
+\[
+ \ell_i=\mu_i^{-1}A_{u_i}^\top c,\qquad
+ (\mathcal R_b\ell)(v)=\ell^\top A_vb.
+\]
+Assume the $\ell_i$ span $\mathbb R^k$. Suppose nonnegative numbers
+$t_{aij}$ satisfy, for every $i,a$,
+\begin{align}
+ \sum_{a,j}t_{aij}&=1-f_i(\varepsilon),\qquad
+ f_i(\varepsilon)\ge\gamma_{\rm stop}>0,\notag\\
+ \left\|A_a^\top\ell_i-\sum_jt_{aij}\ell_j\right\|_2
+ &\le\eta_{\rm pos}.\label{II:U:eq:dual-positive-hypothesis}
+\end{align}
+Then the conditioned-anchor hypothesis holds with
+$\kappa=\|(V_k^*F_{\mathcal U})^\dagger\|<\infty$.
+Moreover, there is a feasible flow with
+\[
+ V=\gamma_{\rm stop}^{-1},\qquad
+ \eta_2\le dV\|\mathcal R_b\|\eta_{\rm pos},\qquad
+ \|\mathcal R_b\|^2=\|P_p\|.
+\]
+Thus Theorem~\ref{II:U:thm:conditional-cone-bridge} applies with
+$\epsilon_k=0$. This result presupposes the supplied spanning anchors
+and the jointly normalized positive coefficients; it is not an
+anchor-discovery theorem.
+\end{theorem}
+\input{proofs/probability/2.8.10.tex}
+
+\subsection{Conditional predictions and the effect of smoothing}
+\label{II:U:sec:conditional-event-bounds}
+Let $p_u$ denote the next-event law on $\Sigma\cup\{\mathrm{STOP}\}$
+after observing a prefix $u$. All KL quantities below use natural logs.
+
+\begin{theorem}[Prefix-conditioned TV and a valid smoothing bound]
+\label{II:U:thm:conditional-event-bounds}
+Let $p,q$ be proper word laws with $\UTV(p,q)\le\varepsilon$.
+For $s=P_p(u\Sigma^*)\ge\mu_{\rm pref}>\varepsilon$,
+$P_q(u\Sigma^*)>0$ and
+\begin{equation}
+ \UTV(p_u,q_u)\le\frac{\varepsilon}{s}
+                         \le\frac{\varepsilon}{\mu_{\rm pref}}.
+ \label{II:U:eq:conditional-event-tv}
+\end{equation}
+Suppose $q$ is an $N$-state automaton with
+$1+\mathbb E_q|W|\le V$, and apply the state-preserving local smoothing
+of Section~\ref{II:U:sec:flow-smoothing} with parameter $0<\Delta<1$.
+Put $e=\varepsilon+\Delta V$. If $\mu_{\rm pref}>e$, then
+\begin{align}
+ \UTV(p_u,(q_\Delta)_u)&\le e/\mu_{\rm pref},\notag\\
+ D_{\rm KL}(p_u\|(q_\Delta)_u)
+ &\le\min\left\{\log\frac{d+1}{\Delta},\;
+ \frac{2(d+1)}{\Delta}\left(\frac e{\mu_{\rm pref}}\right)^2
+ \right\}.\label{II:U:eq:conditional-event-kl}
+\end{align}
+The number of states remains $N$; no preservation of the visit budget
+after smoothing is asserted.
+\end{theorem}
+\input{proofs/probability/2.8.11.tex}
+
+\paragraph{Counterexample to prefix-independent smoothing error.}
+Take $p=q$ on two states with initial row $(1/2,1/2)$,
+\[
+ T_a=\Udiag(t,0),\quad T_b=\Udiag(0,1/2),\quad
+ \tau=(1-t,1/2)^\top,
+ \qquad t=10^{-6},\quad\Delta=10^{-3}.
+\]
+After prefix $a$, the unsmoothed next-event law (STOP,$a$,$b$) is
+$(1-t,t,0)$, and its prefix mass is $t/2>0$. After local smoothing,
+the posterior weight of the first state is
+\[
+ \omega=\frac{(1-\Delta)t+\Delta/3}
+                   {(1-\Delta)t+2\Delta/3}.
+\]
+The new next-event law is approximately
+$(0.7499565235,0.0003338336,0.2497096429)$.
+Its KL from the original law exceeds $0.2877$, whereas a proposed uniform smoothing bound at $\varepsilon=0$ is
+$\Delta\log(3/\Delta)<0.0081$. The changed posterior after a rare
+prefix cannot be ignored. This example also has original visit budget
+less than two; it is not a failure caused by infinite expected length.
+
+
+\subsection{Finite positive states need not be finite prefix anchors}
+\label{II:U:sec:rank-two-obstruction}
+The rank-two results below are conditional on a supplied, exact
+two-dimensional model and a certified interval of probability laws.
+They do not complete arbitrary-rank spectral learning. They also
+distinguish latent generators, limiting residuals, and actual finite
+prefix residuals; these are different admissible dictionaries.
+
+\begin{lemma}[The aggregate of a minimal proper-word realization is stable]
+\label{II:U:lem:proper-aggregate-stable}
+Let $p(w)=c^\top A_wb$ be a minimal finite-dimensional real realization
+of a probability law on finite words, and put $T=\sum_a A_a$.
+Then $T^n\to0$ and $\rho(T)<1$.
+\end{lemma}
+\input{proofs/probability/2.8.12.tex}
+Thus a Perron eigenvalue equal to one for the unnormalized aggregate
+is incompatible with this convention. A normalized continuation
+operator is a different object.
+
+\begin{proposition}[A strictly positive two-state prefix obstruction]
+\label{II:U:prop:golden-prefix-obstruction}
+Set
+\[
+ A_0=\frac1{10}\begin{pmatrix}2&1\\1&1\end{pmatrix},\quad
+ A_1=\frac1{10}\begin{pmatrix}1&1\\1&2\end{pmatrix},\quad
+ \alpha=(1/2,1/2),\quad \tau=(1/2,1/2)^\top.
+\]
+The law $p(w)=\alpha A_w\tau$ is proper and has Hankel rank two.
+Both letters map the positive orthant strictly into its interior,
+but no finite dictionary of actual prefix residuals containing $p$
+in its convex hull has exact positive closure.
+\end{proposition}
+\input{proofs/probability/2.8.13.tex}
+
+The same obstruction rules out $J_\infty=0$ for every finite feasible
+occupation flow with this source in its initial mixture: restrict to
+states with positive occupation. Zero-occupation states receive no
+flow; zero defect would make the active dictionary invariant. For a
+fixed finite visit budget the feasible flow set is compact, hence a
+nonempty such problem has strictly positive minimum defect. No
+uniform positive lower bound over increasing dictionaries is claimed.
+The distinction between positive rational realization and finite
+generation by residuals is classical \citep{denis2008}.
+
+For example,
+\[
+ t_\varepsilon=\tfrac12,\quad t_0=\tfrac35,\quad t_{00}=\tfrac8{13},
+ \qquad f_{00}=-\tfrac2{13}f_\varepsilon+\tfrac{15}{13}f_0.
+\]
+Thus linear QR residuals vanish after two independent anchors while
+conic residuals need not. Also $2T$ has eigenvalues $1,1/5$, yet
+$0^n$ and $1^n$ have different limiting conditional states. A gap for
+the normalized aggregate does not give convergence of every letter
+product to a common ray.
+
+\begin{lemma}[A sufficient simplex-expanding exchange]
+\label{II:U:lem:simplex-exchange}
+Let $f_1,\ldots,f_R$ be linearly independent normalized laws, and let
+another law satisfy $f=\sum_i\beta_i f_i$, where $\sum_i\beta_i=1$.
+If $\beta_j>1$ for one index $j$ and $\beta_i\le0$ for every $i\ne j$,
+replacing $f_j$ by $f$ preserves linear independence and strictly
+enlarges the convex hull.
+\end{lemma}
+\input{proofs/probability/2.8.14.tex}
+This is a sufficient exchange test, not a termination theorem.
+In higher affine dimension an exterior point can have several
+positive coordinates, so an eligible exchange need not exist.
+
+\subsection{Rank-two monotone realization and finite-prefix approximation}
+\label{II:U:sec:rank-two-monotone}
+Choose two distinct normalized residual laws $f_0,f_1$ spanning the
+rank-two residual space. In this subsection the convention is
+\[
+ f_t=(1-t)f_0+tf_1,\qquad
+ L_1=\|f_1-f_0\|_1,\qquad \|f_t-f_s\|_1=L_1|t-s|.
+\]
+The notation differs from the first-coordinate convention used in
+Proposition~\ref{II:U:prop:golden-prefix-obstruction}; changing orientation
+does not change any law or certificate. There is a real realization
+$f_t(v)=(1-t,t)A_v\tau$. By Lemma~\ref{II:U:lem:proper-aggregate-stable}
+and normalization, $(I-\sum_a A_a)^{-1}\tau=\mathbf1$.
+For $A_a=\left(\begin{smallmatrix}a_a&b_a\\c_a&d_a\end{smallmatrix}\right)$
+define
+\begin{align}
+ w_a(t)&=(1-t,t)A_a\mathbf1,\qquad s(t)=f_t(\varepsilon)
+                  =1-\sum_a w_a(t),\notag\\
+ F_a(t)&=\frac{b_a+(d_a-b_a)t}{w_a(t)},\qquad
+ F_a'(t)=\frac{\det A_a}{w_a(t)^2}.
+ \label{II:U:eq:rank-two-projective}
+\end{align}
+When $w_a(t)>0$, $L_a^*f_t=w_a(t)f_{F_a(t)}$.
+
+\begin{theorem}[Monotone rank-two limiting and prefix realizations]
+\label{II:U:thm:rank-two-monotone}
+Suppose a compact interval $I$ contains $t_0$ with $p=f_{t_0}$,
+every $f_t$ for $t\in I$ is a probability law, and every letter satisfies
+$w_a(t)>0$, $F_a(I)\subseteq I$, and
+$0<F_a'(t)\le\bar\gamma_a<1$ on $I$.
+Let $r_a$ be its unique fixed point and set
+\[
+ r_-=\min_a r_a=r_{a_-},\qquad
+ r_+=\max_a r_a=r_{a_+}.
+\]
+Assume $r_-<t_0<r_+$ and
+$s_*=\min_{[r_-,r_+]}s(t)>0$.
+Then the closed convex hull of all prefix residuals is
+$\operatorname{conv}(f_{r_-},f_{r_+})$. In this ordered dictionary,
+the following matrices give an exact proper two-state realization:
+\begin{align}
+ \lambda_a^\pm&=\frac{F_a(r_\pm)-r_-}{r_+-r_-},\qquad
+ B_a=\begin{pmatrix}
+ w_a(r_-)(1-\lambda_a^-)&w_a(r_-)\lambda_a^-\\
+ w_a(r_+)(1-\lambda_a^+)&w_a(r_+)\lambda_a^+
+ \end{pmatrix},\notag\\
+ \alpha&=\left(\frac{r_+-t_0}{r_+-r_-},
+              \frac{t_0-r_-}{r_+-r_-}\right),\qquad
+ \tau_B=(s(r_-),s(r_+))^\top.
+ \label{II:U:eq:rank-two-limit-model}
+\end{align}
+
+For $L\ge1$, let
+$l_L=F_{a_-}^L(t_0)$ and $h_L=F_{a_+}^L(t_0)$.
+They are actual prefix coordinates, with
+$r_-<l_L<t_0<h_L<r_+$.
+Replace $r_-,r_+$ in the initial and stopping vectors by $l_L,h_L$,
+and replace each successor $F_a(t)$ in the transition formula by
+$\Pi_{[l_L,h_L]}F_a(t)$, for $t=l_L,h_L$. Denote the resulting
+matrices by $\widehat B_{a,L}$, the law by $q_L$, and
+$Q_L=\sum_a\widehat B_{a,L}$. Then
+\[
+ x_L=\alpha_L(I-Q_L)^{-1}\ge0,\qquad x_L\mathbf1\le s_*^{-1},
+\]
+and its feasible occupation flows have exact defect
+\begin{equation}
+ J_L^{\rm clip}
+ =L_1\sum_{t\in\{l_L,h_L\}}x_{L,t}
+        \sum_a w_a(t)\operatorname{dist}(F_a(t),[l_L,h_L]).
+ \label{II:U:eq:rank-two-clip-defect}
+\end{equation}
+Here $J_L^{\rm clip}$ is an untruncated $J_\infty$ certificate;
+it is not the finite-word objective $J_L$ of Section~\ref{II:U:sec:flow-lp}.
+Writing $\delta_L=\max(l_L-r_-,r_+-h_L)$ gives
+\begin{equation}
+ \UTV(p,q_L)\le\tfrac12J_L^{\rm clip}
+ \le\frac{L_1(1-s_*)}{2s_*}\delta_L.
+ \label{II:U:eq:rank-two-clip-tv}
+\end{equation}
+No pointwise ordering of the different maps $F_a$ is required.
+\end{theorem}
+\input{proofs/probability/2.8.15.tex}
+
+\begin{corollary}[Exact cross-ratio depth rates]
+\label{II:U:cor:rank-two-cross-ratio}
+For either extremal map let $r$ be its attracting fixed point and
+$\gamma=F'(r)\in(0,1)$. If its second fixed point $\bar r$ is finite,
+put $c=(t_0-r)/(t_0-\bar r)$. Then
+\begin{equation}
+ F^L(t_0)=\frac{r-c\gamma^L\bar r}{1-c\gamma^L},
+ \qquad
+ |F^L(t_0)-r|
+ =\frac{|r-\bar r|\,|c|\,\gamma^L}{|1-c\gamma^L|}.
+ \label{II:U:eq:rank-two-cross-ratio}
+\end{equation}
+If $F$ is affine, the formula is instead
+$F^L(t_0)-r=\gamma^L(t_0-r)$.
+Consequently $\delta_L\le C\gamma_*^L$, with
+$\gamma_*=\max(F_{a_-}'(r_-),F_{a_+}'(r_+))<1$
+and an explicit finite, source-dependent constant $C$.
+\end{corollary}
+\input{proofs/probability/2.8.16.tex}
+The closed interval here is a convex hull, not necessarily the IFS
+attractor. A local multiplier $\gamma_*$ is justified by the exact
+cross-ratio identity, not by treating it as a global Lipschitz constant.
+
+\subsection{Both orientations: endpoint acquisition without word enumeration}
+\label{II:U:sec:rank-two-envelope}
+The even/odd powers of one decreasing letter do not generally find the
+extrema created by mixed words. For instance, the proper rank-two model
+\[
+ A_+=\tfrac1{10}\begin{pmatrix}2&1\\1&1\end{pmatrix},\quad
+ A_-=\tfrac1{20}\begin{pmatrix}1&2\\2&1\end{pmatrix},\quad
+ \alpha=(1/2,1/2),\quad \tau=(11/20,13/20)^\top
+\]
+has first-coordinate updates
+$F_+(t)=(1+t)/(2+t)$ and $F_-(t)=(2-t)/3$.
+All powers of $F_-$ fix $1/2$, but
+$F_-(F_+(1/2))=7/15$. The following procedure treats all letters.
+
+\begin{theorem}[Rank-two endpoint iteration for either orientation]
+\label{II:U:thm:rank-two-envelope}
+Use the affine-law setup above. Suppose every $f_t$ for $t$ in a
+compact interval $I$ is a probability law, $t_0\in I$,
+$w_a(t)>0$, $F_a(I)\subseteq I$, and every $F_a$ is monotone
+(increasing, decreasing, or constant) and $\gamma$-Lipschitz on $I$,
+with $0<\gamma<1$. Assume $s(t)\ge s_*>0$ on $I$.
+Initialize $K_0=\{t_0\}$ and iterate
+\begin{equation}
+ K_{n+1}=\operatorname{conv}
+   \left(\{t_0\}\cup\bigcup_a F_a(K_n)\right)
+       =[l_{n+1},h_{n+1}].
+ \label{II:U:eq:rank-two-envelope}
+\end{equation}
+Then $K_n$ is the convex hull of coordinates of prefixes of length
+at most $n$, and its endpoints have actual prefix witnesses.
+The intervals increase to a unique compact fixed interval $K_*$
+whose endpoints are limits of prefix residuals, with
+\[
+ d_H(K_n,K_*)\le\gamma^n\operatorname{diam}I.
+\]
+If the reachable residual space has rank two, $K_*$ is nondegenerate,
+and $K_n$ is nondegenerate for all sufficiently large $n$.
+The endpoint laws of $K_*$ give an exact two-state realization.
+Clipping into any nondegenerate $K_n$ gives a proper two-state law with
+\[
+ \UTV(p,q_n)\le
+ \frac{L_1(1-s_*)}{2s_*}\gamma^n\operatorname{diam}I.
+\]
+At each iteration only the $2d$ endpoint images and $t_0$ are needed.
+Thus $n$ iterations require $O(dn)$ exact real-arithmetic evaluations
+and comparisons; no bit-complexity bound is asserted.
+\end{theorem}
+\input{proofs/probability/2.8.17.tex}
+This is a constructive theorem for a declared rank-two interval class.
+It does not discover that class from noisy Hankel data, certify its
+positivity interval, or establish the missing arbitrary-rank acquisition
+theorem. General contraction alone gives no fixed-$R$ simplex theorem
+in higher dimension.
+
+\subsection{An exact golden-ratio clipping certificate}
+\label{II:U:sec:golden-constructive}
+Return to the first-coordinate convention of
+Proposition~\ref{II:U:prop:golden-prefix-obstruction}. In the ordered
+limiting dictionary $(f_r,f_{1-r})$ the exact matrices are
+\[
+ B_0=\begin{pmatrix}(3+\sqrt5)/20&0\\1/5&(3-\sqrt5)/20\end{pmatrix},
+ \qquad
+ B_1=\begin{pmatrix}(3-\sqrt5)/20&1/5\\0&(3+\sqrt5)/20\end{pmatrix}.
+\]
+The initial vector remains $(1/2,1/2)$ and both stops are $1/2$.
+The matrices equal $SA_aS^{-1}$ for
+$S=\left(\begin{smallmatrix}r&1-r\\1-r&r\end{smallmatrix}\right)$.
+The limiting laws are not finite-prefix residuals.
+
+\begin{proposition}[Exact two-prefix defect on the golden-ratio source]
+\label{II:U:prop:golden-clip}
+For $L\ge1$ set
+\[
+ a=F_0^L(1/2),\quad
+ \gamma=\frac{7-3\sqrt5}{2},\quad h=9-4\sqrt5,\quad z_L=h\gamma^L.
+\]
+In the ordered dictionary $(f_a,f_{1-a})$, clipping gives
+\[
+ \widehat B_{0,L}=
+ \begin{pmatrix}
+ (2+a)/10&0\\
+ (-a^2+3a-1)/(10(2a-1))&(-a^2+4a-2)/(10(2a-1))
+ \end{pmatrix}.
+\]
+\[
+ \widehat B_{1,L}=P\widehat B_{0,L}P,\qquad
+ P=\begin{pmatrix}0&1\\1&0\end{pmatrix}.
+\]
+These matrices are nonnegative, have total transition row sum $1/2$,
+and yield occupation vector $x_L=(1,1)$ from $(1/2,1/2)$.
+Their exact untruncated flow defect is
+\begin{equation}
+ J_L^{\rm clip}
+ =\frac{1-a-a^2}{25}
+ =\frac{z_L}{5(1+z_L)^2},\qquad
+ \UTV(p,q_L)\le\frac{z_L}{10(1+z_L)^2}.
+ \label{II:U:eq:golden-exact-defect}
+\end{equation}
+\end{proposition}
+\input{proofs/probability/2.8.18.tex}
+At $L=1$, $J_1^{\rm clip}=1/625$ and $\UTV(p,q_1)\le1/1250$.
+These are certificate values, not assertions that the actual TV
+distance or the optimized flow objective equals the displayed bound.
+
+
+\subsection{Observable coordinates, explicit rounding, and conditional sampling}
+\label{II:U:sec:rank-two-numerical}
+Fix a nondegenerate two-prefix dictionary $(f_l,f_h)$ from either
+rank-two construction, with $l<h$ and $l\le t_0\le h$.
+The exact clipped model is denoted by $q$, with stop probabilities at
+least $s_*>0$ and defect $J^{\rm clip}$. Choose a fixed measurable
+suffix event $E\subseteq\Sigma^*$ such that
+$c_h=f_h(E)>c_l=f_l(E)$, replacing $E$ by its complement if necessary.
+Put $\Delta_E=c_h-c_l>0$. For any coordinate $t$,
+\[
+ \frac{t-l}{h-l}=\frac{f_t(E)-c_l}{c_h-c_l}.
+\]
+If $L_E=|f_{r_+}(E)-f_{r_-}(E)|$ denotes separation of the limiting
+laws, then the normalization is
+\begin{equation}
+ \Delta_E=L_E\,\frac{h-l}{r_+-r_-},\qquad
+ D_{l,h}:=\|f_h-f_l\|_1=L_1(h-l).
+ \label{II:U:eq:observable-gap-correct}
+\end{equation}
+The interval width cannot be silently omitted. The transition
+barycentric weights are the clipped ratios for the successor
+residuals $f^{(u_l a)},f^{(u_h a)}$, and the initial weight is the
+ratio for $p$. Thus these quantities are observable from the fixed
+query set
+\[
+ \mathcal W=\{\varepsilon,u_l,u_h\}
+       \cup\{u_l a,u_h a:a\in\Sigma\},\qquad M=|\mathcal W|\le3+2d.
+\]
+All these prefixes have positive mass under the interval hypotheses.
+
+\begin{lemma}[Stopped-automaton perturbation by coupling]
+\label{II:U:lem:stopped-coupling}
+Let $q,\widetilde q$ be proper finite-state word laws with initial
+vectors $\alpha,\widetilde\alpha$ on the same states. Let $K_i$ and
+$\widetilde K_i$ be the state-$i$ probability vectors on the finite
+outcomes $\{\mathrm{STOP}\}\cup(\Sigma\times\{1,\ldots,N\})$.
+If the visit vector $\nu=\sum_{n\ge0}\alpha(\sum_a B_a)^n$ is finite, then
+\[
+ \UTV(q,\widetilde q)
+ \le\UTV(\alpha,\widetilde\alpha)
+       +\sum_i\nu_i\UTV(K_i,\widetilde K_i).
+\]
+\end{lemma}
+\input{proofs/probability/2.8.19.tex}
+
+\begin{theorem}[A deterministic rank-two estimation and rounding certificate]
+\label{II:U:thm:rank-two-rounding}
+Suppose every queried event probability $f^{(u)}(E)$, $u\in\mathcal W$,
+has an estimate with absolute error at most $\epsilon_E<\Delta_E/4$.
+At each of the two anchors suppose the estimated vector of stop and
+letter probabilities is nonnegative, sums to one, and has $\ell^1$
+error at most $\epsilon_m<s_*$. Define
+\[
+ e=\frac{4\epsilon_E}{\Delta_E},\qquad
+ h_b=2^{-b},\quad b\in\mathbb N,\ b\ge1.
+\]
+Form initial and successor barycentric weights from the estimated
+ratios, clipped to $[0,1]$. Multiply each estimated letter mass by
+its two barycentric weights to obtain a preliminary transition row.
+Round each of its $2d$ transition entries down to a multiple of $h_b$,
+and assign the remaining row mass to STOP. Round the initial weight
+of the second state down to the same grid and define the first as
+its complement. The resulting two-state law $\widetilde q_b$ is proper
+and satisfies
+\begin{equation}
+ \UTV(p,\widetilde q_b)\le
+ \frac{J^{\rm clip}}2+e+h_b+
+ \frac{\epsilon_m/2+e+2dh_b}{s_*}.
+ \label{II:U:eq:rank-two-rounding}
+\end{equation}
+No perturbation of the original occupation weights is assumed.
+\end{theorem}
+\input{proofs/probability/2.8.20.tex}
+The theorem concerns represented dyadic transition probabilities and
+their mathematical law. Runtime sampling bias and unaccounted
+floating-point errors in evaluating the estimated ratios are not
+covered; verified bounds for them must be added. SVD-denoised estimates
+are eligible only after their stated probability errors and normalized
+mass vectors have been independently certified.
+
+\begin{corollary}[One-sample conditional-frequency certificate]
+\label{II:U:cor:rank-two-sampling}
+Fix $0<\delta<1$, the two prefix words, and $E$ before drawing $n$ independent source
+words, or use an independent validation split. Define
+\[
+ \nu_*=\min_{u\in\mathcal W}P_p(u\Sigma^*)>0.
+\]
+For each query use the empirical frequency of $E$ among suffixes of
+sampled words beginning with that prefix. At the two anchors use the
+empirical stop/next-letter histogram. If
+$n\nu_*\ge8\log(3M/\delta)$, then with probability at least $1-\delta$
+all prefix counts are at least $n\nu_*/2$ and the errors satisfy
+\begin{align}
+ \epsilon_E&\le
+ \sqrt{\frac{\log(6M/\delta)}{n\nu_*}},\notag\\
+ \epsilon_m&\le
+ 2\sqrt{\frac{(d+1)\log2+\log(6/\delta)}{n\nu_*}}.
+ \label{II:U:eq:rank-two-sample-radii}
+\end{align}
+Whenever these radii meet the hypotheses of
+Theorem~\ref{II:U:thm:rank-two-rounding}, its conclusion holds on this event.
+\end{corollary}
+\input{proofs/probability/2.8.21.tex}
+If a required prefix count is zero, the empirical construction returns
+\texttt{UNRESOLVED}. A numerical certificate also requires verified
+lower bounds for prefix masses and observable separation; unchecked
+plug-in estimates of these lower bounds are not covered.
+
+\paragraph{Depth selection and its scope.}
+In Theorem~\ref{II:U:thm:rank-two-monotone}, compactness gives
+\[
+ w_*=\min_{\substack{a\in\Sigma\\t\in[r_-,r_+]}}w_a(t)>0,\qquad
+ \mu=\min_{t\in[r_-,r_+]}\min(w_{a_-}(t),w_{a_+}(t))>0.
+\]
+All required queries, including the extra successor letter, satisfy
+$\nu_*\ge w_*\mu^L$. Also
+$\Delta_E^{(L)}\ge\Delta_E^{(1)}>0$.
+Put $A=d+\log((d+1)/\delta)$,
+$a=\log(1/\gamma_*)$, and $c=\log(1/\mu)$.
+For sufficiently large $n/A$, the declared choice
+\[
+ L=\left\lfloor\frac{\log(n/A)}{2a+c}\right\rfloor\ge1
+\]
+and the preceding results give
+\[
+ \UTV(p,\widetilde q_{L,b})
+ =O_{\mathfrak m}\left((A/n)^{a/(2a+c)}+d\,2^{-b}\right).
+\]
+The constants $\mathfrak m$ include the source contraction constants,
+stop margin, event separation, and $w_*$. The count and small-error
+conditions must still hold; they do for sufficiently large $n$ with
+these fixed constants. This is a completed-word TV statement.
+It assumes the extremal letters, event, and parameter bounds needed
+for choosing $L$ are supplied or certified separately. Reusing the
+same data for their adaptive choice needs a further uniform event.
+It proves neither empirical singular-subspace stability nor a
+depth-independent $n^{-1/2}$ boundary-estimation theorem, and it gives
+no unqualified KL or uniform rare-prefix prediction guarantee.
+
+\subsection{Restoring an anchored initial state}
+\label{II:U:sec:rank-two-anchored}
+\begin{proposition}[Three-state anchoring with correct occupation weights]
+\label{II:U:prop:rank-two-anchored}
+For any clipped two-prefix model above, adjoin a state representing
+$p=f_{t_0}$, start there, keep its exact stop probability $s(t_0)$,
+and send each letter to the clipped barycentric mixture in $[l,h]$.
+Let $\beta$ be the total row of incoming probabilities into the two
+old states and retain their aggregate matrix $Q$. The occupation
+vector of the resulting proper three-state automaton is
+\[
+ x^{\rm anch}=(1,v),\qquad v=\beta(I-Q)^{-1}.
+\]
+If the invariant limiting interval is $[l_*,h_*]$, let
+$\delta=\max(l-l_*,h_*-h)$. The exact defect is
+\begin{align}
+ J^{\rm anch}
+ &=L_1\sum_a w_a(t_0)
+       \operatorname{dist}(F_a(t_0),[l,h])\notag\\
+ &\quad+L_1\sum_{t\in\{l,h\}}v_t
+       \sum_a w_a(t)\operatorname{dist}(F_a(t),[l,h]),
+ \label{II:U:eq:rank-two-anchored-defect}
+\end{align}
+and
+$\UTV(p,q^{\rm anch})\le J^{\rm anch}/2
+\le L_1(1-s_*)\delta/(2s_*)$.
+\end{proposition}
+\input{proofs/probability/2.8.22.tex}
+In general $v\ne x_L$ and $v\ne x_L-\alpha_L$; neither identity may be
+substituted without proof. On the golden-ratio source, for every
+$L\ge1$ the initial successors $2/5,3/5$ are inside $[1-a,a]$,
+so the new-row defect is zero. Symmetry gives
+$\beta=(1/4,1/4)$ and $v=(1/2,1/2)$.
+Consequently $J^{\rm anch}=J_L^{\rm clip}/2$ and
+\[
+ \UTV(p,q_L^{\rm anch})\le\frac{z_L}{20(1+z_L)^2}.
+\]
+The factor improvement is a certificate for this construction, not an
+optimality claim. A pure-prefix two-state model uses a mixed initial
+vector; imposing the empty-prefix initial state adds the third state.
+
+
+\subsection{Observable coordinates and a finite positive certificate}
+\label{II:U:sec:observable-positive}
+The results below distinguish a supplied positive basis, selection from a
+supplied candidate pool, and discovery of such a pool. Throughout this
+continuation, matrix $\|\cdot\|_\infty$ is the maximum absolute row sum,
+$\|\cdot\|_{\max}$ is the maximum absolute entry, and vector norms have
+their usual meanings. All positive realizations are row-normalized:
+$\alpha\mathbf1=1$ and $\sum_a A_a\mathbf1+\tau=\mathbf1$.
+
+\begin{theorem}[Observable normalization and finite positivity certificate]
+\label{II:U:thm:observable-certificate}
+Let $p(w)=\alpha_*A_{*,w}\tau_*$ have a minimal $R$-state positive
+realization with $\tau_*\ge s_*\mathbf1>0$. Fix distinct core prefixes
+$u_i$ and suffixes $v_j$, $1\le i,j\le R$, for which
+\[
+ H_{ij}=p(u_iv_j),\quad (M_a)_{ij}=p(u_iav_j),\quad
+ h_j=p(v_j),\quad t_i=p(u_i)
+\]
+give an invertible $H$. Put $B_a=M_aH^{-1}$, $\beta=hH^{-1}$,
+$q_i=p(u_i\Sigma^*)$, and $D_q=\Udiag(q_i)$. Then $q_i>0$ and
+\[
+ q=(I-\textstyle\sum_aB_a)^{-1}t,\qquad
+ \widetilde B_a=D_q^{-1}B_aD_q,\quad
+ \widetilde\beta=\beta D_q,\quad \widetilde t=D_q^{-1}t
+\]
+satisfy $\widetilde\beta\mathbf1=1$ and
+$\sum_a\widetilde B_a\mathbf1+\widetilde t=\mathbf1$.
+For any invertible $V$ with $V\mathbf1=\mathbf1$, define
+\[
+ \alpha=\widetilde\beta V^{-1},\qquad
+ A_a=V\widetilde B_aV^{-1},\qquad \tau=V\widetilde t.
+\]
+If $\alpha\ge0$, every $A_a\ge0$, and $\tau\ge s\mathbf1$ for some
+$s>0$, these finitely many inequalities certify an exact proper
+$R$-state realization of $p$.
+\end{theorem}
+\input{proofs/probability/2.8.23.tex}
+The certificate eliminates an infinite family of word-positivity tests
+\emph{after} $V$ is obtained. It does not find $V$. Observable coordinates
+can be signed; they are not hidden-state posterior probabilities.
+
+\subsection{Contracting cones and finite trailing-word dictionaries}
+\label{II:U:sec:trailing-word}
+\begin{theorem}[Conditional finite-prefix construction under projective contraction]
+\label{II:U:thm:trailing-word}
+Suppose a supplied finite-dimensional proper cone $\mathcal C$ carries
+positive linear letter maps and a linear map $x\mapsto f_x$ to
+nonnegative summable word functions. Let $\ell(x)=\sum_w f_x(w)$ be
+strictly positive on $\mathcal C\setminus\{0\}$; normalized states have
+$\ell(x)=1$. Assume letter shifts and normalized updates agree with this
+representation, the initial law is $p=f_{x_0}$, and every normalized
+state has stopping probability at least $s>0$. Each nonzero letter map
+sends $\mathcal C\setminus\{0\}$ into its interior, has Hilbert diameter
+at most $\Delta<\infty$, and has projective contraction coefficient at
+most $\gamma\in(0,1)$. Then for every $L\ge1$ there is a proper automaton
+$q_L$, using at most $N_d(L)=\sum_{j=0}^Ld^j$ actual-prefix residuals, with
+\begin{equation}
+ \UTV(p,q_L)\le\frac{1-s}{s}
+       \bigl(e^{\Delta\gamma^{L-1}}-1\bigr).
+ \label{II:U:eq:trailing-tv}
+\end{equation}
+The same bound holds after keeping one representative of each vertex of
+the convex hull of the residuals of length at most $L$.
+\end{theorem}
+\input{proofs/probability/2.8.24.tex}
+The Hilbert contraction estimate is the classical Birkhoff theorem
+\citep{gaubert2015}. For fixed $s,\Delta,\gamma$ and $d\ge2$, the state bound is
+$N(\epsilon)=O(\epsilon^{-\log d/\log(1/\gamma)})$:
+use $e^z-1\le ze^\Delta$ for $0\le z\le\Delta$ and choose
+$L=O(\log(1/\epsilon))$. This is exponential enumeration in depth,
+not an efficient rank-$R$ discovery theorem. Exact transition queries,
+cone data, and contraction bounds are inputs to this construction.
+
+\subsection{Relative Doeblin anchors and a corrected simplex inclusion}
+\label{II:U:sec:doeblin-sandwich}
+Here $\Delta(Z)$ denotes the convex hull of the rows of a matrix $Z$.
+\begin{lemma}[Inverse-entry bound for a nearly diagonal stochastic matrix]
+\label{II:U:lem:inverse-entry}
+If $\Pi\ge0$, $\Pi\mathbf1=\mathbf1$, and $\Pi_{ii}\ge1-\eta$
+with $0\le\eta<1/2$, then $\Pi$ is invertible,
+$\Pi^{-1}\mathbf1=\mathbf1$, and
+\[
+ (\Pi^{-1})_{ij}\ge-\frac{\eta}{1-2\eta}.
+\]
+\end{lemma}
+\input{proofs/probability/2.8.25.tex}
+
+\begin{theorem}[Conditional Doeblin simplex inclusion and strict margins]
+\label{II:U:thm:doeblin-sandwich}
+Let a proper $R$-state law have $\tau_*\ge s_*\mathbf1>0$,
+$\alpha_{*,j}\ge\mu$, and
+\[
+ A_{*,a,ij}\ge\mu w_{a,i},\qquad
+ w_a=A_{*,a}\mathbf1,\qquad 0<\mu<1/R.
+\]
+Set $a_\mu=1-R\mu$, $J_\mu=a_\mu I+\mu\mathbf1\mathbf1^\top$,
+and $V_*=\widetilde P^{-1}$ in Theorem~\ref{II:U:thm:observable-certificate}.
+Suppose a supplied true anchor matrix has the form
+$U=\Pi J_\mu V_*$, where $\Pi$ satisfies
+Lemma~\ref{II:U:lem:inverse-entry}. Write
+$c_{\max}=\max_j\sum_i\Pi_{ij}$ and choose a known upper bound
+$C\ge c_{\max}$. Define
+\[
+ m_- =\frac{\eta}{1-2\eta},\qquad
+ m_+=\frac{\mu}{a_\mu C}.
+\]
+If $m_-\le m_+$, every $m\in[m_-,m_+]$ gives an exact proper positive
+realization through
+\[
+ D_m=(1+Rm)I-m\mathbf1\mathbf1^\top,\quad
+ V=D_mU=WV_*,\quad W=D_m\Pi J_\mu.
+\]
+In particular,
+$\Delta(J_\mu)\subseteq\Delta(W)\subseteq\Delta(I)$ and
+$W\tau_*\ge s_*\mathbf1$. If $m_-<m<m_+$, put
+$\delta_m=\min(m-m_-,m_+-m)$. If also
+$w_{\min}=\min_{a,i}w_{a,i}>0$, all initial and transition entries are
+at least
+\begin{equation}
+ \gamma_* =\frac{\delta_m}{1+Rm}\min(1,w_{\min})>0.
+ \label{II:U:eq:sandwich-margin}
+\end{equation}
+One may use $C=1+(R-1)\eta$. A sufficient nonempty-interval condition is
+\begin{equation}
+ a_\mu(R-1)\eta^2+[1-(R-2)\mu]\eta-\mu\le0.
+ \label{II:U:eq:sandwich-feasibility}
+\end{equation}
+\end{theorem}
+\input{proofs/probability/2.8.26.tex}
+The margin in \eqref{II:U:eq:sandwich-margin} uses the stochasticity of $W$;
+it does not require a cross-row letter-probability ratio. The hypotheses
+concern relative anchors inside $\Delta(J_\mu)$, not nearly pure hidden
+states in $\Delta(I)$. They are additional structural assumptions.
+
+\subsection{Selection from a supplied relatively separable prefix pool}
+\label{II:U:sec:relative-spa}
+\begin{theorem}[Conditional relative SPA selection, with corrected noise budget]
+\label{II:U:thm:relative-spa}
+Let $G=J_\mu V_*$ be invertible, and let a supplied pool of $M$ true
+prefix-coordinate rows form $F=HG$, where $H\ge0$ and
+$H\mathbf1=\mathbf1$. Suppose there are distinct witness rows $i_r$
+with $H_{i_r,r}\ge1-\eta_0$. Let
+$\max_i\|\widehat F_{i,:}-F_{i,:}\|_2\le e_F$ and define
+\begin{align*}
+ \sigma&=\sigma_R(G),\qquad \kappa=\|G\|_2/\sigma,
+ & C_{\rm SPA}&=1+80\kappa^2,\\
+ e&=e_F+\sqrt2\eta_0\|G\|_2,
+ & \theta_R&=\min\{(2\sqrt{R-1})^{-1},1/4\}.
+\end{align*}
+For $R\ge2$, if $e<\sigma\theta_R/C_{\rm SPA}$, ordinary SPA on
+$\widehat F^\top$ returns $R$ indices in $O(MR^2)$ exact-real arithmetic
+operations. After a permutation, their \emph{true} relative coordinates
+satisfy
+\begin{equation}
+ H_{\widehat i_r,r}\ge1-\eta,\qquad
+ \eta=\frac{e_F+C_{\rm SPA}e}{\sigma}.
+ \label{II:U:eq:spa-relative-budget}
+\end{equation}
+If $\eta<1/2$ and \eqref{II:U:eq:sandwich-feasibility} is strict, these true
+selected anchors satisfy Theorem~\ref{II:U:thm:doeblin-sandwich}.
+\end{theorem}
+\input{proofs/probability/2.8.27.tex}
+This is an application of a classical selection theorem, not a new SPA
+algorithm. Its cost starts with the pool matrix already available.
+The pool size, generation cost, prefix masses, and uniform estimation
+error are separate inputs. The estimated rows $\widehat F_{\widehat i_r,:}$
+are not the unknown true rows $F_{\widehat i_r,:}$; replacing the latter
+in $V=D_mU$ requires an additional numerical error certificate.
+
+\begin{proposition}[Uniform observable coordinates for a fixed prefix pool]
+\label{II:U:prop:pool-estimation}
+Use a fixed core with $|u_i|,|v_j|\le L_0$ and
+$\sigma_R(H)\ge\sigma_0>0$, and prefixes in a fixed
+pool $\mathcal P\subseteq\Sigma^{\le L_0}$ with masses at least $p_*>0$.
+From $n$ independent words, observe the first $2L_0$ letters together
+with whether and when the word terminates by that depth. Estimate
+$H$, the core prefix masses $q$, the pool prefix masses $q_w$, and
+$h_{w,j}=p(wv_j)$ by counts. Put
+\[
+ K=R^2+R+MR+M,\quad
+ t=\sqrt{\log(2K/\delta)/(2n)},\quad h_0=\sqrt R/\sigma_0.
+\]
+If $Rh_0t\le1/2$ and $t\le p_*/2$, then with probability at least
+$1-\delta$, all estimates
+\[
+ \widehat f_w=(\widehat h_w/\widehat q_w)\widehat H^{-1}D_{\widehat q}
+\]
+exist and have row $\ell^2$ error at most
+\begin{equation}
+ e_F\le\frac{8Rh_0t}{p_*}+(2Rh_0^2+h_0)t.
+ \label{II:U:eq:pool-estimation}
+\end{equation}
+\end{proposition}
+\input{proofs/probability/2.8.28.tex}
+The uniform event permits choosing indices by SPA on the same pool.
+It does not permit choosing the pool or core after observing these
+data without an additional uniform argument or sample split.
+
+\subsection{Pathwise stability and a complete fixed-basis sampling construction}
+\label{II:U:sec:fixed-basis-sampling}
+The following construction uses exact rational arithmetic for intermediate
+linear algebra and a specified dyadic output. It is a finite-bit algorithm,
+but it is not a theorem about unrestricted $b$-bit floating-point LU.
+
+\begin{proposition}[Pathwise perturbation and normalized initial estimates]
+\label{II:U:prop:pathwise-stability}
+Let $p,\widehat q$ be proper row-normalized positive automata on the same
+$R$ states, with $\tau\ge s\mathbf1>0$ for the first automaton. Then
+\begin{equation}
+ \UTV(p,\widehat q)\le\frac12\|\widehat\alpha-\alpha\|_1
+ +\frac1{2s}\left(\|\widehat\tau-\tau\|_\infty+
+                   \sum_a\|\widehat A_a-A_a\|_\infty\right).
+ \label{II:U:eq:pathwise-general}
+\end{equation}
+If $\alpha_i,A_{a,ij}\ge\gamma>0$, $R\ge2$, and an unnormalized
+estimate $a^0$ satisfies $\|a^0-\alpha\|_\infty\le\delta_\alpha
+\le\gamma/[2(R+1)]$, its normalization $\bar\alpha=a^0/(a^0\mathbf1)$
+is positive and
+\begin{equation}
+ \|\bar\alpha-\alpha\|_\infty
+ \le\frac{(R-1)\delta_\alpha}{1-R\delta_\alpha}\le\gamma/2.
+ \label{II:U:eq:initial-normalization}
+\end{equation}
+For transition estimates with per-letter maximum-entry errors $e_a$,
+$\max_a e_a\le\gamma/2$ and $R\sum_a e_a\le s/2$ suffice for
+$\bar A_{a,ij}\ge\gamma/2$ and
+$\bar\tau=\mathbf1-\sum_a\bar A_a\mathbf1\ge(s/2)\mathbf1$.
+\end{proposition}
+\input{proofs/probability/2.8.29.tex}
+
+\begin{theorem}[Fixed rational basis: iid estimation, exact computation, dyadic output]
+\label{II:U:thm:fixed-basis-sampling}
+Fix the core in Theorem~\ref{II:U:thm:observable-certificate}, with
+$|u_i|,|v_j|\le L_0$, $\sigma_R(H)\ge\sigma_0>0$, and
+$q_i\ge q_*>0$. A \emph{supplied rational} invertible $V$ satisfies
+$V\mathbf1=\mathbf1$ and certifies the true law with
+$\alpha_i,A_{a,ij}\ge\gamma>0$, $\tau_i\ge s>0$, where the
+supplied lower bounds $\gamma,s$ are rational.
+The core and $V$ are fixed independently of the sample (or obtained
+from an independent training sample with these true margins certified).
+For $0<\delta<1$, observe $n$ iid words censored at $D=2L_0+1$, retaining whether and
+when termination occurs by $D$, including at $D$ itself.
+
+Estimate $H,M_a,h$ by exact completed-word counts and $q$ by prefix
+counts, each divided by $n$. All subsequent intermediate operations
+in this theorem are exact rational operations. Define
+\begin{align*}
+ t_n&=c_0/\sqrt n,&
+ c_0&=\sqrt{\tfrac12\log(4R(R+2)/\delta)},\\
+ b_n&=c_1/\sqrt n,&
+ c_1&=\sqrt d+\sqrt{2\log(2R^2/\delta)},\\
+ h_0&=\sqrt R/\sigma_0,&v_-&=\|V^{-1}\|_\infty,
+ \qquad v_+=\|V\|_\infty,\\
+ K_\alpha&=v_-[(2R+1)h_0+2Rh_0^2],\\
+ K_0&=\frac{2Rh_0}{q_*^2}
+          +\frac{4R^2h_0^2+4Rh_0}{q_*},\\
+ E_\alpha&=K_\alpha c_0,&
+ E_A&=v_+v_-\left(\frac{2h_0R^2}{q_*}c_1+K_0c_0\right).
+\end{align*}
+It suffices to take
+\begin{equation}
+ n\ge\max\left\{(2Rh_0c_0)^2,(2c_0/q_*)^2,
+ (4E_\alpha/\gamma)^2,
+ \left(2E_A/\min(\gamma,s)\right)^2\right\}.
+ \label{II:U:eq:fixed-basis-n}
+\end{equation}
+Check that $\widehat H$ is invertible and all $\widehat q_i>0$;
+otherwise return \texttt{UNRESOLVED}. Form
+\begin{align*}
+ a^0&=\widehat h\widehat H^{-1}D_{\widehat q}V^{-1},
+ &\bar\alpha&=a^0/(a^0\mathbf1),\\
+ \bar A_a&=V D_{\widehat q}^{-1}\widehat M_a
+                  \widehat H^{-1}D_{\widehat q}V^{-1},
+ &\bar\tau&=\mathbf1-\sum_a\bar A_a\mathbf1.
+\end{align*}
+Before dividing by $a^0\mathbf1$, check that this sum is positive.
+Check normalization and the margins
+$\bar\alpha_i,\bar A_{a,ij}\ge\gamma/2$ and
+$\bar\tau_i\ge s/2$ exactly; on failure return
+\texttt{UNRESOLVED}. The supplied checking thresholds can be taken
+rational. Otherwise, with $h_b=2^{-b}\le\gamma/4$, round
+every transition entry down to a multiple of $h_b$ and assign the
+remaining row mass exactly to STOP. Round the first $R-1$ entries of
+$\bar\alpha$ down and assign the remaining mass to its last entry.
+The resulting dyadic law $q_b$ has exactly $R$ positive states and,
+with probability at least $1-\delta$, is returned and satisfies
+\begin{equation}
+ \UTV(p,q_b)\le
+ \frac{e_\alpha}{1-e_\alpha}+(R-1)h_b
+          +\frac{e_A+dRh_b}{s},\qquad
+ e_\alpha=E_\alpha/\sqrt n,\quad e_A=E_A/\sqrt n.
+ \label{II:U:eq:fixed-basis-tv}
+\end{equation}
+In particular the rate is
+$O_{R,\sigma_0,q_*,V,s,\gamma}
+(\sqrt{(d+\log(R/\delta))/n}+d2^{-b})$.
+The intermediate rational algorithm has polynomial bit complexity
+in $n,D,d,R,b$ and the rational input bit length of $V$;
+the output uses $O(dR^2b)$ bits for its probabilities.
+\end{theorem}
+\input{proofs/probability/2.8.30.tex}
+
+\paragraph{Scope of the numerical theorem.}
+The source itself need not have rational coefficients: empirical
+counts and the supplied basis are rational. Exact rational
+intermediates avoid an unsupported universal backward-error constant
+for partially pivoted LU. The result concerns the mathematical law
+encoded by the dyadic probabilities, not bitwise equivalence to a
+floating-point executable. A rational certified basis with strict
+margins is a substantive input. Neither its existence for every
+positive realization nor its recovery from data is asserted here.
+Combining noisy SPA-selected rows with basis construction needs
+control of the \emph{estimated basis}, not just selection of indices.
+All these distinctions persist even though the fixed-basis sampling
+and output-rounding result is now complete.
+
+\subsection{Estimated bases and discovery in a bounded-depth promise class}
+\label{II:U:sec:learned-basis}
+The following perturbation argument closes the estimated-basis gap
+for a stated finite-dimensional source class. All matrix norms in
+this subsection are maximum absolute row sums.
+
+\begin{lemma}[A perturbed normalized basis preserves a strict positive realization]
+\label{II:U:lem:learned-basis}
+Suppose $V\mathbf1=\mathbf1$ realizes a proper law with
+$\alpha_j,A_{a,ij}\ge\gamma>0$ and $\tau_i\ge s>0$.
+Let $\widehat V=V+E$, $E\mathbf1=0$, and
+$\rho=\|E\|_\infty\|V^{-1}\|_\infty<1$.
+In the new basis the exact coefficients of the \emph{same} law satisfy
+\begin{align*}
+ \|\alpha'-\alpha\|_1&\le\rho/(1-\rho),\\
+ \sum_a\|A'_a-A_a\|_\infty&\le 2R\rho/(1-\rho),\\
+ \|\tau'-\tau\|_\infty&\le\rho.
+\end{align*}
+Thus $\rho\le\min\{1/2,\gamma/(8R),s/2\}$ suffices for
+$\alpha'_j,A'_{a,ij}\ge\gamma/2$ and $\tau'_i\ge s/2$.
+Also $\|\widehat V^{-1}\|_\infty\le2\|V^{-1}\|_\infty$.
+\end{lemma}
+\input{proofs/probability/2.8.31.tex}
+
+For an estimated observable row $z$ whose true row $f$ satisfies
+$f\mathbf1=1$, use the affine normalization
+\[
+ \mathcal N(z)=z+(1-z\mathbf1)e_1^\top.
+\]
+Then $\mathcal N(z)\mathbf1=1$ exactly and
+$\|\mathcal N(z)-f\|_1\le2\|z-f\|_1$. This works for signed
+observable coordinates and avoids an unjustified probabilistic
+interpretation of those coordinates.
+
+\begin{theorem}[Frequent-prefix discovery, estimated basis, and dyadic law]
+\label{II:U:thm:bounded-pool-learning}
+Fix $R\ge2$, $d$, $L_0$, a supplied core of depth at most $L_0$,
+and positive rational margins. Consider the following \emph{promise
+class}: the source has a minimal proper $R$-state realization with
+the Doeblin hypotheses of Theorem~\ref{II:U:thm:doeblin-sandwich},
+stop margin $s_*$, $w_{\min}>0$, and $0<\mu<1/R$;
+$\sigma_R(H)\ge\sigma_0$, core prefix masses are at least $q_*$;
+for every relative vertex there is a witness prefix of depth at most
+$L_0$, mass at least $p_*$, and relative purity at least $1-\eta_0$.
+The realization and witness prefixes need not be supplied.
+
+Choose $0\le\eta<1/2$ satisfying the strict inequality
+\eqref{II:U:eq:sandwich-feasibility}, and a rational $m\in(m_-,m_+)$
+with $C=1+(R-1)\eta$. Set
+\begin{align*}
+ a_\mu&=1-R\mu,& h_0&=\sqrt R/\sigma_0,& D_0&=1+2(R-1)m,\\
+ s_G&=a_\mu/\sqrt R,& S_G&=\sqrt R h_0,
+ & C_0&=1+80(S_G/s_G)^2,\\
+ v_-&=\frac{1+(R-2)\mu}{a_\mu(1-2\eta)},&
+ v_+&=D_0h_0,&
+ \gamma_0&=\frac{\min(m-m_-,m_+-m)}{1+Rm}\min(1,w_{\min}).
+\end{align*}
+Observe $n$ iid words censored at $2L_0+1$, including termination
+flags. Put $M_0=N_d(L_0)$,
+\[
+ K=M_0(R+1)+R^2+2R,\qquad
+ t=\sqrt{\log(4K/\delta)/(2n)},\qquad
+ b_n=\sqrt{d/n}+\sqrt{2\log(2R^2/\delta)/n}.
+\]
+Use the frequent observed-prefix pool
+$\widehat{\mathcal P}=\{w:|w|\le L_0,\widehat q_w\ge3p_*/4\}$.
+Compute its rows by Proposition~\ref{II:U:prop:pool-estimation}, then apply
+$\mathcal N$. The following explicit sufficient tests are imposed:
+\begin{align*}
+ Rh_0t&\le1/2,& t&\le\min(p_*/4,q_*/2),\\
+ e_0&=16Rh_0t/p_*+(2Rh_0^2+h_0)t,& e_F&=2e_0,\\
+ e&=e_F+\sqrt2\eta_0S_G,&
+ e&<s_G\theta_R/C_0,\qquad
+ (e_F+C_0e)/s_G\le\eta,\\
+ e_V&=D_0e_F,&
+ e_Vv_-&\le\min\{1/2,\gamma_0/(8R),s_*/2\}.
+\end{align*}
+Here $\theta_R$ is as in Theorem~\ref{II:U:thm:relative-spa}.
+Run SPA, let $\widehat U$ be its selected normalized rows, and set
+$\widehat V=D_m\widehat U$. For the empirical realization define
+\begin{align*}
+ \bar v_-&=2v_-,&\bar v_+&=v_++e_V,\\
+ e_\alpha&=\bar v_-[(2R+1)h_0+2Rh_0^2]t,\\
+ K_0&=2Rh_0/q_*^2+(4R^2h_0^2+4Rh_0)/q_*,\\
+ e_A&=\bar v_+\bar v_-
+       [2h_0R^2b_n/q_*+K_0t].
+\end{align*}
+Require $e_\alpha\le\gamma_0/8$,
+$e_A\le\min(\gamma_0,s_*)/4$, and $h_b=2^{-b}\le\gamma_0/8$.
+Use exact rational arithmetic, normalize the initial vector, verify
+initial/transition entries at least $\gamma_0/4$ and STOP at least
+$s_*/4$, and round downward as in Theorem~\ref{II:U:thm:fixed-basis-sampling}.
+On a failed check return \texttt{UNRESOLVED}.
+With probability at least $1-\delta$ all checks pass and the returned
+proper law on $R$ states satisfies
+\begin{equation}
+ \UTV(p,q_b)\le\frac{e_\alpha}{1-e_\alpha}+(R-1)h_b
+                    +\frac{2(e_A+dRh_b)}{s_*}.
+ \label{II:U:eq:learned-basis-tv}
+\end{equation}
+For fixed structural margins and sufficiently small $\eta_0$, the rate is
+\[
+ O\!\left(\sqrt{\frac{d+L_0\log d+\log(R/\delta)}n}+d2^{-b}\right).
+\]
+Counting uses a trie; the observed pool has at most $1+nL_0$ members.
+With this supplied core the algorithm has polynomial bit cost in
+$n,L_0,d,R,b$ and the rational parameter bit lengths.
+\end{theorem}
+\input{proofs/probability/2.8.32.tex}
+This closes frequent-prefix discovery and the numerical basis bridge
+\emph{within the stated promise class and with a supplied core}.
+It does not certify the latent class assumptions from finite data,
+discover the core in uniformly polynomial time, or use empirical SVD.
+The finite exact positivity checks certify the output automaton;
+the approximation guarantee additionally uses the source-class promise.
+
+\begin{proposition}[Bounded-depth observations cannot certify an unrestricted source]
+\label{II:U:prop:censored-obstruction}
+For every censoring depth $D$, the laws $\delta_{a^{D+1}}$ and
+$\delta_{a^{D+2}}$ induce identical censored observations, including
+termination flags through $D$, but their TV distance is one.
+For $\epsilon<1/2$ and $\delta<1/2$, no procedure using only these
+observations can approximate both laws within $\epsilon$ with
+probability at least $1-\delta$.
+\end{proposition}
+\input{proofs/probability/2.8.33.tex}
+
+\begin{proposition}[Fixed-block empirical singular-space certificate]
+\label{II:U:prop:fixed-block-svd}
+Let $K$ be an $M\times N$ block of completed-word probabilities,
+with its query words fixed before sampling, $\Urank K=r$, and
+$\sigma_r(K)\ge s_0>0$. From $n$ iid observations let $\widehat K$
+be the frequency matrix and put
+\[
+ e=\sqrt{MN}\sqrt{\log(2MN/\delta)/(2n)}.
+\]
+With probability at least $1-\delta$,
+$\|\widehat K-K\|_2\le e$. If $e<s_0/2$, the leading $r$ left
+and right singular projectors obey
+\[
+ \|\widehat P-P\|_2,\ \|\widehat Q-Q\|_2
+          \le e/(s_0-e),\qquad
+ \|\widehat K_r-K\|_2\le2e.
+\]
+If $3e<s_0$, thresholding empirical singular values at $2e$ selects
+exactly $r$. The population rank and gap remain assumptions.
+\end{proposition}
+\input{proofs/probability/2.8.34.tex}
+This controls a fixed finite block. It neither estimates an infinite
+Hankel tail nor supplies a positive cone or justifies adaptive block
+selection outside a declared uniform family. Validated numerical
+SVD errors must be added when the computed decomposition is inexact.
+
+\subsection{A bounded-coordinate rank-two parametric construction}
+\label{II:U:sec:parametric-rank-two}
+\begin{theorem}[Estimated maps and endpoint clipping on a supplied valid interval]
+\label{II:U:thm:parametric-rank-two}
+Suppose $f_t$, $t\in I$, is a supplied affine family of probability
+laws on a compact interval, with $p=f_{t_0}$,
+$\|f_t-f_u\|_1\le K_f|t-u|$, true STOP at least $s>0$, and
+letter masses $w_a(t)$ and projective updates $F_a(t)\in I$.
+Let estimated affine-fractional maps $\widehat F_a:I\to I$, with
+no pole on $I$, be contractions of modulus
+at most $\bar\gamma<1$, and let nonnegative affine estimated masses
+$\widehat w_a$ satisfy uniformly
+\[
+ \max_a|\widehat F_a(t)-F_a(t)|\le e_F,
+ \qquad \sum_a|\widehat w_a(t)-w_a(t)|\le\zeta<s.
+\]
+Starting from $[t_0,t_0]$, perform $J$ all-letter endpoint-hull
+iterations with $\widehat F_a$. At the two resulting endpoints,
+use masses $\widehat w_a$, STOP as the remainder, and route to the
+barycentric representation of $\widehat F_a(t)$ clipped to the
+current interval. If the interval is degenerate, use one state.
+Round probabilities down with step $h_b$ and initial normalization
+by a remainder. The proper law on at most two states satisfies
+\begin{equation}
+ \UTV(p,q_{J,b})\le
+ \frac{\zeta+\frac12K_f(e_F+\bar\gamma^J\operatorname{diam}I)}{s-\zeta}
+       +h_b+\frac{2dh_b}{s-\zeta}.
+ \label{II:U:eq:parametric-rank-two}
+\end{equation}
+Consequently fixed-depth coordinate estimates with
+$e_F,\zeta=O(n^{-1/2})$ and $J=O(\log n)$ give a parametric
+$O(n^{-1/2}+d2^{-b})$ TV rate. The interval and its validity are inputs.
+\end{theorem}
+\input{proofs/probability/2.8.35.tex}
+For fixed-depth observable matrices, a certified nonzero denominator
+on $I$ makes their fractional maps locally Lipschitz in the entries;
+the inverse estimates already proved in Section~\ref{II:U:sec:fixed-basis-sampling}
+then give the stated parametric errors. This does not assert that
+the unknown valid interval, denominator margin or contraction bound
+can always be inferred from bounded-depth data. Exact limiting rays
+need not be evaluated: finite endpoint iteration and clipping suffice.
+
+\section{Projective error, word laws and intermittent filtering}
+\label{II:M:sec:projective-certificates}
+Relative-error certificates can avoid an explicit
+smallest-probability denominator, but their hypotheses must themselves
+be established. They neither construct a positive cone from a Hankel
+rank bound nor turn an average word-law guarantee into uniform factual
+recall. Natural logarithms are used throughout this section.
+
+\subsection{A sharp projective-to-KL bridge}
+For positive vectors of the same dimension define
+\[
+ d_H(x,y)=\log\max_i\frac{x_i}{y_i}
+          -\log\min_i\frac{x_i}{y_i}.
+\]
+This is a distance between rays: independent positive rescaling of
+$x$ and $y$ does not change it. On distributions with common zeros,
+the same definition may be used on their common positive support.
+
+\begin{lemma}[Non-expansivity on the positive orthant]
+\label{II:M:lem:projective-nonexpansive}
+If $A$ is a nonnegative rectangular matrix with no zero row, then
+$d_H(Ax,Ay)\le d_H(x,y)$ for all strictly positive $x,y$.
+Normalizing either output by its sum leaves the conclusion unchanged.
+\end{lemma}
+\input{proofs/probability/2.9.1.tex}
+
+\begin{lemma}[Sharp KL envelope at fixed projective diameter]
+\label{II:M:lem:sharp-projective-kl}
+Let $p,q$ be probability vectors positive on a common finite support.
+If $d_H(p,q)\le e$, then
+\begin{align}
+ D_{\rm KL}(p\|q)&\le\Psi(e)\le e^2/8,\label{II:M:eq:sharp-projective-kl}\\
+ \Psi(e)&=\frac{e}{\exp(e)-1}-1
+          -\log\!\left(\frac{e}{\exp(e)-1}\right)\quad(e>0),
+ \qquad \Psi(0)=0.\nonumber
+\end{align}
+The bound $\Psi(e)$ is attained by distributions on two points for each
+$e>0$. Its small-$e$ expansion and large-$e$ behavior are
+\[
+ \Psi(e)=\frac{e^2}{8}-\frac{e^4}{576}
+                 +\frac{e^6}{25920}+O(e^8),\qquad
+ \Psi(e)=e-1-\log e+o(1)\quad(e\to\infty).
+\]
+\end{lemma}
+\input{proofs/probability/2.9.2.tex}
+
+\subsection{What a relative matrix certificate actually asserts}
+\begin{proposition}[Sufficient relative-error certificate]
+\label{II:M:prop:relative-projective-certificate}
+Let $A,B$ be nonnegative matrices with the same support and no zero
+rows. If the oscillation of $\log(A_{ij}/B_{ij})$ on their support is
+at most $\eta$, then $\sup_{x>0}d_H(Ax,Bx)\le\eta$.
+In particular, if $0\le\delta<1$ and
+$|B_{ij}-A_{ij}|\le\delta A_{ij}$ at every entry, then
+\[
+ \sup_{x>0}d_H(Ax,Bx)
+ \le\log\frac{1+\delta}{1-\delta}
+ =2\delta+O(\delta^3).
+\]
+The coefficient-oscillation condition is not necessary.
+\end{proposition}
+\input{proofs/probability/2.9.3.tex}
+
+With only the no-zero-row assumption, even equality of supports is
+not necessary for a finite uniform projective defect: the matrices
+\[
+ \begin{pmatrix}1&0\\1&0\end{pmatrix},\qquad
+ \begin{pmatrix}0&1\\0&1\end{pmatrix}
+\]
+again produce the same ray for every positive input. The nonzero-column
+condition in Lemma~\ref{II:M:lem:projective-column-limit} below explains why
+the normalized probabilistic setting is more restrictive.
+
+\paragraph{Additive errors and zero entries.}
+For known common support, minimum active entry $m>0$ and additive error
+$\varepsilon<m$, the relative certificate gives
+$\eta\le\log((1+\varepsilon/m)/(1-\varepsilon/m))$.
+Dependence on $\varepsilon/m$ is unavoidable in worst cases:
+$A=\operatorname{diag}(m,1)$ and
+$B=\operatorname{diag}(m+\varepsilon,1)$ have defect
+$\log(1+\varepsilon/m)$. This is not a universal equality in order:
+$B=cA$ has zero projective defect despite a nonzero additive error.
+Support-preserving quantization, multiplicative error bounds or other
+separately proved restrictions are substantive premises. Smoothing is
+one possible modification, not a free removal of these premises.
+
+\begin{lemma}[Column limits of a uniform projective certificate]
+\label{II:M:lem:projective-column-limit}
+Suppose $A,B$ have no zero rows and every column of both has positive
+sum. If $d_H(Ax,Bx)\le\eta$ for every $x>0$, then corresponding
+normalized columns have identical supports and projective distance at
+most $\eta$ on that support. Their KL divergence is at most $\Psi(\eta)$.
+\end{lemma}
+\input{proofs/probability/2.9.4.tex}
+
+\subsection{Finite-horizon word laws without a mixing premise}
+Use column-state conventions in this subsection. Two models have the
+same finite latent state set $\{1,\ldots,N\}$, normalized positive
+initial states $x_0,\widehat x_0$, and nonnegative matrices
+$T_a,\widehat T_a$ with no zero rows. Define
+\[
+ C_{aj}=\mathbf1^\top T_a e_j>0,\qquad
+ \widehat C_{aj}=\mathbf1^\top\widehat T_a e_j>0,
+ \qquad \sum_a C_{aj}=\sum_a\widehat C_{aj}=1.
+\]
+From latent state $j$, the joint probability of emitting $a$ and moving
+to $i$ is $(T_a)_{ij}$. Write $P_T,\widehat P_T$ for the induced
+probability laws on $\Sigma^T$. These are fixed-horizon laws, not a
+single normalized law on all finite words of all lengths.
+
+\begin{theorem}[Word-law KL from aligned positive-model certificates]
+\label{II:M:thm:projective-word-kl}
+Assume for every positive $x$ and every letter $a$ that
+\[
+ d_H(T_ax,\widehat T_ax)\le\eta,
+ \qquad d_H(Cx,\widehat Cx)\le\eta_{\rm obs}.
+\]
+Let $e_0=d_H(x_0,\widehat x_0)$. Then for every integer $T\ge1$,
+\begin{align}
+ D_{\rm KL}(P_T\|\widehat P_T)
+ &\le\Psi(e_0)+T\bigl(\Psi(\eta_{\rm obs})+\Psi(\eta)\bigr),
+ \label{II:M:eq:word-kl-relative}\\
+ \frac1T D_{\rm KL}(P_T\|\widehat P_T)
+ &\le\frac{e_0^2}{8T}+\frac{\eta_{\rm obs}^2+\eta^2}{8}.
+ \label{II:M:eq:word-kl-quadratic}
+\end{align}
+Neither strict letter contraction nor intermittent mixing is required.
+\end{theorem}
+\input{proofs/probability/2.9.5.tex}
+
+\paragraph{Scope of the stronger word bound.}
+The latent coordinates are aligned and both models have the same state
+set. The uniform matrix certificates are stronger information than a
+small empirical Hankel residual. The theorem does not construct such
+coordinates, certify an arbitrary rank reduction, or infer the premises
+from finitely many observed inputs. The total KL bound grows with $T$;
+its rate bound does not imply a horizon-independent TV bound, uniform
+error after conditioning on rare queries, or protected-fact persistence.
+Termination and a law on $\Sigma^*$ require a separately specified
+stopping model; they are not obtained by summing these normalized
+fixed-length laws over $T$.
+
+\subsection{Intermittent contraction controls the filter state}
+For the models above set
+$F_a(x)=T_ax/(\mathbf1^\top T_ax)$ and define $\widehat F_a$
+similarly. Filters are evaluated on the same observed history drawn
+under $P$. Non-expansivity holds even for identity or permutation
+updates. It prevents amplification of an existing discrepancy but does
+not, by itself, prevent accumulation of newly injected errors.
+
+\begin{proposition}[Block filtering and the intermediate steps]
+\label{II:M:prop:intermittent-projective-filter}
+Assume the uniform update defect $\eta$ above. Suppose a set of
+length-$L$ words has reference filter contraction coefficient at most
+$\kappa_*<1$, and its conditional probability, under $P$ after every
+supported history, is at least $p_*>0$. Put
+\[
+ q=\sqrt{1-p_*(1-\kappa_*^2)}<1,\qquad
+ r_m=q^m e_0+L\eta\frac{1-q^m}{1-q}.
+\]
+With $e_t=d_H(x_t,\widehat x_t)$ one has, for $0\le j<L$,
+\[
+ \bigl(\mathbb E_P e_{mL}^2\bigr)^{1/2}\le r_m,
+ \qquad
+ \bigl(\mathbb E_P e_{mL+j}^2\bigr)^{1/2}\le r_m+j\eta.
+\]
+For $T=ML$, a valid filter-based word-law bound, including every
+intermediate step, is
+\[
+ \frac1T D_{\rm KL}(P_T\|\widehat P_T)
+ \le\frac1{8T}\sum_{m=0}^{M-1}\sum_{j=0}^{L-1}
+                  (r_m+j\eta+\eta_{\rm obs})^2.
+\]
+The convention $q^0=1$ also covers $q=0$.
+\end{proposition}
+\input{proofs/probability/2.9.6.tex}
+
+Endpoint second-moment bounds do not on their own justify dropping the
+$L-1$ intermediate steps from a word-law sum; the preceding proof includes
+them. In the normalized,
+aligned-model setting, Theorem~\ref{II:M:thm:projective-word-kl} gives the
+simpler word-law estimate without any mixing premise. Existence and
+efficient verification of $L,p_*,\kappa_*$ remain additional obligations
+when a uniform filter-error bound is required.
+
+
+\subsection{The columnwise hypothesis actually needed for word laws}
+\begin{corollary}[Columnwise word-law certificate]\label{II:M:rev13:cor:column-word}
+Consider two aligned $N$-state models with nonnegative matrices
+$T_a,\widehat T_a$ and strictly positive normalized initial states
+$x_0,\widehat x_0$. Let
+\[
+ C_{aj}=\mathbf1^\top T_ae_j>0,\quad
+ \widehat C_{aj}=\mathbf1^\top\widehat T_ae_j>0,\quad
+ \sum_a C_{aj}=\sum_a\widehat C_{aj}=1,
+\]
+and set $R_{a,j}=T_ae_j/C_{aj}$ and
+$\widehat R_{a,j}=\widehat T_ae_j/\widehat C_{aj}$.
+Assume corresponding $R_{a,j},\widehat R_{a,j}$ have common support and
+\[
+ d_H(R_{a,j},\widehat R_{a,j})\le\eta,\qquad
+ d_H(Ce_j,\widehat Ce_j)\le\eta_{\rm obs}
+ \quad\text{for every }a,j.
+\]
+With $e_0=d_H(x_0,\widehat x_0)$ and $T\ge1$,
+\[
+ D_{\rm KL}(P_T\Vert\widehat P_T)
+ \le\Psi(e_0)+T\bigl(\Psi(\eta_{\rm obs})+\Psi(\eta)\bigr).
+\]
+These columnwise hypotheses suffice without a uniform projective
+comparison of $T_ax$ and $\widehat T_ax$ for every positive $x$.
+Zero rows of $T_a$ are allowed in this corollary. This weakening concerns
+word-law KL; it does not replace the uniform update-error premise used
+in the intermittent filter theorem.
+\end{corollary}
+\input{proofs/probability/2.9.7.tex}
+
+\section{Counterexamples for positive acquisition and conditional bounds}
+
+\begin{proposition}[Uniform Doeblin positivity prevents arbitrary hidden-state purification]
+\label{II:U:prop:doeblin-purity-obstruction}
+If $A_{a,ij}\ge\mu(A_a\mathbf1)_i$ for every letter, each
+nonempty-prefix posterior has all coordinates at least $\mu$.
+The same is true of a normalized positive left Perron vector of a
+nonempty word operator. Thus a collection of such anchors with
+diagonal entries at least $1-\eta$ requires $\eta\ge(R-1)\mu$.
+\end{proposition}
+\input{proofs/probability/2.10.1.tex}
+In particular $\eta<\mu s_*/(4R)$ is incompatible with these anchors
+for $R\ge2$. An empty-prefix anchor supplies at most one exception.
+The relative coordinates in Theorem~\ref{II:U:thm:doeblin-sandwich} avoid
+this contradiction by using the inner simplex $J_\mu$.
+
+\begin{proposition}[Noncommuting rank three with only one Perron ray]
+\label{II:U:prop:common-perron}
+Let $\alpha=(1,0,0)$ and
+\[
+ A_0=\frac1{30}\begin{pmatrix}4&1&1\\1&3&1\\1&2&4\end{pmatrix},
+ \qquad
+ A_1=\frac1{30}\begin{pmatrix}2&3&1\\3&1&2\\1&2&3\end{pmatrix}.
+\]
+With $\tau=(3/5,19/30,17/30)^\top$, this is a proper rank-three
+law with noncommuting strictly positive transitions. Every nonempty
+word operator has the same normalized left Perron vector
+$(1/3,1/3,1/3)$.
+\end{proposition}
+\input{proofs/probability/2.10.2.tex}
+
+\paragraph{Dilation without a valid outer inclusion.}
+Take $R=2$, $\eta=1/100$, $\mu=1/4$, $s_*=1/2$,
+\[
+ A_0=\begin{pmatrix}1/10000&1/10000\\1/8&1/8\end{pmatrix},\quad
+ A_1=\tfrac14\mathbf1\mathbf1^\top-A_0,\quad
+ \Pi=\begin{pmatrix}1&0\\1/100&99/100\end{pmatrix}.
+\]
+Although $\eta<\mu s_*/(4R)=1/64$, setting $m=1/98$ and
+$W=D_m\Pi$ gives
+\[
+ W=\frac1{9800}\begin{pmatrix}9899&-99\\-1&9801\end{pmatrix},
+ \qquad (WA_0W^{-1}\mathbf1)_1=-\frac{113851}{49000000}<0.
+\]
+This disproves the claimed algebraic positivity implication even
+when a nearly diagonal stochastic anchor matrix is supplied.
+
+\paragraph{The missing column-sum factor is substantive.}
+With $R=3$, $\mu=1/5$, $\eta=1/10$, $m=49/100$, and
+\[
+ \Pi=\begin{pmatrix}1&0&0\\1/10&9/10&0\\0&0&1\end{pmatrix},
+ \qquad
+ W=D_m\Pi J_\mu
+   =\frac1{2500}\begin{pmatrix}2431&59&10\\208&2282&10\\-39&59&2480\end{pmatrix},
+\]
+the old interval $1/8<m<1/2$ holds but $W_{31}<0$.
+The corrected upper endpoint is $5/11$. This is realizable with
+actual one-letter anchors, not only abstract matrices: put $Z=\Pi J_\mu$,
+let the columns of
+\[
+ Q=\begin{pmatrix}1/4&1/1000&1/1000\\
+                  1/10000&1/4&1/1000\\
+                  1/10000&1/1000&1/4\end{pmatrix}
+\]
+be $w_a$, and define $A_a=w_aZ_{a,:}$, $a=0,1,2$, with uniform
+initial distribution and STOP as the remainder. Every one-letter
+posterior is the corresponding row of $Z$, all Doeblin inequalities
+hold, and $\tau=(187/250,7489/10000,7489/10000)^\top$.
+The one-letter prefix/suffix core has rank three. Nevertheless
+$(WA_0W^{-1}\mathbf1)_3=-94961/25000000$.
+Choosing $m=1/4$ in the corrected interval makes all transformed
+coefficients strictly positive for this same source.
+
+\subsection{Verified interior two-state example}
+For the earlier source
+$A_0=\frac1{20}\left(\begin{smallmatrix}3&2\\3&3\end{smallmatrix}\right)$,
+$A_1=\frac1{20}\left(\begin{smallmatrix}2&2\\2&3\end{smallmatrix}\right)$,
+$\alpha=(1/10,9/10)$, and $\tau=(11/20,9/20)^\top$, take
+\[
+ U=\begin{pmatrix}30/59&29/59\\20/49&29/49\end{pmatrix},\quad
+ D(4,1)=\begin{pmatrix}2&-1\\-4&5\end{pmatrix},\quad
+ V=\frac1{2891}\begin{pmatrix}1760&1131\\20&2871\end{pmatrix}.
+\]
+Then
+\[
+ \alpha_V=(897/5800,4903/5800),\qquad
+ \tau_V=(29539/57820,26059/57820)^\top,
+\]
+\[
+ A_{V,0}=\frac1{100606800}
+       \begin{pmatrix}24761923&2357717\\24727123&5420117\end{pmatrix},
+ \quad
+ A_{V,1}=\frac1{100606800}
+       \begin{pmatrix}16461862&5627438\\16427062&8689838\end{pmatrix}.
+\]
+These exact matrices certify $\gamma=1/50$ and $s=9/20$.
+For the separate $R=2$ sandwich example with
+$\mu=1/4$, $\Pi=\left(\begin{smallmatrix}1&0\\1/100&99/100\end{smallmatrix}\right)$,
+and $m=1/98$, the correct values are
+\[
+ W=\frac1{19600}\begin{pmatrix}14799&4801\\4899&14701\end{pmatrix},
+\]
+\[
+ WA_0W^{-1}=\frac1{970200000000}
+       \begin{pmatrix}29484656149&30074228951\\
+                       90086011249&91887363851\end{pmatrix}>0,
+\]
+where $A_0$ is the rare-letter matrix in the preceding obstruction.
+
+\subsection{Why repeated whole-future KL cuts cannot be added}
+\begin{proposition}[Counterexample to the proposed occupation-weighted KL bound]
+\label{II:U:prop:repeated-kl-cuts}
+The proposed lower bound $W_0\log(K/N)$ from $K>N$ disjoint future
+signatures and cumulative prefix occupations is false without
+nonoverlapping information increments.
+\end{proposition}
+\input{proofs/probability/2.10.3.tex}
+If there are $M$ such cuts, summing their separate valid inequalities
+and dividing by $M$ is legitimate. Adding them without this factor
+requires signatures measurable in successive disjoint prediction
+blocks and a corresponding chain rule. Neither version establishes
+a general spectral KL discontinuity or directed conductance theorem.

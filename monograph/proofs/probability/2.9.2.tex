@@ -1,0 +1,24 @@
+\begin{proof}
+Let $u_i=\log(p_i/q_i)$ and, with $I\sim p$, put
+$W=\max_i u_i-u_I\in[0,e]$. Since $\mathbb E_p e^{-u_I}=1$,
+\[
+ D_{\rm KL}(p\|q)=\log\mathbb E e^W-\mathbb EW.
+\]
+For a fixed mean $\mu\in[0,e]$, convexity gives
+$\mathbb E e^W\le1+(\mu/e)(\exp(e)-1)$, with equality for an
+endpoint-supported law. Maximizing the resulting scalar expression
+over $\mu$ gives $\mu_*=1-e/(\exp(e)-1)$ and the stated $\Psi(e)$.
+To see attainability, give $W\in\{0,e\}$ mean $\mu_*$, call its
+probabilities $p_i$, set $b=\log\mathbb E e^W$, and define
+$q_i=p_i\exp(W_i-b)$. These $q_i$ sum to one, are positive, and
+$\log(p_i/q_i)=b-W_i$ has oscillation $e$.
+
+For the quadratic bound let $K(t)=\log\mathbb E e^{tW}$.
+Its second derivative is the variance of $W$ under an exponential
+tilt. Any variable in $[0,e]$ has variance at most $e^2/4$, since
+$\operatorname{Var}(W)\le\mathbb E(W-e/2)^2\le e^2/4$.
+Integrating $K''$ with weight $1-t$ on $[0,1]$ yields
+$K(1)-K(0)-K'(0)\le e^2/8$.
+Expanding the displayed elementary formula gives the asserted series;
+using $e/(\exp(e)-1)\sim e\exp(-e)$ gives the large-$e$ expression.
+\end{proof}

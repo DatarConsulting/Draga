@@ -1,0 +1,19 @@
+\begin{proof}
+The observation map $O$ is contractive and its range is backward-shift
+invariant of dimension at most $m$.  Hence
+\[
+ \Gamma_m=|lD^mx|\le\Gamma_m\Rnorm{Ox}\le\Gamma_m,
+\]
+which forces $\Rnorm{Ox}=1$.  If the cyclic span of $x$ under $D$ had
+dimension below $m$, restricting to that span would contradict
+Lemma~\ref{I:R:lem:strict-dimension-improvement}, with $n=m$.
+Put $T=I-D^*D-l^*l\succeq0$.  The finite-horizon energy identity is
+\[
+ 1=\sum_{j=0}^{N-1}|lD^jx|^2
+   +\sum_{j=0}^{N-1}\Rnorm{T^{1/2}D^jx}^2+\Rnorm{D^Nx}^2.
+\]
+Since the first sum tends to $\Rnorm{Ox}^2=1$, all the defect terms
+vanish and $D^Nx\to0$.  Cyclicity gives $T=0$ and $D^N\to0$ on the
+whole state space.  The latter is equivalent to $\rho(D)<1$ in finite
+dimension.
+\end{proof}

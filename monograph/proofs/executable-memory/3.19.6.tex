@@ -1,0 +1,16 @@
+\begin{proof}
+The donor coordinate $j_r$ is unchanged by a shear, so subtraction
+recovers its integer target exactly. Reverse composition proves
+bijectivity, for any deterministic rounding convention.
+Writing the rounding error at step $r$ as $\epsilon_r e_{i_r}$,
+$|\epsilon_r|\le1/2$, gives
+\[
+ T(z)=U_*z+\sum_{r=1}^\ell
+            S_\ell\cdots S_{r+1}e_{i_r}\epsilon_r(z).
+\]
+Thus the $j$th error lies in $[-b_j,b_j]$ and its standard deviation
+is at most $b_j$. The triangle inequality in centered $L^2$ proves
+\eqref{III:U:eq:lifting-variance}, without independence. For the last
+bound, split $U_*=U+(U_*-U)$ and apply the same inequality, using
+$\operatorname{Var}(vZ)\le\|v\|_2^2\Utr M$.
+\end{proof}

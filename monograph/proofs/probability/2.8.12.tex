@@ -1,0 +1,12 @@
+\begin{proof}
+Choose words $u_i,v_j$ so that the matrix $O$ with rows
+$c^\top A_{u_i}$ and the matrix $C$ with columns $A_{v_j}b$ are
+square and invertible; minimality guarantees these choices. For each
+fixed pair $(i,j)$,
+\[
+ (OT^nC)_{ij}=\sum_{|w|=n}p(u_iwv_j)
+ \le P_p\{|W|=n+|u_i|+|v_j|\}\longrightarrow0.
+\]
+Hence $T^n=O^{-1}(OT^nC)C^{-1}\to0$. In finite dimension this
+implies that every eigenvalue has modulus strictly below one.
+\end{proof}

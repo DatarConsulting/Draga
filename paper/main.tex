@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage[preprint,nonatbib]{neurips_2026}
+\input{preamble}
+\title{When Nearly Rank-One Predictions Require Large Sequential Models}
+\author{Vashista Nobaub\\Datar Consulting}
+\definecolor{repositoryblue}{HTML}{244E75}
+\hypersetup{
+  pdftitle={When Nearly Rank-One Predictions Require Large Sequential Models},
+  pdfauthor={Vashista Nobaub},
+  pdfsubject={Hankel approximation and log-loss bounds for finite-state sequential models},
+  pdfdisplaydoctitle=true,
+  colorlinks=true,linkcolor=black,citecolor=black,urlcolor=repositoryblue
+}
+\begin{document}
+\maketitle
+\input{body}
+\paragraph{Code and monograph.}
+The DRAGA repository (\href{https://github.com/DatarConsulting/Draga}{\nolinkurl{github.com/DatarConsulting/Draga}}) contains the
+\href{https://github.com/DatarConsulting/Draga/blob/main/monograph/monograph.pdf}{companion monograph},
+the \href{https://github.com/DatarConsulting/Draga/tree/main/experiments}{experiment code},
+and a \href{https://github.com/DatarConsulting/Draga/blob/main/notebooks/DRAGA_Reproduce.ipynb}{reproduction notebook}.
+The arXiv ancillary files include the recorded scores and the scripts for scoring the checkpoint and regenerating the figures.
+
+\paragraph{Acknowledgment.}
+Generative AI assisted with the construction of the joint example, manuscript drafting, code development, and verification.
+\input{references}
+\clearpage
+\appendix
+\input{proofs}
+\end{document}

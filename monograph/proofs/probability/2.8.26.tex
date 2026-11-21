@@ -1,0 +1,32 @@
+\begin{proof}
+Let $\widetilde W=D_m\Pi$. The inverse formula and row sums give
+\[
+ \widetilde W^{-1}=\frac{\Pi^{-1}+m\mathbf1\mathbf1^\top}{1+Rm}\ge0.
+\]
+It is row-stochastic. Since $J_\mu=\widetilde W^{-1}W$, this proves
+the inner inclusion. For the outer inclusion one must retain column
+sums $c_j$:
+\[
+ \widetilde W_{ij}=(1+Rm)\Pi_{ij}-mc_j,\qquad
+ W_{ij}=a_\mu\widetilde W_{ij}+\mu
+       \ge\mu-a_\mu m C\ge0.
+\]
+Also $W\mathbf1=\mathbf1$. For every row $z$ satisfying
+$z_j\ge\mu(z\mathbf1)$,
+\[
+ (zJ_\mu^{-1})_j=\frac{z_j-\mu(z\mathbf1)}{a_\mu}\ge0.
+\]
+Consequently
+\[
+ \alpha=(\alpha_*J_\mu^{-1})\widetilde W^{-1},\qquad
+ A_a=W(A_{*,a}J_\mu^{-1})\widetilde W^{-1},\qquad
+ \tau=W\tau_*
+\]
+are nonnegative and normalized, with the asserted stopping margin.
+If $m$ is strictly inside the interval, entries of $\widetilde W^{-1}$
+are at least $\delta_m/(1+Rm)$ and $W_{ij}\ge a_\mu C\delta_m>0$.
+The vector $\alpha_*J_\mu^{-1}$ has mass one. The row sums of
+$W A_{*,a}J_\mu^{-1}$ equal $(Ww_a)_i\ge w_{\min}$, which proves
+\eqref{II:U:eq:sandwich-margin}. Finally $c_j\le1+(R-1)\eta$; substituting
+this bound into $m_-\le m_+$ gives \eqref{II:U:eq:sandwich-feasibility}.
+\end{proof}

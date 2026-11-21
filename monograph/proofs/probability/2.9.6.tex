@@ -1,0 +1,19 @@
+\begin{proof}
+For a realized block $w$, telescoping its approximate updates against
+reference updates and using non-expansivity after each substitution
+gives $e_{(m+1)L}\le\kappa(w)e_{mL}+L\eta$.
+Here $\kappa(w)\le\kappa_*$ on the mixing event and at most one
+otherwise. Conditioning on the past yields
+$\mathbb E[\kappa(w)^2\mid\mathcal F_{mL}]\le q^2$.
+The $L^2(P)$ triangle inequality therefore gives
+\[
+ \|e_{(m+1)L}\|_{L^2(P)}
+ \le q\|e_{mL}\|_{L^2(P)}+L\eta.
+\]
+Iteration proves the first bound; at an intermediate step use
+$e_{mL+j}\le e_{mL}+j\eta$. The two next-letter distributions have
+projective distance at most $e_t+\eta_{\rm obs}$. Apply
+Lemma~\ref{II:M:lem:sharp-projective-kl}, the $L^2$ triangle inequality,
+and the chain rule for the observed word law to obtain the full sum.
+No independence of different blocks was used.
+\end{proof}

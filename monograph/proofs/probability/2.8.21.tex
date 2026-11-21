@@ -1,0 +1,15 @@
+\begin{proof}
+Multiplicative Chernoff and a union bound make the probability of any
+prefix count below half its expectation at most
+$M\exp(-n\nu_*/8)\le\delta/3$.
+Conditional on its count, the suffixes for a fixed prefix are iid from
+that residual law. Hoeffding with a union bound over the $M$ event
+queries gives the first radius with failure probability at most
+$\delta/3$. For a histogram with $d+1$ categories, taking a union bound
+over its $2^{d+1}$ sign vectors gives
+$P(\|\widehat m-m\|_1>t)\le2^{d+1}\exp(-kt^2/2)$ at count $k$.
+Apply this to the two anchor histograms and use $k\ge n\nu_*/2$ to
+obtain the second radius with total failure probability at most
+$\delta/3$. Dependence between different prefix queries causes no
+problem for these union bounds.
+\end{proof}

@@ -1,0 +1,9 @@
+\begin{proof}
+Cross-entropy is $-\log a-\sum_xc_x\log b_x$ on the event simplex.
+The entropy maximization or Lagrange multiplier identity normalizes the
+counts $(1,c_x)$ to obtain the displayed parameters. A zero $c_x$ means
+that letter is absent almost surely, so it causes no support problem.
+Finite mean implies $H(p)\le g(M)+M\log d<\infty$: first maximize
+entropy at fixed length, then use the geometric maximum-entropy law at
+fixed mean length. Subtracting $H(p)$ gives the formula.
+\end{proof}

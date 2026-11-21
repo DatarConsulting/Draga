@@ -1,0 +1,138 @@
+\begin{proof}[Proof of Theorem~\ref{I:U:thm:fixed}]
+Negative thresholds are immediately rejected.  We give the proof for
+$k\ge1$; for $k=0$ the sole competitor is zero and the same calculation
+below has no candidate variables.
+
+\paragraph{A fixed number of candidate variables.}
+By Theorem~\ref{I:U:thm:attainment} and Lemma~\ref{I:U:lem:stable}, the inequality
+$\delta_k(H_f)\le t$ is equivalent to the existence of a stable
+$k$-state realization $g(w)=c^\top T_wb$ with error at most $t$.
+A smaller stable realization can be padded with zero states.
+Introduce the entries of $T_1,\ldots,T_d,b,c$, and a symmetric
+$k\times k$ matrix $X$ as variables.  Impose
+\begin{equation}\label{I:U:eq:fixed-stability}
+ X\succ0,\qquad X-\sum_{a\in\Sigma}T_aXT_a^\top=\UId_k.
+\end{equation}
+These conditions are equivalent to mean-square stability of the tuple
+$T$.  For the forward implication, positivity and
+$\UId_k\succeq \Unorm{X}^{-1}X$ give a strict order contraction in the
+order-unit norm determined by $X$; the spectral radius is therefore less
+than one.  For the reverse implication, take
+$X=\sum_{j\ge0}\Phi_T^j(\UId_k)$.
+Positive definiteness in~\eqref{I:U:eq:fixed-stability} is expressed by
+positivity of the $k$ leading principal minors of $X$.
+The number of real variables is
+\begin{equation}\label{I:U:eq:fixed-varcount}
+ p=dk^2+2k+\frac{k(k+1)}2,
+\end{equation}
+which is independent of $n$.
+
+\paragraph{Eliminating the joint Gramians.}
+Let $m=n+k$, and form
+\[
+ B_a=\begin{pmatrix}A_a&0\\0&T_a\end{pmatrix},\qquad
+ \beta=\begin{pmatrix}b_f\\b\end{pmatrix},\qquad
+ \gamma=\begin{pmatrix}c_f\\-c\end{pmatrix}.
+\]
+The joint tuple $B$ is stable: a positive definite Stein solution for
+the source and the matrix $X$ in~\eqref{I:U:eq:fixed-stability}, placed on
+the diagonal, give a positive definite Stein solution for $B$.
+Hence its exact reachability and observability Gramians are uniquely
+defined by
+\[
+ P=\beta\beta^\top+\sum_aB_aPB_a^\top,\qquad
+ Q=\gamma\gamma^\top+\sum_aB_a^\top QB_a.
+\]
+These are the usual finite-dimensional Gramian equations for weighted
+automata; see also~\cite{sva2019}.
+Using column vectorization, put
+\begin{align}
+ \mathcal L&=\UId_{m^2}-\sum_a B_a\otimes B_a,
+ &\Delta&=\det\mathcal L,\label{I:U:eq:fixed-L}\\
+ \widehat P
+ &=\operatorname{unvec}\!\left(
+       \operatorname{adj}(\mathcal L)\operatorname{vec}(\beta\beta^\top)
+     \right),&&\nonumber\\
+ \widehat Q
+ &=\operatorname{unvec}\!\left(
+       \operatorname{adj}(\mathcal L^\top)\operatorname{vec}(\gamma\gamma^\top)
+     \right).&&
+ \label{I:U:eq:fixed-adj}
+\end{align}
+Stability guarantees $\Delta\ne0$ throughout the feasible set, and
+\begin{equation}\label{I:U:eq:fixed-rational-grams}
+ P=\widehat P/\Delta,\qquad Q=\widehat Q/\Delta.
+\end{equation}
+Thus the Gramians are rational functions of the fixed collection of
+variables; they need not be introduced as additional variables.
+
+\paragraph{A polynomial norm constraint without square roots.}
+The squared norm of the error Hankel is
+$\lambda_{\max}(P^{1/2}QP^{1/2})$.
+The matrices $PQ$ and $P^{1/2}QP^{1/2}$ have the same characteristic
+polynomial: apply
+$\det(z\UId-UV)=\det(z\UId-VU)$ with
+$U=P^{1/2}$ and $V=P^{1/2}Q$.
+In particular, all eigenvalues of $PQ$ are real and nonnegative,
+including when $P$ is singular.
+Define the polynomial matrix
+\begin{equation}\label{I:U:eq:fixed-R}
+ R=t^2\Delta^2\UId_m-\widehat P\widehat Q
+   =\Delta^2(t^2\UId_m-PQ).
+\end{equation}
+Its eigenvalues are real.  Since $\Delta^2>0$, the error norm is at
+most $t$ if and only if these eigenvalues are nonnegative.  By
+Lemma~\ref{I:U:lem:coefftest}, this is equivalent to
+\begin{equation}\label{I:U:eq:fixed-coeff}
+ \det(z\UId_m+R)=z^m+a_1z^{m-1}+\cdots+a_m,
+ \qquad a_1\ge0,\ldots,a_m\ge0.
+\end{equation}
+Each $a_i$ is a polynomial in the variables counted
+in~\eqref{I:U:eq:fixed-varcount}.  Squaring the common denominator avoids
+any assumption about its sign.  No matrix square root, eigenvalue
+variable, or list of exponentially many principal minors is used.
+
+\paragraph{Degrees, coefficient sizes, and construction time.}
+Each entry of the $m^2\times m^2$ matrix $\mathcal L$ has degree at most two.
+Consequently
+\[
+ \deg\Delta\le2m^2,\qquad
+ \deg\widehat P,\deg\widehat Q\le2m^2,\qquad
+ \deg a_i\le4m^3,
+\]
+where $t$ is the fixed rational input threshold.
+Together,~\eqref{I:U:eq:fixed-stability} and~\eqref{I:U:eq:fixed-coeff}
+give $O(k^2+m)$ polynomial equalities and inequalities of degree
+$O(m^3)$ in $p$ variables.
+
+Their coefficients have bit lengths polynomial in $m$ and the binary
+input length.  To see this, clear the input denominators and use the
+determinant expansion: each monomial coefficient is a sum of products
+of polynomially many input coefficients, and the logarithm of the
+number of summands is polynomial in $m$.  The same bound applies to
+adjugate entries, their products, and the final characteristic
+polynomial.  This argument bounds bit length; it does not call for
+enumerating the determinant expansion.
+
+For completeness, the polynomials themselves can be constructed in
+polynomial bit time when $p$ is fixed.  Their degree bounds imply only
+$m^{O(p)}$ possible monomials.  Evaluate determinants, adjugates, and
+characteristic polynomials over the rationals on an integer
+interpolation grid of polynomial side length, and perform exact
+multivariate interpolation.  The grid contains polynomially many
+points for fixed $p$, and every evaluation has polynomial bit
+complexity.  Adjugates are evaluated directly by cofactors or a
+division-free matrix algorithm, so singular interpolation points cause
+no difficulty.  Their intermediate and output bit lengths are
+polynomial by the same determinant bounds.  The interpolation step
+also has polynomial bit complexity.
+
+\paragraph{Decision.}
+Real algebraic feasibility with a fixed number of variables is
+decidable in time polynomial in the number of polynomials, their
+degrees, and their coefficient bit lengths
+\cite{renegar1992,basu2006}.  Apply this result to the formula above.
+The source dimension enters through polynomial degree and coefficient
+size, while the number of variables is the fixed number $p$.
+This proves the claimed bit-complexity bound.
+\end{proof}

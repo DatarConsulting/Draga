@@ -1,0 +1,7 @@
+The action interface uses token IDs 362 (space-A), 425 (space-B), and 151645 (end of message). The ID order and complete chat prompt are checked by the released program. Each model call evaluates the target prefix causally; no search or target-specific logit mask is used. The measured sweep used the CPU execution provider of ONNX Runtime 1.32.0, three intra-operation threads and one inter-operation thread. The measured scoring time, after initializing the session, was 8.6 seconds. Only public model parameters and generated gate instances were used.
+\begin{center}
+\begin{tabular}{lrrrr}\toprule
+Order at $m=1$ & $\sigma_1$ & $\sigma_2$ & $\frac12\|H-H^\top\|$ & Rank-gap witness\\\midrule
+Ascending & 0.7037 & 0.6023 & 0.3643 & Inconclusive \\
+Descending & 0.6924 & 0.6848 & 0.4594 & Inconclusive \\
+\bottomrule\end{tabular}\end{center}

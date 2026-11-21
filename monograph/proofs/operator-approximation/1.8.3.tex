@@ -1,0 +1,13 @@
+\begin{proof}
+The intertwining identity follows by evaluating both sides at row $u$
+and column $v$: each entry is $f(uav)$.  Each $R_a$ is an isometry, so
+\[
+ [R_1^*\ \cdots\ R_d^*]
+ [R_1^*\ \cdots\ R_d^*]^*
+ =\sum_aR_a^*R_a=d\UId.
+\]
+This proves \eqref{I:U:eq:row-shift-norm}.  Equivalently, taking
+$h_a=R_ax$ with $x\ne0$ gives
+$\Unorm{\sum_aR_a^*h_a}^2=d^2\Unorm{x}^2$, whereas
+$\sum_a\Unorm{h_a}^2=d\Unorm{x}^2$.
+\end{proof}

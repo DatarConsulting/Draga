@@ -1,0 +1,27 @@
+\begin{proof}
+Use a state for every positive-mass prefix of length at most $L$, initialized at
+$\varepsilon$. At state $u$, retain the source's stopping and letter
+probabilities. For $|u|<L$, route letter $a$ to $ua$. For
+$u=u_1\cdots u_L$, route it to $u_2\cdots u_La$. The latter source
+state and the true successor are obtained by the \emph{same} sequence
+of $L$ normalized letter maps, applied to $x_0$ and $x_{u_1}$.
+The first map bounds their distance by $\Delta$, and the remaining
+$L-1$ maps contract it to $D=\Delta\gamma^{L-1}$.
+
+To pass to probability laws, take cone-order bounds
+$m y\le_{\mathcal C}x\le_{\mathcal C}M y$. Positivity implies
+$m f_y\le f_x\le M f_y$. Normalization gives $m\le1\le M$;
+from $M/m\le e^D$ one gets $M\le e^D$ and hence
+$\|f_x-f_y\|_1\le2(e^D-1)$, by summing the positive part.
+Limits give the same bound when order extrema are not attained.
+No coordinate $\ell^1$ bound on an arbitrary cone is used.
+
+Each row defect is at most $2(1-s)(e^D-1)$. The constructed automaton
+stops with probability at least $s$ at every visit, so its occupation
+sum is at most $1/s$. The occupation-flow certificate gives
+\eqref{II:U:eq:trailing-tv}. For pruning, first merge duplicate residuals,
+retain the distinct vertices, and express the initial residual and each
+routed successor as convex mixtures of retained vertices. The same row
+defect and stopping estimates apply. Keeping the empty-prefix state
+instead is always permitted within the original $N_d(L)$ budget.
+\end{proof}

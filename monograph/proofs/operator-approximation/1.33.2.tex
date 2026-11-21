@@ -1,0 +1,34 @@
+\begin{proof}
+Identify $H^2$ with its square-summable coefficient sequences and let
+$S^*$ denote the backward shift.  The observation-map formulation is
+\begin{equation}
+ \gamma_{j,n}=
+ \sup_{\substack{K\subset H^2,\ S^*K\subset K\\ \dim K\le j}}
+ \Rnorm{P_K z^n}.
+ \label{I:R:eq:gamma-model-space}
+\end{equation}
+Indeed, a passive pair $(D,l)$ has a contractive observation map
+$Ox=(lD^ax)_{a\ge0}$, with finite-dimensional invariant range $K$.
+Consequently
+$|lD^nx|\le\Rnorm{P_Kz^n}\Rnorm{Ox}\le\Rnorm{P_Kz^n}\Rnorm x$.
+Conversely, on a finite-dimensional invariant $K$, take
+$D=S^*|_K$ and $lx=x[0]$.  Then $D^*D+l^*l=I_K$ and
+$\Rnorm{lD^n}=\Rnorm{P_Kz^n}$.  This proves
+\eqref{I:R:eq:gamma-model-space}.  Compactness of passive parameter sets
+also shows that its supremum is attained.
+
+The classical finite-model-space description writes
+$K=K_\Theta=H^2\ominus\Theta H^2$ for a finite Blaschke product
+$\Theta$.  If $\dim K\le j\le n$, then $z^n\notin K$, because the
+backward-shift cyclic span of $z^n$ has dimension $n+1$.  Thus
+$f=z^n-P_Kz^n$ is a nonzero member of $\Theta H^2$.  Reproducing kernels
+span $H^2$, so there is a point $a$ in the disk with
+$\langle f,\Theta k_a\rangle\ne0$.  If $b_a$ is the elementary
+Blaschke factor at $a$, then
+\[
+ K_{\Theta b_a}=K_\Theta\mathbin{\oplus}\Theta\operatorname{span}\{k_a\}
+\]
+has one additional dimension and strictly increases the projection
+norm of $z^n$.  Apply this construction to an attained $j$-state maximum
+for each $j<n$.
+\end{proof}

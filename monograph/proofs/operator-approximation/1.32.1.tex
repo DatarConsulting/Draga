@@ -1,0 +1,29 @@
+\begin{proof}[Proof of Theorem~\ref{I:R:thm:main-general}]
+Use the independent-budget/delay envelope theorem with fast dimension
+$j=n-1$ and coefficient index $p=d-1$. It gives the global lower bound
+$(E_{j,p}^{\mathbb F})^2-b_{n,d}^{\mathbb F}q+o(q)$.
+Choose a boundary triple attaining the response maximum in
+\eqref{I:R:eq:main-response-coefficient}. Cauchy--Schwarz equality implies
+$x=(lD^p)^*/\gamma$. In Theorem~\ref{I:R:thm:v4-matching}, take
+\[
+ \lambda=\overline{a_{p-1}}/\gamma,\qquad w=v^*K^{-1}.
+\]
+These are precisely the maximizing normal directions of the envelope.
+The evenness needed for the remainder follows from the exact trial.
+Put $E=\operatorname{diag}(-1,I_m)$ and
+$\widetilde E=\operatorname{diag}(-1,I_m,1)$. The definitions give
+$N_{-s}=\widetilde E N_s$, $z_{-s}=\widetilde E z_s$,
+$A_{-s}=EA_sE$, $B_{-s}=EB_sE$, and $l_{-s}=l_sE$.
+It follows that $\omega_{-s}=-\omega_sE$: its slow coordinate
+$J_s=\omega_se_0$ is even, and its fast coordinates are odd.
+The apparent division by $s$ in $J_s$ is removable by
+\eqref{I:R:eq:v4-match-cancellation}. Hence $J_s$ and
+$\|\omega_s\|^2$ are real analytic and even. Their third-order
+remainder is therefore $O(s^4)=O(q^2)$.
+The fixed analytic trial has
+$\Rnorm{\omega_s}^2=\gamma^2+b_{n,d}^{\mathbb F}q+O(q^2)$:
+its slow component is the divided coefficient $J_s$, and the fast
+component is $O(q^{3/2})$. The matching theorem therefore gives the
+upper bound $(E_{j,p}^{\mathbb F})^2-b_{n,d}^{\mathbb F}q+O(q^2)$.
+The two estimates prove the stated expansion in each field separately.
+\end{proof}

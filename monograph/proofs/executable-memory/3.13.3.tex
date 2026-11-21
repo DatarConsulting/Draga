@@ -1,0 +1,14 @@
+\begin{proof}
+At remaining cost $n>0$, the left subtree contains $L(n-2)$ leaves.
+For ranking, add this number when the next letter is 1, then decrease
+$n$ by the letter cost. For unranking, compare the current ordinal with
+$L(n-2)$ and choose the corresponding child, subtracting that count on
+the right. There are at most $\ell$ letters. Each needed Fibonacci
+number can be recomputed by a rolling two-integer recurrence, with
+$O(\ell)$ additions of $O(\ell)$-bit integers. Recomputing rather than
+caching all counts gives $O(\ell^3)$ bit operations and $O(\ell)$ live
+bits for the ordinal, counters and retained word. Prepend, trim and rank
+give the autonomous update. The midpoint is a dyadic rational with at
+most $\ell+2$ fractional bits, obtainable by exact affine replay within
+the same space and a smaller time bound.
+\end{proof}

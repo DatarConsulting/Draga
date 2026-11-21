@@ -1,0 +1,10 @@
+\begin{proof}
+Use the decompositions along $u,v$. Only the upper-left scalar block is free; the bottom row and right column give the lower bound $\gamma$. If $\gamma=0$, cancel the only nonzero block. Otherwise divide by $\gamma$ and denote the three fixed blocks by $b,c,d$, so their row and column norms are at most one. The inequalities give contractions $B,C$ with
+$b=B(I-d^*d)^{1/2}$ and $c=(I-dd^*)^{1/2}C$. These follow by defining the contraction on the range of the defect square root and extending continuously. The block matrix with free corner $-Bd^*C$ factors as
+\[
+ \begin{pmatrix}B&0\\0&I\end{pmatrix}
+ \begin{pmatrix}-d^*&(I-d^*d)^{1/2}\\(I-dd^*)^{1/2}&d\end{pmatrix}
+ \begin{pmatrix}C&0\\0&I\end{pmatrix}.
+\]
+The middle matrix is unitary by the defect-operator identities; the others are contractions. Rescaling proves attainment. This is the classical Parrott completion argument~\cite{parrott}.
+\end{proof}

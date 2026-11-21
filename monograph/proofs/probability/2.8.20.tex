@@ -1,0 +1,27 @@
+\begin{proof}
+Let $a=c_l,b'=c_h$ and let $z$ denote any queried event probability.
+If $z\in[a,b']$, write $z=(1-t)a+tb'$ with $t\in[0,1]$.
+The numerator of the ratio perturbation, after multiplication by the
+estimated denominator, is
+$\delta z-(1-t)\delta a-t\delta b'$, of absolute value at most
+$2\epsilon_E$. The denominator is at least
+$\Delta_E-2\epsilon_E$. Clipping cannot increase the discrepancy.
+If $z<a$ or $z>b'$, the same bound follows by comparison with the
+corresponding endpoint. Thus every clipped barycentric error,
+including the initial error, is at most
+$2\epsilon_E/(\Delta_E-2\epsilon_E)\le e$.
+
+For a preliminary transition row, separate the error in stop/letter
+masses from the error in splitting each letter between two states.
+The former has TV at most $\epsilon_m/2$ and the latter at most
+$\sum_a\widehat w_a e\le e$. Downward rounding transfers less than
+$2dh_b$ mass from transitions to STOP, hence changes row TV by at most
+$2dh_b$. The initial TV error is at most $e+h_b$.
+Because the stop/letter vectors are normalized, their stop-coordinate
+error is at most $\epsilon_m/2$. Downward rounding only increases the
+stop mass, so every final stop is at least
+$s_*-\epsilon_m/2>0$. Properness follows.
+Apply Lemma~\ref{II:U:lem:stopped-coupling}, using the original visit bound
+$\nu\mathbf1\le1/s_*$, and then
+$\UTV(p,q)\le J^{\rm clip}/2$.
+\end{proof}

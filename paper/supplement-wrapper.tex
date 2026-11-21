@@ -1,0 +1,23 @@
+\documentclass[11pt]{article}
+\usepackage[margin=25mm]{geometry}
+\usepackage{lmodern}
+\input{preamble}
+\standalonesupptrue
+\title{Mathematical Supplement\\[3pt]\large When Nearly Rank-One Predictions Require Large Sequential Models}
+\author{Vashista Nobaub\\Datar Consulting}
+\date{November 2026}
+\begin{document}
+\maketitle
+\noindent This supplement presents the complete argument for the simultaneous lower bounds on a single proper binary trace law, the finite-state exponent, and the transfer to measured sequence probabilities.
+\begin{theorem}[Simultaneous separation, restated]\label{th:joint}
+For fixed $k\ge1$ and $M>0$, the normalized mixture defined in the following section satisfies $\sigma_2(H_{p_m})\to0$ and $\liminf_m\delta_k(H_{p_m})\ge 1/(2\sqrt{\binom{2k}{k}})$. At rank one the limit equals $1/2$. The least positive-state budget for any vanishing KL tolerance has logarithmic growth exponent one in the rare-word length $L=m2^m$.
+\end{theorem}
+\begin{theorem}[Sharp tradeoff, restated]\label{th:frontier}
+If $N_m\ge k+2$ eventually and $\log N_m/\log L\to\rho\in[0,1]$, then the optimal excess log-loss on the lexicographic family tends to $M(1-\rho)\log2$.
+\end{theorem}
+\begin{figure}[ht]\centering\includegraphics[width=\linewidth]{figures/joint.pdf}
+\caption{Finite operator and log-loss bounds for the common law.}\label{fig:joint}\end{figure}
+\appendix
+\input{proofs}
+\input{references}
+\end{document}

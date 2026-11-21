@@ -1,0 +1,30 @@
+\begin{proof}
+Let $E=u\Sigma^*$, $t=Q(E)$, and
+$A=\sum_{w\in E}|p(w)-q(w)|$. The complement has total variation
+mass at least $|s-t|$, so $A+|s-t|\le2\varepsilon$.
+Also $t\ge s-\varepsilon>0$. Consequently
+\[
+ \sum_{w\in E}\left|\frac{p(w)}s-\frac{q(w)}t\right|
+ \le\frac{A+|s-t|}{s}\le\frac{2\varepsilon}s.
+\]
+Mapping a conditional suffix to its first letter or STOP cannot
+increase TV; this proves \eqref{II:U:eq:conditional-event-tv}.
+The sum of absolute differences of next-event masses is \emph{at most},
+not necessarily equal to, the sum over all completed suffixes.
+
+Couple the original and smoothed automata until a smoothing choice
+occurs. For an original word $W$, there are $|W|+1$ event choices, so
+$\UTV(q,q_\Delta)\le
+\mathbb E[1-(1-\Delta)^{|W|+1}]\le\Delta V$.
+Apply the first part to $p,q_\Delta$. Every next-event probability
+under $q_\Delta$, for any posterior state mixture, is at least
+$a=\Delta/(d+1)$. For probability vectors $r,z$ with $z_j\ge a$,
+the inequality $\log t\le t-1$ gives
+\[
+ D_{\rm KL}(r\|z)\le\sum_j\frac{(r_j-z_j)^2}{z_j}
+ \le\frac{2\UTV(r,z)^2}{a}.
+\]
+The last step uses that positive and negative differences each sum to
+$\UTV(r,z)$. Also $D_{\rm KL}(r\|z)\le\log(1/a)$ by dropping
+the nonnegative entropy of $r$. These prove the two KL bounds.
+\end{proof}

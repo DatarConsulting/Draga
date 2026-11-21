@@ -1,0 +1,21 @@
+\begin{proof}
+For fixed $B,\ell$, put $S=I-B^*B-\ell^*\ell\succeq0$.  The row
+operator norm can be written as the supremum of
+$|\ell B^ky|/\Rnorm{(I-rA)y}$ over unit vectors $y$.  Set
+$t=\Rnorm{By}^2+|\ell y|^2$, so $y^*Sy=1-t$.  Every feasible $A$ satisfies
+\[
+ \Rnorm{(I-rA)y}\ge1-r\Rnorm{Ay}\ge1-r\sqrt{1-t}.
+\]
+If $t<1$, choose
+\[
+ A=\frac{y(y^*S)}{\sqrt{1-t}}.
+\]
+Then $Ay=\sqrt{1-t}\,y$, and the positive-semidefinite
+Cauchy--Schwarz inequality gives
+\[
+ A^*A=\frac{Syy^*S}{y^*Sy}\preceq S.
+\]
+Thus the denominator bound is attained.  If $t=1$, choose $A=0$.
+Conjugating the state coordinates to send $y$ to $e_1$ proves both
+inequalities in \eqref{I:R:eq:allk-elimination}.
+\end{proof}

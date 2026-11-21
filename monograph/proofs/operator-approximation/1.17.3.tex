@@ -1,0 +1,8 @@
+\begin{proof}
+If $a_m=0$ the claim is immediate. Let $T=H_{f\mathbf1_{|w|=m}}$, so $\Snorm T=a_m$. For a candidate $G=H_g$ of rank at most $k$ and error $t$, trace duality and $\Snorm G_1\le k\Snorm G\le k(A+t)$ give
+\[
+ (m+1)\left|\sum_{|w|=m}\overline{f(w)}g(w)\right|
+ =|\Sip T G_{\rm HS}|\le a_m k(A+t).
+\]
+The empty column, paired with $f\mathbf1_{|w|=m}/a_m$, gives $a_m-t$ as a lower bound on the real part of that normalized coefficient inner product. Combining and rearranging proves the result. The factor $m+1$ comes from the exact number of splits and is justified here by trace duality.
+\end{proof}

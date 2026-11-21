@@ -1,0 +1,19 @@
+\begin{proof}
+The leaf count $L(n)$ satisfies $L(n)=L(n-2)+L(n-1)$ for $n>0$ and
+$L(n)=1$ for $n\le0$. Thus $L(\ell)=F_{\ell+2}$. The last increment
+is either one or two, so a leaf has cost $\ell$ or $\ell+1$.
+
+Consider adjacent leaves and their longest common prefix $u$, of
+contraction ratio $r_u$. The left leaf is the rightmost descendant of
+$u0$, so its right endpoint is $\tau_u(1/4)$, because $\tau_1(1)=1$.
+The right leaf is the leftmost descendant of $u1$, with some number of
+zeros afterwards. Its left endpoint is $\tau_u(1/2)$ and its length is
+some $r_v\in\{\theta,\theta/2\}$. The right-endpoint separation is
+$r_u/4+r_v$. Since $u$ is internal, its dyadic ratio satisfies
+$r_u\ge2\theta$. If $r_u=2\theta$, the right child is already a leaf
+and $r_v=\theta$. Otherwise $r_u\ge4\theta$ and $r_v\ge\theta/2$.
+Both cases give the asserted $3\theta/2$ bound.
+Each endpoint belongs to $K$. A length-$\theta$ interval contains at
+most one of these endpoints, while the $F_{\ell+2}$ leaf intervals
+themselves cover $K$ and have length at most $\theta$.
+\end{proof}

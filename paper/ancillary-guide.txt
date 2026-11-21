@@ -1,0 +1,25 @@
+When Nearly Rank-One Predictions Require Large Sequential Models
+Reproducing the deposited data
+
+main.tex is the only arXiv entry point. Compile it with pdfLaTeX three times.
+The mathematical supplement follows the bibliography. All figures are included.
+Companion monograph:
+https://github.com/DatarConsulting/Draga/blob/main/monograph/monograph.pdf
+Experiment code:
+https://github.com/DatarConsulting/Draga/tree/main/experiments
+Self-contained notebook:
+https://github.com/DatarConsulting/Draga/blob/main/notebooks/DRAGA_Reproduce.ipynb
+
+To reproduce the figures directly from this source archive without repository access:
+1. Use Python 3.11+ with numpy, scipy and matplotlib.
+2. Make a new directory with paper/figures/, results/ and experiments/.
+3. Copy anc/qwen.json to results/qwen.json and the two Python programs into experiments/.
+4. Run python experiments/figures.py . from that new directory. The tables and figures appear under paper/.
+
+To repeat checkpoint scoring, install onnxruntime and tokenizers. Download onnx/model_q4.onnx and
+tokenizer.json from https://huggingface.co/onnx-community/Qwen2.5-0.5B-Instruct at immutable revision
+22942cb7d7ba4cc81bb4673549ca4d4614469b5e. The program verifies both file hashes.
+Run python experiments/planner.py MODEL_FILE TOKENIZER_FILE results/qwen-replayed.json.
+The eight fixed cases have no random sampling. Compare per-step and completed log probabilities with
+the deposited data using floating-point tolerances. Versions and CPU settings are in qwen.json.
+A zero lower bound reports an inconclusive test.

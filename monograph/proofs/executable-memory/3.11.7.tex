@@ -1,0 +1,40 @@
+\begin{proof}
+Put $D=\operatorname{diam}\mathcal X$ and choose
+\[
+ m=\max\left\{1,
+ \left\lceil\frac{p+\log_2(2C_{\rm obs}D)}{\log_2(1/\lambda)}
+                                      \right\rceil\right\}.
+\]
+The persistent state is a word $u$ of length $m$, initialized to $0^m$;
+on a letter append it and discard the oldest symbol. Its mathematical
+representative is $x(u)=\tau_{u_m}\circ\cdots\circ\tau_{u_1}(x_0)$.
+Before $m$ inputs, the initial zeros fix $x_0$, so this representative
+equals the true state. After $m$ inputs both states share the same
+last $m$ maps, giving distance at most $D\lambda^m$ and output
+error at most $2^{-p-1}$.
+
+Pack the word as a base-$d$ integer $I\in\{0,\ldots,d^m-1\}$.
+The exact update is $I\leftarrow(dI+a)\bmod d^m$.
+It uses $\lceil m\log_2d\rceil$ persistent bits, without a startup
+counter; $m,d^m$ and the program are immutable. Fixed-$d$ multiplication,
+comparison and subtraction on this integer cost $O_H(p)$ bit
+operations, not constant time on a machine with a fixed word width.
+To read out, copy the index into scratch, recover its $m$ symbols,
+and evaluate the $m$ affine maps. Per-step certified rounding error
+$\epsilon_r$ contributes at most $\epsilon_r/(1-\lambda)$.
+Choosing $O_H(p)$ fractional bits and a final output error at most
+$2^{-p-2}$ leaves total numerical error at most $2^{-p-1}$.
+The stated readout and storage costs follow for fixed-dimensional
+affine maps and the stipulated output evaluator.
+
+For completeness the separated homogeneous attractor is Ahlfors
+regular of dimension $s=\log d/\log(1/\lambda)$: assign mass $d^{-m}$
+to each depth-$m$ cylinder. A cylinder containing $x$ and of diameter
+less than $r$ supplies the lower ball-mass bound. At a depth with
+$\lambda^m$ comparable to $r$, distinct cylinders have separation
+bounded below by a constant times $\lambda^m$; Euclidean packing
+bounds the number intersecting a ball of radius $r$ by a model
+constant, giving the upper bound. Reachable states are dense, since
+the images of $x_0$ lie in every cylinder at every depth.
+Theorem~\ref{III:M:thm:ahlfors-memory} supplies the matching lower bound.
+\end{proof}

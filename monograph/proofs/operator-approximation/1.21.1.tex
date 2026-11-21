@@ -1,0 +1,39 @@
+\begin{proof}
+The statement is immediate for $m=0$. Let $m\ge1$, and let $K$ range over
+the finite-dimensional $S^*$-invariant subspaces of $\BHtwo$ with dimension
+at most $m$. Every $h\in\mathcal R_m$ lies in such a space, and every
+vector in such a space belongs to $\mathcal R_m$. Consequently
+\begin{equation}
+ E_m^2=1-\sup_K\Bnorm{P_Kz^m}_{H^2}^2.
+ \label{I:B:eq:E-model-projection}
+\end{equation}
+On a particular $K$, set $D=S^*|_K$ and $lx=x(0)$. The identity
+$D^*D+l^*l=I_K$ holds, and
+\[
+ \Bnorm{P_Kz^m}_{H^2}
+   =\sup_{x\in K,\,\Bnorm{x}_{H^2}\le1}|x_m|
+   =\Bnorm{lD^m}.
+\]
+Thus the supremum in \eqref{I:B:eq:E-model-projection} is at most $\Gamma_m$.
+
+Conversely, any passive tuple in \eqref{I:B:eq:passive-gamma} has a contraction
+observation map
+\[
+ O:\BC^m\longrightarrow\BHtwo,\qquad
+ (Ox)(z)=\sum_{j\ge0}lD^jx\,z^j.
+\]
+Indeed, telescoping $D^*D+l^*l\preceq I_m$ bounds every finite output
+energy by $\Bnorm{x}^2$. Its range $K=\operatorname{ran}O$ is closed,
+finite dimensional and backward-shift invariant, since $S^*O=OD$.
+For every unit vector $x$,
+\[
+ |lD^mx|=|(Ox)_m|
+ \le\Bnorm{P_Kz^m}_{H^2}\Bnorm{Ox}_{H^2}
+ \le\Bnorm{P_Kz^m}_{H^2}.
+\]
+This proves the reverse inequality and hence \eqref{I:B:eq:E-gamma}. The spaces used here are exactly the finite backward-shift invariant model spaces in Lemma~\ref{I:M:rev13:lem:kappa}; spaces of smaller dimension may be enlarged, proving $\kappa_m=\Gamma_m^2$. Over the real field the same observation-map argument uses real invariant spaces and real tuples.
+Choose a maximizing tuple in \eqref{I:B:eq:passive-gamma}; its associated
+$K$ has projection norm exactly $\Gamma_m$. Therefore $P_Kz^m$ attains
+$E_m$. Any unobservable unitary part of $D$ disappears in $O$, so no strict
+stability assumption on the feasible tuple is needed.
+\end{proof}

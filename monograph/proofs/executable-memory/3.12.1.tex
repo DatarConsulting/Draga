@@ -1,0 +1,94 @@
+\begin{proof}
+\emph{Stopping address and update.}
+Take an integer constant $c_0\ge1$ with $C\operatorname{diam}(X)2^{-c_0}
+\le1/2$, and set $\theta=2^{-(p+c_0)}$. Write a history backwards, newest
+letter first. Keep its shortest prefix $v$ with contraction product
+$r_v=\prod_i r_{v_i}\le\theta$, or the entire reversed history if the
+threshold has not been reached. The possible addresses are all internal nodes
+and leaves of the finite ordered tree which stops a branch as soon as its
+product is at most $\theta$.
+
+On a new input $a$, prepend $a$ and apply this stopping rule again.
+This uses only the old address and $a$. If the old address was already a leaf,
+the new stopping prefix ends within that address; discarded older letters
+are never needed. If it was internal, the full old history was retained.
+This proves the update invariant and includes startup without a separate clock.
+The representative replays the retained letters chronologically from $x_0$.
+Before truncation it is exact. Thereafter the true state and representative
+share all retained contractions, so
+\[
+ \Mnorm{x_t-\widehat x_t}\le r_v\operatorname{diam}(X)
+ \le\theta\operatorname{diam}(X).
+\]
+The exact readout error is at most $2^{-p-1}$.
+
+\emph{Number of addresses.}
+Put $q_a=r_a^s$, so $\sum_a q_a=1$, and let $L_\theta$ be the number of
+leaves. The stopped tree is finite and complete. Its leaf masses sum to one,
+and, with $r_{\min}=\min_a r_a$,
+\[
+ r_{\min}\theta<r_v\le\theta
+ \quad\Longrightarrow\quad
+ (r_{\min}\theta)^s<q_v\le\theta^s.
+\]
+Hence $\theta^{-s}\le L_\theta<(r_{\min}\theta)^{-s}$. A full $d$-ary
+tree with $L_\theta$ leaves has
+\[
+ N_\theta=\frac{dL_\theta-1}{d-1}
+\]
+total nodes, including all startup states. An ordinal in
+$\{0,\ldots,N_\theta-1\}$ thus needs $sp+O_H(1)$ bits.
+
+\emph{Counting without listing words.}
+For a node of contraction product $R>\theta$, define
+\[
+ I(R)=\sum_{\substack{n\in\MN^d\\MR\prod_a r_a^{n_a}>\theta}}
+       \binom{|n|}{n_1,\ldots,n_d},
+ \qquad N(R)=1+dI(R).
+ \tag{M.1}
+\]
+For $R\le\theta$, set $N(R)=1$. Every word whose product is above the
+threshold is internal, since all shorter prefixes have a larger product.
+The multinomial counts all such ordered words of a composition $n$ exactly.
+Thus $I(R)$ is the number of internal nodes below this node; the full-tree
+identity gives $N(R)$. Each coordinate of $n$ is $O_H(p)$ and there are
+$O_H(p^d)$ compositions. This groups words for \emph{counting only}; distinct
+letter orders retain distinct ordinals and distinct map compositions.
+
+Use preorder indexing. At each internal node its empty continuation has
+index zero, and its ordered child subtrees have sizes $N(Rr_a)$.
+Subtracting or adding these sizes performs rank/unrank. There are $O_H(p)$
+letters in every address. All threshold comparisons are exact rational
+comparisons; neither $s$ nor a floating-point logarithm is needed by the codec.
+
+For completeness, enumerate composition counters one at a time, compute
+products and multinomials afresh, and retain only the sum. A multinomial can
+be computed as a product of binomial coefficients using multiplicative exact
+recurrences. All retained arithmetic values have $O_H(p)$ bits; full factorials
+are unnecessary. Each composition costs at most $O_H(p^3)$ schoolbook bit
+operations. Rank/unrank makes $O_H(p)$ counting calls, giving the stated
+conservative time and linear scratch bounds. This deliberately trades time
+for space; a faster implementation may use a separately charged cache.
+
+\emph{Finite-precision readout.}
+Replay $O_H(p)$ rational affine maps. With $r_{\max}<1$, initial and per-step
+errors satisfying
+\[
+ e_0\le\frac{2^{-p}}{8C},\qquad
+ e_r\le\frac{(1-r_{\max})2^{-p}}{8C}
+\]
+give state error at most $2^{-p}/(4C)$. A final readout error at most
+$2^{-p-2}$ meets the total budget. The fixed neighborhood assumption makes
+the rounded readout well defined. Finitely many small precisions may use
+finer arithmetic with a fixed model-dependent overhead.
+
+\emph{Lower bound.}
+Strongly separated self-similar attractors are $s$-Ahlfors regular, also when
+the ratios differ. One elementary proof assigns cylinder mass $r_v^s$ and
+uses stopping cylinders with diameters comparable to a ball radius: separation
+bounds how many meet the ball, and a cylinder through its center gives the
+lower mass bound. The orbit of any $x_0\in X$ is dense, because it meets every
+cylinder. Future observability and the packing argument of Section~\ref{III:M:sec:memory},
+therefore force $\Omega_H(2^{sp})$ distinguishable executable states.
+This gives $B_f^*(2^{-p})\ge sp-O_H(1)$ and completes the proof.
+\end{proof}

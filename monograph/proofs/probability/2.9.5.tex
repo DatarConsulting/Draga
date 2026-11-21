@@ -1,0 +1,27 @@
+\begin{proof}
+The emission distribution at latent state $j$ is $C_{\cdot j}$.
+By Lemma~\ref{II:M:lem:projective-column-limit}, its KL divergence from
+$\widehat C_{\cdot j}$ is at most $\Psi(\eta_{\rm obs})$.
+Given $(j,a)$, the next-state distributions are
+\[
+ R_{a,j}=\frac{T_ae_j}{C_{aj}},\qquad
+ \widehat R_{a,j}=\frac{\widehat T_ae_j}{\widehat C_{aj}}.
+\]
+The same lemma bounds their KL divergence by $\Psi(\eta)$ and
+ensures matching support. The joint one-step kernels $K_j(a,i)$ and
+$\widehat K_j(a,i)$ therefore satisfy, by the finite conditional
+probability identity,
+\[
+ D_{\rm KL}(K_j\|\widehat K_j)
+ =D_{\rm KL}(C_{\cdot j}\|\widehat C_{\cdot j})
+  +\sum_a C_{aj}D_{\rm KL}(R_{a,j}\|\widehat R_{a,j})
+ \le\Psi(\eta_{\rm obs})+\Psi(\eta).
+\]
+Expanding the log-likelihood ratio of the joint latent-state and letter
+trajectory gives its initial KL plus the sum of the conditional kernel
+KL divergences. The initial KL is at most $\Psi(e_0)$, so the displayed
+bound follows for the joint trajectory. Marginalizing the latent states
+cannot increase KL: grouping terms with the same observed word and
+applying the log-sum inequality proves this directly. Finally apply
+$\Psi(e)\le e^2/8$ to all three terms.
+\end{proof}

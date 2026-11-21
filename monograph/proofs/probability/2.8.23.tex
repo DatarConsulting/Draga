@@ -1,0 +1,14 @@
+\begin{proof}
+Let $P_{i,:}=\alpha_*A_{*,u_i}$ and let column $j$ of $C$ be
+$A_{*,v_j}\tau_*$. Since $H=PC$ is invertible, both factors are
+invertible. Thus $B_a=PA_{*,a}P^{-1}$, $\beta=\alpha_*P^{-1}$,
+and $t=P\tau_*$. Row normalization and the stopping margin give
+$(I-\sum_aA_{*,a})^{-1}\tau_*=\mathbf1$, hence $q=P\mathbf1$.
+Every row of $P$ is nonzero and nonnegative, proving $q_i>0$.
+The normalized matrix $\widetilde P=D_q^{-1}P$ is row-stochastic;
+the displayed identities follow by similarity. A second similarity
+by $V$ preserves every coefficient. Moreover $V^{-1}\mathbf1=\mathbf1$,
+so the resulting initial vector and transition/stop rows sum to one.
+The nonnegative aggregate has row sums at most $1-s$; hence it is
+transient, every state terminates, and the word law has mass one.
+\end{proof}

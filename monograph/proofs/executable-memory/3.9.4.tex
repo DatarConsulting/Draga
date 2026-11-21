@@ -1,0 +1,14 @@
+\begin{proof}
+For $N\ge1$, $(A/\lambda)^N=P+R^N$. Put $t_*=\ell/(\ell v)$. Direct normalization yields
+\[
+ \Psi_{j^N}(r)-t_*=
+ \frac{rR^N(I-vt_*)}{(rh)(\ell v)+rR^Nv}.
+\]
+On the compact simplex, $rh\ge\min_i h_i/v_i>0$. Thus denominators are uniformly positive for all large $N$, and the finitely many smaller $N$ cause no problem because $A^Nv>0$. The normalized-state diameter is bounded by a constant times $\Snorm{R^N}$. The Jordan power formula gives the asserted polynomial-exponential upper estimate.
+
+For the lower estimate choose independent reachable normalized rows $r_1,\ldots,r_n$, possible under full row span. Set $w_i=r_i/(r_ih)$ and $d_i=w_i-w_1$ for $i\ge2$. These form a basis of $\{x:xh=0\}$; together with $\ell$ they span all rows. For $u_{i,N}=\Psi_{j^N}(r_i)$ one has
+\[
+ d_iR^N=\frac{u_{i,N}}{u_{i,N}h}-\frac{u_{1,N}}{u_{1,N}h},\qquad\ell R^N=0.
+\]
+The map $u\mapsto u/(uh)$ is uniformly Lipschitz on the simplex. Full future span gives $Q\succ0$ and norm equivalence, so $\Snorm{R^N}\le K'\widehat\omega_{j,N}$. Taking roots and using the spectral-radius formula proves equality. At $\theta=0$, $R$ is nilpotent and the displayed normalized error eventually vanishes.
+\end{proof}

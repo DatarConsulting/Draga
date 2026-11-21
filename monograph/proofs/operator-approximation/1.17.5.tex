@@ -1,0 +1,13 @@
+\begin{proof}
+For a rank-at-most-two candidate $G$, write $t=\Snorm{H_{f_0}-G}$. Only $1\le t<\sqrt2$ needs consideration. There are two-dimensional spaces $K_R\subset\ker G\cap S$ and $K_L\subset\ker G^*\cap S$. On either, $\Snorm{P_Tx}\le q\Snorm x$, $q^2=t^2-1<1$. If the columns of $\binom XY$ are an orthonormal basis of such a space, $X^*X\preceq q^2I$ and $Y^*Y\succeq(1-q^2)I$. The square matrix $Y$ has $YY^*\succeq(1-q^2)I$, proving $\Snorm{(I-P_K)P_M}\le q$. Therefore
+\[
+ \Snorm{P_MGP_M}\le q^2\Snorm G\le(t^2-1)(\sqrt2+t).
+\]
+By the Hankel equalities, the four coefficients of $F=P_MGP_M$ are exactly the degree-two coefficients of $Ge_\Seps$. Hence
+\[
+ \sqrt2-t\le\Snorm F_F\le\sqrt2\Snorm F
+ \le\sqrt2(t^2-1)(\sqrt2+t).
+\]
+Thus $\Phi(t)\le0$. On $[1,\sqrt2]$, $\Phi$ is strictly decreasing and changes sign. Exact rational squaring with checked positive signs gives
+$2627/2500<\tau<105083/100000$; the endpoint inequalities follow by direct rational substitution. The bound is uniform and includes complex candidates.
+\end{proof}

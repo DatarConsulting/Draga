@@ -1,0 +1,16 @@
+\begin{proof}
+Define $J_L=H_L+U_L$ from the true probabilities. Tail majorization
+gives $J_\infty\le J_L$. Head bins and the overflow bin are disjoint;
+each shifted suffix histogram is a coarsening of the same sampled
+histogram. Consequently
+$|J_L-\widehat H_L-\widehat U_L|\le S(x)$ for \emph{all} feasible
+flows on the simultaneous event. Theorem~\ref{II:U:thm:flows} proves the
+first assertion, including for fitted flows chosen from these data.
+
+For a comparison flow, optimality implies
+$\widehat C_L^*\le J_L+2S(x)$. For nonnegative tail vectors $u,v$,
+$\|u\|_1+\|v\|_1-\|u-v\|_1\le2\|u\|_1$.
+Applying this with the source tail gives
+$J_L\le J_\infty+2\sum_i x_it_i(L)$. Divide by two and infimize.
+Finally $\sum x_i\le V$ and $\sum\alpha_i=1$ bound $S(x)$.
+\end{proof}

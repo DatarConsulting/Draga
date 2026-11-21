@@ -1,0 +1,12 @@
+\begin{proof}
+Let $h$ be a minimizer and $K_h$ its cyclic span. Projection onto $K_h$
+is admissible, so minimality forces $h=P_{K_h}z^m$. The residual
+$R=z^m-h$ is nonzero, because $z^m$ itself has cyclic dimension $m+1$.
+If $\dim K_h<m$, choose $\lambda\in\mathbb D$ with $R(\lambda)\ne0$.
+The reproducing kernel $k_\lambda(z)=(1-\overline\lambda z)^{-1}$ is
+a backward-shift eigenvector. The invariant space
+$K_h+\operatorname{span}\{k_\lambda\}$ has dimension at most $m$,
+and projection onto it strictly improves the approximation, since
+$R\perp K_h$ but $\langle R,k_\lambda\rangle\ne0$. This is a
+contradiction. Attainment and $h\ne z^m$ also give $E_m>0$.
+\end{proof}

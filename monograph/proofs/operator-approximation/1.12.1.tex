@@ -1,0 +1,46 @@
+\begin{proof}
+A $\chi$-recurrent sequence is $u_j=\sum_i p_i(j)\lambda_i^j$ over the roots $\lambda_i$
+with polynomial coefficients; under $u\mapsto\sum_ju_jz^j$ the sequence $(\lambda^j)_j$
+becomes $1/(1-\lambda z)=k_{\bar\lambda}$, the reproducing kernel at $\bar\lambda$, and
+derivatives for multiple roots; these kernels span $K_\Theta$. Since
+$P_{K_\Theta}f=f-\Theta P_+(\bar\Theta f)$ and multiplication by the inner function $\Theta$
+is isometric, $\Mnorm{P_{K_\Theta}z^k}^2=1-\Mnorm{P_+(\bar\Theta z^k)}^2$, and
+$\langle\bar\Theta z^k,z^j\rangle=\langle z^k,\Theta z^j\rangle=\overline{\theta_{k-j}}$
+for $0\le j\le k$, zero for $j>k$. For the crude bound, the coefficients of $\chi$ satisfy
+$|c_i|\le\binom ki$, so $|u_k|^2\le(\sum_{i<k}|c_i|^2)\sum_{j<k}|u_j|^2\le(C_k-1)
+(\Mnorm u^2-|u_k|^2)$. For $k=1$, $\Theta=B_\lambda$ gives $\theta_0=-\lambda$,
+$\theta_1=1-|\lambda|^2$ and $1-|\theta_0|^2-|\theta_1|^2=|\lambda|^2(1-|\lambda|^2)\le1/4$,
+attained at $|\lambda|^2=1/2$. For $k=2$ apply two steps of the Schur algorithm to $\Theta$.
+Writing $\alpha=\Theta(0)$, there are $\beta\in\mathbb D$ and $|\gamma|=1$
+such that
+\[
+ \Theta(z)=\frac{\alpha+zF(z)}{1+\bar\alpha zF(z)},\qquad
+ F(z)=\frac{\beta+z\gamma}{1+\bar\beta z\gamma}.
+\]
+Indeed $(\Theta-\alpha)/(1-\bar\alpha\Theta)$ is a degree-two inner
+rational function vanishing at zero; dividing by $z$ leaves degree one.
+Repeating this step leaves a unimodular constant. This is the elementary
+finite Schur algorithm; see \citet{schur_nevanlinna}.
+The first coefficients are
+\[
+ \theta_0=\alpha,\quad \theta_1=(1-|\alpha|^2)\beta,\quad
+ \theta_2=(1-|\alpha|^2)\bigl((1-|\beta|^2)\gamma-\bar\alpha\beta^2\bigr).
+\]
+Set $a=|\alpha|$ and $t=|\beta|^2$. By the reverse triangle inequality,
+\begin{align*}
+ \sum_{j=0}^2|\theta_j|^2
+ &\ge a^2+(1-a^2)^2\bigl[t+(1-(1+a)t)^2\bigr]\\
+ &=\frac9{16}+(a-\tfrac12)^2(a+\tfrac34)\\
+ &\quad +(1-a^2)^2(1+a)^2
+ \left(t-\frac{1+2a}{2(1+a)^2}\right)^2
+ \ \ge\ \frac9{16}.
+\end{align*}
+Equality holds for $\alpha=1/2$, $\beta=2/3$, $\gamma=1$, giving
+\[
+ \Theta(z)=\frac{z^2+z+1/2}{1+z+z^2/2},\qquad
+ (\theta_0,\theta_1,\theta_2)=(1/2,1/2,1/4).
+\]
+Its zeros $(-1\pm i)/2$ lie in $\mathbb D$, so this is an admissible
+degree-two Blaschke product and $\kappa_2=7/16$. No global numerical
+minimisation is needed.
+\end{proof}

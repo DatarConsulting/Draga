@@ -1,0 +1,20 @@
+\begin{proof}
+\emph{Upper bound.} Choose (or supply to the compiler) $v_0\in\mathcal L_\ell$ with $x_0\in I_{v_0}$; this is the only
+place where $x_0$ enters. Take $Q=\mathcal L_\ell$, $U_a(v)=\Mtrim_\ell(av)$,
+$D(v)=\tau_v(1/2)$. If $x_t\in I_v$ and $av=v'u$ with $v'=\Mtrim_\ell(av)$, then
+$x_{t+1}=\tau_a(x_t)\in\tau_{av}([0,1])=\tau_{v'}(\tau_u([0,1]))\subseteq I_{v'}$, so by
+induction $x_t\in I_{v_t}$ for all histories and the midpoint readout has error at most
+$|I_{v_t}|/2\le\theta/2$.
+
+\emph{Lower bound.} Let $T=\ell+3$. For each leaf $v$ feed $T-|v|$ letters $1$ followed by
+the letters of $v$ in chronological order (possible because $|v|\le\ell$). The final state
+is $y_v=\tau_v\bigl(\tau_1^{T-|v|}(x_0)\bigr)$ and, since $\tau_1^j(x_0)=1-2^{-j}(1-x_0)$,
+\[
+|b_v-y_v|=r_v2^{-(T-|v|)}|1-x_0|\le\theta\,2^{-3}=\theta/8
+\]
+for every $x_0\in[0,1]$. The right endpoints $b_v$ are pairwise at least $3\theta/2$ apart
+(Lemma~\ref{III:M:lem:fibonacci-leaf-packing}), hence distinct $y_v$ are
+at least $3\theta/2-\theta/4=5\theta/4>\theta$ apart. All $F_{\ell+2}$ histories have the
+same length $T$; two of them ending in the same memory state would force a common
+readout within $\theta/2$ of both final states, contradicting the separation.
+\end{proof}

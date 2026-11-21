@@ -1,0 +1,38 @@
+\begin{proof}
+Write $P(z)=\sum_{j=0}^m p_jz^j$ and put
+$Q(z)=\sum_{j=0}^m|p_j|z^j$.  Then $\Rnorm Q_2=1$ and
+\[
+ C(m,2/3)=|[P^3]_m|\le[Q^3]_m\le C(m,2/3).
+\]
+Thus $Q^3$ is also a coefficient extremal.  Its support
+$S=\{j:q_j>0\}$ contains $0,m$: $P$ is outer of exact degree $m$.
+If $q_j=0$, varying that real coefficient and renormalizing the
+Euclidean norm shows $[Q^2]_{m-j}=0$; otherwise a positive first-order
+variation would increase $[Q^3]_m$.  Consequently
+\[
+ i,h\in S,\quad i+h\le m\quad\Longrightarrow\quad m-i-h\in S.
+\]
+Taking $h=0$ shows $m-S=S$.  Applying this reflection once more gives
+closure under addition when the sum is at most $m$.  Applying the rule
+to $h$ and $m-i$ gives $i-h\in S$ whenever $i\ge h$ belong to $S$.
+Let $g$ be the smallest positive element of $S$.  Repeated subtraction
+shows every element of $S$ is divisible by $g$, and addition shows all
+multiples up to $m$ occur.  Hence $g\mid m$ and
+$Q(z)=R(z^g)$ with $\deg R=m/g$.  If $g>1$, then
+\[
+ C(m,2/3)=[Q^3]_m=[R^3]_{m/g}
+ \le C(m/g,2/3)<C(m,2/3),
+\]
+a contradiction to the strict increase of coefficient constants.
+Therefore $g=1$ and every $q_j$ is positive.
+
+Equality in the first triangle inequality now says that every monomial
+$p_ip_hp_k$ with $i+h+k=m$ has the same argument.  Put
+$p_j=q_je^{i\alpha_j}$.  Comparing the nonzero terms with index triples
+$(0,j,m-j)$ and $(1,j-1,m-j)$ gives
+\[
+ \alpha_j-\alpha_{j-1}=\alpha_1-\alpha_0\pmod{2\pi}
+ \qquad(1\le j\le m).
+\]
+Thus $\alpha_j=\alpha_0+j\theta$ modulo $2\pi$, proving the claim.
+\end{proof}

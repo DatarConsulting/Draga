@@ -1,0 +1,63 @@
+\begin{proof}
+At the trial point $t=q$, the denominator in
+\eqref{I:F:eq:f2-scalar-reduction} equals $q^2$ exactly.  Lemma~
+\ref{I:F:lem:f2-h-expansion} therefore gives the lower bound
+\begin{equation}
+ \mathcal P(q)\ge\frac{h(q)}q
+              =\frac14+\frac14q+O(q^2).
+ \label{I:F:eq:f2-P-trial}
+\end{equation}
+We next localize every global scalar maximizer.  For $0\le q,t\le1$,
+\[
+ 1-\sqrt{(1-q)(1-t)}
+ \ge\frac{q+t-qt}{2}\ge\frac{q+t}{4}.
+\]
+Together with $h(t)\le t$, this gives, for $x=t/q$,
+\begin{equation}
+ \frac{q h(t)}{(1-\sqrt{(1-q)(1-t)})^2}
+ \le\frac{16qt}{(q+t)^2}
+ =\frac{16x}{(1+x)^2}.
+ \label{I:F:eq:f2-scalar-coarse-localization}
+\end{equation}
+For $x\notin I=[1/100,100]$ the last expression is less than $1/5$.
+The trial value \eqref{I:F:eq:f2-P-trial} exceeds $1/5$ for all sufficiently
+small $q$.  Thus every global maximizing point has $x\in I$.
+In particular $t=qx\to0$ uniformly on all possible maximizers, which
+permits the global envelope expansion to be used uniformly.
+
+On the fixed compact interval $I$, Taylor expansion gives
+\begin{align}
+ 1-\sqrt{(1-q)(1-qx)}
+ &=\frac q2(1+x)+\frac{q^2}{8}(x-1)^2+O_I(q^3),\notag\\
+ \frac{q h(qx)}{(1-\sqrt{(1-q)(1-qx)})^2}
+ &=f_0(x)+qf_1(x)+O_I(q^2),
+ \label{I:F:eq:f2-uniform-scalar-expansion}
+\end{align}
+where
+\begin{equation}
+ f_0(x)=\frac{x}{(1+x)^2},\qquad
+ f_1(x)=\frac{x}{(1+x)^2}
+       \left(x-\frac{(x-1)^2}{2(1+x)}\right).
+ \label{I:F:eq:f2-f0-f1}
+\end{equation}
+The remainder is uniform in $x\in I$: the numerator expansion comes
+from \eqref{I:F:eq:f2-h-expansion}, and the leading denominator is bounded
+away from zero after division by $q^2$.
+
+The exact identity
+\[
+ \frac14-f_0(x)=\frac{(x-1)^2}{4(1+x)^2}
+\]
+gives a quadratic maximum at $x=1$.  On $I$ there is $c_I>0$ such that
+$f_0(x)\le1/4-c_I(x-1)^2$.  Also $f_1(1)=1/4$ and
+$|f_1(x)-f_1(1)|\le L_I|x-1|$ for a finite Lipschitz constant $L_I$.
+Completing the square yields uniformly on $I$
+\begin{align*}
+ f_0(x)+qf_1(x)
+ &\le\frac14+\frac q4-c_I(x-1)^2+qL_I|x-1|\\
+ &\le\frac14+\frac q4+\frac{L_I^2}{4c_I}q^2.
+\end{align*}
+Combining this with \eqref{I:F:eq:f2-uniform-scalar-expansion} gives the
+matching upper bound.  Equation \eqref{I:F:eq:f2-P-trial} then proves
+\eqref{I:F:eq:f2-P-expansion}.
+\end{proof}

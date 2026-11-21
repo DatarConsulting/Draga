@@ -1,0 +1,28 @@
+\begin{proof}
+For each $w=a_1\cdots a_m$, telescope
+\begin{align*}
+ \widehat\alpha\widehat A_w\widehat\tau-\alpha A_w\tau
+ ={}&(\widehat\alpha-\alpha)\widehat A_w\widehat\tau
+       +\alpha A_w(\widehat\tau-\tau)\\
+ &+\sum_{k=1}^m\alpha A_{a_1\cdots a_{k-1}}
+       (\widehat A_{a_k}-A_{a_k})
+       \widehat A_{a_{k+1}\cdots a_m}\widehat\tau.
+\end{align*}
+The suffix sum $\widehat g=\sum_v\widehat A_v\widehat\tau$ is at most
+$\mathbf1$ componentwise: its finite partial sums are
+$\mathbf1-\widehat T^{n+1}\mathbf1$. Equality requires termination
+from every state, and is not needed here. The original occupation row
+$\nu=\alpha(I-T)^{-1}$ has $\nu\mathbf1\le1/s$.
+Take absolute values, apply nonnegative matrix majorants, and sum over
+all prefixes, the differing letter, and suffixes. Tonelli and these
+two bounds give \eqref{II:U:eq:pathwise-general}. This also follows from
+Lemma~\ref{II:U:lem:stopped-coupling}.
+
+Write $a^0=\alpha+e$. In coordinate $i$ the normalized error is
+$[e_i(1-\alpha_i)-\alpha_i\sum_{j\ne i}e_j]/(1+\sum_j e_j)$.
+Its numerator is at most $(R-1)\delta_\alpha$ in absolute value;
+$R\gamma\le1$ proves the last inequality in
+\eqref{II:U:eq:initial-normalization}. Positivity of $a^0$ and of its sum
+is immediate. Finally each row's total transition error is at most
+$R\sum_a e_a$; recomputing STOP as the remainder proves the last claim.
+\end{proof}

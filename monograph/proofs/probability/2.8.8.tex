@@ -1,0 +1,39 @@
+\begin{proof}
+For $R_i=x_if_i-z_i\delta_\varepsilon-\sum_{a,j}y_{aij}L_af_j$,
+let $A=\sum_i|R_i(\varepsilon)|$. On the branch starting with $a$,
+\[
+ L_a^*R_i=x_i(L_a^*f_i-F_{\mathcal U}w_{a,i}^{\rm lin})
+           +F_{\mathcal U}(x_iw_{a,i}^{\rm lin}-y_{a,i,\cdot}).
+\]
+Lemma~\ref{II:U:lem:signed-anchor-closure} and
+Definition~\ref{II:U:def:cone-defect} give
+\[
+ \sum_{a,i}\|L_a^*R_i\|_2
+ \le dV c_{\mathcal U}\epsilon_k+\eta_{\rm cone}-A.
+\]
+Cauchy--Schwarz on the $D_T$ suffixes of lengths $0$ through $T-1$
+therefore bounds the contribution of $|w|\le T$ by
+$\sqrt{D_T}(dV c_{\mathcal U}\epsilon_k+\eta_{\rm cone})$,
+since $\sqrt{D_T}\ge1$ absorbs $A$.
+
+The exact residual-tail relation and its useful upper bound are
+\begin{equation}
+ t_{f_i}(s)=\frac{\sum_{|v|>s}p(u_iv)}{\mu_i}
+ \le\frac{t_p(s+|u_i|)}{\mu_i}
+ \le\frac{t_p(s)}{\mu_{\min}}.
+ \label{II:U:eq:conditional-anchor-tail}
+\end{equation}
+Positivity bounds the remaining contribution by
+\begin{align*}
+ \sum_i\sum_{|w|>T}|R_i(w)|
+ &\le\sum_i x_it_{f_i}(T)
+           +\sum_{a,i,j}y_{aij}t_{f_j}(T-1)\\
+ &=\sum_i x_it_{f_i}(T)
+           +\sum_j(x_j-\alpha_j)t_{f_j}(T-1)\\
+ &\le\frac{Vt_p(T)+(V-1)t_p(T-1)}{\mu_{\min}}\\
+ &\le\frac{2V-1}{\mu_{\min}}t_p(T-1).
+\end{align*}
+Adding head and tail proves \eqref{II:U:eq:conditional-cone-j}.
+Since $f_1=p$, Theorem~\ref{II:U:thm:flows} applies with no initial-mixture
+error and proves all remaining assertions.
+\end{proof}

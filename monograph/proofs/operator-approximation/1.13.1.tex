@@ -1,0 +1,5 @@
+\begin{proof}
+A realization gives $H_f=OC$, with $O[u,:]=\alpha^\top A_u$ and $C[:,v]=A_v\beta$, so its rank is at most $n$. Conversely take the span of residual rows $r_u(v)=f(uv)$. The shift $r_u\mapsto r_{ua}$ is well-defined: if $\sum c_u r_u=0$, evaluation at $av$ gives $\sum c_u f(uav)=0$ for all $v$. The initial residual is $r_\Seps$ and the output is evaluation at $\Seps$. A basis supplies a realization of dimension $\Srank H_f$.
+
+For a realization of dimension $N$, let $V_j=\SSpan\{\alpha^\top A_w:|w|\le j\}$. Once $V_j=V_{j+1}$, it is invariant and contains all reachable rows. If the initial row is nonzero, $\dim V_0=1$, so stabilization occurs by $j=N-1$; the zero case is immediate. Vanishing output on words of length at most $N-1$ therefore implies vanishing on all words. Apply this to the direct-sum difference realization of dimension $n_1+n_2$.
+\end{proof}

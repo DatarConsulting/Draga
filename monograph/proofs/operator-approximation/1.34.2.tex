@@ -1,0 +1,23 @@
+\begin{proof}
+Take
+\[
+ D=\begin{pmatrix}-4/7&\sqrt5/7\\-5\sqrt5/14&-3/7\end{pmatrix},
+ \qquad l=(-\sqrt7/14,\sqrt{35}/7).
+\]
+One checks $D^*D+l^*l=I_2$, $\sigma(D)=\{(-1+i)/2,(-1-i)/2\}$,
+and $lD^2=(\sqrt7/4,0)$, so $\Gamma^2=7/16$ and $x=e_1$.
+The explicit trial from the envelope computation takes
+$N_s=\exp(sK)N_0$, $N_0=\begin{pmatrix}0_{1\times2}\\D\\l\end{pmatrix}$,
+with the only nonzero upper-triangular entries
+$K_{01}=2/7$, $K_{02}=\sqrt5/35$ and $K^{\mathsf T}=-K$, and
+\[
+ z_s=\frac{(-6s/7,1,0,0)^{\mathsf T}}
+                   {\sqrt{1+36s^2/49}}.
+\]
+It has all the exact identities and parity orders in the theorem's
+proof.  Its direct envelope expansion is
+$\|\omega_s\|^2=7/16+q/7+O(q^2)$.
+Apply \eqref{I:R:eq:v4-match-conclusion}, then sandwich the real upper
+bound with the lower bound over all complex competitors.
+This does not assert real--complex equality at finite $q$.
+\end{proof}

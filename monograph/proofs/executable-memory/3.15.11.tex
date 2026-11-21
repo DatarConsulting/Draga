@@ -1,0 +1,15 @@
+\begin{proof}
+The lag makes every fading mean at most $\delta/4$, since
+$(1-\gamma)^L\le e^{-\gamma L}$.
+For a bounded observation $Y$ of mean $\mu$, convexity gives
+$\mathbb E e^{tY}\le1-\mu+\mu e^t$. The logarithm of the centred
+right-hand side has value and derivative zero at $0$ and second derivative
+at most $1/4$ (the variance of a tilted Bernoulli variable). Hence
+$\mathbb E e^{t(Y-\mu)}\le e^{t^2/8}$ for either sign of $t$.
+Independence and exponential Markov, optimized at $t=4a$, give
+$\Pr(|\bar Y-\mu|\ge a)\le2e^{-2na^2}$.
+Taking $a=\delta/4$ and a union bound over $M$ probes gives failure
+probability at most $2M e^{-n\delta^2/8}\le\alpha$.
+On its complement the fading sample means are below $\delta/2$ and
+persistent means above $3\delta/4$, so the decision rule is correct.
+\end{proof}

@@ -1,0 +1,18 @@
+\begin{proof}
+The same machine gives error $\epsilon+\eta$. Future distances decrease
+by at most $2\eta$, leaving at least $16\epsilon/5-2\eta>
+2(\epsilon+\eta)$. At tolerance $5\epsilon/4$, the lower margin is
+at least $27\epsilon/10>5\epsilon/2$.
+
+For the rank-four example append the scalar blocks $1/3,1/5$ to $A_c$.
+Reachability rows and observability columns indexed by
+$\varepsilon,0,00,1$ have full rank: the first three yield Vandermonde
+minors in the distinct decay rates, and the last supplies the missing
+coordinate. The extra series $h$ satisfies
+$\|H_h\|_{\rm HS}\le9/7+25/23$ by the triangle inequality, since
+$\sum_{t\ge0}(t+1)(2/c^2)^t=(1-2/c^2)^{-2}$ for $c=3,5$.
+Consequently $(\eta/2)\|H_h\|_{\rm HS}\le(191/161)\eta<(9/7)\eta$.
+The factor $1/2$ is required in this norm estimate;
+the conclusion is unchanged. Since $\eta\le1/1024$,
+$\|H_g\|<5/6+(9/7)\eta<1$.
+\end{proof}

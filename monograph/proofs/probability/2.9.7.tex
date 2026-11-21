@@ -1,0 +1,12 @@
+\begin{proof}
+For latent state $j$ the joint letter/next-state kernel is
+$K_j(a,i)=C_{aj}R_{a,j}(i)$. Common support and the sharp envelope give
+\[
+ D_{\rm KL}(K_j\Vert\widehat K_j)
+ =D_{\rm KL}(C_{\cdot j}\Vert\widehat C_{\cdot j})
+   +\sum_a C_{aj}D_{\rm KL}(R_{a,j}\Vert\widehat R_{a,j})
+ \le\Psi(\eta_{\rm obs})+\Psi(\eta).
+\]
+The initial KL is at most $\Psi(e_0)$. Apply the chain rule to the
+length-$T$ latent trajectory and then marginalize the latent states.
+\end{proof}

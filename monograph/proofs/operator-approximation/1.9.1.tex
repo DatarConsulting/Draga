@@ -1,0 +1,15 @@
+\begin{proof}
+Choose a minimizing sequence $(G_j)$ of admissible operators with
+$\Unorm{H_f-G_j}\le\delta_k(H_f)+1$. Since the zero operator is admissible,
+$\delta_k(H_f)\le\Unorm{H_f}$ and hence
+$\Unorm{G_j}\le 2\Unorm{H_f}+1=:M$.
+The closed ball of radius $M$ in $B(\UHH)$ is compact in the weak operator topology. In the present separable space, a subsequence can be obtained directly by diagonal extraction of all matrix coefficients: the uniform norm bound extends the limiting coefficients to a bounded operator $G$, and then finite-support approximation gives weak operator convergence on arbitrary pairs of vectors.
+
+The word-Hankel identities are equalities between matrix coefficients and therefore pass to this limit. Every $(k+1)\times(k+1)$ minor also passes to the limit and remains zero, so $\Urank G\le k$. Indeed, rank greater than $k$ would give $k+1$ independent columns and then a nonzero coordinate minor of that order. Finally, for any unit vectors $x,y$,
+\[
+ |\langle(H_f-G)x,y\rangle|
+ =\lim_j|\langle(H_f-G_j)x,y\rangle|
+ \le\liminf_j\Unorm{H_f-G_j}.
+\]
+Taking the supremum over $x,y$ proves the result. For real operators, perform the same argument in the real Hilbert space.
+\end{proof}

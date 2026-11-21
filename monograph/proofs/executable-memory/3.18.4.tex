@@ -1,0 +1,37 @@
+\begin{proof}
+Choose $n=O_H(p)$ so that the right side of
+\eqref{III:U:eq:normalized-transfer}, multiplied by $e^{L'}$, is at most
+$2^{-p-2}$. Let $a_*=2g_-^{s_+}$ be the lower growth bound of
+Theorem~\ref{III:U:thm:oracle}. For a rounded polynomial iterate with
+$E_n=\|\widehat P_n-V_n\|_\infty\le a_*^n/2$, normalization gives
+\[
+ \left\|\frac{\widehat P_n}{\widehat P_n(0)}-
+                  \frac{V_n}{V_n(0)}\right\|_\infty
+ \le 2(1+e^{L'})E_n/a_*^n.
+\]
+Indeed $V_n/V_n(0)\in K_{L'}$ normalized at zero and
+$\widehat P_n(0)\ge a_*^n-E_n$.
+Take $E_n\le a_*^n2^{-p-2}/[2(1+e^{L'})]$.
+Equation~\eqref{III:U:eq:transfer-rounded-error}, with
+$\delta_m=O_H(R^{-m})$, then permits $m=O_H(p)$ and per-step
+certified arithmetic error $2^{-O_H(p)}$. The polynomial coefficient
+norms grow at most exponentially in $n$ and normalization divides
+by a quantity at least $a_*^n/2$, also exponential in $n$.
+Thus $O_H(p)$ coefficient bits suffice after allowing for the
+$O(p)$ operations per row and final dyadic rounding of the normalized
+coefficients, whose error is included in the budget. This can be
+implemented by interval arithmetic with directed dyadic rounding
+and the stipulated coefficient enclosures; double precision until
+the explicit error tests pass. The preceding bounds prove termination.
+
+If necessary request the smaller final error
+$\min(2^{-p},e^{-L'}/2)$; this changes precision only by a model
+constant and proves positivity from $h\ge e^{-L'}$.
+There are $O(nm^2)=O_H(p^3)$ dense scalar operations after section
+construction, on $O_H(p)$-bit numbers; this and the coefficient oracle
+give polynomial compilation cost. There are $O(p)$ coefficients of
+$O(p)$ bits. Horner evaluation at a rational argument known to the
+required $O_H(p)$ bits uses $O(p)$ multiplications; the coefficient
+norm bound controls error accumulation. Its working accumulator uses
+$O_H(p)$ bits. Immutable coefficients are charged separately.
+\end{proof}

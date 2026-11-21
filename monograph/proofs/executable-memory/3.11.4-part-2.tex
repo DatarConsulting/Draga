@@ -1,0 +1,36 @@
+\begin{proof}[Upper bound]
+Let $T=\lceil(L-1)/a\rceil$ and
+$n_t=\min\{t,L-1-at\}$ for $0\le t<T$.
+Create states $(t,b)$ for $0\le b<2^{n_t}$, plus an absorbing state
+$\perp$. The integer $b$ records the most recent $n_t$ bits, newest
+first. Encode the pair by consecutive blocks in a single identifier;
+the clock is not stored separately. The initial state is $(0,0)$.
+If $t+1<T$, on symbol $c$ update by
+\[
+ b'=c2^{n_{t+1}-1}
+       +\left\lfloor b/2^{n_t-n_{t+1}+1}\right\rfloor,
+ \qquad(t,b)\mapsto(t+1,b').
+\]
+All shifts have nonnegative integer exponents. The final layer enters
+$\perp$, which loops forever. Output
+\[
+ y(t,b)=\begin{cases}b/2^{(a+1)t},&t\le m,\\
+                      (2b+1)2^{-L},&m<t<T,
+        \end{cases}\qquad y(\perp)=\epsilon.
+\]
+The update retains precisely the stated suffix. Before $m$ all bits are
+retained. Later the discarded normalized binary tail is in
+$[0,2^{-n_t}]$, so the midpoint error is at most
+$\rho^t2^{-n_t-1}=\epsilon$. At and after $T$, the source is in
+$[0,\rho^T)\subset[0,2\epsilon]$, so the absorbing output is valid.
+This proves the all-horizon contract.
+
+The constructed state count is $N=1+\sum_{t=0}^{T-1}2^{n_t}$.
+The sum through $m$ equals $2^{m+1}-1$. For $t=m+j$, $j\ge1$,
+one has $n_t=m+1-aj$, so the remaining finite geometric tail gives
+\[
+ N<2^{m+1}+\frac{2^{m+1}}{2^a-1}\le2^{m+2}.
+\]
+A single $(m+2)$-bit identifier therefore suffices. When $a=1$ the
+exact constructed count is $2^{m+2}-2$.
+\end{proof}

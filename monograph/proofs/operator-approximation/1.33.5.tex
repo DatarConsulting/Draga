@@ -1,0 +1,26 @@
+\begin{proof}
+Fix $Y\succeq0$ and perturb the lossless isometry
+$U=\begin{pmatrix}D\\l\end{pmatrix}$ to
+$U_\epsilon=U(I-\epsilon Y)^{1/2}$.  Its components satisfy
+\[
+ l_\epsilon D_\epsilon^mx
+ =\Gamma-\frac\epsilon2
+   \sum_{j=0}^{m}lD^jYD^{m-j}x+O(\epsilon^2).
+\]
+Its passivity defect is exactly $\epsilon Y$.  The observation-space
+inequality and the first $m$ terms of the energy identity give
+\[
+ |l_\epsilon D_\epsilon^mx|^2
+ \le\Gamma^2\left(1-\epsilon
+   \sum_{j=0}^{m-1}x^*D^{*j}YD^jx+O(\epsilon^2)\right).
+\]
+Comparison of first derivatives yields
+\[
+ \operatorname{tr}(KY)\ge\Gamma\operatorname{tr}\left(
+     \sum_{j=0}^{m-1}D^jxx^*D^{*j}Y\right).
+\]
+This holds for every $Y\succeq0$, proving the first inequality in
+\eqref{I:R:eq:response-K-coercivity}.  Its right side is positive definite
+by cyclicity.  Uniform boundedness of the inverse follows from
+compactness.
+\end{proof}

@@ -1,0 +1,11 @@
+\begin{proof}
+A union bound and Hoeffding give error at most $t$ for all $K$ entries.
+The Neumann bound gives $\|\widehat H^{-1}\|_\infty\le2h_0$ and
+$\|\widehat H^{-1}-H^{-1}\|_\infty\le2Rh_0^2t$.
+Both conditional rows $h_w/q_w$ and $\widehat h_w/\widehat q_w$ are
+nonnegative with mass at most one, because the $v_j$ are distinct.
+Each coordinate differs by at most $4t/p_*$. Telescope
+$(h_w/q_w)H^{-1}D_q$; the conditional-row error contributes at most
+$8Rh_0t/p_*$ in $\ell^1$, and the remaining product error contributes
+at most $(2Rh_0^2+h_0)t$. The $\ell^2$ norm is no larger.
+\end{proof}

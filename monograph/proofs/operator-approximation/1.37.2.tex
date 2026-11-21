@@ -1,0 +1,45 @@
+\begin{proof}
+A maximizing passive pair is lossless, stable and observable by
+Lemma~\ref{I:R:lem:cyclic-lossless-maximizer}.  Its observation map is an
+isometry onto an $m$-dimensional model space $K_\Theta$ minimizing the
+error of approximation to $z^m$.  Write
+$\Theta=e^{i\phi}D_0^*/D_0$, with $D_0$ outer of degree at most $m$
+and reversal of order $m$, and set $b=P_{\le m}\Theta$.
+The Hardy bridge gives $\Rnorm b_2=1/C(m,2/3)$, while its exact
+coefficient identity gives
+\[
+ \Rnorm{D_0}_2^2=|[bD_0^2]_m|
+ \le C(m,2/3)\Rnorm{bD_0^2}_{2/3}
+ \le C(m,2/3)\Rnorm b_2\Rnorm{D_0}_2^2
+ =\Rnorm{D_0}_2^2.
+\]
+Therefore $bD_0^2$, after normalization and a phase, is a Hardy
+coefficient extremal and hence outer.  Since $D_0$ is outer, $b$ is
+outer as well.  Equality in H\"older gives
+$|b|^2=c|D_0|^2$ almost everywhere on the circle.  Uniqueness of outer
+functions with prescribed boundary modulus then gives $b=\mu D_0$.
+It follows that the normalized $D_0^3$ is a coefficient extremal.
+Lemma~\ref{I:R:lem:positive-Hardy-extremizers} shows that $D_0$ has real
+positive coefficients after a scalar phase and circle rotation.
+Thus $K_\Theta$ is a circle rotation of a model space invariant under
+coefficient conjugation.  Choosing a real orthonormal basis of that
+space gives real canonical matrices and readout.  Every original
+maximizing passive pair is unitarily equivalent to its canonical
+model, and its maximizing $x$ equals $(lD^m)^*/\Gamma_m$.
+This proves the stated orbit classification.
+
+For clarity, the response formula is invariant under
+\[
+ (D,l,x)\mapsto(U^*DU,lU,U^*x),\quad
+ (D,l,x)\mapsto(D,e^{i\varphi}l,e^{-i\varphi}x),\quad
+ (D,l,x)\mapsto(e^{i\theta}D,l,e^{-im\theta}x).
+\]
+The first operation conjugates $K$ and transforms $v$ by $U^*$.
+The second fixes $a_j,S,K$ and multiplies $v$ by a phase.
+For the third, $a_j$ acquires $e^{i(j-m)\theta}$,
+$S,K$ are unchanged, and $v$ acquires $e^{-i(m+2)\theta}$.
+Every term in the response coefficient is unchanged.  Since every
+complex boundary triple has a real representative, maximizing over
+complex triples gives the same value as maximizing over real triples.
+The structured first-order theorem supplies the final conclusion.
+\end{proof}

@@ -1,0 +1,19 @@
+\begin{proof}
+The product of a chronological word depends only on its type vector
+$n\in\MN^{\Sigma\times\mathcal R}$, $n_{a,m'}$ being the number of positions at which
+letter $a$ is read in mode $m'$: the product is $\prod r_{a,m'}^{n_{a,m'}}$. Let
+$N(n,m,m'')$ be the number of words from $m$ of type $n$ ending in mode $m''$. Then
+$N(0,m,m'')=[m=m'']$ and
+\[
+N(n,m,m'')=\sum_{(m',a):\,G(m',a)=m'',\ n_{a,m'}\ge1}N(n-e_{a,m'},m,m').
+\]
+Words have length at most $L_\theta=O_H(p)$, so there are
+$\binom{L_\theta+d|\mathcal R|}{d|\mathcal R|}=O_H(p^{d|\mathcal R|})$ type vectors, each
+with a count of $O_H(p)$ bits, and
+$W_m(x)=\sum_{n:\ \prod r^{n}>x}\sum_{m''}N(n,m,m'')$. Rank and unrank use preorder in the
+forward tree from $G(b,c)$: the subtree below a node of product $R$ and mode $m'$ has
+$W_{m'}(\theta/R)$ internal nodes, of which $W_{m'}(\theta/R)-W_{m'}(\theta/(r_{c,b}R))$
+have product in the required window; summing the sizes of earlier sibling subtrees along
+the $O_H(p)$ letters of the address gives the ordinal, and the inverse operation chooses
+children by comparison. Offsets for $(b,c)$ blocks are the corresponding block counts.
+\end{proof}

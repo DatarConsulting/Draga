@@ -1,0 +1,19 @@
+\begin{proof}
+On $\{0,a,b,c\}$ let
+\[
+ p=\tfrac13(\delta_{a0^{100}a}+\delta_{b0^{100}b}+\delta_{c0^{100}c}).
+\]
+For each $k\in\{a,b,c\}$ use prefixes $k0^j$, $0\le j\le100$,
+and signature event $E_k=\{0^mk:m\ge0\}$. The 101 constant-length
+cuts are prefix-free, the signatures are disjoint, and their
+conditional probabilities equal one. Thus the proposed $N=2$, $K=3$
+bound is $101\log(3/2)>40.95$. The one-state law with STOP $1/103$,
+letter-$0$ probability $100/103$, and each other letter probability
+$2/309$ is also representable by two identical states. Its divergence is
+\[
+ 3\log103+100\log(103/100)+\log(3/4)<16.58.
+\]
+This contradicts the proposed bound. Each cut separately admits a
+conditional KL lower bound, but its full future contains information
+already present at the other cuts.
+\end{proof}

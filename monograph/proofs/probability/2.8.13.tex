@@ -1,0 +1,24 @@
+\begin{proof}
+Here $T\mathbf1=\frac12\mathbf1$, so termination is geometric.
+The two-row reachability matrix with rows $\alpha,\alpha A_0$
+and the two-column observability matrix with columns $\tau,A_0\tau$
+both have determinant $-1/40$, proving rank two.
+For this example write $f_t(v)=(t,1-t)A_v\tau$; its first coordinate
+updates by
+\[
+ F_0(t)=\frac{1+t}{2+t},\qquad F_1(t)=\frac1{3-t}.
+\]
+On $[0,1]$ their images are $[1/2,2/3]$ and $[1/3,1/2]$.
+With $r=(\sqrt5-1)/2$, both maps preserve $(1-r,r)$, and every
+finite-prefix coordinate lies in that interval. The words $0^n$
+and $1^n$ approach its two endpoints. For any finite dictionary let
+$m<r$ be its maximum coordinate. Then
+\[
+ F_0(m)-m=\frac{1-m-m^2}{2+m}>0.
+\]
+The next residual is outside the dictionary's convex hull. The
+coordinate map is affine and injective since
+$f_t(0)=1/10+t/20$. Nonnegative representations of normalized laws
+have coefficient sum one, so convex and conic closure give the same
+obstruction after normalizing each nonzero shift.
+\end{proof}
